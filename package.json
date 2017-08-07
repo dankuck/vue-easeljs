@@ -1,0 +1,31 @@
+{
+  "name": "vue-easeljs",
+  "version": "0.1.0",
+  "description": "A Vue.js plugin to control an HTML5 canvas using EaselJS",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dankuck/vue-easeljs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dankuck/vue-easeljs/issues"
+  },
+  "homepage": "https://github.com/dankuck/vue-easeljs#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "html-loader": "^0.4.5",
+    "laravel-elixir": "^6.0.0-15",
+    "laravel-elixir-vue-2": "^0.3.0",
+    "laravel-elixir-webpack-official": "^1.0.10",
+    "lodash": "^4.16.2",
+    "markdown-loader": "^2.0.0",
+    "mocha": "^3.2.0",
+    "vue": "^2.1.*",
+    "vue-resource": "^1.0.3"
+  }
+}
