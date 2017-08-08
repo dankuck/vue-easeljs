@@ -1,21 +1,27 @@
 <template>
-    <div>
-        <canvas ref="easel">
-            <slot></slot>
-        </canvas>
-    </div>
+    <canvas ref="easel">
+        <slot></slot>
+    </canvas>
 </template>
 
 <script>
 import easeljs from '../easel.js';
+
 export default {
+    provide() {
+        return {
+            easel: this.easel,
+        };
+    },
     data() {
         return {
-            stage: null,
+            easel: {
+                stage: null,
+            },
         };
     },
     mounted() {
-        this.stage = new easeljs.Stage(this.$refs.easel);
+        this.easel.stage = new easeljs.Stage(this.$refs.easel);
     },
 };
 </script>

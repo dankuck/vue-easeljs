@@ -12,18 +12,14 @@ describe('EaselCanvas', function () {
     }).$mount();
 
     it('should have a canvas object', function () {
-        assert($(vm.$el).find('canvas').length === 1);
-    });
-
-    it('should have a canvas object referenced as `easel`', function () {
-        assert(vm.$refs.easelCanvas.$refs.easel);
+        assert(vm.$el.nodeName === 'CANVAS');
     });
 
     it('should have the slot stuff we put in', function () {
         assert($(vm.$el).find('#im-in-a-slot'));
     });
 
-    it('should have a stage object', function () {
-        assert(vm.$refs.easelCanvas.stage);
+    it('should have an easel object', function () {
+        assert(vm.$refs.easelCanvas.easel);
     });
 });
