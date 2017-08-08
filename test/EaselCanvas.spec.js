@@ -2,6 +2,7 @@ const assert = require('assert');
 const _ = require('lodash');
 import Vue from 'vue';
 import EaselCanvas from '../resources/assets/js/components/EaselCanvas.vue';
+import $ from 'jquery';
 
 describe('EaselCanvas', function () {
     describe('#instantiate', function () {
@@ -21,7 +22,7 @@ describe('EaselCanvas', function () {
         });
 
         it('should have the slot stuff we put in', function () {
-            assert(vm.$refs.easelCanvas.$el.getElementById('im-in-a-slot') !== null);
+            assert($(vm.$el).find('#im-in-a-slot') !== null);
         });
     });
 });
