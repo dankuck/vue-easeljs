@@ -32,6 +32,7 @@
     "mocha": "^3.2.0",
     "phantomjs-prebuilt": "^2.1.14",
     "vue": "^2.1.*",
-    "vue-resource": "^1.0.3"
+    "vue-resource": "^1.0.3",
+    "yuki-createjs": "0.0.3"
   }
 }
