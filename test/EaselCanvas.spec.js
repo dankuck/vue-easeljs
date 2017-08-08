@@ -22,4 +22,8 @@ describe('EaselCanvas', function () {
     it('should have the slot stuff we put in', function () {
         assert($(vm.$el).find('#im-in-a-slot'));
     });
+
+    it('should have a stage object', function () {
+        assert(vm.$refs.easelCanvas.stage);
+    });
 });
