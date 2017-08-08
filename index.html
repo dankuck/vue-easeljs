@@ -25,7 +25,16 @@
         </p>
 
         <div id="app">
-            <easel-canvas></easel-canvas>
+            <easel-canvas>
+                <easel-shape
+                    :x=0
+                    :y=0
+                    fill="DeepSkyBlue"
+                    form="circle"
+                    :dimensions="[0, 0, 50]"
+                    >
+                </easel-shape>
+            </easel-canvas>
         </div>
         
     </div>

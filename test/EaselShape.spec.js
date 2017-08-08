@@ -6,7 +6,18 @@ import $ from 'jquery';
 
 describe('EaselShape', function () {
     var vm = new Vue({
-        template: '<easel-canvas ref="easelCanvas"><easel-shape ref="theShape"></easel-shape></easel-canvas>',
+        template: `
+            <easel-canvas ref="easelCanvas">
+                <easel-shape ref="theShape"
+                    :x=100
+                    :y=100
+                    fill="DeepSkyBlue"
+                    form="circle"
+                    :dimensions="[0, 0, 50]"
+                    >
+                </easel-shape>
+            </easel-canvas>
+        `,
         components: {
             'easel-canvas': EaselCanvas,
             'easel-shape': EaselShape,
@@ -39,11 +50,9 @@ describe('EaselShape', function () {
     it('should have the right parent', function () {
         assert(canvas.easel.stage === shape.shape.parent);
     });
-/*
-    it('should have its shape in the parent canvas', function () {
-        console.log('canvas.stage.children', canvas.stage.children);
-        var found = _.find(canvas.stage.children, child => child == shape.shape);
-        assert(found == shape.shape);
+
+    it('should make a blue circle', function () {
+        console.log(shape.shape);
+        assert(false);
     });
-*/
 });
