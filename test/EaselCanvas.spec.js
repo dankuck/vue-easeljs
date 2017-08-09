@@ -34,8 +34,4 @@ describe('EaselCanvas', function () {
             done();
         };
     });
-
-    it('should have a grey background', function () {
-        assert(canvas.$refs.easel.style.backgroundColor === 'rgb(128, 128, 128)');
-    });
 });

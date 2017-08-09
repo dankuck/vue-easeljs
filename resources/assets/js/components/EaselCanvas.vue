@@ -1,5 +1,5 @@
 <template>
-    <canvas ref="easel" :style="{backgroundColor: this.backgroundColor}">
+    <canvas ref="easel">
         <slot></slot>
     </canvas>
 </template>
@@ -8,7 +8,6 @@
 import easeljs from '../easel.js';
 
 export default {
-    props: ['backgroundColor'],
     provide() {
         return {
             easel: this.easel,
