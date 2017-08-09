@@ -5,7 +5,7 @@ import $ from 'jquery';
 
 describe('EaselCanvas', function () {
     var vm = new Vue({
-        template: '<easel-canvas ref="easelCanvas"><span id="im-in-a-slot"></span></easel-canvas>',
+        template: '<easel-canvas background-color="grey" ref="easelCanvas"><span id="im-in-a-slot"></span></easel-canvas>',
         components: {
             'easel-canvas': EaselCanvas,
         },
@@ -33,5 +33,9 @@ describe('EaselCanvas', function () {
             canvas.easel.stage.update = update;
             done();
         };
+    });
+
+    it('should have a grey background', function () {
+        assert(canvas.$refs.easel.style.backgroundColor === 'rgb(128, 128, 128)');
     });
 });
