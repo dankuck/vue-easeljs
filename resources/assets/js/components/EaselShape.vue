@@ -38,9 +38,10 @@ export default {
         },
         refresh() {
             if (this.shape) {
+                this.shape.graphics.clear();
                 this.shape.graphics.beginFill(this.fill);
                 if (this.form === 'circle') {
-                    this.shape.graphics.drawCircle(this.dimensions[0], this.dimensions[1], this.dimensions[2]);
+                    this.shape.graphics.drawCircle(0, 0, this.dimensions);
                 }
                 this.shape.x = this.x;
                 this.shape.y = this.y;

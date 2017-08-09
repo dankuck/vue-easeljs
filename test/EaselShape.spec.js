@@ -14,7 +14,7 @@ describe('EaselShape', function () {
                     :y=100
                     fill="DeepSkyBlue"
                     form="circle"
-                    :dimensions="[0, 0, 50]"
+                    :dimensions="50"
                     >
                 </easel-shape>
             </easel-canvas>
@@ -95,8 +95,12 @@ describe('EaselShape', function () {
         // Then put back the original graphics object
         var drewCircle = false, 
             beganFill = false,
+            cleared = false,
             graphics = shape.shape.graphics;
         shape.shape.graphics = {
+            clear() {
+                cleared = true;
+            },
             drawCircle() {
                 drewCircle = true;
             },
@@ -107,6 +111,7 @@ describe('EaselShape', function () {
         shape.refresh();
         shape.shape.graphics = graphics;
         assert(beganFill);
+        assert(cleared);
         assert(drewCircle);
         assert(shape.shape.x === 100);
         assert(shape.shape.y === 100);
