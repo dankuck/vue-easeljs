@@ -7,3 +7,4 @@ const app = new Vue({
     el: '#app'
 });
 
+app.log = console.log;

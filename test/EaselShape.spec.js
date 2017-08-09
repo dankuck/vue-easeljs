@@ -3,8 +3,12 @@ import Vue from 'vue';
 import EaselCanvas from '../resources/assets/js/components/EaselCanvas.vue';
 import EaselShape from '../resources/assets/js/components/EaselShape.vue';
 import $ from 'jquery';
+import _ from 'lodash';
+
+var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick'];
 
 describe('EaselShape', function () {
+    var eventHandlerCode = eventTypes.map(type => `@${type}="logEvent"`).join(' ');
     var vm = new Vue({
         template: `
             <easel-canvas ref="easelCanvas">
@@ -16,6 +20,7 @@ describe('EaselShape', function () {
                     stroke="#00FFFF"
                     :form="shapeData.form"
                     :dimensions="shapeData.dimensions"
+                    ${eventHandlerCode}
                     >
                 </easel-shape>
             </easel-canvas>
@@ -31,7 +36,16 @@ describe('EaselShape', function () {
                     form: 'circle',
                     dimensions: 50,
                 },
+                eventLog: [],
             };
+        },
+        methods: {
+            logEvent(event) {
+                this.eventLog.push(event);
+            },
+            clearEventLog() {
+                this.eventLog = [];
+            },
         },
     }).$mount();
 
@@ -230,5 +244,13 @@ describe('EaselShape', function () {
                 assert(shape.shape.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
                 done();
             });
+    });
+
+    _.each(eventTypes, (type) => {
+        it(`emits ${type} event`, function () {
+            vm.clearEventLog();
+            shape.shape.dispatchEvent(type);
+            assert(vm.eventLog.length === 1);
+        });
     });
 });

@@ -25,7 +25,7 @@
         </p>
 
         <div id="app">
-            <easel-canvas style="background-color: grey">
+            <easel-canvas style="background-color: grey;" width="400" height="300">
                 <easel-shape
                     :x=0
                     :y=25
@@ -34,6 +34,7 @@
                     form="circle"
                     :dimensions="50"
                     :show-center="true"
+                    @click="log"
                     >
                 </easel-shape>
                 <easel-shape
