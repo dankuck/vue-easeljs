@@ -6,7 +6,7 @@
 import easeljs from '../easel.js';
 export default {
     inject: ['easel'],
-    props: ['x', 'y', 'form', 'fill', 'dimensions', 'showCenter'],
+    props: ['x', 'y', 'form', 'fill', 'stroke', 'dimensions', 'showCenter'],
     data() {
         return {
             shape: null,
@@ -39,7 +39,12 @@ export default {
         refresh() {
             if (this.shape) {
                 this.shape.graphics.clear();
-                this.shape.graphics.beginFill(this.fill);
+                if (this.fill) {
+                    this.shape.graphics.beginFill(this.fill);
+                }
+                if (this.stroke) {
+                    this.shape.graphics.beginStroke(this.stroke);
+                }
                 this.drawForm();
                 this.shape.x = this.x;
                 this.shape.y = this.y;

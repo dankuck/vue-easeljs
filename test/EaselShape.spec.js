@@ -13,6 +13,7 @@ describe('EaselShape', function () {
                     :x=100
                     :y=100
                     fill="DeepSkyBlue"
+                    stroke="#00FFFF"
                     :form="shapeData.form"
                     :dimensions="shapeData.dimensions"
                     >
@@ -96,6 +97,11 @@ describe('EaselShape', function () {
     it('should make a blue shape', function () {
         shape.refresh();
         assert(shape.shape.graphics._fill.style === 'DeepSkyBlue');
+    });
+
+    it('should make a shape with cyan stroke', function () {
+        shape.refresh();
+        assert(shape.shape.graphics._stroke.style === '#00FFFF');
     });
 
     it('should make a circle', function (done) {
