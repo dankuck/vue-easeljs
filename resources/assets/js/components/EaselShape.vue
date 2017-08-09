@@ -51,18 +51,21 @@ export default {
             } else if (this.form === 'ellipse') {
                 this.shape.graphics.drawEllipse(-this.dimensions[0] / 2, -this.dimensions[1] / 2, this.dimensions[0], this.dimensions[1]);
             } else if (this.form === 'rect') {
-                this.shape.graphics.drawRect(-this.dimensions[0] / 2, -this.dimensions[1] / 2, this.dimensions[0], this.dimensions[1]);
-            } else if (this.form === 'round-rect') {
-                var radiuses;
-                // If 4 radius dimensions were given, use them.
-                // Otherwise, assume just 1 radius dimension was given 
-                // and use it four times
-                if (this.dimensions.length === 6) {
-                    radiuses = this.dimensions.slice(2, 6);
+                // If no radius dimensions were given, draw a rectangle.
+                if (this.dimensions.length === 2) {
+                    this.shape.graphics.drawRect(-this.dimensions[0] / 2, -this.dimensions[1] / 2, this.dimensions[0], this.dimensions[1]);
                 } else {
-                    radiuses = [this.dimensions[2], this.dimensions[2], this.dimensions[2], this.dimensions[2]];
+                    var radiuses;
+                    // If 4 radius dimensions were given, use them.
+                    // Otherwise, assume just 1 radius dimension was given 
+                    // and use it four times
+                    if (this.dimensions.length === 6) {
+                        radiuses = this.dimensions.slice(2, 6);
+                    } else {
+                        radiuses = [this.dimensions[2], this.dimensions[2], this.dimensions[2], this.dimensions[2]];
+                    }
+                    this.shape.graphics.drawRoundRectComplex(-this.dimensions[0] / 2, -this.dimensions[1] / 2, this.dimensions[0], this.dimensions[1], radiuses[0], radiuses[1], radiuses[2], radiuses[3]);
                 }
-                this.shape.graphics.drawRoundRectComplex(-this.dimensions[0] / 2, -this.dimensions[1] / 2, this.dimensions[0], this.dimensions[1], radiuses[0], radiuses[1], radiuses[2], radiuses[3]);
             } else if (this.form === 'star') {
                 this.shape.graphics.drawPolyStar(0, 0, this.dimensions[0], this.dimensions[1], this.dimensions[2], 0);
             }

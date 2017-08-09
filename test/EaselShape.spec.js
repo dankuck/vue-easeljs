@@ -139,7 +139,7 @@ describe('EaselShape', function () {
 
     it('should make a rounded corners rectangle', function (done) {
         vm.showShape = false;
-        vm.shapeData.form = 'round-rect';
+        vm.shapeData.form = 'rect';
         vm.shapeData.dimensions = [50, 60, 5];
         Vue.nextTick()
             .then(() => {
@@ -163,7 +163,7 @@ describe('EaselShape', function () {
 
     it('should make a rounded corners rectangle with different radiuses', function (done) {
         vm.showShape = false;
-        vm.shapeData.form = 'round-rect';
+        vm.shapeData.form = 'rect';
         vm.shapeData.dimensions = [50, 60, 5, 6, 7, 8];
         Vue.nextTick()
             .then(() => {
