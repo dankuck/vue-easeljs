@@ -12,11 +12,17 @@ export default {
             shape: null,
         };
     },
+    mounted() {
+        if (this.easel.stage) {
+            this.init();
+        }
+    },
+    destroyed() {
+        this.easel.stage.removeChild(this.shape);
+    },
     watch: {
         'easel.stage': function () {
-            this.shape = new easeljs.Shape();
-            this.refresh();
-            this.easel.stage.addChild(this.shape);
+            this.init();
         },
         x() {          this.refresh() },
         y() {          this.refresh() },
@@ -25,6 +31,11 @@ export default {
         dimensions() { this.refresh() },
     },
     methods: {
+        init() {
+            this.shape = new easeljs.Shape();
+            this.refresh();
+            this.easel.stage.addChild(this.shape);
+        },
         refresh() {
             if (this.shape) {
                 this.shape.graphics.beginFill(this.fill);
