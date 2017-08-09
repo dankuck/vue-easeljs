@@ -22,4 +22,13 @@ describe('EaselCanvas', function () {
     it('should have an easel object', function () {
         assert(vm.$refs.easelCanvas.easel);
     });
+
+    it('should update a bunch', function (done) {
+        var update = vm.$refs.easelCanvas.easel.stage.update;
+        vm.$refs.easelCanvas.easel.stage.update = function (event) {
+            assert(event);
+            vm.$refs.easelCanvas.easel.stage.update = update;
+            done();
+        };
+    });
 });

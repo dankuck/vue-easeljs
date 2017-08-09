@@ -22,6 +22,12 @@ export default {
     },
     mounted() {
         this.easel.stage = new easeljs.Stage(this.$refs.easel);
+        easeljs.Ticker.addEventListener("tick", (event) => this.updateStage(event));
+    },
+    methods: {
+        updateStage(event) {
+            this.easel.stage.update(event);
+        },
     },
 };
 </script>
