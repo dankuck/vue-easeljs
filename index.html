@@ -28,10 +28,56 @@
             <easel-canvas>
                 <easel-shape
                     :x=0
-                    :y=0
+                    :y=25
                     fill="DeepSkyBlue"
                     form="circle"
                     :dimensions="50"
+                    :show-center="true"
+                    >
+                </easel-shape>
+                <easel-shape
+                    :x=50
+                    :y=25
+                    fill="#FF0000"
+                    form="ellipse"
+                    :dimensions="[50, 40]"
+                    :show-center="true"
+                    >
+                </easel-shape>
+                <easel-shape
+                    :x=100
+                    :y=25
+                    fill="#00FF00"
+                    form="star"
+                    :dimensions="[50, 5, .5]"
+                    :show-center="true"
+                    >
+                </easel-shape>
+                <easel-shape
+                    :x=150
+                    :y=25
+                    fill="#0000FF"
+                    form="rect"
+                    :dimensions="[50, 40]"
+                    :show-center="true"
+                    >
+                </easel-shape>
+                <easel-shape
+                    :x=200
+                    :y=25
+                    fill="#FFFF00"
+                    form="round-rect"
+                    :dimensions="[50, 40, 15]"
+                    :show-center="true"
+                    >
+                </easel-shape>
+                <easel-shape
+                    :x=250
+                    :y=25
+                    fill="#FF00FF"
+                    form="round-rect"
+                    :dimensions="[50, 40, 15, 0, 0, 15]"
+                    :show-center="true"
                     >
                 </easel-shape>
             </easel-canvas>

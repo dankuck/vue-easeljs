@@ -13,8 +13,8 @@ describe('EaselShape', function () {
                     :x=100
                     :y=100
                     fill="DeepSkyBlue"
-                    form="circle"
-                    :dimensions="50"
+                    :form="shapeData.form"
+                    :dimensions="shapeData.dimensions"
                     >
                 </easel-shape>
             </easel-canvas>
@@ -26,6 +26,10 @@ describe('EaselShape', function () {
         data() {
             return {
                 showShape: true,
+                shapeData: {
+                    form: 'circle',
+                    dimensions: 50,
+                },
             };
         },
     }).$mount();
@@ -89,31 +93,136 @@ describe('EaselShape', function () {
             });
     });
 
-    it('should make a blue circle', function () {
-        // Replace the default graphics object
-        // Then check that it's called on refresh()
-        // Then put back the original graphics object
-        var drewCircle = false, 
-            beganFill = false,
-            cleared = false,
-            graphics = shape.shape.graphics;
-        shape.shape.graphics = {
-            clear() {
-                cleared = true;
-            },
-            drawCircle() {
-                drewCircle = true;
-            },
-            beginFill() {
-                beganFill = true;
-            },
-        };
+    it('should make a blue shape', function () {
         shape.refresh();
-        shape.shape.graphics = graphics;
-        assert(beganFill);
-        assert(cleared);
-        assert(drewCircle);
-        assert(shape.shape.x === 100);
-        assert(shape.shape.y === 100);
+        assert(shape.shape.graphics._fill.style === 'DeepSkyBlue');
+    });
+
+    it('should make a circle', function (done) {
+        vm.showShape = false;
+        vm.shapeData.form = 'circle';
+        vm.shapeData.dimensions = 50;
+        Vue.nextTick()
+            .then(() => {
+                vm.showShape = true;
+                return Vue.nextTick();
+            })
+            .then(() => {
+                shape = vm.$refs.theShape;
+                assert(shape.shape.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.shape.graphics._activeInstructions.length);
+                assert(shape.shape.graphics._activeInstructions[0].x === 0, 'Wrong x of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].y === 0, 'Wrong y of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].radius === 50, 'Wrong radius of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                done();
+            });
+    });
+
+    it('should make a rectangle', function (done) {
+        vm.showShape = false;
+        vm.shapeData.form = 'rect';
+        vm.shapeData.dimensions = [50, 60];
+        Vue.nextTick()
+            .then(() => {
+                vm.showShape = true;
+                return Vue.nextTick();
+            })
+            .then(() => {
+                shape = vm.$refs.theShape;
+                assert(shape.shape.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.shape.graphics._activeInstructions.length);
+                assert(shape.shape.graphics._activeInstructions[0].x === -25, 'Wrong x of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].y === -30, 'Wrong y of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].w === 50, 'Wrong w of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                done();
+            });
+    });
+
+    it('should make a rounded corners rectangle', function (done) {
+        vm.showShape = false;
+        vm.shapeData.form = 'round-rect';
+        vm.shapeData.dimensions = [50, 60, 5];
+        Vue.nextTick()
+            .then(() => {
+                vm.showShape = true;
+                return Vue.nextTick();
+            })
+            .then(() => {
+                shape = vm.$refs.theShape;
+                assert(shape.shape.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.shape.graphics._activeInstructions.length);
+                assert(shape.shape.graphics._activeInstructions[0].x === -25, 'Wrong x of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].y === -30, 'Wrong y of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].w === 50, 'Wrong w of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].radiusTL === 5, 'Wrong radiusTL of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].radiusTR === 5, 'Wrong radiusTR of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].radiusBL === 5, 'Wrong radiusBL of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].radiusBR === 5, 'Wrong radiusBR of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                done();
+            });
+    });
+
+    it('should make a rounded corners rectangle with different radiuses', function (done) {
+        vm.showShape = false;
+        vm.shapeData.form = 'round-rect';
+        vm.shapeData.dimensions = [50, 60, 5, 6, 7, 8];
+        Vue.nextTick()
+            .then(() => {
+                vm.showShape = true;
+                return Vue.nextTick();
+            })
+            .then(() => {
+                shape = vm.$refs.theShape;
+                assert(shape.shape.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.shape.graphics._activeInstructions.length);
+                assert(shape.shape.graphics._activeInstructions[0].x === -25, 'Wrong x of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].y === -30, 'Wrong y of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].w === 50, 'Wrong w of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].radiusTL === 5, 'Wrong radiusTL of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].radiusTR === 6, 'Wrong radiusTR of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].radiusBR === 7, 'Wrong radiusBR of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].radiusBL === 8, 'Wrong radiusBL of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                done();
+            });
+    });
+
+    it('should make a star', function (done) {
+        vm.showShape = false;
+        vm.shapeData.form = 'star';
+        vm.shapeData.dimensions = [50, 5, .5];
+        Vue.nextTick()
+            .then(() => {
+                vm.showShape = true;
+                return Vue.nextTick();
+            })
+            .then(() => {
+                shape = vm.$refs.theShape;
+                assert(shape.shape.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.shape.graphics._activeInstructions.length);
+                assert(shape.shape.graphics._activeInstructions[0].x === 0, 'Wrong x of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].y === 0, 'Wrong y of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].radius === 50, 'Wrong radius of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].sides === 5, 'Wrong sides of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].pointSize === .5, 'Wrong pointSize of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                done();
+            });
+    });
+
+    it('should make an ellipse', function (done) {
+        vm.showShape = false;
+        vm.shapeData.form = 'ellipse';
+        vm.shapeData.dimensions = [50, 60];
+        Vue.nextTick()
+            .then(() => {
+                vm.showShape = true;
+                return Vue.nextTick();
+            })
+            .then(() => {
+                shape = vm.$refs.theShape;
+                assert(shape.shape.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.shape.graphics._activeInstructions.length);
+                assert(shape.shape.graphics._activeInstructions[0].x === -25, 'Wrong x of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].y === -30, 'Wrong y of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].w === 50, 'Wrong w of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.shape.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                done();
+            });
     });
 });
