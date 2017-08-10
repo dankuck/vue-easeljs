@@ -11,7 +11,14 @@ module.exports = function (config) {
     config.set({
         browsers: ['PhantomJS'],
         frameworks: ['mocha'],
-        files: ['test/test.js'],
+        files: [
+            'test/test.js', 
+            {
+                pattern: 'sprites/*',
+                included: false,
+                served: true,
+            },
+        ],
         preprocessors: {
             'test/test.js': ['webpack'],
         },
