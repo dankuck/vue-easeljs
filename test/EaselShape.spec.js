@@ -60,8 +60,8 @@ describe('EaselShape', function () {
         assert(shape.$el);
     });
 
-    it('should have shape field', function () {
-        assert(shape.shape);
+    it('should have component field', function () {
+        assert(shape.component);
     });
 
     it('should have same stage as parent', function () {
@@ -69,11 +69,11 @@ describe('EaselShape', function () {
     });
 
     it('should have a parent', function () {
-        assert(shape.shape.parent);
+        assert(shape.component.parent);
     });
 
     it('should have the right parent', function () {
-        assert(canvas.easel.stage === shape.shape.parent);
+        assert(canvas.easel.stage === shape.component.parent);
     });
 
     it('should go away when gone', function (done) {
@@ -110,12 +110,12 @@ describe('EaselShape', function () {
 
     it('should make a blue shape', function () {
         shape.refresh();
-        assert(shape.shape.graphics._fill.style === 'DeepSkyBlue');
+        assert(shape.component.graphics._fill.style === 'DeepSkyBlue');
     });
 
     it('should make a shape with cyan stroke', function () {
         shape.refresh();
-        assert(shape.shape.graphics._stroke.style === '#00FFFF');
+        assert(shape.component.graphics._stroke.style === '#00FFFF');
     });
 
     it('should make a circle', function (done) {
@@ -129,10 +129,10 @@ describe('EaselShape', function () {
             })
             .then(() => {
                 shape = vm.$refs.theShape;
-                assert(shape.shape.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.shape.graphics._activeInstructions.length);
-                assert(shape.shape.graphics._activeInstructions[0].x === 0, 'Wrong x of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].y === 0, 'Wrong y of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].radius === 50, 'Wrong radius of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.component.graphics._activeInstructions.length);
+                assert(shape.component.graphics._activeInstructions[0].x === 0, 'Wrong x of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].y === 0, 'Wrong y of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].radius === 50, 'Wrong radius of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 done();
             });
     });
@@ -148,11 +148,11 @@ describe('EaselShape', function () {
             })
             .then(() => {
                 shape = vm.$refs.theShape;
-                assert(shape.shape.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.shape.graphics._activeInstructions.length);
-                assert(shape.shape.graphics._activeInstructions[0].x === -25, 'Wrong x of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].y === -30, 'Wrong y of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].w === 50, 'Wrong w of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.component.graphics._activeInstructions.length);
+                assert(shape.component.graphics._activeInstructions[0].x === -25, 'Wrong x of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].y === -30, 'Wrong y of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].w === 50, 'Wrong w of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 done();
             });
     });
@@ -168,15 +168,15 @@ describe('EaselShape', function () {
             })
             .then(() => {
                 shape = vm.$refs.theShape;
-                assert(shape.shape.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.shape.graphics._activeInstructions.length);
-                assert(shape.shape.graphics._activeInstructions[0].x === -25, 'Wrong x of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].y === -30, 'Wrong y of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].w === 50, 'Wrong w of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].radiusTL === 5, 'Wrong radiusTL of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].radiusTR === 5, 'Wrong radiusTR of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].radiusBL === 5, 'Wrong radiusBL of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].radiusBR === 5, 'Wrong radiusBR of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.component.graphics._activeInstructions.length);
+                assert(shape.component.graphics._activeInstructions[0].x === -25, 'Wrong x of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].y === -30, 'Wrong y of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].w === 50, 'Wrong w of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].radiusTL === 5, 'Wrong radiusTL of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].radiusTR === 5, 'Wrong radiusTR of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].radiusBL === 5, 'Wrong radiusBL of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].radiusBR === 5, 'Wrong radiusBR of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 done();
             });
     });
@@ -192,15 +192,15 @@ describe('EaselShape', function () {
             })
             .then(() => {
                 shape = vm.$refs.theShape;
-                assert(shape.shape.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.shape.graphics._activeInstructions.length);
-                assert(shape.shape.graphics._activeInstructions[0].x === -25, 'Wrong x of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].y === -30, 'Wrong y of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].w === 50, 'Wrong w of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].radiusTL === 5, 'Wrong radiusTL of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].radiusTR === 6, 'Wrong radiusTR of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].radiusBR === 7, 'Wrong radiusBR of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].radiusBL === 8, 'Wrong radiusBL of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.component.graphics._activeInstructions.length);
+                assert(shape.component.graphics._activeInstructions[0].x === -25, 'Wrong x of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].y === -30, 'Wrong y of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].w === 50, 'Wrong w of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].radiusTL === 5, 'Wrong radiusTL of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].radiusTR === 6, 'Wrong radiusTR of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].radiusBR === 7, 'Wrong radiusBR of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].radiusBL === 8, 'Wrong radiusBL of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 done();
             });
     });
@@ -216,12 +216,12 @@ describe('EaselShape', function () {
             })
             .then(() => {
                 shape = vm.$refs.theShape;
-                assert(shape.shape.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.shape.graphics._activeInstructions.length);
-                assert(shape.shape.graphics._activeInstructions[0].x === 0, 'Wrong x of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].y === 0, 'Wrong y of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].radius === 50, 'Wrong radius of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].sides === 5, 'Wrong sides of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].pointSize === .5, 'Wrong pointSize of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.component.graphics._activeInstructions.length);
+                assert(shape.component.graphics._activeInstructions[0].x === 0, 'Wrong x of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].y === 0, 'Wrong y of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].radius === 50, 'Wrong radius of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].sides === 5, 'Wrong sides of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].pointSize === .5, 'Wrong pointSize of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 done();
             });
     });
@@ -237,11 +237,11 @@ describe('EaselShape', function () {
             })
             .then(() => {
                 shape = vm.$refs.theShape;
-                assert(shape.shape.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.shape.graphics._activeInstructions.length);
-                assert(shape.shape.graphics._activeInstructions[0].x === -25, 'Wrong x of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].y === -30, 'Wrong y of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].w === 50, 'Wrong w of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
-                assert(shape.shape.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.shape.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.component.graphics._activeInstructions.length);
+                assert(shape.component.graphics._activeInstructions[0].x === -25, 'Wrong x of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].y === -30, 'Wrong y of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].w === 50, 'Wrong w of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
+                assert(shape.component.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 done();
             });
     });
@@ -249,7 +249,7 @@ describe('EaselShape', function () {
     _.each(eventTypes, (type) => {
         it(`emits ${type} event`, function () {
             vm.clearEventLog();
-            shape.shape.dispatchEvent(type);
+            shape.component.dispatchEvent(type);
             assert(vm.eventLog.length === 1);
         });
     });
