@@ -24,6 +24,7 @@ describe('EaselSprite', function () {
                     :animation="animation" 
                     :x="x" 
                     :y="y"
+                    :flip="horizontal"
                     ${eventHandlerCode}
                 >
                 </easel-sprite>
@@ -136,5 +137,9 @@ describe('EaselSprite', function () {
                 sprite = vm.$refs.sprite; // make sure others get the new var
                 done();
             });
+    });
+
+    it('should flip', function () {
+
     });
 });

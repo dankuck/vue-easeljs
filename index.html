@@ -25,10 +25,12 @@
         </p>
 
         <div id="app">
-            <easel-canvas style="background-color: grey;" width="400" height="300">
+            <easel-canvas style="background-color: grey;" width="400" height="300"
+                @click="fall"
+            >
                 <easel-shape
                     :x=0
-                    :y=25
+                    :y="y"
                     fill="DeepSkyBlue"
                     stroke="black"
                     form="circle"
@@ -39,7 +41,7 @@
                 </easel-shape>
                 <easel-shape
                     :x=50
-                    :y=25
+                    :y="y"
                     fill="#FF0000"
                     stroke="black"
                     form="ellipse"
@@ -49,7 +51,7 @@
                 </easel-shape>
                 <easel-shape
                     :x=100
-                    :y=25
+                    :y="y"
                     fill="#00FF00"
                     stroke="black"
                     form="star"
@@ -59,7 +61,7 @@
                 </easel-shape>
                 <easel-shape
                     :x=150
-                    :y=25
+                    :y="y"
                     fill="#0000FF"
                     stroke="black"
                     form="rect"
@@ -69,7 +71,7 @@
                 </easel-shape>
                 <easel-shape
                     :x=200
-                    :y=25
+                    :y="y"
                     fill="#FFFF00"
                     stroke="black"
                     form="rect"
@@ -79,7 +81,7 @@
                 </easel-shape>
                 <easel-shape
                     :x=250
-                    :y=25
+                    :y="y"
                     fill="#FF00FF"
                     stroke="black"
                     form="rect"
@@ -98,8 +100,9 @@
                 >
                     <easel-sprite
                         :x=300
-                        :y=25
-                        animation="stand"
+                        :y="y"
+                        :animation="gary.animation"
+                        @click="clickedGary"
                     >
                     </easel-sprite>
                 </easel-sprite-sheet>

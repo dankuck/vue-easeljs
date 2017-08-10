@@ -6,7 +6,27 @@ Vue.component('easel-sprite-sheet', require('./components/EaselSpriteSheet.vue')
 Vue.component('easel-sprite', require('./components/EaselSprite.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data() {
+        return {
+            gary: {
+                animation: 'stand',
+            },
+            y: 25,
+        };
+    },
+    methods: {
+        clickedGary() {
+            if (this.gary.animation === 'stand') {
+                this.gary.animation = 'run';
+            } else {
+                this.gary.animation = 'stand';
+            }
+        },
+        fall() {
+            setInterval(() => this.y *= 1.1, 100);
+        },
+    },
 });
 
 app.log = console.log;

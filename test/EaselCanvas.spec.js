@@ -14,8 +14,8 @@ describe('EaselCanvas', function () {
                 background-color="grey" 
                 ref="easelCanvas"
                 ${eventHandlerCode}
-                >
-                    <span id="im-in-a-slot"></span>
+            >
+                <span id="im-in-a-slot"></span>
             </easel-canvas>
         `,
         data() {
