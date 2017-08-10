@@ -3,8 +3,6 @@ import easeljs from '../easel.js';
 import EaselEventBinder from '../EaselEventBinder.js';
 import _ from 'lodash';
 
-var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick'];
-
 export default {
     inject: ['easel'],
     props: ['x', 'y', 'form', 'fill', 'stroke', 'dimensions', 'showCenter'],
