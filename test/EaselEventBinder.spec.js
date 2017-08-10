@@ -3,6 +3,10 @@ import EaselEventBinder from '../resources/assets/js/EaselEventBinder.js';
 import _ from 'lodash';
 
 var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
+var fauxParentListeners = {};
+_.each(eventTypes, (type) => {
+    fauxParentListeners[type] = function () {};
+});
 
 describe('EaselEventBinder', function () {
 
@@ -10,6 +14,9 @@ describe('EaselEventBinder', function () {
         var got = {};
         EaselEventBinder.bindEvents(
             {
+                $options: {
+                    _parentListeners: fauxParentListeners,
+                },
                 $emit(eventType, event) {
                     got[eventType] = event;
                 },
@@ -23,5 +30,29 @@ describe('EaselEventBinder', function () {
         _.each(eventTypes, eventType => {
             assert(got[eventType]);
         });
+    });
+
+    it('should only bind dblclick', function () {
+        var got = {};
+        EaselEventBinder.bindEvents(
+            {
+                $options: {
+                    _parentListeners: {
+                        dblclick() {},
+                        NOT_A_REAL_EVENT_TYPE() {},
+                    },
+                },
+                $emit(eventType, event) {
+                    got[eventType] = event;
+                },
+            },
+            {
+                addEventListener(event, handler) {
+                    handler({type: event});
+                },
+            }
+        );
+        assert(Object.keys(got).length === 1, 'bound too many things');
+        assert(got.dblclick);
     });
 });
