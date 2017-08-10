@@ -6,6 +6,7 @@
 
 <script>
 import easeljs from '../easel.js';
+import EaselEventBinder from '../EaselEventBinder.js';
 
 export default {
     provide() {
@@ -22,6 +23,7 @@ export default {
     },
     mounted() {
         this.easel.stage = new easeljs.Stage(this.$refs.easel);
+        EaselEventBinder.bindEvents(this, this.easel.stage);
         easeljs.Ticker.addEventListener("tick", (event) => this.updateStage(event));
     },
     methods: {

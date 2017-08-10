@@ -2,12 +2,37 @@ import assert from 'assert';
 import Vue from 'vue';
 import EaselCanvas from '../resources/assets/js/components/EaselCanvas.vue';
 import $ from 'jquery';
+import _ from 'lodash';
+
+var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
 
 describe('EaselCanvas', function () {
+    var eventHandlerCode = eventTypes.map(type => `@${type}="logEvent"`).join(' ');
     var vm = new Vue({
-        template: '<easel-canvas background-color="grey" ref="easelCanvas"><span id="im-in-a-slot"></span></easel-canvas>',
+        template: `
+            <easel-canvas 
+                background-color="grey" 
+                ref="easelCanvas"
+                ${eventHandlerCode}
+                >
+                    <span id="im-in-a-slot"></span>
+            </easel-canvas>
+        `,
+        data() {
+            return {
+                eventLog: [],
+            };
+        },
         components: {
             'easel-canvas': EaselCanvas,
+        },
+        methods: {
+            logEvent(event) {
+                this.eventLog.push(event);
+            },
+            clearEventLog() {
+                this.eventLog = [];
+            },
         },
     }).$mount();
 
@@ -33,5 +58,13 @@ describe('EaselCanvas', function () {
             canvas.easel.stage.update = update;
             done();
         };
+    });
+
+    _.each(eventTypes, (type) => {
+        it(`emits ${type} event`, function () {
+            vm.clearEventLog();
+            canvas.easel.stage.dispatchEvent(type);
+            assert(vm.eventLog.length === 1);
+        });
     });
 });
