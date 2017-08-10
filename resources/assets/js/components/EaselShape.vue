@@ -1,5 +1,6 @@
 <script>
 import easeljs from '../easel.js';
+import EaselEventBinder from '../EaselEventBinder.js';
 import _ from 'lodash';
 
 var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick'];
@@ -38,7 +39,7 @@ export default {
     methods: {
         init() {
             this.shape = new easeljs.Shape();
-            this.addListeners();
+            EaselEventBinder.bindEvents(this, this.shape);
             this.refresh();
             this.easel.stage.addChild(this.shape);
         },
@@ -84,11 +85,6 @@ export default {
             if (this.showCenter) {
                 this.shape.graphics.beginFill('black').drawCircle(0, 0, 1);
             }
-        },
-        addListeners() {
-            _.each(eventTypes, type => {
-                this.shape.addEventListener(type, event => this.$emit(type, event));
-            });
         },
     },
 };
