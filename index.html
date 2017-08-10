@@ -90,9 +90,18 @@
                 <easel-sprite-sheet
                     :images="['sprites/lastguardian-all.png']"
                     :frames="{width:32, height:32}"
-                    :animations="{stand: 32 * 6 + 16 + 5}"
+                    :animations="{
+                        stand: 32 * 6 + 16 + 5,
+                        run: [32 * 6 + 16 + 6, 32 * 6 + 16 + 7],
+                    }"
                     :framerate="30"
                 >
+                    <easel-sprite
+                        :x=300
+                        :y=25
+                        animation="stand"
+                    >
+                    </easel-sprite>
                 </easel-sprite-sheet>
             </easel-canvas>
         </div>
