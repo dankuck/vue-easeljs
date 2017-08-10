@@ -1,14 +1,15 @@
 <script>
 import easeljs from '../easel.js';
 import EaselEventBinder from '../EaselEventBinder.js';
+import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
 import _ from 'lodash';
 
 export default {
     inject: ['spriteSheet', 'easel'],
-    props: ['animation', 'x', 'y'],
+    props: ['animation'],
+    mixins: [EaselDisplayObject],
     data() {
         return {
-            sprite: null,
         };
     },
     render() {
@@ -21,7 +22,7 @@ export default {
     },
     destroyed() {
         if (this.easel.stage) {
-            this.easel.stage.removeChild(this.sprite);
+            this.easel.stage.removeChild(this.component);
         }
     },
     watch: {
@@ -29,27 +30,20 @@ export default {
             this.init();
         },
         'animation': function () {
-            if (this.sprite) {
-                this.sprite.gotoAndPlay(this.animation);
+            if (this.component) {
+                this.component.gotoAndPlay(this.animation);
             }
-        },
-        'x': function () {
-            this.sprite.x = this.x;
-        },
-        'y': function () {
-            this.sprite.y = this.y;
         },
     },
     methods: {
         init() {
-            this.sprite = new easeljs.Sprite(this.spriteSheet);
-            EaselEventBinder.bindEvents(this, this.sprite);
-            this.sprite.x = this.x;
-            this.sprite.y = this.y;
+            this.component = new easeljs.Sprite(this.spriteSheet);
+            this.displayObjectInit();
+            EaselEventBinder.bindEvents(this, this.component);
             if (this.animation) {
-                this.sprite.gotoAndPlay(this.animation);
+                this.component.gotoAndPlay(this.animation);
             }
-            this.easel.stage.addChild(this.sprite);
+            this.easel.stage.addChild(this.component);
         },
     },
 };

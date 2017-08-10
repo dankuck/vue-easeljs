@@ -79,30 +79,30 @@ describe('EaselSprite', function () {
         assert(sprite.easel === easel);
     });
 
-    it('should have sprite field', function () {
-        assert(sprite.sprite);
+    it('should have component field', function () {
+        assert(sprite.component);
     });
 
     it('should run `stand` animation', function () {
-        assert(sprite.sprite._animation && sprite.sprite._animation.name === 'stand');
+        assert(sprite.component._animation && sprite.component._animation.name === 'stand');
     });
 
     it('should change animation to `run`', function (done) {
         vm.animation = 'run';
         Vue.nextTick()
             .then(() => {
-                assert(sprite.sprite._animation && sprite.sprite._animation.name === 'run');
+                assert(sprite.component._animation && sprite.component._animation.name === 'run');
                 done();
             });
     });
 
     it('should have a parent', function () {
-        assert(sprite.sprite.parent);
+        assert(sprite.component.parent);
     });
 
     it('should have x and y', function () {
-        assert(sprite.sprite.x === 1);
-        assert(sprite.sprite.y === 2);
+        assert(sprite.component.x === 1);
+        assert(sprite.component.y === 2);
     });
 
     it('should change x and y', function (done) {
@@ -110,8 +110,8 @@ describe('EaselSprite', function () {
         vm.y = 4;
         Vue.nextTick()
             .then(() => {
-                assert(sprite.sprite.x === 3);
-                assert(sprite.sprite.y === 4);
+                assert(sprite.component.x === 3);
+                assert(sprite.component.y === 4);
                 done();
             });
     });
@@ -119,7 +119,7 @@ describe('EaselSprite', function () {
     _.each(eventTypes, (type) => {
         it(`emits ${type} event`, function () {
             vm.clearEventLog();
-            sprite.sprite.dispatchEvent(type);
+            sprite.component.dispatchEvent(type);
             assert(vm.eventLog.length === 1);
         });
     });
