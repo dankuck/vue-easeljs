@@ -9,6 +9,11 @@ import easeljs from '../easel.js';
 import _ from 'lodash';
 
 export default {
+    provide() {
+        return {
+            spriteSheet: this.spriteSheet,
+        };
+    },
     props: ['images', 'frames', 'animations', 'framerate'],
     data() {
         return {

@@ -15,14 +15,20 @@ describe('EaselSpriteSheet', function () {
                 :animations="{stand: 32 * 6 + 16 + 5}"
                 :framerate="30"
             >
+                <x-inject ref="xInject"></x-inject>
             </easel-sprite-sheet>
         `,
         components: {
             'easel-sprite-sheet': EaselSpriteSheet,
+            'x-inject': {
+                inject: ['spriteSheet'],
+                render() { return '<!-- -->' },
+            },
         },
     }).$mount();
 
     var spriteSheet = vm.$refs.spriteSheet;
+    var xInject = vm.$refs.xInject;
 
     it('renders', function () {
         assert(spriteSheet);
@@ -47,5 +53,9 @@ describe('EaselSpriteSheet', function () {
 
     it('should have framerate in the spriteSheet', function () {
         assert(spriteSheet.spriteSheet.framerate === 30);
+    });
+
+    it('should provide spriteSheet', function () {
+        assert(xInject.spriteSheet);
     });
 });
