@@ -6,7 +6,7 @@ import _ from 'lodash';
 import easeljs from '../resources/assets/js/easel.js';
 
 var garyStart = 32 * 6 + 16;
-var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick'];
+var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
 
 describe('EaselSprite', function () {
 
