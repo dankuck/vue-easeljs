@@ -1,7 +1,3 @@
-<template>
-    <span></span>
-</template>
-
 <script>
 import easeljs from '../easel.js';
 import _ from 'lodash';
@@ -23,6 +19,9 @@ export default {
     },
     destroyed() {
         this.easel.stage.removeChild(this.shape);
+    },
+    render() {
+        return '<!-- shape -->';
     },
     watch: {
         'easel.stage': function () {
