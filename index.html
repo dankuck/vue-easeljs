@@ -87,6 +87,13 @@
                     :show-center="true"
                     >
                 </easel-shape>
+                <easel-sprite-sheet
+                    :images="['sprites/lastguardian-all.png']"
+                    :frames="{width:32, height:32}"
+                    :animations="{stand: 32 * 6 + 16 + 5}"
+                    :framerate="30"
+                >
+                </easel-sprite-sheet>
             </easel-canvas>
         </div>
         
