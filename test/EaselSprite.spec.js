@@ -18,13 +18,16 @@ describe('EaselSprite', function () {
 
     var vm = new Vue({
         template: `
-            <easel-sprite ref="sprite" 
-                :animation="animation" 
-                :x="x" 
-                :y="y"
-                ${eventHandlerCode}
-            >
-            </easel-sprite>
+            <span>
+                <easel-sprite ref="sprite" 
+                    v-if="showSprite"
+                    :animation="animation" 
+                    :x="x" 
+                    :y="y"
+                    ${eventHandlerCode}
+                >
+                </easel-sprite>
+            </span>
         `,
         provide() {
             return {
@@ -46,6 +49,7 @@ describe('EaselSprite', function () {
                 x: 1,
                 y: 2,
                 eventLog: [],
+                showSprite: true,
             };
         },
         components: {
@@ -61,7 +65,7 @@ describe('EaselSprite', function () {
         },
     }).$mount();
 
-    var sprite = vm.$refs.sprite
+    var sprite = vm.$refs.sprite;
 
     it('should exist', function () {
         assert(sprite);
@@ -118,5 +122,19 @@ describe('EaselSprite', function () {
             sprite.sprite.dispatchEvent(type);
             assert(vm.eventLog.length === 1);
         });
+    });
+
+    it('should go away when gone', function (done) {
+        vm.showSprite = false;
+        Vue.nextTick()
+            .then(() => {
+                assert(easel.stage.children.length === 0);
+                vm.showSprite = true;
+                return Vue.nextTick();
+            })
+            .then(() => {
+                sprite = vm.$refs.sprite; // make sure others get the new var
+                done();
+            });
     });
 });

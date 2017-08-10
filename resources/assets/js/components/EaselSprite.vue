@@ -20,6 +20,11 @@ export default {
             this.init();
         }
     },
+    destroyed() {
+        if (this.easel.stage) {
+            this.easel.stage.removeChild(this.sprite);
+        }
+    },
     watch: {
         'easel.stage': function () {
             this.init();

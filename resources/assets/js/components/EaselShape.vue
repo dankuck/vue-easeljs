@@ -18,7 +18,9 @@ export default {
         }
     },
     destroyed() {
-        this.easel.stage.removeChild(this.shape);
+        if (this.easel.stage) {
+            this.easel.stage.removeChild(this.shape);
+        }
     },
     render() {
         return '<!-- shape -->';
