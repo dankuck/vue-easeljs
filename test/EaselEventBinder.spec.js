@@ -55,4 +55,23 @@ describe('EaselEventBinder', function () {
         assert(Object.keys(got).length === 1, 'bound too many things');
         assert(got.dblclick);
     });
+
+    it('should not bind', function () {
+        var got = {};
+        EaselEventBinder.bindEvents(
+            {
+                $options: {
+                },
+                $emit(eventType, event) {
+                    got[eventType] = event;
+                },
+            },
+            {
+                addEventListener(event, handler) {
+                    handler({type: event});
+                },
+            }
+        );
+        assert(Object.keys(got).length === 0, 'bound too many things');
+    });
 });

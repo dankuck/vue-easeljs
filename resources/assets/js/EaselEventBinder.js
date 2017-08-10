@@ -28,7 +28,7 @@ var eventTypes = [
 
 module.exports = {
     bindEvents(component, object) {
-        var listenerNames = Object.keys(component.$options._parentListeners);
+        var listenerNames = Object.keys(component.$options._parentListeners || {});
         var requestedEvents = _.intersection(eventTypes, listenerNames);
         _.each(requestedEvents, eventType => {
             object.addEventListener(eventType, (event) => component.$emit(eventType, event));
