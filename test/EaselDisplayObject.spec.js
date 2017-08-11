@@ -25,6 +25,7 @@ describe('EaselSprite', function () {
                     :x="x" 
                     :y="y"
                     :flip="flip"
+                    :rotation="rotation"
                     ${eventHandlerCode}
                 >
                 </easel-sprite>
@@ -52,6 +53,7 @@ describe('EaselSprite', function () {
                 eventLog: [],
                 showSprite: true,
                 flip: '',
+                rotation: null,
             };
         },
         components: {
@@ -159,6 +161,19 @@ describe('EaselSprite', function () {
             .then(() => {
                 assert(sprite.component.scaleX === -1);
                 assert(sprite.component.scaleY === -1);
+                done();
+            });
+    });
+
+    it('should not rotate', function () {
+        assert(!sprite.component.rotation);
+    });
+
+    it('should rotate', function (done) {
+        vm.rotation = 15;
+        Vue.nextTick()
+            .then(() => {
+                assert(sprite.component.rotation === 15);
                 done();
             });
     });

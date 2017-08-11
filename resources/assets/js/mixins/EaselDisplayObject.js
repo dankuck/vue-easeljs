@@ -12,21 +12,24 @@ import EaselEventBinder from '../EaselEventBinder.js';
 
 module.exports = {
     inject: ['easel'],
-    props: ['x', 'y', 'flip'],
+    props: ['x', 'y', 'flip', 'rotation'],
     data() {
         return {
             component: null,
         };
     },
     watch: {
-        'x': function () {
+        x() {
             this.component.x = this.x;
         },
-        'y': function () {
+        y() {
             this.component.y = this.y;
         },
-        'flip': function () {
+        flip() {
             this.updateScales();
+        },
+        rotation() {
+            this.component.rotation = this.rotation;
         },
         'easel.stage': function () {
             this.init();
@@ -47,6 +50,7 @@ module.exports = {
             EaselEventBinder.bindEvents(this, this.component);
             this.component.x = this.x;
             this.component.y = this.y;
+            this.component.rotation = this.rotation;
             this.updateScales();
             this.easel.stage.addChild(this.component);
         },
