@@ -12,7 +12,7 @@ import EaselEventBinder from '../EaselEventBinder.js';
 
 module.exports = {
     inject: ['easel'],
-    props: ['x', 'y', 'flip', 'rotation'],
+    props: ['x', 'y', 'flip', 'rotation', 'scale'],
     data() {
         return {
             component: null,
@@ -26,6 +26,9 @@ module.exports = {
             this.component.y = this.y;
         },
         flip() {
+            this.updateScales();
+        },
+        scale() {
             this.updateScales();
         },
         rotation() {
@@ -59,8 +62,8 @@ module.exports = {
         },
         updateScales() {
             if (this.component) {
-                this.component.scaleX = this.flip === 'horizontal' || this.flip === 'both' ? -1 : 1;
-                this.component.scaleY = this.flip === 'vertical' || this.flip === 'both' ? -1 : 1;
+                this.component.scaleX = this.flip === 'horizontal' || this.flip === 'both' ? -this.scale : this.scale;
+                this.component.scaleY = this.flip === 'vertical' || this.flip === 'both' ? -this.scale : this.scale;
             }
         },
     },

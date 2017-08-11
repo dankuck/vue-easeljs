@@ -26,6 +26,7 @@ describe('EaselSprite', function () {
                     :y="y"
                     :flip="flip"
                     :rotation="rotation"
+                    :scale="scale"
                     ${eventHandlerCode}
                 >
                 </easel-sprite>
@@ -54,6 +55,7 @@ describe('EaselSprite', function () {
                 showSprite: true,
                 flip: '',
                 rotation: null,
+                scale: 1,
             };
         },
         components: {
@@ -174,6 +176,37 @@ describe('EaselSprite', function () {
         Vue.nextTick()
             .then(() => {
                 assert(sprite.component.rotation === 15);
+                done();
+            });
+    });
+
+    it('should not scale', function (done) {
+        vm.flip = '';
+        Vue.nextTick()
+            .then(() => {
+                assert(sprite.component.scaleX === 1);
+                assert(sprite.component.scaleY === 1);
+                done();
+            });
+    });
+
+    it('should scale to double', function (done) {
+        vm.scale = 2;
+        Vue.nextTick()
+            .then(() => {
+                assert(sprite.component.scaleX === 2);
+                assert(sprite.component.scaleY === 2);
+                done();
+            });
+    });
+
+    it('should scale and flip', function (done) {
+        vm.scale = 2;
+        vm.flip = "both";
+        Vue.nextTick()
+            .then(() => {
+                assert(sprite.component.scaleX === -2);
+                assert(sprite.component.scaleY === -2);
                 done();
             });
     });
