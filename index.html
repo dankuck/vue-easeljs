@@ -25,9 +25,14 @@
         </p>
 
         <div id="app">
-            <easel-canvas style="background-color: grey;" width="400" height="300"
-                @click="fall"
-            >
+            <easel-canvas style="background-color: grey;" width="400" height="300">
+                <easel-bitmap
+                    image="/images/gulfstream_park.jpg"
+                    x="-80"
+                    y="-10"
+                    :scale="300 / 850"
+                    >
+                </easel-bitmap>
                 <easel-shape
                     :x=0
                     :y="y"
@@ -36,6 +41,7 @@
                     form="circle"
                     :dimensions="50"
                     :show-center="true"
+                    :alpha=".5"
                     @click="log"
                     >
                 </easel-shape>
@@ -100,11 +106,11 @@
                     :framerate="30"
                 >
                     <easel-sprite
-                        :x=300
-                        :y="y"
+                        :x="gary.x"
+                        :y="gary.y"
                         :animation="gary.animation"
                         @click="clickedGary"
-                        flip="vertical"
+                        :flip="gary.flip"
                     >
                     </easel-sprite>
                     <easel-shape

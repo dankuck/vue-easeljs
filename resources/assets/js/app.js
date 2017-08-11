@@ -12,20 +12,48 @@ const app = new Vue({
         return {
             gary: {
                 animation: 'stand',
+                x: 200,
+                y: 300 - 32,
+                flip: 'horizontal',
+                moving: null,
+                direction: -1,
             },
             y: 25,
         };
     },
     methods: {
         clickedGary() {
-            if (this.gary.animation === 'stand') {
-                this.gary.animation = 'run';
+            var gary = this.gary;
+            var leftLimit = 100;
+            var rightLimit = 300;
+            console.log('clicked gary');
+            if (!gary.moving) {
+                gary.animation = 'run';
+                var garyGo = () => {
+                    gary.x += gary.direction * 10;
+                    if (gary.x < leftLimit) {
+                        gary.direction = 1;
+                    } else if (gary.x > rightLimit) {
+                        gary.direction = -1;
+                    }
+                    if (gary.direction < 0) {
+                        gary.flip = "horizontal";
+                    } else {
+                        gary.flip = "";
+                    }
+                };
+                gary.moving = setInterval(garyGo, 100);
+                garyGo();
             } else {
-                this.gary.animation = 'stand';
+                gary.animation = 'stand';
+                clearInterval(gary.moving);
+                gary.moving = null;
+                if (gary.direction < 0) {
+                    gary.flip = "";
+                } else {
+                    gary.flip = "horizontal";
+                }
             }
-        },
-        fall() {
-            setInterval(() => this.y *= 1.1, 100);
         },
     },
 });
