@@ -35,12 +35,18 @@ export default {
         drawForm() {
             if (this.form === 'circle') {
                 this.component.graphics.drawCircle(0, 0, this.dimensions);
+                this.component.regX = 0;
+                this.component.regY = 0;
             } else if (this.form === 'ellipse') {
-                this.component.graphics.drawEllipse(-this.dimensions[0] / 2, -this.dimensions[1] / 2, this.dimensions[0], this.dimensions[1]);
+                this.component.graphics.drawEllipse(0, 0, this.dimensions[0], this.dimensions[1]);
+                this.component.regX = this.dimensions[0] / 2;
+                this.component.regY = this.dimensions[1] / 2;
             } else if (this.form === 'rect') {
                 // If no radius dimensions were given, draw a rectangle.
                 if (this.dimensions.length === 2) {
-                    this.component.graphics.drawRect(-this.dimensions[0] / 2, -this.dimensions[1] / 2, this.dimensions[0], this.dimensions[1]);
+                    this.component.graphics.drawRect(0, 0, this.dimensions[0], this.dimensions[1]);
+                    this.component.regX = this.dimensions[0] / 2;
+                    this.component.regY = this.dimensions[1] / 2;
                 } else {
                     var radiuses;
                     // If 4 radius dimensions were given, use them.
@@ -51,14 +57,18 @@ export default {
                     } else {
                         radiuses = [this.dimensions[2], this.dimensions[2], this.dimensions[2], this.dimensions[2]];
                     }
-                    this.component.graphics.drawRoundRectComplex(-this.dimensions[0] / 2, -this.dimensions[1] / 2, this.dimensions[0], this.dimensions[1], radiuses[0], radiuses[1], radiuses[2], radiuses[3]);
+                    this.component.graphics.drawRoundRectComplex(0, 0, this.dimensions[0], this.dimensions[1], radiuses[0], radiuses[1], radiuses[2], radiuses[3]);
+                    this.component.regX = this.dimensions[0] / 2;
+                    this.component.regY = this.dimensions[1] / 2;
                 }
             } else if (this.form === 'star') {
                 this.component.graphics.drawPolyStar(0, 0, this.dimensions[0], this.dimensions[1], this.dimensions[2], 0);
+                this.component.regX = 0;
+                this.component.regY = 0;
             }
 
             if (this.showCenter) {
-                this.component.graphics.beginFill('black').drawCircle(0, 0, 1);
+                this.component.graphics.beginFill('black').drawCircle(this.component.regX, this.component.regY, 1);
             }
         },
     },

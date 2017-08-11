@@ -24,7 +24,7 @@ describe('EaselSprite', function () {
                     :animation="animation" 
                     :x="x" 
                     :y="y"
-                    :flip="horizontal"
+                    :flip="flip"
                     ${eventHandlerCode}
                 >
                 </easel-sprite>
@@ -51,6 +51,7 @@ describe('EaselSprite', function () {
                 y: 2,
                 eventLog: [],
                 showSprite: true,
+                flip: '',
             };
         },
         components: {
@@ -139,7 +140,48 @@ describe('EaselSprite', function () {
             });
     });
 
-    it('should flip', function () {
+    it('should not flip', function (done) {
+        vm.flip = '';
+        Vue.nextTick()
+            .then(() => {
+                assert(sprite.component.scaleX === 1);
+                assert(sprite.component.scaleY === 1);
+                done();
+            });
+    });
 
+    it('should flip horizontal', function (done) {
+        vm.flip = 'horizontal';
+        Vue.nextTick()
+            .then(() => {
+                assert(sprite.component.scaleX === -1);
+                assert(sprite.component.scaleY === 1);
+                done();
+            });
+    });
+
+    it('should flip vertical', function (done) {
+        vm.flip = 'vertical';
+        Vue.nextTick()
+            .then(() => {
+                assert(sprite.component.scaleX === 1);
+                assert(sprite.component.scaleY === -1);
+                done();
+            });
+    });
+
+    it('should flip both', function (done) {
+        vm.flip = 'both';
+        Vue.nextTick()
+            .then(() => {
+                assert(sprite.component.scaleX === -1);
+                assert(sprite.component.scaleY === -1);
+                done();
+            });
+    });
+
+    it('should have the right regx and regy', function () {
+        assert(sprite.component.regX === 16);
+        assert(sprite.component.regY === 16);
     });
 });
