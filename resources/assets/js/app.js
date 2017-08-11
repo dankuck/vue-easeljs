@@ -19,6 +19,7 @@ const app = new Vue({
                 direction: -1,
             },
             y: 25,
+            log: console.log,
         };
     },
     methods: {
@@ -57,5 +58,3 @@ const app = new Vue({
         },
     },
 });
-
-app.log = console.log;
