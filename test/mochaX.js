@@ -8,9 +8,8 @@
 */
 module.exports = function (closure) {
     return function () {
-        var args = Array.prototype.slice.apply(arguments);
         try {
-            return closure.apply(this, args);
+            return closure.apply(this, arguments);
         } catch (e) {
             console.error(e.toString());
             throw e;

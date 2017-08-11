@@ -12,7 +12,7 @@ import EaselEventBinder from '../EaselEventBinder.js';
 
 module.exports = {
     inject: ['easel'],
-    props: ['x', 'y', 'flip', 'rotation', 'scale'],
+    props: ['x', 'y', 'flip', 'rotation', 'scale', 'alpha'],
     data() {
         return {
             component: null,
@@ -33,6 +33,9 @@ module.exports = {
         },
         rotation() {
             this.component.rotation = this.rotation;
+        },
+        alpha() {
+            this.updateAlpha();
         },
         'easel.stage': function () {
             this.init();
@@ -55,6 +58,7 @@ module.exports = {
             this.component.y = this.y;
             this.component.rotation = this.rotation;
             this.updateScales();
+            this.updateAlpha();
             this.easel.stage.addChild(this.component);
         },
         displayObjectBreakdown() {
@@ -62,9 +66,13 @@ module.exports = {
         },
         updateScales() {
             if (this.component) {
-                this.component.scaleX = this.flip === 'horizontal' || this.flip === 'both' ? -this.scale : this.scale;
-                this.component.scaleY = this.flip === 'vertical' || this.flip === 'both' ? -this.scale : this.scale;
+                var scale = this.scale || 1;
+                this.component.scaleX = this.flip === 'horizontal' || this.flip === 'both' ? -scale : scale;
+                this.component.scaleY = this.flip === 'vertical' || this.flip === 'both' ? -scale : scale;
             }
+        },
+        updateAlpha() {
+            this.component.alpha = isNaN(this.alpha) || this.alpha === null ? 1 : this.alpha;
         },
     },
 };

@@ -4,6 +4,7 @@ import EaselSprite from '../resources/assets/js/components/EaselSprite.vue';
 import $ from 'jquery';
 import _ from 'lodash';
 import easeljs from '../resources/assets/js/easel.js';
+import mochaX from './mochaX.js';
 
 var garyStart = 32 * 6 + 16;
 var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
@@ -27,6 +28,7 @@ describe('EaselSprite', function () {
                     :flip="flip"
                     :rotation="rotation"
                     :scale="scale"
+                    :alpha="alpha"
                     ${eventHandlerCode}
                 >
                 </easel-sprite>
@@ -56,6 +58,7 @@ describe('EaselSprite', function () {
                 flip: '',
                 rotation: null,
                 scale: 1,
+                alpha: null,
             };
         },
         components: {
@@ -209,5 +212,18 @@ describe('EaselSprite', function () {
                 assert(sprite.component.scaleY === -2);
                 done();
             });
+    });
+
+    it('should be 100% opaque', function () {
+        assert(sprite.component.alpha === 1, "Wrong alpha: " + sprite.component.alpha);
+    });
+
+    it('should become 50% opaque', function (done) {
+        vm.alpha = .5;
+        Vue.nextTick()
+            .then(mochaX(() => {
+                assert(sprite.component.alpha === .5, "Wrong alpha: " + sprite.component.alpha);
+                done();
+            }));
     });
 });
