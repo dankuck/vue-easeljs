@@ -33,69 +33,74 @@
                     :scale="300 / 850"
                     >
                 </easel-bitmap>
-                <easel-shape
-                    :x=0
-                    :y="y"
-                    fill="DeepSkyBlue"
-                    stroke="black"
-                    form="circle"
-                    :dimensions="50"
-                    :show-center="true"
-                    :alpha=".5"
-                    @click="log"
-                    >
-                </easel-shape>
-                <easel-shape
-                    :x=50
-                    :y="y"
-                    fill="#FF0000"
-                    stroke="black"
-                    form="ellipse"
-                    :dimensions="[50, 40]"
-                    :show-center="true"
-                    >
-                </easel-shape>
-                <easel-shape
-                    :x=100
-                    :y="y"
-                    fill="#00FF00"
-                    stroke="black"
-                    form="star"
-                    :dimensions="[50, 5, .6]"
-                    :show-center="true"
-                    :rotation="-90"
-                    >
-                </easel-shape>
-                <easel-shape
-                    :x=150
-                    :y="y"
-                    fill="#0000FF"
-                    stroke="black"
-                    form="rect"
-                    :dimensions="[50, 40]"
-                    :show-center="true"
-                    >
-                </easel-shape>
-                <easel-shape
-                    :x=200
-                    :y="y"
-                    fill="#FFFF00"
-                    stroke="black"
-                    form="rect"
-                    :dimensions="[50, 40, 15]"
-                    :show-center="true"
-                    >
-                </easel-shape>
-                <easel-shape
-                    :x=250
-                    :y="y"
-                    fill="#FF00FF"
-                    stroke="black"
-                    form="rect"
-                    :dimensions="[50, 40, 15, 0, 0, 15]"
-                    :show-center="true"
-                    >
-                </easel-shape>
+                <easel-container
+                    x=0
+                    y=0
+                >
+                    <easel-shape
+                        :x=0
+                        :y="y"
+                        fill="DeepSkyBlue"
+                        stroke="black"
+                        form="circle"
+                        :dimensions="50"
+                        :show-center="true"
+                        :alpha=".5"
+                        @click="log"
+                        >
+                    </easel-shape>
+                    <easel-shape
+                        :x=50
+                        :y="y"
+                        fill="#FF0000"
+                        stroke="black"
+                        form="ellipse"
+                        :dimensions="[50, 40]"
+                        :show-center="true"
+                        >
+                    </easel-shape>
+                    <easel-shape
+                        :x=100
+                        :y="y"
+                        fill="#00FF00"
+                        stroke="black"
+                        form="star"
+                        :dimensions="[50, 5, .6]"
+                        :show-center="true"
+                        :rotation="-90"
+                        >
+                    </easel-shape>
+                    <easel-shape
+                        :x=150
+                        :y="y"
+                        fill="#0000FF"
+                        stroke="black"
+                        form="rect"
+                        :dimensions="[50, 40]"
+                        :show-center="true"
+                        >
+                    </easel-shape>
+                    <easel-shape
+                        :x=200
+                        :y="y"
+                        fill="#FFFF00"
+                        stroke="black"
+                        form="rect"
+                        :dimensions="[50, 40, 15]"
+                        :show-center="true"
+                        >
+                    </easel-shape>
+                    <easel-shape
+                        :x=250
+                        :y="y"
+                        fill="#FF00FF"
+                        stroke="black"
+                        form="rect"
+                        :dimensions="[50, 40, 15, 0, 0, 15]"
+                        :show-center="true"
+                        >
+                    </easel-shape>
+                </easel-container>
                 <easel-sprite-sheet
                     :images="['sprites/lastguardian-all.png']"
                     :frames="{width:32, height:32}"
