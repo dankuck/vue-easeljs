@@ -105,6 +105,15 @@
                     }"
                     :framerate="30"
                 >
+                    <easel-shape
+                        :x="gary.x"
+                        :y="gary.y + 16"
+                        fill="black"
+                        form="ellipse"
+                        :dimensions="[16, 4]"
+                        :alpha=".3"
+                    >
+                    </easel-shape>
                     <easel-sprite
                         :x="gary.x"
                         :y="gary.y"
@@ -113,14 +122,6 @@
                         :flip="gary.flip"
                     >
                     </easel-sprite>
-                    <easel-shape
-                        :x=300
-                        :y="y"
-                        stroke="black"
-                        form="circle"
-                        :dimensions="1"
-                    >
-                    </easel-shape>
                 </easel-sprite-sheet>
             </easel-canvas>
         </div>
