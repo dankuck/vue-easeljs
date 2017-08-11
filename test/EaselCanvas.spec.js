@@ -47,15 +47,14 @@ describe('EaselCanvas', function () {
     });
 
     it('should have an easel object with a stage object', function () {
-        assert(canvas.easel);
-        assert(canvas.easel.stage);
+        assert(canvas.stage);
     });
 
     it('should update a bunch', function (done) {
-        var update = canvas.easel.stage.update;
-        canvas.easel.stage.update = function (event) {
+        var update = canvas.stage.update;
+        canvas.stage.update = function (event) {
             assert(event);
-            canvas.easel.stage.update = update;
+            canvas.stage.update = update;
             done();
         };
     });
@@ -63,7 +62,7 @@ describe('EaselCanvas', function () {
     _.each(eventTypes, (type) => {
         it(`emits ${type} event`, function () {
             vm.clearEventLog();
-            canvas.easel.stage.dispatchEvent(type);
+            canvas.stage.dispatchEvent(type);
             assert(vm.eventLog.length === 1);
         });
     });

@@ -11,25 +11,23 @@ import EaselEventBinder from '../EaselEventBinder.js';
 export default {
     provide() {
         return {
-            easel: this.easel,
+            easel: this,
         };
     },
     data() {
         return {
-            easel: {
-                stage: null,
-            },
+            component: null,
         };
     },
-    mounted() {
-        this.easel.stage = new easeljs.Stage(this.$refs.easel);
-        EaselEventBinder.bindEvents(this, this.easel.stage);
-        easeljs.Ticker.addEventListener("tick", (event) => this.updateStage(event));
-    },
-    methods: {
-        updateStage(event) {
-            this.easel.stage.update(event);
+    computed: {
+        stage() {
+            return this.component;
         },
+    },
+    mounted() {
+        this.component = new easeljs.Stage(this.$refs.easel);
+        EaselEventBinder.bindEvents(this, this.component);
+        easeljs.Ticker.addEventListener("tick", (event) => this.component.update(event));
     },
 };
 </script>
