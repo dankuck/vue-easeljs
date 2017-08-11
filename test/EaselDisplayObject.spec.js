@@ -73,29 +73,93 @@ describe('EaselSprite', function () {
         assert(sprite);
     });
 
-    it('should have a spritesheet', function () {
-        assert(sprite.spriteSheet);
+    it('should have same easel', function () {
+        assert(sprite.easel === easel);
     });
 
     it('should have component field', function () {
         assert(sprite.component);
     });
 
-    it('should run `stand` animation', function () {
-        assert(sprite.component._animation && sprite.component._animation.name === 'stand');
+    it('should have a parent', function () {
+        assert(sprite.component.parent);
     });
 
-    it('should change animation to `run`', function (done) {
-        vm.animation = 'run';
+    it('should have x and y', function () {
+        assert(sprite.component.x === 1);
+        assert(sprite.component.y === 2);
+    });
+
+    it('should change x and y', function (done) {
+        vm.x = 3;
+        vm.y = 4;
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component._animation && sprite.component._animation.name === 'run');
+                assert(sprite.component.x === 3);
+                assert(sprite.component.y === 4);
                 done();
             });
     });
 
-    it('should have the right regx and regy', function () {
-        assert(sprite.component.regX === 16);
-        assert(sprite.component.regY === 16);
+    _.each(eventTypes, (type) => {
+        it(`emits ${type} event`, function () {
+            vm.clearEventLog();
+            sprite.component.dispatchEvent(type);
+            assert(vm.eventLog.length === 1);
+        });
+    });
+
+    it('should go away when gone', function (done) {
+        vm.showSprite = false;
+        Vue.nextTick()
+            .then(() => {
+                assert(easel.stage.children.length === 0);
+                vm.showSprite = true;
+                return Vue.nextTick();
+            })
+            .then(() => {
+                sprite = vm.$refs.sprite; // make sure others get the new var
+                done();
+            });
+    });
+
+    it('should not flip', function (done) {
+        vm.flip = '';
+        Vue.nextTick()
+            .then(() => {
+                assert(sprite.component.scaleX === 1);
+                assert(sprite.component.scaleY === 1);
+                done();
+            });
+    });
+
+    it('should flip horizontal', function (done) {
+        vm.flip = 'horizontal';
+        Vue.nextTick()
+            .then(() => {
+                assert(sprite.component.scaleX === -1);
+                assert(sprite.component.scaleY === 1);
+                done();
+            });
+    });
+
+    it('should flip vertical', function (done) {
+        vm.flip = 'vertical';
+        Vue.nextTick()
+            .then(() => {
+                assert(sprite.component.scaleX === 1);
+                assert(sprite.component.scaleY === -1);
+                done();
+            });
+    });
+
+    it('should flip both', function (done) {
+        vm.flip = 'both';
+        Vue.nextTick()
+            .then(() => {
+                assert(sprite.component.scaleX === -1);
+                assert(sprite.component.scaleY === -1);
+                done();
+            });
     });
 });
