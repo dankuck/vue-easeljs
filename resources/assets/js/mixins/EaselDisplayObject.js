@@ -42,7 +42,7 @@ module.exports = {
     },
     destroyed() {
         if (this.easel.stage) {
-            this.easel.stage.removeChild(this.component);
+            this.displayObjectBreakdown();
         }
     },
     methods: {
@@ -53,6 +53,9 @@ module.exports = {
             this.component.rotation = this.rotation;
             this.updateScales();
             this.easel.stage.addChild(this.component);
+        },
+        displayObjectBreakdown() {
+            this.easel.stage.removeChild(this.component);
         },
         updateScales() {
             if (this.component) {

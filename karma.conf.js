@@ -18,6 +18,11 @@ module.exports = function (config) {
                 included: false,
                 served: true,
             },
+            {
+                pattern: 'images/*',
+                included: false,
+                served: true,
+            },
         ],
         preprocessors: {
             'test/test.js': ['webpack'],
