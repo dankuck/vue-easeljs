@@ -9,10 +9,11 @@
 */
 
 import EaselEventBinder from '../EaselEventBinder.js';
+import easeljs from '../easel.js';
 
 module.exports = {
     inject: ['easel'],
-    props: ['x', 'y', 'flip', 'rotation', 'scale', 'alpha'],
+    props: ['x', 'y', 'flip', 'rotation', 'scale', 'alpha', 'shadow'],
     data() {
         return {
             component: null,
@@ -37,6 +38,9 @@ module.exports = {
         alpha() {
             this.updateAlpha();
         },
+        shadow() {
+            this.updateShadow();
+        },
         'easel.stage': function () {
             this.init();
         },
@@ -59,6 +63,7 @@ module.exports = {
             this.component.rotation = this.rotation;
             this.updateScales();
             this.updateAlpha();
+            this.updateShadow();
             this.easel.stage.addChild(this.component);
         },
         displayObjectBreakdown() {
@@ -73,6 +78,13 @@ module.exports = {
         },
         updateAlpha() {
             this.component.alpha = isNaN(this.alpha) || this.alpha === null ? 1 : this.alpha;
+        },
+        updateShadow() {
+            if (this.shadow) {
+                this.component.shadow = new easeljs.Shadow(this.shadow[0], this.shadow[1], this.shadow[2], this.shadow[3]);
+            } else {
+                this.component.shadow = null;
+            }
         },
     },
 };

@@ -29,6 +29,7 @@ describe('EaselSprite', function () {
                     :rotation="rotation"
                     :scale="scale"
                     :alpha="alpha"
+                    :shadow="shadow"
                     ${eventHandlerCode}
                 >
                 </easel-sprite>
@@ -59,6 +60,7 @@ describe('EaselSprite', function () {
                 rotation: null,
                 scale: 1,
                 alpha: null,
+                shadow: null,
             };
         },
         components: {
@@ -225,5 +227,28 @@ describe('EaselSprite', function () {
                 assert(sprite.component.alpha === .5, "Wrong alpha: " + sprite.component.alpha);
                 done();
             }));
+    });
+
+    it('should have no shadow', function () {
+        assert(sprite.component.shadow === null, "Component: " + sprite.component);
+    });
+
+    it('should have shadow', function (done) {
+        vm.shadow = ["black", 5, 7, 10];
+        Vue.nextTick(mochaX(() => {
+            assert(sprite.component.shadow.color === 'black', 'Shadow color: ' + sprite.component.shadow.color);
+            assert(sprite.component.shadow.offsetX === 5, 'Shadow offsetX: ' + sprite.component.shadow.offsetX);
+            assert(sprite.component.shadow.offsetY === 7, 'Shadow offsetY: ' + sprite.component.shadow.offsetY);
+            assert(sprite.component.shadow.blur === 10, 'Shadow blur: ' + sprite.component.shadow.blur);
+            done();
+        }));
+    });
+
+    it('should have no shadow again', function (done) {
+        vm.shadow = null;
+        Vue.nextTick(mochaX(() => {
+            assert(sprite.component.shadow === null, "Component: " + sprite.component);
+            done();
+        }));
     });
 });
