@@ -4,14 +4,18 @@
   "description": "A Vue.js plugin to control an HTML5 canvas using EaselJS",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start karma.conf.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dankuck/vue-easeljs.git"
   },
-  "author": "",
-  "license": "ISC",
+  "contributors": {
+    "name": "Daniel Kuck-Alvarez",
+    "email": "dankuck@gmail.com",
+    "url": "http://dankuck.github.io/"
+  },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/dankuck/vue-easeljs/issues"
   },
