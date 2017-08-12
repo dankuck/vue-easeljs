@@ -18,10 +18,6 @@ elixir.ready(function () {
     module: {
       loaders: [
         {
-          test: /\.md$/,
-          loader: "html-loader!markdown-loader"
-        },
-        {
           test: /\.vue$/,
           loader: 'vue-loader'
         },
