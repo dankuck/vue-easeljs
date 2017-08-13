@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 export default {
     mixins: [EaselDisplayObject],
-    props: ['text'],
+    props: ['text', 'font', 'color'],
     render() {
         return '<!-- text -->';
     },
@@ -13,10 +13,16 @@ export default {
         text() {
             this.component.text = this.text;
         },
+        font() {
+            this.component.font = this.font;
+        },
+        color() {
+            this.component.color = this.color;
+        },
     },
     methods: {
         init() {
-            this.component = new easeljs.Text(this.text);
+            this.component = new easeljs.Text(this.text, this.font, this.color);
             this.displayObjectInit();
         },
     },

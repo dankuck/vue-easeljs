@@ -130,9 +130,13 @@
                     </easel-sprite>
                 </easel-sprite-sheet>
                 <easel-text
-                    text="ohai"
-                    x=50
-                    y=50
+                    text="Gary"
+                    color="white"
+                    font="20px system"
+                    :x="gary.x - 20"
+                    :y="gary.y - 48"
+                    :shadow="['black', 1, 1, 2]"
+                    :flip="horizontal"
                 >
                 </easel-text>
             </easel-canvas>
