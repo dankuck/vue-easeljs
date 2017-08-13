@@ -22,6 +22,8 @@ describe('EaselText', function () {
                     :text="text"
                     :font="font"
                     :color="color"
+                    :align="align"
+                    :vertical-align="verticalAlign"
                 >
                 </easel-text>
             </span>
@@ -37,6 +39,8 @@ describe('EaselText', function () {
                 showText: true,
                 font: '20px Arial',
                 color: 'black',
+                align: 'left',
+                verticalAlign: 'top',
             };
         },
         components: {
@@ -89,6 +93,41 @@ describe('EaselText', function () {
         Vue.nextTick()
             .then(mochaX(() => {
                 assert(vm.color === text.component.color, 'Wrong color in: ' + text.component.color);
+                done();
+            }));
+    });
+
+    it('should have the right align', function () {
+        assert(vm.align === text.component.textAlign, 'Wrong textAlign: ' + text.component.textAlign);
+    });
+
+    it('should be able to change the align', function (done) {
+        vm.align = 'center';
+        Vue.nextTick()
+            .then(mochaX(() => {
+                assert(vm.align === text.component.textAlign, 'Wrong textAlign in: ' + text.component.textAlign);
+                done();
+            }));
+    });
+
+    it('should have the right verticalAlign', function () {
+        assert(vm.verticalAlign === text.component.textBaseline, 'Wrong textBaseline: ' + text.component.textBaseline);
+    });
+
+    it('should be able to change the verticalAlign', function (done) {
+        vm.verticalAlign = 'center';
+        Vue.nextTick()
+            .then(mochaX(() => {
+                assert(vm.verticalAlign === text.component.textBaseline, 'Wrong textBaseline in: ' + text.component.textBaseline);
+                done();
+            }));
+    });
+
+    it('should default verticalAlign to alphabetic', function (done) {
+        vm.verticalAlign = '';
+        Vue.nextTick()
+            .then(mochaX(() => {
+                assert('alphabetic' === text.component.textBaseline, 'Wrong default textBaseline in: ' + text.component.textBaseline);
                 done();
             }));
     });
