@@ -18,6 +18,7 @@ This library provides Vue.js component access to:
 * Shape
 * Sprite
 * Bitmap
+* Text
 
 And all of these supports the attributes:
 
@@ -31,22 +32,15 @@ And all of these supports the attributes:
 
 # Pending
 
-We need to implement these Vue.js components:
-
-* Text
-
-We need to implement these attributes:
-
-* cache
-
-And we need to include these miscellaneous features: 
+We need to include these miscellaneous features: 
 
 * Touch
 
-These features will not be implemented by this team:
+There are no plans to implement these features:
 
 * Filters
 * BitmapText
 * Buttons
 * Complex Vector Paths
 * MovieClip
+* cache
