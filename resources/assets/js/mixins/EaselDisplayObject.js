@@ -21,25 +21,39 @@ module.exports = {
     },
     watch: {
         x() {
-            this.component.x = this.x;
+            if (this.component) {
+                this.component.x = this.x;
+            }
         },
         y() {
-            this.component.y = this.y;
+            if (this.component) {
+                this.component.y = this.y;
+            }
         },
         flip() {
-            this.updateScales();
+            if (this.component) {
+                this.updateScales();
+            }
         },
         scale() {
-            this.updateScales();
+            if (this.component) {
+                this.updateScales();
+            }
         },
         rotation() {
-            this.component.rotation = this.rotation;
+            if (this.component) {
+                this.component.rotation = this.rotation;
+            }
         },
         alpha() {
-            this.updateAlpha();
+            if (this.component) {
+                this.updateAlpha();
+            }
         },
         shadow() {
-            this.updateShadow();
+            if (this.component) {
+                this.updateShadow();
+            }
         },
         'easel.stage': function () {
             this.init();
