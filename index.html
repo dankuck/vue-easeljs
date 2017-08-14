@@ -118,6 +118,7 @@
                         form="ellipse"
                         :dimensions="[16, 4]"
                         :alpha=".3"
+                        :scale="gary.scale"
                     >
                     </easel-shape>
                     <easel-sprite
@@ -126,6 +127,7 @@
                         :animation="gary.animation"
                         @click="clickedGary"
                         :flip="gary.flip"
+                        :scale="gary.scale"
                     >
                     </easel-sprite>
                 </easel-sprite-sheet>
@@ -141,9 +143,10 @@
                 >
                 </easel-text>
             </easel-canvas>
+            <br />
+            <input type="checkbox" v-model="showLabels"> Show Labels<br />
+            <input type="textarea" v-model="gary.scale"> Scale<br />
         </div>
-        <br />
-        <input type="checkbox" v-model="showLabels"> Show Labels<br />
 
     </div>
 
@@ -162,6 +165,7 @@
                         flip: 'horizontal',
                         moving: null,
                         direction: -1,
+                        scale: 1,
                     },
                     y: 25,
                     log: console.log,
