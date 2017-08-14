@@ -81,8 +81,4 @@ describe('EaselSprite', function () {
             });
     });
 
-    it('should have the right regx and regy', function () {
-        assert(sprite.component.regX === 16);
-        assert(sprite.component.regY === 16);
-    });
 });

@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 export default {
     mixins: [EaselDisplayObject],
-    props: ['text', 'font', 'color', 'align', 'verticalAlign'],
+    props: ['text', 'font', 'color', 'align'],
     render() {
         return '<!-- text -->';
     },
@@ -20,19 +20,17 @@ export default {
             this.component.color = this.color;
         },
         align() {
-            this.component.textAlign = this.align;
-        },
-        verticalAlign() {
-            this.component.textBaseline = this.verticalAlign || 'alphabetic';
+            this.component.textAlign = this.align[0];
+            this.component.textBaseline = this.align[1] || 'alphabetic';
         },
     },
     methods: {
         init() {
             this.component = new easeljs.Text(this.text, this.font, this.color);
             if (this.align) {
-                this.component.textAlign = this.align;
+                this.component.textAlign = this.align[0];
+                this.component.textBaseline = this.align[1] || 'alphabetic';
             }
-            this.component.textBaseline = this.verticalAlign || 'alphabetic';
             this.displayObjectInit();
         },
     },

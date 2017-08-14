@@ -22,8 +22,7 @@ describe('EaselText', function () {
                     :text="text"
                     :font="font"
                     :color="color"
-                    :align="align"
-                    :vertical-align="verticalAlign"
+                    :align="[align, verticalAlign]"
                 >
                 </easel-text>
             </span>

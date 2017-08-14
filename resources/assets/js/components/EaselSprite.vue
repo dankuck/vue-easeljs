@@ -20,12 +20,30 @@ export default {
     methods: {
         init() {
             this.component = new easeljs.Sprite(this.spriteSheet);
-            this.component.regX = this.spriteSheet._frameWidth / 2;
-            this.component.regY = this.spriteSheet._frameHeight / 2;
             if (this.animation) {
                 this.component.gotoAndPlay(this.animation);
             }
             this.displayObjectInit();
+        },
+        updateAlign() {
+            var w = this.spriteSheet._frameWidth,
+                h = this.spriteSheet._frameHeight,
+                hAlign = (this.align && this.align[0]) || 'center',
+                vAlign = (this.align && this.align[1]) || 'bottom';
+            if (hAlign === 'left') {
+                this.component.regX = 0;
+            } else if (hAlign === 'center') {
+                this.component.regX = w / 2;
+            } else if (hAlign === 'right') {
+                this.component.regX = w;
+            }
+            if (vAlign === 'top') {
+                this.component.regY = 0;
+            } else if (vAlign === 'center') {
+                this.component.regY = h / 2;
+            } else if (vAlign === 'bottom') {
+                this.component.regY = h;
+            }
         },
     },
 };

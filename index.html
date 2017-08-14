@@ -113,7 +113,7 @@
                 >
                     <easel-shape
                         :x="gary.x"
-                        :y="gary.y + 16"
+                        :y="gary.y"
                         fill="black"
                         form="ellipse"
                         :dimensions="[16, 4]"
@@ -130,6 +130,14 @@
                         :scale="gary.scale"
                     >
                     </easel-sprite>
+                    <easel-shape
+                        :x="gary.x"
+                        :y="gary.y"
+                        form="circle"
+                        dimensions="1"
+                        fill="black"
+                    >
+                    </easel-shape>
                 </easel-sprite-sheet>
                 <easel-text
                     v-if="showLabels"
@@ -137,9 +145,9 @@
                     color="yellow"
                     font="20px Helvetica"
                     :x="gary.x"
-                    :y="gary.y - 32"
+                    :y="gary.y - 40"
                     :shadow="['black', 1, 1, 1]"
-                    align="center"
+                    :align="['center', 'alphabetical']"
                 >
                 </easel-text>
             </easel-canvas>
@@ -161,7 +169,7 @@
                     gary: {
                         animation: 'stand',
                         x: 200,
-                        y: 300 - 32,
+                        y: 285,
                         flip: 'horizontal',
                         moving: null,
                         direction: -1,

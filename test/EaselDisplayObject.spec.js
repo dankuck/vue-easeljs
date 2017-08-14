@@ -30,6 +30,7 @@ describe('EaselSprite', function () {
                     :scale="scale"
                     :alpha="alpha"
                     :shadow="shadow"
+                    :align="[hAlign, vAlign]"
                     ${eventHandlerCode}
                 >
                 </easel-sprite>
@@ -61,6 +62,8 @@ describe('EaselSprite', function () {
                 scale: 1,
                 alpha: null,
                 shadow: null,
+                hAlign: 'left',
+                vAlign: 'top',
             };
         },
         components: {
@@ -250,5 +253,49 @@ describe('EaselSprite', function () {
             assert(sprite.component.shadow === null, "Component: " + sprite.component);
             done();
         }));
+    });
+
+    it('should have the right hAlign', function () {
+        assert(sprite.component.regX === 0, 'Wrong regX: ' + sprite.component.regX);
+    });
+
+    it('should be able to change the hAlign', function (done) {
+        vm.hAlign = 'right';
+        Vue.nextTick()
+            .then(mochaX(() => {
+                assert(sprite.component.regX === 32, 'Wrong regX in: ' + sprite.component.regX);
+                done();
+            }));
+    });
+
+    it('should default hAlign to center', function (done) {
+        vm.hAlign = '';
+        Vue.nextTick()
+            .then(mochaX(() => {
+                assert(sprite.component.regX === 16, 'Wrong default regX in: ' + sprite.component.regX);
+                done();
+            }));
+    });
+
+    it('should have the right vAlign', function () {
+        assert(sprite.component.regY === 0, 'Wrong regY: ' + sprite.component.regY);
+    });
+
+    it('should be able to change the vAlign', function (done) {
+        vm.vAlign = 'center';
+        Vue.nextTick()
+            .then(mochaX(() => {
+                assert(sprite.component.regY === 16, 'Wrong regY in: ' + sprite.component.regY);
+                done();
+            }));
+    });
+
+    it('should default vAlign to bottom', function (done) {
+        vm.vAlign = '';
+        Vue.nextTick()
+            .then(mochaX(() => {
+                assert(sprite.component.regY === 32, 'Wrong default regY in: ' + sprite.component.regY);
+                done();
+            }));
     });
 });
