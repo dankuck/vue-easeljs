@@ -29,7 +29,9 @@ export default {
     },
     mounted() {
         this.component = new easeljs.Stage(this.$refs.easel);
-        easeljs.Touch.enable(this.component);
+        //easeljs.Touch.enable(this.component, false, true);
+        // Touch is a strange object, so we have to do this for some reason
+        //this.component.preventSelection = false;
         EaselEventBinder.bindEvents(this, this.component);
         easeljs.Ticker.addEventListener("tick", (event) => this.component.update(event));
     },
