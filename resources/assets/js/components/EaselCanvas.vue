@@ -19,6 +19,9 @@ export default {
             component: null,
         };
     },
+    destroyed() {
+        easeljs.Touch.disable(this.component);
+    },
     computed: {
         stage() {
             return this.component;
@@ -26,6 +29,7 @@ export default {
     },
     mounted() {
         this.component = new easeljs.Stage(this.$refs.easel);
+        easeljs.Touch.enable(this.component);
         EaselEventBinder.bindEvents(this, this.component);
         easeljs.Ticker.addEventListener("tick", (event) => this.component.update(event));
     },

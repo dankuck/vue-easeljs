@@ -3,10 +3,12 @@ import Vue from 'vue';
 import EaselCanvas from '../resources/assets/js/components/EaselCanvas.vue';
 import $ from 'jquery';
 import _ from 'lodash';
+import easeljs from '../resources/assets/js/easel.js';
 
 var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
 
 describe('EaselCanvas', function () {
+    
     var eventHandlerCode = eventTypes.map(type => `@${type}="logEvent"`).join(' ');
     var vm = new Vue({
         template: `
@@ -65,5 +67,30 @@ describe('EaselCanvas', function () {
             canvas.stage.dispatchEvent(type);
             assert(vm.eventLog.length === 1);
         });
+    });
+
+    it('should have touch', function () {
+        var Touch = easeljs.Touch;
+        var sawEnable, sawDisable;
+        easeljs.Touch = {
+            enable(stage) {
+                sawEnable = stage;
+            },
+            disable(stage) {
+                sawDisable = stage;
+            },
+        };
+        var vm = new Vue({
+            template: `
+                <easel-canvas></easel-canvas>
+            `,
+            components: {
+                'easel-canvas': EaselCanvas,
+            },
+        }).$mount();
+        vm.$destroy();
+        assert(sawEnable, 'did not see enable');
+        assert(sawDisable, 'did not see disable');
+        easeljs.Touch = Touch;
     });
 });
