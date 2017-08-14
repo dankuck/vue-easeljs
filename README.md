@@ -20,7 +20,7 @@ This library provides Vue.js component access to:
 * Bitmap
 * Text
 
-And all of these supports the attributes:
+And all of these support the attributes:
 
 * x: number
 * y: number
@@ -32,9 +32,11 @@ And all of these supports the attributes:
 
 # Pending
 
-We need to include these miscellaneous features: 
+These plans are in motion:
 
-* Touch
+* All items should have an alignment attribute
+* The core code needs to be separated from the test code
+* The demo should be a separate branch, on ghpages
 
 There are no plans to implement these features:
 
@@ -43,4 +45,4 @@ There are no plans to implement these features:
 * Buttons
 * Complex Vector Paths
 * MovieClip
-* cache
+* Caching
