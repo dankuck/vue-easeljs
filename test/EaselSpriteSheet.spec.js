@@ -10,7 +10,7 @@ describe('EaselSpriteSheet', function () {
     var vm = new Vue({
         template: `
             <easel-sprite-sheet ref="spriteSheet"
-                :images="['sprites/lastguardian-all.png']"
+                :images="['/base/sprites/lastguardian-all.png']"
                 :frames="{width: 32, height: 32}"
                 :animations="{stand: 32 * 6 + 16 + 5}"
                 :framerate="30"

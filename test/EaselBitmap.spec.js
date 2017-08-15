@@ -31,7 +31,7 @@ describe('EaselBitmap', function () {
         },
         data() {
             return {
-                image: '/images/gulfstream_park.jpg',
+                image: '/base/images/gulfstream_park.jpg',
                 showBitmap: true,
             };
         },

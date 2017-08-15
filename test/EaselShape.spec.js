@@ -1,9 +1,10 @@
-import assert from 'assert';
-import Vue from 'vue';
-import EaselCanvas from '../resources/assets/js/components/EaselCanvas.vue';
-import EaselShape from '../resources/assets/js/components/EaselShape.vue';
 import $ from 'jquery';
 import _ from 'lodash';
+import assert from 'assert';
+import EaselCanvas from '../resources/assets/js/components/EaselCanvas.vue';
+import EaselShape from '../resources/assets/js/components/EaselShape.vue';
+import mochaX from './mochaX.js';
+import Vue from 'vue';
 
 var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick'];
 
@@ -146,17 +147,17 @@ describe('EaselShape', function () {
                 vm.showShape = true;
                 return Vue.nextTick();
             })
-            .then(() => {
+            .then(mochaX(() => {
                 shape = vm.$refs.theShape;
                 assert(shape.component.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.component.graphics._activeInstructions.length);
                 assert(shape.component.graphics._activeInstructions[0].x === 0, 'Wrong x of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 assert(shape.component.graphics._activeInstructions[0].y === 0, 'Wrong y of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 assert(shape.component.graphics._activeInstructions[0].w === 50, 'Wrong w of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 assert(shape.component.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
-                assert(shape.component.regX === 25);
-                assert(shape.component.regY === 30);
+                assert(shape.component.regX === 25, 'regX: ' + shape.component.regX);
+                assert(shape.component.regY === 30, 'regY: ' + shape.component.regY);
                 done();
-            });
+            }));
     });
 
     it('should make a rounded corners rectangle', function (done) {
@@ -263,4 +264,5 @@ describe('EaselShape', function () {
             assert(vm.eventLog.length === 1);
         });
     });
+
 });

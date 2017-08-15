@@ -9,7 +9,7 @@ import mochaX from './mochaX.js';
 var garyStart = 32 * 6 + 16;
 var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
 
-describe('EaselSprite', function () {
+describe('EaselDisplayObject', function () {
 
     var eventHandlerCode = eventTypes.map(type => `@${type}="logEvent"`).join(' ');
 
@@ -39,7 +39,7 @@ describe('EaselSprite', function () {
         provide() {
             return {
                 spriteSheet: new easeljs.SpriteSheet({
-                    images: ['sprites/lastguardian-all.png'],
+                    images: ['/base/sprites/lastguardian-all.png'],
                     frames: {width: 32, height: 32},
                     animations: {
                         stand: garyStart + 5,
@@ -253,6 +253,15 @@ describe('EaselSprite', function () {
             assert(sprite.component.shadow === null, "Component: " + sprite.component);
             done();
         }));
+    });
+
+    it('should get bounds', function (done) {
+        sprite.getBounds()
+            .then(bounds => {
+                assert(bounds.width === 32);
+                assert(bounds.height === 32);
+                done();
+            });
     });
 
     it('should have the right hAlign', function () {

@@ -29,7 +29,7 @@ describe('EaselSprite', function () {
         provide() {
             return {
                 spriteSheet: new easeljs.SpriteSheet({
-                    images: ['sprites/lastguardian-all.png'],
+                    images: ['/base/sprites/lastguardian-all.png'],
                     frames: {width: 32, height: 32},
                     animations: {
                         stand: garyStart + 5,
