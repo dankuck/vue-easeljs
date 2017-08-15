@@ -254,16 +254,7 @@ describe('EaselDisplayObject', function () {
             done();
         }));
     });
-
-    it('should get bounds', function (done) {
-        sprite.getBounds()
-            .then(bounds => {
-                assert(bounds.width === 32);
-                assert(bounds.height === 32);
-                done();
-            });
-    });
-
+    
     it('should have the right hAlign', function () {
         assert(sprite.component.regX === 0, 'Wrong regX: ' + sprite.component.regX);
     });

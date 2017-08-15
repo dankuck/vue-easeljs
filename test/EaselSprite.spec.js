@@ -81,4 +81,13 @@ describe('EaselSprite', function () {
             });
     });
 
+    it('should get bounds', function (done) {
+        sprite.getBounds()
+            .then(bounds => {
+                assert(bounds.width === 32);
+                assert(bounds.height === 32);
+                done();
+            });
+    });
+
 });

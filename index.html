@@ -38,6 +38,7 @@
                     y=0
                     :shadow="['black', 1, 1, 1]"
                 >
+                <!--
                     <easel-shape
                         :x=0
                         :y="y"
@@ -47,6 +48,7 @@
                         :dimensions="50"
                         :show-center="true"
                         :alpha=".5"
+                        :align="['center', 'center']"
                         @click="log"
                         >
                     </easel-shape>
@@ -58,49 +60,55 @@
                         form="ellipse"
                         :dimensions="[50, 40]"
                         :show-center="true"
+                        :align="['center', 'center']"
                         >
                     </easel-shape>
+                    -->
                     <easel-shape
-                        :x=100
-                        :y="y"
+                        :x="gary.x"
+                        :y="gary.y"
                         fill="#00FF00"
                         stroke="black"
                         form="star"
-                        :dimensions="[50, 5, .6]"
-                        :show-center="true"
-                        :rotation="-90"
+                        :dimensions="[25, 5, .6]"
+                        :align="['center', 'center']"
                         >
                     </easel-shape>
+                    <!--
                     <easel-shape
-                        :x=150
-                        :y="y"
+                        :x="gary.x"
+                        :y="gary.y"
                         fill="#0000FF"
                         stroke="black"
                         form="rect"
                         :dimensions="[50, 40]"
                         :show-center="true"
+                        :align="['right', 'bottom']"
                         >
                     </easel-shape>
                     <easel-shape
-                        :x=200
-                        :y="y"
+                        :x="gary.x"
+                        :y="gary.y"
                         fill="#FFFF00"
                         stroke="black"
                         form="rect"
                         :dimensions="[50, 40, 15]"
                         :show-center="true"
+                        :align="['center', 'center']"
                         >
                     </easel-shape>
                     <easel-shape
-                        :x=250
-                        :y="y"
+                        :x="gary.x"
+                        :y="gary.y"
                         fill="#FF00FF"
                         stroke="black"
                         form="rect"
                         :dimensions="[50, 40, 15, 0, 0, 15]"
                         :show-center="true"
+                        :align="['center', 'center']"
                         >
                     </easel-shape>
+                    -->
                 </easel-container>
                 <easel-sprite-sheet
                     :images="['sprites/lastguardian-all.png']"
@@ -178,6 +186,7 @@
                     y: 25,
                     log: console.log,
                     showLabels: true,
+                    r: 90,
                 };
             },
             methods: {
@@ -216,6 +225,8 @@
                 },
             },
         });
+
+        setInterval(() => app.r = (app.r + 1) % 360, 10);
 
     </script>
 </body>

@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 export default {
     mixins: [EaselDisplayObject],
-    props: ['form', 'fill', 'stroke', 'dimensions', 'showCenter'],
+    props: ['form', 'fill', 'stroke', 'dimensions'],
     render() {
         return '<!-- shape -->';
     },
@@ -30,23 +30,18 @@ export default {
                     this.component.graphics.beginStroke(this.stroke);
                 }
                 this.drawForm();
+                this.updateAlign();
             }
         },
         drawForm() {
             if (this.form === 'circle') {
                 this.component.graphics.drawCircle(0, 0, this.dimensions);
-                this.component.regX = 0;
-                this.component.regY = 0;
             } else if (this.form === 'ellipse') {
                 this.component.graphics.drawEllipse(0, 0, this.dimensions[0], this.dimensions[1]);
-                this.component.regX = this.dimensions[0] / 2;
-                this.component.regY = this.dimensions[1] / 2;
             } else if (this.form === 'rect') {
                 // If no radius dimensions were given, draw a rectangle.
                 if (this.dimensions.length === 2) {
                     this.component.graphics.drawRect(0, 0, this.dimensions[0], this.dimensions[1]);
-                    this.component.regX = this.dimensions[0] / 2;
-                    this.component.regY = this.dimensions[1] / 2;
                 } else {
                     var radiuses;
                     // If 4 radius dimensions were given, use them.
@@ -58,18 +53,26 @@ export default {
                         radiuses = [this.dimensions[2], this.dimensions[2], this.dimensions[2], this.dimensions[2]];
                     }
                     this.component.graphics.drawRoundRectComplex(0, 0, this.dimensions[0], this.dimensions[1], radiuses[0], radiuses[1], radiuses[2], radiuses[3]);
-                    this.component.regX = this.dimensions[0] / 2;
-                    this.component.regY = this.dimensions[1] / 2;
                 }
             } else if (this.form === 'star') {
-                this.component.graphics.drawPolyStar(0, 0, this.dimensions[0], this.dimensions[1], this.dimensions[2], 0);
-                this.component.regX = 0;
-                this.component.regY = 0;
+                if (this.align[0] === 'center')
+                    xalign = 0;
+                if (this.align[0] === 'left')
+                    xalign = this.dimensions[0];
+                if (this.align[0] === 'right')
+                    xalign = -this.dimensions[0];
+                this.component.graphics.drawPolyStar(xalign, this.dimensions[0], this.dimensions[0], this.dimensions[1], this.dimensions[2], 0);
             }
-
-            if (this.showCenter) {
-                this.component.graphics.beginFill('black').drawCircle(this.component.regX, this.component.regY, 1);
+        },
+        getBounds() {
+            if (this.form === 'rect' || this.form === 'ellipse') {
+                return Promise.resolve(new easeljs.Rectangle(0, 0, this.dimensions[0], this.dimensions[1]));
+            } else if (this.form === 'circle') {
+                return Promise.resolve(new easeljs.Rectangle(0, 0, this.dimensions * 2, this.dimensions * 2));
+            } else if (this.form === 'star') {
+                return Promise.resolve(new easeljs.Rectangle(0, 0, 0, 0));
             }
+            return Promise.reject('this form is not ready yet');
         },
     },
 };

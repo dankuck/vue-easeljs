@@ -21,6 +21,7 @@ describe('EaselShape', function () {
                     stroke="#00FFFF"
                     :form="shapeData.form"
                     :dimensions="shapeData.dimensions"
+                    :align="['center', 'center']"
                     ${eventHandlerCode}
                     >
                 </easel-shape>
@@ -221,7 +222,7 @@ describe('EaselShape', function () {
                 vm.showShape = true;
                 return Vue.nextTick();
             })
-            .then(() => {
+            .then(mochaX(() => {
                 shape = vm.$refs.theShape;
                 assert(shape.component.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.component.graphics._activeInstructions.length);
                 assert(shape.component.graphics._activeInstructions[0].x === 0, 'Wrong x of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
@@ -229,10 +230,10 @@ describe('EaselShape', function () {
                 assert(shape.component.graphics._activeInstructions[0].radius === 50, 'Wrong radius of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 assert(shape.component.graphics._activeInstructions[0].sides === 5, 'Wrong sides of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 assert(shape.component.graphics._activeInstructions[0].pointSize === .5, 'Wrong pointSize of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
-                assert(shape.component.regX === 0);
-                assert(shape.component.regY === 0);
+                assert(shape.component.regX === 50, 'Wrong regX: ' + shape.component.regX);
+                assert(shape.component.regY === 50, 'Wrong regY: ' + shape.component.regY);
                 done();
-            });
+            }));
     });
 
     it('should make an ellipse', function (done) {
@@ -264,5 +265,4 @@ describe('EaselShape', function () {
             assert(vm.eventLog.length === 1);
         });
     });
-
 });
