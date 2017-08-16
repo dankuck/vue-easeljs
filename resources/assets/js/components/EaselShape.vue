@@ -35,7 +35,7 @@ export default {
         },
         drawForm() {
             if (this.form === 'circle') {
-                this.component.graphics.drawCircle(0, 0, this.dimensions);
+                this.component.graphics.drawCircle(this.dimensions, this.dimensions, this.dimensions);
             } else if (this.form === 'ellipse') {
                 this.component.graphics.drawEllipse(0, 0, this.dimensions[0], this.dimensions[1]);
             } else if (this.form === 'rect') {
@@ -55,13 +55,7 @@ export default {
                     this.component.graphics.drawRoundRectComplex(0, 0, this.dimensions[0], this.dimensions[1], radiuses[0], radiuses[1], radiuses[2], radiuses[3]);
                 }
             } else if (this.form === 'star') {
-                if (this.align[0] === 'center')
-                    xalign = 0;
-                if (this.align[0] === 'left')
-                    xalign = this.dimensions[0];
-                if (this.align[0] === 'right')
-                    xalign = -this.dimensions[0];
-                this.component.graphics.drawPolyStar(xalign, this.dimensions[0], this.dimensions[0], this.dimensions[1], this.dimensions[2], 0);
+                this.component.graphics.drawPolyStar(this.dimensions[0], this.dimensions[0], this.dimensions[0], this.dimensions[1], this.dimensions[2], 0);
             }
         },
         getBounds() {
@@ -70,9 +64,9 @@ export default {
             } else if (this.form === 'circle') {
                 return Promise.resolve(new easeljs.Rectangle(0, 0, this.dimensions * 2, this.dimensions * 2));
             } else if (this.form === 'star') {
-                return Promise.resolve(new easeljs.Rectangle(0, 0, 0, 0));
+                return Promise.resolve(new easeljs.Rectangle(0, 0, this.dimensions[0] * 2, this.dimensions[0] * 2));
             }
-            return Promise.reject('this form is not ready yet');
+            return Promise.reject('No bounds available');
         },
     },
 };

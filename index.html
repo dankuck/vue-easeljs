@@ -38,78 +38,119 @@
                     y=0
                     :shadow="['black', 1, 1, 1]"
                 >
-                <!--
                     <easel-shape
-                        :x=0
-                        :y="y"
+                        :x="0"
+                        :y="0"
                         fill="DeepSkyBlue"
                         stroke="black"
                         form="circle"
                         :dimensions="50"
-                        :show-center="true"
                         :alpha=".5"
-                        :align="['center', 'center']"
-                        @click="log"
+                        :align="['left', 'top']"
+                        :rotation="r"
                         >
                     </easel-shape>
                     <easel-shape
-                        :x=50
-                        :y="y"
+                        :x=200
+                        :y=0
                         fill="#FF0000"
                         stroke="black"
                         form="ellipse"
                         :dimensions="[50, 40]"
-                        :show-center="true"
-                        :align="['center', 'center']"
+                        :align="['center', 'top']"
+                        :rotation="r"
                         >
                     </easel-shape>
-                    -->
                     <easel-shape
-                        :x="gary.x"
-                        :y="gary.y"
+                        :x=400
+                        :y=0
                         fill="#00FF00"
                         stroke="black"
                         form="star"
                         :dimensions="[25, 5, .6]"
-                        :align="['center', 'center']"
+                        :align="['right', 'top']"
+                        :rotation="r"
                         >
                     </easel-shape>
-                    <!--
                     <easel-shape
-                        :x="gary.x"
-                        :y="gary.y"
+                        :x="400"
+                        :y="150"
                         fill="#0000FF"
                         stroke="black"
                         form="rect"
                         :dimensions="[50, 40]"
-                        :show-center="true"
-                        :align="['right', 'bottom']"
+                        :align="['right', 'center']"
+                        :rotation="r"
                         >
                     </easel-shape>
                     <easel-shape
-                        :x="gary.x"
-                        :y="gary.y"
+                        :x="400"
+                        :y="300"
                         fill="#FFFF00"
                         stroke="black"
                         form="rect"
                         :dimensions="[50, 40, 15]"
-                        :show-center="true"
-                        :align="['center', 'center']"
+                        :align="['right', 'bottom']"
+                        :rotation="r"
                         >
                     </easel-shape>
                     <easel-shape
-                        :x="gary.x"
-                        :y="gary.y"
+                        :x="200"
+                        :y="300"
                         fill="#FF00FF"
                         stroke="black"
                         form="rect"
                         :dimensions="[50, 40, 15, 0, 0, 15]"
-                        :show-center="true"
-                        :align="['center', 'center']"
+                        :align="['center', 'bottom']"
+                        :rotation="r"
                         >
                     </easel-shape>
-                    -->
                 </easel-container>
+
+                <easel-shape
+                    :x="200"
+                    :y="150"
+                    fill="#FFCC00"
+                    stroke="black"
+                    form="rect"
+                    :dimensions="[30, 30]"
+                    :align="['left', 'top']"
+                    :rotation="r"
+                    >
+                </easel-shape>
+                <easel-shape
+                    :x="200"
+                    :y="150"
+                    fill="#FFCC00"
+                    stroke="black"
+                    form="rect"
+                    :dimensions="[30, 30]"
+                    :align="['right', 'top']"
+                    :rotation="r"
+                    >
+                </easel-shape>
+                <easel-shape
+                    :x="200"
+                    :y="150"
+                    fill="#FFCC00"
+                    stroke="black"
+                    form="rect"
+                    :dimensions="[30, 30]"
+                    :align="['left', 'bottom']"
+                    :rotation="r"
+                    >
+                </easel-shape>
+                <easel-shape
+                    :x="200"
+                    :y="150"
+                    fill="#FFCC00"
+                    stroke="black"
+                    form="rect"
+                    :dimensions="[30, 30]"
+                    :align="['right', 'bottom']"
+                    :rotation="r"
+                    >
+                </easel-shape>
                 <easel-sprite-sheet
                     :images="['sprites/lastguardian-all.png']"
                     :frames="{width:32, height:32}"
