@@ -55,6 +55,7 @@ describe('EaselBitmap', function () {
     });
 
     it('should be able to change the image', function (done) {
+        var image = vm.image;
         vm.image = Math.random();
         Vue.nextTick()
             .then(mochaX(() => {
@@ -63,6 +64,17 @@ describe('EaselBitmap', function () {
                     qr.test(bitmap.component.image.src) || qr.test(bitmap.component.image), 
                     'Wrong src in: ' + bitmap.component.image
                 );
+                vm.image = image;
+                return Vue.nextTick();
+            }))
+            .then(() => done());
+    });
+
+    it('should get bounds', function (done) {
+        bitmap.getBounds()
+            .then(mochaX(bounds => {
+                assert(bounds.width === 1500, 'Wrong width: ' + bounds.width);
+                assert(bounds.height === 946, 'Wrong height: ' + bounds.height);
                 done();
             }));
     });

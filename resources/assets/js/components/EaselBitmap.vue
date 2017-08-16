@@ -24,6 +24,25 @@ export default {
             this.component = new easeljs.Bitmap(this.image);
             this.displayObjectInit();
         },
+        getBounds() {
+            return new Promise((resolve, error) => {
+                var getBounds = () => {
+                    try {
+                        if (!this.component) {
+                            clearInterval(waiting);
+                        } else if (this.component.getBounds()) {
+                            clearInterval(waiting);
+                            resolve(this.component.getBounds());
+                        }
+                    } catch (e) {
+                        clearInterval(waiting);
+                        throw e;
+                    }
+                }
+                var waiting = setInterval(getBounds, 100);
+                getBounds();
+            });
+        },
     },
 };
 </script>
