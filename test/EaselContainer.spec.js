@@ -1,10 +1,11 @@
-import assert from 'assert';
-import Vue from 'vue';
-import EaselSprite from '../resources/assets/js/components/EaselSprite.vue';
-import EaselContainer from '../resources/assets/js/components/EaselContainer.vue';
 import $ from 'jquery';
 import _ from 'lodash';
+import assert from 'assert';
+import EaselContainer from '../resources/assets/js/components/EaselContainer.vue';
 import easeljs from '../resources/assets/js/easel.js';
+import EaselShape from '../resources/assets/js/components/EaselShape.vue';
+import EaselSprite from '../resources/assets/js/components/EaselSprite.vue';
+import Vue from 'vue';
 
 var garyStart = 32 * 6 + 16;
 
@@ -69,5 +70,19 @@ describe('EaselContainer', function () {
 
     it('should be the parent of the sprite', function () {
         assert(sprite.component.parent === container.component);
+    });
+
+    it('should getBounds', function (done) {
+        container.getBounds()
+            .then(
+                (bounds) => {
+                    assert(bounds.width === 0);
+                    assert(bounds.height === 0);
+                    done();
+                },
+                (error) => {
+                    assert(false, error);
+                }
+            );
     });
 });
