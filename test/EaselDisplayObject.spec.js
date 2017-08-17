@@ -130,7 +130,7 @@ describe('EaselDisplayObject', function () {
         vm.showSprite = false;
         Vue.nextTick()
             .then(() => {
-                assert(easel.stage.children.length === 0);
+                assert(sprite.removed);
                 vm.showSprite = true;
                 return Vue.nextTick();
             })
