@@ -66,8 +66,8 @@ describe('EaselShape', function () {
         assert(shape.component);
     });
 
-    it('should have same stage as parent', function () {
-        assert(canvas.stage === shape.easel.stage);
+    it('should have same component as parent', function () {
+        assert(canvas === shape.easel);
     });
 
     it('should have a parent', function () {
@@ -75,14 +75,14 @@ describe('EaselShape', function () {
     });
 
     it('should have the right parent', function () {
-        assert(canvas.stage === shape.component.parent);
+        assert(canvas.component === shape.component.parent);
     });
 
     it('should go away when gone', function (done) {
         vm.showShape = false;
         Vue.nextTick()
             .then(() => {
-                assert(canvas.stage.children.length === 0);
+                assert(canvas.component.children.length === 0);
                 vm.showShape = true;
                 return Vue.nextTick();
             })

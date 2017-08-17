@@ -48,15 +48,15 @@ describe('EaselCanvas', function () {
         assert($(vm.$el).find('#im-in-a-slot'));
     });
 
-    it('should have an easel object with a stage object', function () {
-        assert(canvas.stage);
+    it('should have an easel object with a component object', function () {
+        assert(canvas.component);
     });
 
     it('should update a bunch', function (done) {
-        var update = canvas.stage.update;
-        canvas.stage.update = function (event) {
+        var update = canvas.component.update;
+        canvas.component.update = function (event) {
             assert(event);
-            canvas.stage.update = update;
+            canvas.component.update = update;
             done();
         };
     });
@@ -64,7 +64,7 @@ describe('EaselCanvas', function () {
     _.each(eventTypes, (type) => {
         it(`emits ${type} event`, function () {
             vm.clearEventLog();
-            canvas.stage.dispatchEvent(type);
+            canvas.component.dispatchEvent(type);
             assert(vm.eventLog.length === 1);
         });
     });
@@ -73,11 +73,11 @@ describe('EaselCanvas', function () {
         var Touch = easeljs.Touch;
         var sawEnable, sawDisable;
         easeljs.Touch = {
-            enable(stage) {
-                sawEnable = stage;
+            enable(component) {
+                sawEnable = component;
             },
-            disable(stage) {
-                sawDisable = stage;
+            disable(component) {
+                sawDisable = component;
             },
         };
         var vm = new Vue({
