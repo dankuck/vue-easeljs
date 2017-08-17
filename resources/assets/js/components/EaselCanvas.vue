@@ -24,6 +24,9 @@ export default {
     watch: {
         antiAlias() {
             this.context.imageSmoothingEnabled = this.antiAlias;
+            this.context.mozImageSmoothingEnabled = this.antiAlias;
+            this.context.webkitImageSmoothingEnabled = this.antiAlias;
+            this.context.msImageSmoothingEnabled = this.antiAlias;
         },
     },
     mounted() {
@@ -34,6 +37,9 @@ export default {
         easeljs.Ticker.addEventListener("tick", (event) => this.component.update(event));
         if (typeof this.antiAlias !== 'undefined') {
             this.context.imageSmoothingEnabled = this.antiAlias;
+            this.context.mozImageSmoothingEnabled = this.antiAlias;
+            this.context.webkitImageSmoothingEnabled = this.antiAlias;
+            this.context.msImageSmoothingEnabled = this.antiAlias;
         }
         this.addPendingChildren();
     },

@@ -25,7 +25,13 @@
         </p>
 
         <div id="app">
-            <easel-canvas style="background-color: grey;" width="400" height="300" @click="clickedGary">
+            <easel-canvas 
+                style="background-color: grey;" 
+                width="400" 
+                height="300" 
+                :anti-alias="false"
+                @click="clickedGary"
+            >
                 <easel-bitmap
                     image="/images/gulfstream_park.jpg"
                     x="200"
