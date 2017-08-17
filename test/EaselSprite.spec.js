@@ -10,7 +10,10 @@ var garyStart = 32 * 6 + 16;
 describe('EaselSprite', function () {
 
     var easel = {
-        stage: new easeljs.Stage(document.createElement('canvas')),
+        addChild(vueChild) {
+        },
+        removeChild(vueChild) {
+        },
     };
 
     var vm = new Vue({

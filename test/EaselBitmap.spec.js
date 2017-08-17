@@ -9,7 +9,10 @@ import mochaX from './mochaX.js';
 describe('EaselBitmap', function () {
 
     var easel = {
-        stage: new easeljs.Stage(document.createElement('canvas')),
+        addChild(vueChild) {
+        },
+        removeChild(vueChild) {
+        },
     };
 
     var vm = new Vue({

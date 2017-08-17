@@ -93,4 +93,65 @@ describe('EaselCanvas', function () {
         assert(sawDisable, 'did not see disable');
         easeljs.Touch = Touch;
     });
+/*
+    describe('adding and removing sub-objects:', function () {
+        var canvasComponent = canvas.component;
+        var fakeChild = {component: {}};
+        
+        it('should save objects on xaddChild without component', function () {
+            canvas.component = null;
+            canvas.xaddChild(fakeChild);
+            assert(canvas.xchildren[0] === fakeChild);
+        });
+
+        it('should remove objects on xremoveChild without component', function () {
+            canvas.component = null;
+            canvas.xremoveChild(fakeChild);
+            assert(canvas.xchildren.length === 0);
+        });
+
+        it('should not error on xremoveChild if child is missing', function () {
+            canvas.component = null;
+            canvas.xremoveChild(fakeChild);
+            assert(canvas.xchildren.length === 0);
+        });
+
+        it('should add components on xaddChild with component', function () {
+            var added;
+            canvas.component = {
+                xaddChild(component) {
+                    added = component;
+                },
+            };
+            canvas.xaddChild(fakeChild);
+            assert(canvas.xchildren[0] === fakeChild);
+            assert(added === fakeChild.component);
+        });
+
+        it('should remove components on xremoveChild with component', function () {
+            var removed;
+            canvas.component = {
+                xremoveChild(component) {
+                    removed = component;
+                },
+            };
+            canvas.xremoveChild(fakeChild);
+            assert(canvas.xchildren.length === 0);
+            assert(removed === fakeChild.component);
+        });
+
+        it('should not remove components on xremoveChild if child is missing', function () {
+            var removed = null;
+            canvas.component = {
+                xremoveChild(component) {
+                    removed = component;
+                },
+            };
+            canvas.xremoveChild(fakeChild);
+            assert(canvas.xchildren.length === 0);
+            assert(removed === null);
+        });
+
+        //canvas.component = canvasComponent;
+    });*/
 });

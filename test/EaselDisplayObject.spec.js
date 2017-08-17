@@ -14,7 +14,12 @@ describe('EaselDisplayObject', function () {
     var eventHandlerCode = eventTypes.map(type => `@${type}="logEvent"`).join(' ');
 
     var easel = {
-        stage: new easeljs.Stage(document.createElement('canvas')),
+        addChild(vueChild) {
+            vueChild.added = true;
+        },
+        removeChild(vueChild) {
+            vueChild.removed = true;
+        },
     };
 
     var vm = new Vue({
@@ -93,8 +98,8 @@ describe('EaselDisplayObject', function () {
         assert(sprite.component);
     });
 
-    it('should have a parent', function () {
-        assert(sprite.component.parent);
+    it('should have been added', function () {
+        assert(sprite.added);
     });
 
     it('should have x and y', function () {

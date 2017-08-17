@@ -60,19 +60,12 @@ module.exports = {
                 this.updateAlign();
             }
         },
-        'easel.stage': function () {
-            this.init();
-        },
     },
     mounted() {
-        if (this.easel.stage) {
-            this.init();
-        }
+        this.init();
     },
     destroyed() {
-        if (this.easel.stage) {
-            this.displayObjectBreakdown();
-        }
+        this.displayObjectBreakdown();
     },
     methods: {
         displayObjectInit() {
@@ -84,10 +77,10 @@ module.exports = {
             this.updateAlpha();
             this.updateShadow();
             this.updateAlign();
-            this.easel.stage.addChild(this.component);
+            this.easel.addChild(this);
         },
         displayObjectBreakdown() {
-            this.easel.stage.removeChild(this.component);
+            this.easel.removeChild(this);
         },
         updateScales() {
             if (this.component) {
