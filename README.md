@@ -35,12 +35,12 @@ And all of these support the attributes:
 
 These plans are in motion:
 
-* The core code needs to be separated from the test code
 * The demo should be a separate branch, on ghpages
 
 These plans are merely dreams:
 
 * Allow constant value attributes to use percentage values, too
+* Caching shapes
 
 There are no plans to implement these features:
 
@@ -49,4 +49,3 @@ There are no plans to implement these features:
 * Buttons
 * Complex Vector Paths
 * MovieClip
-* Caching

@@ -14,12 +14,7 @@ module.exports = function (config) {
         files: [
             'test/test.js', 
             {
-                pattern: 'sprites/*',
-                included: false,
-                served: true,
-            },
-            {
-                pattern: 'images/*',
+                pattern: 'test/images/*',
                 included: false,
                 served: true,
             },
