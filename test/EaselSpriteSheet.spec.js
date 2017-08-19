@@ -1,16 +1,16 @@
 import assert from 'assert';
 import Vue from 'vue';
-import EaselSpriteSheet from '../resources/assets/js/components/EaselSpriteSheet.vue';
+import EaselSpriteSheet from '../src/components/EaselSpriteSheet.vue';
 import $ from 'jquery';
 import _ from 'lodash';
-import easeljs from '../resources/assets/js/easel.js';
+import easeljs from '../src/easel.js';
 
 describe('EaselSpriteSheet', function () {
 
     var vm = new Vue({
         template: `
             <easel-sprite-sheet ref="spriteSheet"
-                :images="['/base/sprites/lastguardian-all.png']"
+                :images="['/base/test/images/lastguardian-all.png']"
                 :frames="{width: 32, height: 32}"
                 :animations="{stand: 32 * 6 + 16 + 5}"
                 :framerate="30"

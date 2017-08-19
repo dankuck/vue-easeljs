@@ -1,10 +1,10 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import assert from 'assert';
-import EaselContainer from '../resources/assets/js/components/EaselContainer.vue';
-import easeljs from '../resources/assets/js/easel.js';
-import EaselShape from '../resources/assets/js/components/EaselShape.vue';
-import EaselSprite from '../resources/assets/js/components/EaselSprite.vue';
+import EaselContainer from '../src/components/EaselContainer.vue';
+import easeljs from '../src/easel.js';
+import EaselShape from '../src/components/EaselShape.vue';
+import EaselSprite from '../src/components/EaselSprite.vue';
 import Vue from 'vue';
 
 var garyStart = 32 * 6 + 16;
@@ -32,7 +32,7 @@ describe('EaselContainer', function () {
         provide() {
             return {
                 spriteSheet: new easeljs.SpriteSheet({
-                    images: ['/base/sprites/lastguardian-all.png'],
+                    images: ['/base/test/images/lastguardian-all.png'],
                     frames: {width: 32, height: 32},
                     animations: {
                         stand: garyStart + 5,

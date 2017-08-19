@@ -2,7 +2,7 @@
   "name": "vue-easeljs",
   "version": "0.1.0",
   "description": "A Vue.js plugin to control an HTML5 canvas using EaselJS",
-  "main": "gulpfile.js",
+  "main": "dist/vue-easeljs.common.js",
   "scripts": {
     "test": "karma start karma.conf.js"
   },

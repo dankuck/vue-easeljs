@@ -1,9 +1,9 @@
 import assert from 'assert';
 import Vue from 'vue';
-import EaselCanvas from '../resources/assets/js/components/EaselCanvas.vue';
+import EaselCanvas from '../src/components/EaselCanvas.vue';
 import $ from 'jquery';
 import _ from 'lodash';
-import easeljs from '../resources/assets/js/easel.js';
+import easeljs from '../src/easel.js';
 
 var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
 

@@ -1,9 +1,9 @@
 import assert from 'assert';
 import Vue from 'vue';
-import EaselSprite from '../resources/assets/js/components/EaselSprite.vue';
+import EaselSprite from '../src/components/EaselSprite.vue';
 import $ from 'jquery';
 import _ from 'lodash';
-import easeljs from '../resources/assets/js/easel.js';
+import easeljs from '../src/easel.js';
 import mochaX from './mochaX.js';
 
 var garyStart = 32 * 6 + 16;
@@ -44,7 +44,7 @@ describe('EaselDisplayObject', function () {
         provide() {
             return {
                 spriteSheet: new easeljs.SpriteSheet({
-                    images: ['/base/sprites/lastguardian-all.png'],
+                    images: ['/base/test/images/lastguardian-all.png'],
                     frames: {width: 32, height: 32},
                     animations: {
                         stand: garyStart + 5,

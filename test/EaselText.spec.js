@@ -1,9 +1,9 @@
 import assert from 'assert';
 import Vue from 'vue';
-import EaselText from '../resources/assets/js/components/EaselText.vue';
+import EaselText from '../src/components/EaselText.vue';
 import $ from 'jquery';
 import _ from 'lodash';
-import easeljs from '../resources/assets/js/easel.js';
+import easeljs from '../src/easel.js';
 import mochaX from './mochaX.js';
 
 describe('EaselText', function () {

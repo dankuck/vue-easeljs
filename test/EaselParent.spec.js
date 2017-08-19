@@ -1,10 +1,10 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import assert from 'assert';
-import EaselCanvas from '../resources/assets/js/components/EaselCanvas.vue';
-import EaselContainer from '../resources/assets/js/components/EaselContainer.vue';
-import easeljs from '../resources/assets/js/easel.js';
-import EaselShape from '../resources/assets/js/components/EaselShape.vue';
+import EaselCanvas from '../src/components/EaselCanvas.vue';
+import EaselContainer from '../src/components/EaselContainer.vue';
+import easeljs from '../src/easel.js';
+import EaselShape from '../src/components/EaselShape.vue';
 import Vue from 'vue';
 
 describe('EaselParent', function () {

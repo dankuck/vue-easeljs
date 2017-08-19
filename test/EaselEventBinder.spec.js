@@ -1,5 +1,5 @@
 import assert from 'assert';
-import EaselEventBinder from '../resources/assets/js/EaselEventBinder.js';
+import EaselEventBinder from '../src/EaselEventBinder.js';
 import _ from 'lodash';
 
 var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];

@@ -3,7 +3,7 @@
 | EaselEventBinder
 |--------------------------------------------------------------------------
 |
-| Binds all known EaselJS events to a Vue component
+| Binds all requested EaselJS events to a Vue component
 |
 */
 

@@ -1,8 +1,8 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import assert from 'assert';
-import EaselCanvas from '../resources/assets/js/components/EaselCanvas.vue';
-import EaselShape from '../resources/assets/js/components/EaselShape.vue';
+import EaselCanvas from '../src/components/EaselCanvas.vue';
+import EaselShape from '../src/components/EaselShape.vue';
 import mochaX from './mochaX.js';
 import Vue from 'vue';
 

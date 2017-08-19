@@ -1,9 +1,9 @@
 import assert from 'assert';
 import Vue from 'vue';
-import EaselBitmap from '../resources/assets/js/components/EaselBitmap.vue';
+import EaselBitmap from '../src/components/EaselBitmap.vue';
 import $ from 'jquery';
 import _ from 'lodash';
-import easeljs from '../resources/assets/js/easel.js';
+import easeljs from '../src/easel.js';
 import mochaX from './mochaX.js';
 
 describe('EaselBitmap', function () {
@@ -34,7 +34,7 @@ describe('EaselBitmap', function () {
         },
         data() {
             return {
-                image: '/base/images/gulfstream_park.jpg',
+                image: '/base/test/images/gulfstream_park.jpg',
                 showBitmap: true,
             };
         },
