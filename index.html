@@ -37,7 +37,6 @@
                     x="200"
                     y="150"
                     :scale="300 / 850"
-                    :align="['center', 'center']"
                     >
                 </easel-bitmap>
                 <easel-container
@@ -184,6 +183,7 @@
                         @click="clickedGary"
                         :flip="gary.flip"
                         :scale="gary.scale"
+                        :align="['center','bottom']"
                     >
                     </easel-sprite>
                     <easel-shape

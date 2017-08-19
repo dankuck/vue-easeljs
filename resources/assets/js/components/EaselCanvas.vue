@@ -23,10 +23,7 @@ export default {
     },
     watch: {
         antiAlias() {
-            this.context.imageSmoothingEnabled = this.antiAlias;
-            this.context.mozImageSmoothingEnabled = this.antiAlias;
-            this.context.webkitImageSmoothingEnabled = this.antiAlias;
-            this.context.msImageSmoothingEnabled = this.antiAlias;
+            this.updateAntiAlias();
         },
     },
     mounted() {
@@ -36,12 +33,17 @@ export default {
         EaselEventBinder.bindEvents(this, this.component);
         easeljs.Ticker.addEventListener("tick", (event) => this.component.update(event));
         if (typeof this.antiAlias !== 'undefined') {
+            this.updateAntiAlias();
+        }
+        this.addPendingChildren();
+    },
+    methods: {
+        updateAntiAlias() {
             this.context.imageSmoothingEnabled = this.antiAlias;
             this.context.mozImageSmoothingEnabled = this.antiAlias;
             this.context.webkitImageSmoothingEnabled = this.antiAlias;
             this.context.msImageSmoothingEnabled = this.antiAlias;
-        }
-        this.addPendingChildren();
+        },
     },
 };
 </script>

@@ -38,6 +38,10 @@ These plans are in motion:
 * The core code needs to be separated from the test code
 * The demo should be a separate branch, on ghpages
 
+These plans are merely dreams:
+
+* Allow constant value attributes to use percentage values, too
+
 There are no plans to implement these features:
 
 * Filters
