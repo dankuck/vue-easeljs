@@ -3,6 +3,7 @@ var elixir = require('laravel-elixir');
 
 elixir.ready(function () {
   elixir.webpack.mergeConfig({
+    devtool: 'source-map',
     // ensure we are using the version of Vue that supports templates
     resolve: {
       alias: {

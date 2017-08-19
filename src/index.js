@@ -9,6 +9,10 @@ function install(Vue) {
     Vue.component('easel-text', require('./components/EaselText.vue'));
 };
 
+if (typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue);
+}
+
 export default {
     install
 };
