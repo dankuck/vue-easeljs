@@ -287,19 +287,19 @@ describe('EaselDisplayObject', function () {
     });
 
     it('should be able to change the vAlign', function (done) {
-        vm.vAlign = 'center';
+        vm.vAlign = 'bottom';
         Vue.nextTick()
             .then(mochaX(() => {
-                assert(sprite.component.regY === 16, 'Wrong regY in: ' + sprite.component.regY);
+                assert(sprite.component.regY === 32, 'Wrong regY in: ' + sprite.component.regY);
                 done();
             }));
     });
 
-    it('should default vAlign to bottom', function (done) {
+    it('should default vAlign to center', function (done) {
         vm.vAlign = '';
         Vue.nextTick()
             .then(mochaX(() => {
-                assert(sprite.component.regY === 32, 'Wrong default regY in: ' + sprite.component.regY);
+                assert(sprite.component.regY === 16, 'Wrong default regY in: ' + sprite.component.regY);
                 done();
             }));
     });

@@ -29,12 +29,12 @@ And all of these support the attributes:
 * scale: number
 * alpha: number
 * shadow: array
+* align: array
 
 # Pending
 
 These plans are in motion:
 
-* All items should have an alignment attribute
 * The core code needs to be separated from the test code
 * The demo should be a separate branch, on ghpages
 
