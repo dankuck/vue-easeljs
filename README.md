@@ -29,7 +29,7 @@ require('vue-easeljs');
 In your Vue.js code start with an `easel-canvas` component. Other components 
 reside within it.
 
-The earliest components are lowest in visibility when they overlap.
+The earliest components are hidden by later components whenever they overlap.
 
 ```
 <easel-canvas width="400" height="300">
