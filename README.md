@@ -54,7 +54,7 @@ Attributes:
 * align - array, controls what corner of the image the x and y refer to. Default: ['center', 'center'].
 * alpha - 0 to 1, controls the opacity of the image. Default: 1, completely opaque.
 * flip - 'horizontal'|'vertical'|'both'|'', flips the image.
-* image - relative or absolute path to an image file.
+* image - relative or absolute URL to an image file.
 * rotation - degrees, rotates the image. Default: 0.
 * scale - number, resizes the image. Default: 1.
 * shadow - array, cast an image-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
@@ -119,6 +119,7 @@ Example:
     </easel-bitmap>
     <easel-text 
         :text="Dan's Left Shoe Emporium"
+        :font="20px Times New Roman"
         :x="0"
         :y="0"
     >
@@ -162,29 +163,143 @@ Example, to draw a blue triangle with yellow stroke:
 </easel-shape>
 ```
 
-... more to come
+## easel-sprite
 
-# Implemented
+Show moving images. An `easel-sprite` must reside in an `easel-sprite-sheet` node. The `easel-sprite-sheet` defines the animations that can be used by the `easel-sprite`.
 
-This library provides Vue.js component access to:
+Attributes:
+* align - array, controls what corner of the image the x and y refer to. Default: ['center', 'center'].
+* alpha - 0 to 1, controls the opacity of the image. Default: 1, completely opaque.
+* animation - string, name of the animation to run from the `easel-sprite-sheet`.
+* flip - 'horizontal'|'vertical'|'both'|'', flips the image.
+* rotation - degrees, rotates the image. Default: 0.
+* scale - number, resizes the image. Default: 1.
+* shadow - array, cast an image-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
+* x - number, horizontal position based on the origin of the parent component. Required.
+* y - number, vertical position based on the origin of the parent component. Required.
 
-* Canvas
-* Container
-* Shape
-* Sprite
-* Bitmap
-* Text
+Example:
 
-And all of these support the attributes:
+See the `easel-sprite-sheet` example below.
 
-* x: number
-* y: number
-* flip: horizontal, vertical, or both
-* rotation: number of degrees
-* scale: number
-* alpha: number
-* shadow: array
-* align: array
+## easel-sprite-sheet
+
+Define image animations for use in a sprite.
+
+Attributes:
+* animations - object, defines names for animations. Each animation is a series of frames. Format: {&lt;animationName>: [frame1, frame2, ...], ...}.
+* framerate - number, the speed the animation should play at.
+* frames - mixed, usually an object with format: {width: width, height: height}.
+* images - array, relative or absolute URL's to image files
+
+In-depth:
+
+EaselJS provides a lot of options for defining sprite sheets, to allow you to
+format the images in whatever way suits you.
+
+A sprite sheet is a single image with a set of images on it that will be used 
+in rotation to show an animation.
+
+The friendliest approach is to layout the images in a grid. For example, if 
+a character required 32x32 pixels to show, a sprite sheet might have 10 
+images of the character in a 320x32 pixel image. (Or a 32x320 image. Or a 
+160x64 image. EaselJS will figure it out.)
+
+In that case the following definition will do nicely:
+
+```
+<easel-sprite-sheet
+    :images="['/images/character.png']"
+    :frames="{width:32,height:32}"
+    ...
+>
+```
+
+But sometimes frames have space between them, margins around them, or they 
+originate at a point other than 0,0. In these cases, you'll need to specify 
+more information.
+
+In this example, there is space and margin between the frames, and the sprites
+originate at 100,100.
+
+```
+<easel-sprite-sheet
+    :images="['/images/lots-of-characters.png']"
+    :frames="{width:32,height:32,spacing:5,margin:10,regX:100,regY:100}"
+    ...
+>
+```
+
+Still other times, the frames are different sizes or are on different images.
+
+In that case, this format will be required:
+
+```
+<easel-sprite-sheet
+    :images="['/images/thomasChugging.png','/images/thomasBraking.png']"
+    :frames="[
+        // x, y, width, height, imageIndex, regX, regY
+        [0, 0, 64, 32, 0],
+        [0, 32, 64, 32, 0],
+        ...
+    ]"
+    ...
+>
+```
+
+Example:
+
+```
+<easel-sprite-sheet
+    :images="['/images/rapunzel.jpg']"
+    :frames="{width:32,height:64}"
+    :animations="{
+        stand: [0],
+        walk: [1, 2, 3],
+        run: [4, 5, 6],
+    }"
+    :framerate="30"
+>
+    <easel-sprite
+        :x="100"
+        :y="100"
+        :align="['center','bottom']"
+        :animation="run"
+    >
+    </easel-sprite>
+>
+</easel-sprite-sheet>
+```
+
+## easel-text
+
+Show static images.
+
+Attributes:
+* align - array, controls what corner of the text the x and y refer to. Default: ['center', 'center'].
+* alpha - 0 to 1, controls the opacity of the text. Default: 1, completely opaque.
+* color - color, the color to use for the text.
+* flip - 'horizontal'|'vertical'|'both'|'', flips the text.
+* font - string, size and family of the font. Format: "Npx family".
+* rotation - degrees, rotates the text. Default: 0.
+* scale - number, resizes the text. Default: 1.
+* shadow - array, cast a text-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
+* text - string, the text to display.
+* x - number, horizontal position based on the origin of the parent component. Required.
+* y - number, vertical position based on the origin of the parent component. Required.
+
+Example:
+
+```
+<easel-text
+    :text="The Ran In Span Falls Manly On The Plan"
+    :x="0"
+    :y="0"
+    :font="20px Arial"
+    :color="red"
+>
+</easel-text>
+```
 
 # Pending
 
@@ -196,6 +311,8 @@ These plans are merely dreams:
 
 * Allow constant value attributes to use percentage values, too
 * Caching shapes
+* Pre-load images
+* Masks
 
 There are no plans to implement these features:
 
