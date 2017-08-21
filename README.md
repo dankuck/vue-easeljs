@@ -309,7 +309,7 @@ These plans are in motion:
 
 These plans are merely dreams:
 
-* Allow constant value attributes to use percentage values, too
+* Percentages as values
 * Caching shapes
 * Pre-load images
 * Masks
