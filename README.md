@@ -51,7 +51,7 @@ The earliest components are hidden by later components whenever they overlap.
 Show a static image.
 
 Attributes:
-* align - array, controls what corner of the image the x and y refer to. Default: ['center', 'center'].
+* align - array, controls what point of the image the x and y refer to. Default: ['center', 'center'].
 * alpha - 0 to 1, controls the opacity of the image. Default: 1, completely opaque.
 * flip - 'horizontal'|'vertical'|'both'|'', flips the image.
 * image - relative or absolute URL to an image file.
@@ -132,6 +132,7 @@ Example:
 Show a shape.
 
 Attributes:
+* align - array, controls what point of the shape the x and y refer to. Default: ['center', 'center'].
 * alpha - 0 to 1, controls the opacity of the shape. Default: 1, completely opaque.
 * dimensions - Depends on the form. See below.
 * fill - color, the inside of the shape
@@ -168,7 +169,7 @@ Example, to draw a blue triangle with yellow stroke:
 Show moving images. An `easel-sprite` must reside in an `easel-sprite-sheet` node. The `easel-sprite-sheet` defines the animations that can be used by the `easel-sprite`.
 
 Attributes:
-* align - array, controls what corner of the image the x and y refer to. Default: ['center', 'center'].
+* align - array, controls what point of the image the x and y refer to. Default: ['center', 'center'].
 * alpha - 0 to 1, controls the opacity of the image. Default: 1, completely opaque.
 * animation - string, name of the animation to run from the `easel-sprite-sheet`.
 * flip - 'horizontal'|'vertical'|'both'|'', flips the image.
@@ -276,7 +277,7 @@ Example:
 Show static images.
 
 Attributes:
-* align - array, controls what corner of the text the x and y refer to. Default: ['center', 'center'].
+* align - array, controls what point of the text the x and y refer to. Default: ['center', 'alphabetical'].
 * alpha - 0 to 1, controls the opacity of the text. Default: 1, completely opaque.
 * color - color, the color to use for the text.
 * flip - 'horizontal'|'vertical'|'both'|'', flips the text.
@@ -287,6 +288,10 @@ Attributes:
 * text - string, the text to display.
 * x - number, horizontal position based on the origin of the parent component. Required.
 * y - number, vertical position based on the origin of the parent component. Required.
+
+Alignment:
+
+This is the only component that doesn't default alignment to center,center. This one defaults to center,alphabetical. The x value is the center of the text, and the y value is the bottom of an uppercase character. The values top and bottom are still available and work the same way as with other components.
 
 Example:
 
