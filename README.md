@@ -26,8 +26,10 @@ In app.js:
 require('vue-easeljs');
 ```
 
-In your Vue.js code all vue-easeljs components need to reside in an `easel-canvas` 
-component.
+In your Vue.js code start with an `easel-canvas` component. Other components 
+reside within it.
+
+The earliest components are lowest in visibility when they overlap.
 
 ```
 <easel-canvas width="400" height="300">
