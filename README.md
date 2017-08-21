@@ -301,7 +301,7 @@ Example:
 
 ## easel-text
 
-Show static images.
+Show some text.
 
 Attributes:
 * align - array, controls what point of the text the x and y refer to. Default: ['center', 'alphabetical'].
