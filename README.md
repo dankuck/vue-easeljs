@@ -305,7 +305,7 @@ Example:
 
 These plans are in motion:
 
-* The demo should be a separate branch, on ghpages
+* Build a demo on github.io
 
 These plans are merely dreams:
 
@@ -313,6 +313,8 @@ These plans are merely dreams:
 * Caching shapes
 * Pre-load images
 * Masks
+* Mouse cursors
+* Hit areas
 
 There are no plans to implement these features:
 
