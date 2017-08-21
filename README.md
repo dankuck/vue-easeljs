@@ -48,7 +48,7 @@ The earliest components are hidden by later components whenever they overlap.
 
 ## easel-bitmap
 
-Show static images.
+Show a static image.
 
 Attributes:
 * align - array, controls what corner of the image the x and y refer to. Default: ['center', 'center'].
@@ -65,7 +65,7 @@ Example:
 
 ```
 <easel-bitmap
-    :image="/images/awesome-background.jpg"
+    image="/images/awesome-background.jpg"
     :x="0"
     :y="0"
 >
@@ -86,7 +86,7 @@ Example:
 ```
 <easel-canvas>
     <easel-text 
-        :text="This is so easy!"
+        text="This is so easy!"
         :x="10"
         :y="10"
     >
@@ -114,12 +114,12 @@ Example:
     <easel-bitmap
         :x="0"
         :y="0"
-        :image="/images/wooden-sign-texture.png"
+        image="/images/wooden-sign-texture.png"
     >
     </easel-bitmap>
     <easel-text 
-        :text="Dan's Left Shoe Emporium"
-        :font="20px Times New Roman"
+        text="Dan's Left Shoe Emporium"
+        font="20px Times New Roman"
         :x="0"
         :y="0"
     >
@@ -230,7 +230,7 @@ originate at 100,100.
 >
 ```
 
-Still other times, the frames are different sizes or are on different images.
+Other times, the frames are different sizes or are on different images.
 
 In that case, this format will be required:
 
@@ -264,7 +264,7 @@ Example:
         :x="100"
         :y="100"
         :align="['center','bottom']"
-        :animation="run"
+        animation="run"
     >
     </easel-sprite>
 >
@@ -292,11 +292,11 @@ Example:
 
 ```
 <easel-text
-    :text="The Ran In Span Falls Manly On The Plan"
+    text="The Ran In Span Falls Manly On The Plan"
     :x="0"
     :y="0"
-    :font="20px Arial"
-    :color="red"
+    font="20px Arial"
+    color="red"
 >
 </easel-text>
 ```
