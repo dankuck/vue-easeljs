@@ -54,7 +54,7 @@ Attributes:
 * align - array, controls what point of the image the x and y refer to. Default: ['center', 'center'].
 * alpha - 0 to 1, controls the opacity of the image. Default: 1, completely opaque.
 * flip - 'horizontal'|'vertical'|'both'|'', flips the image.
-* image - relative or absolute URL to an image file.
+* image - relative or absolute URL to an image file. Required.
 * rotation - degrees, rotates the image. Default: 0.
 * scale - number, resizes the image. Default: 1.
 * shadow - array, cast an image-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
@@ -134,10 +134,10 @@ Show a shape.
 Attributes:
 * align - array, controls what point of the shape the x and y refer to. Default: ['center', 'center'].
 * alpha - 0 to 1, controls the opacity of the shape. Default: 1, completely opaque.
-* dimensions - Depends on the form. See below.
+* dimensions - Depends on the form. See below. Required.
 * fill - color, the inside of the shape
 * flip - 'horizontal'|'vertical'|'both'|'', flips the shape.
-* form - 'circle'|'ellipse'|'rect'|'star'
+* form - 'circle'|'ellipse'|'rect'|'star'. Required.
 * rotation - degrees, rotates the shape. Default: 0.
 * scale - number, resizes the shape. Default: 1.
 * shadow - array, cast a same-shape shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
@@ -166,12 +166,12 @@ Example, to draw a blue triangle with yellow stroke:
 
 ## easel-sprite
 
-Show moving images. An `easel-sprite` must reside in an `easel-sprite-sheet` node. The `easel-sprite-sheet` defines the animations that can be used by the `easel-sprite`.
+Show a moving image. An `easel-sprite` must reside in an `easel-sprite-sheet` node. The `easel-sprite-sheet` defines the animations that can be used by the `easel-sprite`.
 
 Attributes:
 * align - array, controls what point of the image the x and y refer to. Default: ['center', 'center'].
 * alpha - 0 to 1, controls the opacity of the image. Default: 1, completely opaque.
-* animation - string, name of the animation to run from the `easel-sprite-sheet`.
+* animation - string, name of the animation to run from the `easel-sprite-sheet`. Required.
 * flip - 'horizontal'|'vertical'|'both'|'', flips the image.
 * rotation - degrees, rotates the image. Default: 0.
 * scale - number, resizes the image. Default: 1.
@@ -190,8 +190,8 @@ Define image animations for use in a sprite.
 Attributes:
 * animations - object, defines names for animations. Each animation is a series of frames. Format: {&lt;animationName>: [frame1, frame2, ...], ...}.
 * framerate - number, the speed the animation should play at.
-* frames - mixed, usually an object with format: {width: width, height: height}.
-* images - array, relative or absolute URL's to image files
+* frames - mixed, usually an object with format: {width: width, height: height}. Required.
+* images - array, relative or absolute URL's to image files. Required.
 
 In-depth:
 
@@ -202,7 +202,7 @@ A sprite sheet is a single image with a set of images on it that will be used
 in rotation to show an animation.
 
 The friendliest approach is to layout the images in a grid. For example, if 
-a character required 32x32 pixels to show, a sprite sheet might have 10 
+a character requires 32x32 pixels to show, a sprite sheet might have 10 
 images of the character in a 320x32 pixel image. (Or a 32x320 image. Or a 
 160x64 image. EaselJS will figure it out.)
 
@@ -248,6 +248,31 @@ In that case, this format will be required:
 >
 ```
 
+Animations give names to a series of frames. The name is used in the 
+`easel-sprite` component to determine what to show.
+
+The value of an animation is a number, array, or object.
+
+If the animation is just one frame, a number is appropriate.
+
+If the animation is multiple frames laid out in order in the sprite sheet, 
+then the array short form can be used. The first two values are the start and 
+end of the animation. The third value is an optional next animation to begin 
+when this one is done. The fourth is speed.
+
+If the animation uses frames that are not in order, use an object with the 
+field `frames` and the optional `next` and `speed`.
+
+```
+animations: {
+    stand: 0,
+    run: [1, 4, "stand"],
+    fall: {
+        frames: [5, 1, 0, 2],
+    },
+}
+```
+
 Example:
 
 ```
@@ -255,9 +280,11 @@ Example:
     :images="['/images/rapunzel.jpg']"
     :frames="{width:32,height:64}"
     :animations="{
-        stand: [0],
-        walk: [1, 2, 3],
-        run: [4, 5, 6],
+        stand: 0,
+        run: [1, 4, "stand"],
+        fall: {
+            frames: [5, 1, 0, 2],
+        },
     }"
     :framerate="30"
 >
@@ -306,6 +333,37 @@ Example:
 </easel-text>
 ```
 
+# Events
+
+All visible components emit Vue.js events with an event object.
+
+* added - Fired when the component is added to its parent.
+* animationend - (easel-sprite only) - Fired when an animation completes.
+* change - (easel-sprite only) - Fired when an animation changes.
+* click - Fired when the component is clicked or tapped.
+* dblclick - Fired when the component is double-clicked or tapped.
+* mousedown - Fired when the component is clicked down.
+* mouseout - Fired when the mouse leaves a component's hit area.
+* mouseover - Fired when the mouse enters a component's hit area.
+* pressmove - Fired when the component is dragged.
+* pressup - Fired when the component is unclicked.
+* removed - Fired when the component is removed from its parent.
+* rollout - Fired when the mouse leaves a component's hit area.
+* rollover - Fired when the mouse enters a comopnent's hit area.
+* tick - Fired many times a second to keep the components in sync. Using this event can impact performance.
+
+These events will be made available in the future.
+
+ * drawend
+ * drawstart
+ * mouseenter
+ * mouseleave
+ * stagemousedown
+ * stagemousemove
+ * stagemouseup
+ * tickend
+ * tickstart
+
 # Pending
 
 These plans are in motion:
@@ -314,7 +372,7 @@ These plans are in motion:
 
 These plans are merely dreams:
 
-* Percentages as values
+* Percentages
 * Caching shapes
 * Pre-load images
 * Masks
