@@ -1,5 +1,5 @@
+window.Vue = require('vue');
 require('vue-easeljs');
-
 
 var app = new Vue({
     el: '#app',
@@ -18,6 +18,7 @@ var app = new Vue({
             log: console.log,
             showLabels: true,
             r: 90,
+            tab: 'gary',
         };
     },
     mounted() {
