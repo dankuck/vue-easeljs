@@ -22,6 +22,7 @@ var html =
         text="This is so easy!"
         :x="10"
         :y="10"
+        :align="['left', 'alphabetical']"
     >
     </easel-text>
 </easel-canvas>`;
