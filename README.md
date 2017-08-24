@@ -105,15 +105,18 @@ Attributes:
 * alpha - 0 to 1, controls the opacity of the container. Default: 1, completely opaque.
 * flip - 'horizontal'|'vertical'|'both'|'', flips the container.
 * rotation - degrees, rotates the container. Default: 0.
-* scale - number, resizes the container. Default: 1.
 * shadow - array, cast a shadow of all contained components. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
 * x - number, horizontal position based on the origin of the parent component. Required.
 * y - number, vertical position based on the origin of the parent component. Required.
 
+Note: scale is not available.
+
 Example:
 
 ```
-<easel-container>
+<easel-container
+    :flip="horizontal"
+>
     <easel-bitmap
         :x="0"
         :y="0"
