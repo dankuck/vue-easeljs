@@ -38,6 +38,7 @@ The earliest components are hidden by later components whenever they overlap.
         :y="150"
         form="circle"
         fill="blue"
+        :dimensions="20"
         :align="['center','center']"
     >
     </easel-shape>
@@ -68,6 +69,7 @@ Example:
     image="/images/awesome-background.jpg"
     :x="0"
     :y="0"
+    :align="['left','top']"
 >
 </easel-bitmap>
 ```
@@ -89,6 +91,7 @@ Example:
         text="This is so easy!"
         :x="10"
         :y="10"
+        :align="['left', 'alphabetical']"
     >
     </easel-text>
 </easel-canvas>
