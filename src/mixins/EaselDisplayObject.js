@@ -22,12 +22,12 @@ module.exports = {
     watch: {
         x() {
             if (this.component) {
-                this.component.x = this.x;
+                this.component.x = this.x || 0;
             }
         },
         y() {
             if (this.component) {
-                this.component.y = this.y;
+                this.component.y = this.y || 0;
             }
         },
         flip() {
@@ -70,8 +70,8 @@ module.exports = {
     methods: {
         displayObjectInit() {
             EaselEventBinder.bindEvents(this, this.component);
-            this.component.x = this.x;
-            this.component.y = this.y;
+            this.component.x = this.x || 0;
+            this.component.y = this.y || 0;
             this.component.rotation = this.rotation;
             this.updateScales();
             this.updateAlpha();

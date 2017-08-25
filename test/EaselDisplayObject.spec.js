@@ -303,4 +303,15 @@ describe('EaselDisplayObject', function () {
                 done();
             }));
     });
+
+    it('should default to x=0,y=0', function (done) {
+        vm.x = undefined;
+        vm.y = undefined;
+        Vue.nextTick()
+            .then(() => {
+                assert(sprite.component.x === 0, 'Wrong default x in: ' + sprite.component.x);
+                assert(sprite.component.y === 0, 'Wrong default y in: ' + sprite.component.y);
+            })
+            .then(done, done);
+    });
 });
