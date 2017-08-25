@@ -86,11 +86,19 @@ Attributes:
 Example:
 
 ```
-<easel-canvas>
+<easel-canvas width="500" height="100">
+    <easel-shape
+        form="rect"
+        :dimensions="[500,100]"
+        :x="250"
+        :y="50"
+        fill="#CCCCFF"
+    >
+    </easel-shape>
     <easel-text 
         text="This is so easy!"
-        :x="10"
-        :y="10"
+        :x="250"
+        :y="50"
         :align="['left', 'alphabetical']"
     >
     </easel-text>
