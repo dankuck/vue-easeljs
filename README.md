@@ -164,17 +164,16 @@ Dimensions for:
 * rect - array, the width and height of the rectangle. Optionally include the radius of rounded corners. Format: [width, height], or [width, height, allRadiuses], or [width, height, topLeftRadius, topRightRadius, bottomRightRadius, bottomLeftRadius].
 * star - array, the radius, sides count, and point size of a "star". Use point size 0 to draw a simple polygon. Max point size is 1.
 
-Example, to draw a blue triangle with yellow stroke:
+Example, to draw a blue triangle with red stroke:
 ```
 <easel-shape
-    shape="star"
-    :dimensions="[10, 3, 0]"
+    form="star"
+    :dimensions="[100, 3, 0]"
     fill="blue"
-    stroke="yellow"
-    :x="10"
-    :y="10"
+    stroke="red"
+    :x="100"
+    :y="100"
 >
-</easel-shape>
 ```
 
 ## easel-sprite
@@ -290,22 +289,22 @@ Example:
 
 ```
 <easel-sprite-sheet
-    :images="['/images/rapunzel.jpg']"
-    :frames="{width:32,height:64}"
+    :images="['images/lastguardian-all.png']"
+    :frames="{width:32,height:32}"
     :animations="{
-        stand: 0,
-        run: [1, 4, "stand"],
-        fall: {
+        stand: 7,
+        walk: [6, 7],
+        walkAndStand: [6, 7, 'stand'],
+        confusion: {
             frames: [5, 1, 0, 2],
         },
     }"
-    :framerate="30"
+    :framerate="4"
 >
     <easel-sprite
-        :x="100"
-        :y="100"
-        :align="['center','bottom']"
-        animation="run"
+        :x="32"
+        :y="32"
+        animation="walkAndStand"
     >
     </easel-sprite>
 >
@@ -338,8 +337,8 @@ Example:
 ```
 <easel-text
     text="The Ran In Span Falls Manly On The Plan"
-    :x="0"
-    :y="0"
+    :x="250"
+    :y="32"
     font="20px Arial"
     color="red"
 >
