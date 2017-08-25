@@ -228,17 +228,15 @@ In that case the following definition will do nicely:
 >
 ```
 
-But sometimes frames have space between them, margins around them, or they 
-originate at a point other than 0,0. In these cases, you'll need to specify 
-more information.
+But sometimes frames have space between them or margins around them. In these 
+cases, you'll need to specify more information.
 
-In this example, there is space and margin between the frames, and the sprites
-originate at 100,100.
+In this example, there is space and margin between the frames.
 
 ```
 <easel-sprite-sheet
     :images="['/images/lots-of-characters.png']"
-    :frames="{width:32,height:32,spacing:5,margin:10,regX:100,regY:100}"
+    :frames="{width:32,height:32,spacing:5,margin:10}"
     ...
 >
 ```
@@ -251,7 +249,7 @@ In that case, this format will be required:
 <easel-sprite-sheet
     :images="['/images/thomasChugging.png','/images/thomasBraking.png']"
     :frames="[
-        // x, y, width, height, imageIndex, regX, regY
+        // x, y, width, height, imageIndex
         [0, 0, 64, 32, 0],
         [0, 32, 64, 32, 0],
         ...
