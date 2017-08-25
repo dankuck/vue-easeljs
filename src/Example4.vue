@@ -4,20 +4,19 @@
 
         <easel-canvas width="500" height="100">
             <easel-container
-                :flip="horizontal"
-                :shadow="['white',0,0,7]"
+                flip="horizontal"
+                scale=".5"
+                :x="250"
+                :y="50"
             >
                 <easel-bitmap
-                    :x="250"
-                    :y="50"
                     image="/images/wooden-sign-texture.png"
                 >
                 </easel-bitmap>
                 <easel-text 
                     text="Dan's Left Shoe Emporium"
                     font="50px 'Times New Roman'"
-                    :x="250"
-                    :y="75"
+                    :y="25"
                 >
                 </easel-text>
             </easel-container>
@@ -28,25 +27,23 @@
 <script>
 
 var html = 
-`<easel-canvas width="500" height="100">
-    <easel-shape
-        form="rect"
-        :dimensions="[500,100]"
-        :x="250"
-        :y="50"
-        fill="#CCCCFF"
+`<easel-container
+    flip="horizontal"
+    scale=".5"
+    :x="250"
+    :y="50"
+>
+    <easel-bitmap
+        image="/images/wooden-sign-texture.png"
     >
-    </easel-shape>
+    </easel-bitmap>
     <easel-text 
-        text="This is so easy!"
-        :x="250"
-        :y="75"
-        font="70px Calibri"
-        color="white"
-        :shadow="['#000088',3,2,3]"
+        text="Dan's Left Shoe Emporium"
+        font="50px 'Times New Roman'"
+        :y="25"
     >
     </easel-text>
-</easel-canvas>`;
+</easel-container>`;
 
 export default {
     data() {
