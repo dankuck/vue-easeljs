@@ -59,8 +59,8 @@ Attributes:
 * rotation - degrees, rotates the image. Default: 0.
 * scale - number, resizes the image. Default: 1.
 * shadow - array, cast an image-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
-* x - number, horizontal position based on the origin of the parent component. Required.
-* y - number, vertical position based on the origin of the parent component. Required.
+* x - number, horizontal position based on the origin of the parent component. Default: 0.
+* y - number, vertical position based on the origin of the parent component. Default: 0.
 
 Example:
 
@@ -113,11 +113,10 @@ Attributes:
 * alpha - 0 to 1, controls the opacity of the container. Default: 1, completely opaque.
 * flip - 'horizontal'|'vertical'|'both'|'', flips the container.
 * rotation - degrees, rotates the container. Default: 0.
+* scale - number, resizes the container. Default: 1.
 * shadow - array, cast a shadow of all contained components. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
-* x - number, horizontal position based on the origin of the parent component. Required.
-* y - number, vertical position based on the origin of the parent component. Required.
-
-Note: scale is not available.
+* x - number, horizontal position based on the origin of the parent component. Default: 0.
+* y - number, vertical position based on the origin of the parent component. Default: 0.
 
 Example:
 
@@ -156,8 +155,8 @@ Attributes:
 * scale - number, resizes the shape. Default: 1.
 * shadow - array, cast a same-shape shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
 * stroke - color, the outline of the shape.
-* x - number, horizontal position based on the origin of the parent component. Required.
-* y - number, vertical position based on the origin of the parent component. Required.
+* x - number, horizontal position based on the origin of the parent component. Default: 0.
+* y - number, vertical position based on the origin of the parent component. Default: 0.
 
 Dimensions for:
 * circle - number, the radius of the circle
@@ -190,8 +189,8 @@ Attributes:
 * rotation - degrees, rotates the image. Default: 0.
 * scale - number, resizes the image. Default: 1.
 * shadow - array, cast an image-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
-* x - number, horizontal position based on the origin of the parent component. Required.
-* y - number, vertical position based on the origin of the parent component. Required.
+* x - number, horizontal position based on the origin of the parent component. Default: 0.
+* y - number, vertical position based on the origin of the parent component. Default: 0.
 
 Example:
 
@@ -327,8 +326,8 @@ Attributes:
 * scale - number, resizes the text. Default: 1.
 * shadow - array, cast a text-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
 * text - string, the text to display.
-* x - number, horizontal position based on the origin of the parent component. Required.
-* y - number, vertical position based on the origin of the parent component. Required.
+* x - number, horizontal position based on the origin of the parent component. Default: 0.
+* y - number, vertical position based on the origin of the parent component. Default: 0.
 
 Alignment:
 
