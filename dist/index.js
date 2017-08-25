@@ -17190,7 +17190,7 @@ module.exports = createjs;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(7)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(5)(module)))
 
 /***/ },
 /* 2 */
@@ -17250,7 +17250,7 @@ module.exports = function normalizeComponent (
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EaselEventBinder_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EaselEventBinder_js__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EaselEventBinder_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EaselEventBinder_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__easel_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__easel_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__easel_js__);
@@ -17278,12 +17278,12 @@ module.exports = {
     watch: {
         x: function x() {
             if (this.component) {
-                this.component.x = this.x;
+                this.component.x = this.x || 0;
             }
         },
         y: function y() {
             if (this.component) {
-                this.component.y = this.y;
+                this.component.y = this.y || 0;
             }
         },
         flip: function flip() {
@@ -17326,8 +17326,8 @@ module.exports = {
     methods: {
         displayObjectInit: function displayObjectInit() {
             __WEBPACK_IMPORTED_MODULE_0__EaselEventBinder_js___default.a.bindEvents(this, this.component);
-            this.component.x = this.x;
-            this.component.y = this.y;
+            this.component.x = this.x || 0;
+            this.component.y = this.y || 0;
             this.component.rotation = this.rotation;
             this.updateScales();
             this.updateAlpha();
@@ -17389,6 +17389,57 @@ module.exports = {
 
 /***/ },
 /* 4 */
+/***/ function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() { return this; })();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+module.exports = function(module) {
+	if(!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			configurable: false,
+			get: function() { return module.l; }
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			configurable: false,
+			get: function() { return module.i; }
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+}
+
+
+/***/ },
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17434,7 +17485,7 @@ module.exports = {
 
 
 /***/ },
-/* 5 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17497,57 +17548,6 @@ module.exports = {
 
 
 /***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() { return this; })();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-module.exports = function(module) {
-	if(!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if(!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			configurable: false,
-			get: function() { return module.l; }
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			configurable: false,
-			get: function() { return module.i; }
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-}
-
-
-/***/ },
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -17561,7 +17561,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "/home/dkuck/work/vue-easeljs/public/src/components/EaselBitmap.vue"
+Component.options.__file = "/home/dkuck/work/vue-easeljs-demo/public/node_modules/vue-easeljs/src/components/EaselBitmap.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -17571,9 +17571,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4cb7e147", Component.options)
+    hotAPI.createRecord("data-v-744c5688", Component.options)
   } else {
-    hotAPI.reload("data-v-4cb7e147", Component.options)
+    hotAPI.reload("data-v-744c5688", Component.options)
   }
 })()}
 
@@ -17588,13 +17588,13 @@ var Component = __webpack_require__(2)(
   /* script */
   __webpack_require__(16),
   /* template */
-  __webpack_require__(27),
+  __webpack_require__(29),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/dkuck/work/vue-easeljs/public/src/components/EaselCanvas.vue"
+Component.options.__file = "/home/dkuck/work/vue-easeljs-demo/public/node_modules/vue-easeljs/src/components/EaselCanvas.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] EaselCanvas.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -17605,9 +17605,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0bd928f0", Component.options)
+    hotAPI.createRecord("data-v-f609c736", Component.options)
   } else {
-    hotAPI.reload("data-v-0bd928f0", Component.options)
+    hotAPI.reload("data-v-f609c736", Component.options)
   }
 })()}
 
@@ -17628,7 +17628,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "/home/dkuck/work/vue-easeljs/public/src/components/EaselContainer.vue"
+Component.options.__file = "/home/dkuck/work/vue-easeljs-demo/public/node_modules/vue-easeljs/src/components/EaselContainer.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] EaselContainer.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -17639,9 +17639,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5cc64999", Component.options)
+    hotAPI.createRecord("data-v-9a9eb3f8", Component.options)
   } else {
-    hotAPI.reload("data-v-5cc64999", Component.options)
+    hotAPI.reload("data-v-9a9eb3f8", Component.options)
   }
 })()}
 
@@ -17662,7 +17662,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "/home/dkuck/work/vue-easeljs/public/src/components/EaselShape.vue"
+Component.options.__file = "/home/dkuck/work/vue-easeljs-demo/public/node_modules/vue-easeljs/src/components/EaselShape.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -17672,9 +17672,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f9f5868e", Component.options)
+    hotAPI.createRecord("data-v-02cc86a4", Component.options)
   } else {
-    hotAPI.reload("data-v-f9f5868e", Component.options)
+    hotAPI.reload("data-v-02cc86a4", Component.options)
   }
 })()}
 
@@ -17695,7 +17695,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "/home/dkuck/work/vue-easeljs/public/src/components/EaselSprite.vue"
+Component.options.__file = "/home/dkuck/work/vue-easeljs-demo/public/node_modules/vue-easeljs/src/components/EaselSprite.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -17705,9 +17705,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0fed37dd", Component.options)
+    hotAPI.createRecord("data-v-ede1a95c", Component.options)
   } else {
-    hotAPI.reload("data-v-0fed37dd", Component.options)
+    hotAPI.reload("data-v-ede1a95c", Component.options)
   }
 })()}
 
@@ -17722,13 +17722,13 @@ var Component = __webpack_require__(2)(
   /* script */
   __webpack_require__(20),
   /* template */
-  __webpack_require__(29),
+  __webpack_require__(27),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/dkuck/work/vue-easeljs/public/src/components/EaselSpriteSheet.vue"
+Component.options.__file = "/home/dkuck/work/vue-easeljs-demo/public/node_modules/vue-easeljs/src/components/EaselSpriteSheet.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] EaselSpriteSheet.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -17739,9 +17739,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-b0f5339c", Component.options)
+    hotAPI.createRecord("data-v-2c4a53dd", Component.options)
   } else {
-    hotAPI.reload("data-v-b0f5339c", Component.options)
+    hotAPI.reload("data-v-2c4a53dd", Component.options)
   }
 })()}
 
@@ -17762,7 +17762,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "/home/dkuck/work/vue-easeljs/public/src/components/EaselText.vue"
+Component.options.__file = "/home/dkuck/work/vue-easeljs-demo/public/node_modules/vue-easeljs/src/components/EaselText.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -17772,9 +17772,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-26f37376", Component.options)
+    hotAPI.createRecord("data-v-7d0892fa", Component.options)
   } else {
-    hotAPI.reload("data-v-26f37376", Component.options)
+    hotAPI.reload("data-v-7d0892fa", Component.options)
   }
 })()}
 
@@ -17848,11 +17848,11 @@ module.exports = Component.exports
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EaselEventBinder_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EaselEventBinder_js__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EaselEventBinder_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EaselEventBinder_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__easel_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__easel_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__easel_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_EaselParent_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_EaselParent_js__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_EaselParent_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__mixins_EaselParent_js__);
 //
 //
@@ -17917,7 +17917,7 @@ module.exports = Component.exports
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_EaselDisplayObject_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__mixins_EaselDisplayObject_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_EaselParent_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_EaselParent_js__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_EaselParent_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__mixins_EaselParent_js__);
 //
 //
@@ -39026,7 +39026,7 @@ window.createjs = window.createjs || {};
 
 }());
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module), __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)(module), __webpack_require__(4)))
 
 /***/ },
 /* 25 */
@@ -50455,15 +50455,13 @@ window.createjs = window.createjs || {};
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('canvas', {
-    ref: "easel"
-  }, [_vm._t("default")], 2)
+  return _c('span', [_vm._t("default")], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-0bd928f0", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-2c4a53dd", module.exports)
   }
 }
 
@@ -50478,7 +50476,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-5cc64999", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-9a9eb3f8", module.exports)
   }
 }
 
@@ -50487,13 +50485,15 @@ if (false) {
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', [_vm._t("default")], 2)
+  return _c('canvas', {
+    ref: "easel"
+  }, [_vm._t("default")], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-b0f5339c", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-f609c736", module.exports)
   }
 }
 
