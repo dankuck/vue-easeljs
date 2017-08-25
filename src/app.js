@@ -12,7 +12,7 @@ var app = new Vue({
     el: '#app',
     data() {
         return {
-            tab: 'readme',
+            tab: 'gary',
             examples: examples,
         };
     },

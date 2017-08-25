@@ -1,7 +1,8 @@
 <template>
     <div>
         <textarea v-model="code" style="width: 100%; height: 15em;"></textarea>
-
+        <br />
+        <br />
         <component v-if="is" :is="is"></component>
         
     </div>
