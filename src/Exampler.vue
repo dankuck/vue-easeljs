@@ -14,6 +14,7 @@ export default {
     data() {
         return {
             code: this.html,
+            name: 'dynamic-' + (new String(Math.random()).replace(/.*\./, '')),
             is: null,
         };
     },
@@ -36,8 +37,7 @@ export default {
             }, 1000);
         },
         refresh() {
-            var name = 'dynamic-' + (new String(Math.random()).replace(/.*\./, ''));
-            Vue.component(name, {
+            Vue.component(this.name, {
                 template: this.code,
                 data() {
                     return {
@@ -49,7 +49,10 @@ export default {
                     }
                 },
             });
-            this.is = name;
+            this.is = null;
+            Vue.nextTick(() => {
+                this.is = this.name;
+            });
         },
     },
 };
