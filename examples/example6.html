@@ -1,0 +1,23 @@
+<easel-canvas width="64" height="64">
+    <easel-sprite-sheet
+        :images="['images/lastguardian-all.png']"
+        :frames="{width:32,height:32}"
+        :animations="{
+            stand: 7,
+            walk: [6, 7],
+            walkAndStand: [6, 7, 'stand'],
+            confusion: {
+                frames: [5, 1, 0, 2],
+            },
+        }"
+        :framerate="4"
+    >
+        <easel-sprite
+            :x="32"
+            :y="32"
+            animation="walkAndStand"
+        >
+        </easel-sprite>
+    >
+    </easel-sprite-sheet>
+</easel-canvas>

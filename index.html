@@ -42,11 +42,8 @@
                             These are the examples used in the <a href="https://github.com/dankuck/vue-easeljs">vue-easeljs README.md</a> on Github.
                         </p>
 
-                        <div>
-                            <exampler :html="example1"></exampler>
-                            <exampler :html="example2"></exampler>
-                            <exampler :html="example3"></exampler>
-                            <exampler :html="example4"></exampler>
+                        <div v-for="html in examples">
+                            <exampler :html="html"></exampler>
                         </div>
                         
                     </div>

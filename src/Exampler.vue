@@ -38,6 +38,15 @@ export default {
             var name = 'dynamic-' + (new String(Math.random()).replace(/.*\./, ''));
             Vue.component(name, {
                 template: this.code,
+                data() {
+                    return {
+                        // make a few common tools available to editors
+                        console: console,
+                        alert: function() { window.alert.apply(window, arguments) },
+                        window: window,
+                        document: document,
+                    }
+                },
             });
             this.is = name;
         },
