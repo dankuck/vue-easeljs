@@ -122,19 +122,19 @@ Example:
 
 ```
 <easel-container
-    :flip="horizontal"
+    flip="horizontal"
+    scale=".5"
+    :x="250"
+    :y="50"
 >
     <easel-bitmap
-        :x="0"
-        :y="0"
         image="/images/wooden-sign-texture.png"
     >
     </easel-bitmap>
     <easel-text 
         text="Dan's Left Shoe Emporium"
-        font="20px Times New Roman"
-        :x="0"
-        :y="0"
+        font="50px 'Times New Roman'"
+        :y="25"
     >
     </easel-text>
 </easel-container>
