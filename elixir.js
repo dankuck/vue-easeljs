@@ -43,6 +43,10 @@ elixir.ready(function () {
             limit: 10000,
             name: '../fonts/[name].[hash:7].[ext]'
           }
+        },
+        {
+          test: /\.html$/,
+          loader: "html-loader"
         }
       ]
     }
