@@ -50509,24 +50509,17 @@ if (false) {
 /* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-"use strict";
 
-function install(Vue) {
-    Vue.component('easel-bitmap', __webpack_require__(8));
-    Vue.component('easel-canvas', __webpack_require__(9));
-    Vue.component('easel-container', __webpack_require__(10));
-    Vue.component('easel-shape', __webpack_require__(11));
-    Vue.component('easel-sprite', __webpack_require__(12));
-    Vue.component('easel-sprite-sheet', __webpack_require__(13));
-    Vue.component('easel-text', __webpack_require__(14));
-};
-
-if (typeof window !== 'undefined' && window.Vue) {
-    install(window.Vue);
-}
-
-/* harmony default export */ exports["default"] = {
-    install: install
+module.exports = {
+    install: function install(Vue) {
+        Vue.component('easel-bitmap', __webpack_require__(8));
+        Vue.component('easel-canvas', __webpack_require__(9));
+        Vue.component('easel-container', __webpack_require__(10));
+        Vue.component('easel-shape', __webpack_require__(11));
+        Vue.component('easel-sprite', __webpack_require__(12));
+        Vue.component('easel-sprite-sheet', __webpack_require__(13));
+        Vue.component('easel-text', __webpack_require__(14));
+    }
 };
 
 
