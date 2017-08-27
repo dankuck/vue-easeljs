@@ -5,7 +5,7 @@
             width="400" 
             height="300" 
             :anti-alias="false"
-            @click="clickedGary"
+            @click="clickedCanvas"
         >
             <easel-bitmap
                 image="/images/gulfstream_park.jpg"
@@ -38,7 +38,6 @@
                     :x="gary.x"
                     :y="gary.y"
                     :animation="gary.animation"
-                    @click="clickedGary"
                     :flip="gary.flip"
                     :scale="gary.scale"
                     :align="['center','bottom']"
@@ -82,7 +81,7 @@ export default {
         };
     },
     methods: {
-        clickedGary: function() {
+        clickedCanvas: function() {
             var gary = this.gary;
             var leftLimit = 100;
             var rightLimit = 300;

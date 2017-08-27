@@ -1,5 +1,5 @@
 window.Vue = require('vue');
-require('vue-easeljs');
+Vue.use(require('vue-easeljs'));
 
 Vue.component('gary', require('./Gary.vue'));
 Vue.component('exampler', require('./Exampler.vue'));
@@ -17,5 +17,3 @@ var app = new Vue({
         };
     },
 });
-
-Vue.app = app;
