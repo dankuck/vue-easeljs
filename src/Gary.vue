@@ -60,6 +60,7 @@
             </easel-text>
             <easel-shape
                 v-for="point in points"
+                v-if="showPoints"
                 form="circle"
                 dimensions="3"
                 stroke="black"
@@ -71,6 +72,7 @@
         </easel-canvas>
         <br />
         <input type="checkbox" v-model="showLabels"> Show Labels<br />
+        <input type="checkbox" v-model="showPoints"> Show Points<br />
         <input type="textarea" v-model="gary.scale"> Scale<br />
     </div>
 </template>
@@ -90,12 +92,13 @@ export default {
                 scale: 1,
             },
             points: [
-                [100, 100],
-                [100, 200],
-                [200, 200],
-                [200, 100],
+                [215,220],
+                [130,275],
+                [310,275],
+                [250,220]
             ],
             showLabels: true,
+            showPoints: false,
         };
     },
     methods: {
@@ -111,29 +114,37 @@ export default {
             if (!gary.target) {
                 gary.target = this.points[0];
             }
-            var garyGo = function () {
-                var diffX = gary.x - gary.target[0];
-                var diffY = gary.y - gary.target[1];
-                var distance = parseInt(Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2)));
+            var garyGo = () => {
+                var diffX = gary.target[0] - gary.x;
+                var diffY = gary.target[1] - gary.y;
+                var distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
                 if (distance < 5) {
-                    this.stopMoving();
+                    this.chooseNextTarget();
                     return;
                 }
-                var oneStep = distance - 1;
-                var percentage = oneStep / distance;
-                var moveX = parseInt(diffX * percentage), 
-                    moveY = parseInt(diffY * percentage);
-                console.log('move', [moveX, moveY]);
-                gary.x = moveX;
-                gary.y = moveY;
-                if (moveX < moveY) {
+                var moveX, moveY;
+                if (diffX === 0) {
+                    moveX = 0;
+                    moveY = diffY > 0 ? 1 : -1;
+                } else {
+                    var direction = Math.atan(diffY / diffX);
+                    moveY = Math.sin(direction) * 5;
+                    moveX = Math.cos(direction) * 5;
+                    if (diffX < 0) { // atan is for X>0, so we must reflect
+                        moveX *= -1;
+                        moveY *= -1;
+                    }
+                }
+                gary.x += moveX;
+                gary.y += moveY;
+                if (Math.abs(moveX) < Math.abs(moveY) * 2) {
                     var animation = moveY > 0 ? 'runDown' : 'runUp';
                     if (gary.animation != animation) {
                         gary.animation = animation;
                         gary.flip = '';
                     }
                 } else {
-                    var animation = 'run';
+                    var animation = 'runRight';
                     var flip = moveX > 0 ? '' : 'horizontal';
                     if (gary.animation != animation || gary.flip != flip) {
                         gary.animation = animation;
@@ -149,6 +160,11 @@ export default {
             gary.animation = 'stand';
             clearInterval(gary.moving);
             gary.moving = null;
+        },
+        chooseNextTarget() {
+            var i = this.points.indexOf(this.gary.target);
+            i = (i + 1) % this.points.length;
+            this.gary.target = this.points[i];
         },
     },
 };
