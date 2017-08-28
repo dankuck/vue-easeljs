@@ -19,8 +19,10 @@
                 :images="['images/lastguardian-all.png']"
                 :frames="{width:32, height:32}"
                 :animations="{
-                    stand: 32 * 6 + 16 + 5,
-                    run: [32 * 6 + 16 + 6, 32 * 6 + 16 + 7],
+                    stand: garyStart + 5,
+                    runRight: [garyStart + 6, garyStart + 7],
+                    runUp: [garyStart + 0, garyStart + 1],
+                    runDown: [garyStart + 2, garyStart + 3],
                 }"
                 :framerate="30"
             >
@@ -56,6 +58,16 @@
                 :align="['center', 'alphabetical']"
             >
             </easel-text>
+            <easel-shape
+                v-for="point in points"
+                form="circle"
+                dimensions="3"
+                stroke="black"
+                :fill="point === gary.target ? 'red' : ''"
+                :x="point[0]"
+                :y="point[1]"
+            >
+            </easel-shape>
         </easel-canvas>
         <br />
         <input type="checkbox" v-model="showLabels"> Show Labels<br />
@@ -67,51 +79,76 @@
 export default {
     data() {
         return {
+            garyStart: 32 * 6 + 16,
             gary: {
                 animation: 'stand',
                 x: 200,
                 y: 285,
                 flip: 'horizontal',
                 moving: null,
-                direction: -1,
+                target: null,
                 scale: 1,
             },
-            y: 25,
+            points: [
+                [100, 100],
+                [100, 200],
+                [200, 200],
+                [200, 100],
+            ],
             showLabels: true,
         };
     },
     methods: {
         clickedCanvas: function() {
-            var gary = this.gary;
-            var leftLimit = 100;
-            var rightLimit = 300;
-            if (!gary.moving) {
-                gary.animation = 'run';
-                var garyGo = function () {
-                    gary.x += gary.direction * 10;
-                    if (gary.x < leftLimit) {
-                        gary.direction = 1;
-                    } else if (gary.x > rightLimit) {
-                        gary.direction = -1;
-                    }
-                    if (gary.direction < 0) {
-                        gary.flip = "horizontal";
-                    } else {
-                        gary.flip = "";
-                    }
-                };
-                gary.moving = setInterval(garyGo, 100);
-                garyGo();
+            if (!this.gary.moving) {
+                this.startMoving();
             } else {
-                gary.animation = 'stand';
-                clearInterval(gary.moving);
-                gary.moving = null;
-                if (gary.direction < 0) {
-                    gary.flip = "";
-                } else {
-                    gary.flip = "horizontal";
-                }
+                this.stopMoving();
             }
+        },
+        startMoving() {
+            var gary = this.gary;
+            if (!gary.target) {
+                gary.target = this.points[0];
+            }
+            var garyGo = function () {
+                var diffX = gary.x - gary.target[0];
+                var diffY = gary.y - gary.target[1];
+                var distance = parseInt(Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2)));
+                if (distance < 5) {
+                    this.stopMoving();
+                    return;
+                }
+                var oneStep = distance - 1;
+                var percentage = oneStep / distance;
+                var moveX = parseInt(diffX * percentage), 
+                    moveY = parseInt(diffY * percentage);
+                console.log('move', [moveX, moveY]);
+                gary.x = moveX;
+                gary.y = moveY;
+                if (moveX < moveY) {
+                    var animation = moveY > 0 ? 'runDown' : 'runUp';
+                    if (gary.animation != animation) {
+                        gary.animation = animation;
+                        gary.flip = '';
+                    }
+                } else {
+                    var animation = 'run';
+                    var flip = moveX > 0 ? '' : 'horizontal';
+                    if (gary.animation != animation || gary.flip != flip) {
+                        gary.animation = animation;
+                        gary.flip = flip;
+                    }
+                }
+            };
+            gary.moving = setInterval(garyGo, 100);
+            garyGo();
+        },
+        stopMoving() {
+            var gary = this.gary;
+            gary.animation = 'stand';
+            clearInterval(gary.moving);
+            gary.moving = null;
         },
     },
 };
