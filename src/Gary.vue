@@ -8,7 +8,7 @@
             @click="clickedCanvas"
         >
             <easel-bitmap
-                image="/images/gulfstream_park.jpg"
+                image="images/gulfstream_park.jpg"
                 x="200"
                 y="150"
                 :scale="300 / 850"
