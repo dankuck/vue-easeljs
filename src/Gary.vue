@@ -33,7 +33,7 @@
                     form="ellipse"
                     :dimensions="[16, 4]"
                     :alpha=".3"
-                    :scale="gary.scale * baseScale"
+                    :scale="resultScale"
                 >
                 </easel-shape>
                 <easel-sprite
@@ -41,7 +41,7 @@
                     :y="gary.y"
                     :animation="gary.animation"
                     :flip="gary.flip"
-                    :scale="gary.scale * baseScale"
+                    :scale="resultScale"
                     :align="['center','bottom']"
                 >
                 </easel-sprite>
@@ -52,8 +52,8 @@
                 color="yellow"
                 font="20px Helvetica"
                 :x="gary.x"
-                :y="gary.y - 40 * gary.scale * baseScale"
-                :scale="gary.scale * baseScale"
+                :y="gary.y - 40 * resultScale"
+                :scale="resultScale"
                 :shadow="['black', 1, 1, 1]"
                 :align="['center', 'alphabetical']"
             >
@@ -71,9 +71,22 @@
             </easel-shape>
         </easel-canvas>
         <br />
-        <input type="checkbox" v-model="showLabels"> Show Labels<br />
-        <input type="checkbox" v-model="showPoints"> Show Points<br />
-        <input type="textarea" v-model="gary.scale"> Scale<br />
+        <div class="input-group col-xs-2">
+            <span class="input-group-addon">
+                <input type="checkbox" v-model="showLabels">
+            </span>
+            <span class="form-control">Show Labels</span>
+        </div>
+        <div class="input-group col-xs-2">
+            <span class="input-group-addon">
+                <input type="checkbox" v-model="showPoints">
+            </span>
+            <span class="form-control">Show Points</span>
+        </div>
+        <div class="input-group col-xs-2">
+            <span class="input-group-addon">Scale</span>
+            <input class="form-control" v-model="gary.scale"> 
+        </div>
     </div>
 </template>
 
@@ -97,47 +110,23 @@ export default {
                 [310, 275],
                 [250, 220],
             ],
-            /*
-            f(x) = (x - 210) / 65
-            f(210) = 1/180      0.01    
-            f(220) = 35/180     0.15 // wish this was .19
-            f(275) = 180/180    1.00
-
-                .19 = (220 - a) / b
-                1   = (275 - a) / b
-                b   = 275 - a
-                .19 = (220 - a) / (275 - a)
-                (275 - a) = (220 - a) / .19
-                275 - a = (220 / .19) - (a / .19)
-                275 = (220 / .19) - (a / .19) + a
-                275 - (220 / .19) = -(a / .19) + a
-                -882.90 = a - (a / .19)
-                -882.90 * .19 = (a - (a / .19)) * .19
-                -882.90 * .19 = (a * .19) - a
-                -882.90 * .19 / a = .19 - 1
-                -882.90 * .19 = (.19 - 1) * a
-                -882.90 * .19 / (.19 - 1) = a
-                207.10 = a
-                b = 275 - a
-                b = 275 - 207.10
-                b = 67.9
-
-            f(x) = (x - 207.10) / 67.9
-            f(210) = (207.10 - 207.10) / 67.9 = 0
-            f(210) = (210 - 207.10) / 67.9 = .04 // close enough
-            f(220) = (220 - 207.10) / 67.9 = .19
-            f(275) = (275 - 207.10) / 67.9 = 1
-            */
             showLabels: true,
             showPoints: false,
         };
     },
     computed: {
         baseScale() {
+            // some magic numbers
             return (this.gary.y - 207.10) / 67.9;
         },
         speed() {
-            return 5 * this.baseScale;
+            return 5 * this.resultScale;
+        },
+        resultScale() {
+            if (isNaN(parseFloat(this.gary.scale))) {
+                return this.baseScale;
+            }
+            return this.baseScale * this.gary.scale;
         },
     },
     methods: {
