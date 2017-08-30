@@ -33,7 +33,7 @@
                     form="ellipse"
                     :dimensions="[16, 4]"
                     :alpha=".3"
-                    :scale="gary.scale"
+                    :scale="resultScale"
                 >
                 </easel-shape>
                 <easel-sprite
@@ -41,7 +41,7 @@
                     :y="gary.y"
                     :animation="gary.animation"
                     :flip="gary.flip"
-                    :scale="gary.scale"
+                    :scale="resultScale"
                     :align="['center','bottom']"
                 >
                 </easel-sprite>
@@ -52,8 +52,8 @@
                 color="yellow"
                 font="20px Helvetica"
                 :x="gary.x"
-                :y="gary.y - 40 * gary.scale"
-                :scale="gary.scale"
+                :y="gary.y - 40 * resultScale"
+                :scale="resultScale"
                 :shadow="['black', 1, 1, 1]"
                 :align="['center', 'alphabetical']"
             >
@@ -71,9 +71,22 @@
             </easel-shape>
         </easel-canvas>
         <br />
-        <input type="checkbox" v-model="showLabels"> Show Labels<br />
-        <input type="checkbox" v-model="showPoints"> Show Points<br />
-        <input type="textarea" v-model="gary.scale"> Scale<br />
+        <div class="input-group col-xs-2">
+            <span class="input-group-addon">
+                <input type="checkbox" v-model="showLabels">
+            </span>
+            <span class="form-control">Show Labels</span>
+        </div>
+        <div class="input-group col-xs-2">
+            <span class="input-group-addon">
+                <input type="checkbox" v-model="showPoints">
+            </span>
+            <span class="form-control">Show Points</span>
+        </div>
+        <div class="input-group col-xs-2">
+            <span class="input-group-addon">Scale</span>
+            <input class="form-control" v-model="gary.scale"> 
+        </div>
     </div>
 </template>
 
@@ -92,14 +105,29 @@ export default {
                 scale: 1,
             },
             points: [
-                [215,220],
-                [130,275],
-                [310,275],
-                [250,220]
+                [215, 220],
+                [130, 275],
+                [310, 275],
+                [250, 220],
             ],
             showLabels: true,
             showPoints: false,
         };
+    },
+    computed: {
+        baseScale() {
+            // some magic numbers
+            return (this.gary.y - 207.10) / 67.9;
+        },
+        speed() {
+            return 5 * this.resultScale;
+        },
+        resultScale() {
+            if (isNaN(parseFloat(this.gary.scale))) {
+                return this.baseScale;
+            }
+            return this.baseScale * this.gary.scale;
+        },
     },
     methods: {
         clickedCanvas: function() {
@@ -118,7 +146,7 @@ export default {
                 var diffX = gary.target[0] - gary.x;
                 var diffY = gary.target[1] - gary.y;
                 var distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
-                if (distance < 5) {
+                if (distance < this.speed) {
                     this.chooseNextTarget();
                     return;
                 }
@@ -128,8 +156,8 @@ export default {
                     moveY = diffY > 0 ? 1 : -1;
                 } else {
                     var direction = Math.atan(diffY / diffX);
-                    moveY = Math.sin(direction) * 5;
-                    moveX = Math.cos(direction) * 5;
+                    moveY = Math.sin(direction) * this.speed;
+                    moveX = Math.cos(direction) * this.speed;
                     if (diffX < 0) { // atan is for X>0, so we must reflect
                         moveX *= -1;
                         moveY *= -1;
