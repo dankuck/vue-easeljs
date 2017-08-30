@@ -33,7 +33,7 @@
                     form="ellipse"
                     :dimensions="[16, 4]"
                     :alpha=".3"
-                    :scale="gary.scale"
+                    :scale="gary.scale * baseScale"
                 >
                 </easel-shape>
                 <easel-sprite
@@ -41,7 +41,7 @@
                     :y="gary.y"
                     :animation="gary.animation"
                     :flip="gary.flip"
-                    :scale="gary.scale"
+                    :scale="gary.scale * baseScale"
                     :align="['center','bottom']"
                 >
                 </easel-sprite>
@@ -52,8 +52,8 @@
                 color="yellow"
                 font="20px Helvetica"
                 :x="gary.x"
-                :y="gary.y - 40 * gary.scale"
-                :scale="gary.scale"
+                :y="gary.y - 40 * gary.scale * baseScale"
+                :scale="gary.scale * baseScale"
                 :shadow="['black', 1, 1, 1]"
                 :align="['center', 'alphabetical']"
             >
@@ -97,16 +97,48 @@ export default {
                 [310, 275],
                 [250, 220],
             ],
-            horizon: 210,
             /*
             f(x) = (x - 210) / 65
             f(210) = 1/180      0.01    
             f(220) = 35/180     0.15 // wish this was .19
             f(275) = 180/180    1.00
+
+                .19 = (220 - a) / b
+                1   = (275 - a) / b
+                b   = 275 - a
+                .19 = (220 - a) / (275 - a)
+                (275 - a) = (220 - a) / .19
+                275 - a = (220 / .19) - (a / .19)
+                275 = (220 / .19) - (a / .19) + a
+                275 - (220 / .19) = -(a / .19) + a
+                -882.90 = a - (a / .19)
+                -882.90 * .19 = (a - (a / .19)) * .19
+                -882.90 * .19 = (a * .19) - a
+                -882.90 * .19 / a = .19 - 1
+                -882.90 * .19 = (.19 - 1) * a
+                -882.90 * .19 / (.19 - 1) = a
+                207.10 = a
+                b = 275 - a
+                b = 275 - 207.10
+                b = 67.9
+
+            f(x) = (x - 207.10) / 67.9
+            f(210) = (207.10 - 207.10) / 67.9 = 0
+            f(210) = (210 - 207.10) / 67.9 = .04 // close enough
+            f(220) = (220 - 207.10) / 67.9 = .19
+            f(275) = (275 - 207.10) / 67.9 = 1
             */
             showLabels: true,
             showPoints: false,
         };
+    },
+    computed: {
+        baseScale() {
+            return (this.gary.y - 207.10) / 67.9;
+        },
+        speed() {
+            return 5 * this.baseScale;
+        },
     },
     methods: {
         clickedCanvas: function() {
@@ -125,7 +157,7 @@ export default {
                 var diffX = gary.target[0] - gary.x;
                 var diffY = gary.target[1] - gary.y;
                 var distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
-                if (distance < 5) {
+                if (distance < this.speed) {
                     this.chooseNextTarget();
                     return;
                 }
@@ -135,8 +167,8 @@ export default {
                     moveY = diffY > 0 ? 1 : -1;
                 } else {
                     var direction = Math.atan(diffY / diffX);
-                    moveY = Math.sin(direction) * 5;
-                    moveX = Math.cos(direction) * 5;
+                    moveY = Math.sin(direction) * this.speed;
+                    moveX = Math.cos(direction) * this.speed;
                     if (diffX < 0) { // atan is for X>0, so we must reflect
                         moveX *= -1;
                         moveY *= -1;
