@@ -92,24 +92,6 @@ describe('EaselShape', function () {
             });
     });
 
-    it('should refresh on start', function (done) {
-        // Replace the default refresh() method
-        // Then check that it's called on mount
-        // Then put the original back.
-        var refreshed = false,
-            refresh = EaselShape.methods.refresh;
-        vm.showShape = false;
-        EaselShape.methods.refresh = function () {
-            refreshed = true;
-        };
-        Vue.nextTick()
-            .then(() => {
-                vm.showShape = true;
-                EaselShape.methods.refresh = refresh;
-                done();
-            });
-    });
-
     it('should make a blue shape', function () {
         shape.refresh();
         assert(shape.component.graphics._fill.style === 'DeepSkyBlue');

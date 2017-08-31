@@ -12,6 +12,7 @@ export default {
     watch: {
         form() {       this.refresh() },
         fill() {       this.refresh() },
+        stroke() {     this.refresh() },
         dimensions() { this.refresh() },
     },
     methods: {
