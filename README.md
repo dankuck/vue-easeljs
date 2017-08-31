@@ -59,8 +59,8 @@ Attributes:
 * rotation - degrees, rotates the image. Default: 0.
 * scale - number, resizes the image. Default: 1.
 * shadow - array, cast an image-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
-* x - number, horizontal position based on the origin of the parent component. Required.
-* y - number, vertical position based on the origin of the parent component. Required.
+* x - number, horizontal position based on the origin of the parent component. Default: 0.
+* y - number, vertical position based on the origin of the parent component. Default: 0.
 
 Example:
 
@@ -115,29 +115,28 @@ Attributes:
 * alpha - 0 to 1, controls the opacity of the container. Default: 1, completely opaque.
 * flip - 'horizontal'|'vertical'|'both'|'', flips the container.
 * rotation - degrees, rotates the container. Default: 0.
+* scale - number, resizes the container. Default: 1.
 * shadow - array, cast a shadow of all contained components. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
-* x - number, horizontal position based on the origin of the parent component. Required.
-* y - number, vertical position based on the origin of the parent component. Required.
-
-Note: scale is not available.
+* x - number, horizontal position based on the origin of the parent component. Default: 0.
+* y - number, vertical position based on the origin of the parent component. Default: 0.
 
 Example:
 
 ```
 <easel-container
-    :flip="horizontal"
+    flip="horizontal"
+    scale=".5"
+    :x="250"
+    :y="50"
 >
     <easel-bitmap
-        :x="0"
-        :y="0"
         image="/images/wooden-sign-texture.png"
     >
     </easel-bitmap>
     <easel-text 
         text="Dan's Left Shoe Emporium"
-        font="20px Times New Roman"
-        :x="0"
-        :y="0"
+        font="50px 'Times New Roman'"
+        :y="25"
     >
     </easel-text>
 </easel-container>
@@ -158,8 +157,8 @@ Attributes:
 * scale - number, resizes the shape. Default: 1.
 * shadow - array, cast a same-shape shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
 * stroke - color, the outline of the shape.
-* x - number, horizontal position based on the origin of the parent component. Required.
-* y - number, vertical position based on the origin of the parent component. Required.
+* x - number, horizontal position based on the origin of the parent component. Default: 0.
+* y - number, vertical position based on the origin of the parent component. Default: 0.
 
 Dimensions for:
 * circle - number, the radius of the circle
@@ -167,17 +166,16 @@ Dimensions for:
 * rect - array, the width and height of the rectangle. Optionally include the radius of rounded corners. Format: [width, height], or [width, height, allRadiuses], or [width, height, topLeftRadius, topRightRadius, bottomRightRadius, bottomLeftRadius].
 * star - array, the radius, sides count, and point size of a "star". Use point size 0 to draw a simple polygon. Max point size is 1.
 
-Example, to draw a blue triangle with yellow stroke:
+Example, to draw a blue triangle with red stroke:
 ```
 <easel-shape
-    shape="star"
-    :dimensions="[10, 3, 0]"
+    form="star"
+    :dimensions="[100, 3, 0]"
     fill="blue"
-    stroke="yellow"
-    :x="10"
-    :y="10"
+    stroke="red"
+    :x="100"
+    :y="100"
 >
-</easel-shape>
 ```
 
 ## easel-sprite
@@ -192,8 +190,8 @@ Attributes:
 * rotation - degrees, rotates the image. Default: 0.
 * scale - number, resizes the image. Default: 1.
 * shadow - array, cast an image-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
-* x - number, horizontal position based on the origin of the parent component. Required.
-* y - number, vertical position based on the origin of the parent component. Required.
+* x - number, horizontal position based on the origin of the parent component. Default: 0.
+* y - number, vertical position based on the origin of the parent component. Default: 0.
 
 Example:
 
@@ -232,17 +230,15 @@ In that case the following definition will do nicely:
 >
 ```
 
-But sometimes frames have space between them, margins around them, or they 
-originate at a point other than 0,0. In these cases, you'll need to specify 
-more information.
+But sometimes frames have space between them or margins around them. In these 
+cases, you'll need to specify more information.
 
-In this example, there is space and margin between the frames, and the sprites
-originate at 100,100.
+In this example, there is space and margin between the frames.
 
 ```
 <easel-sprite-sheet
     :images="['/images/lots-of-characters.png']"
-    :frames="{width:32,height:32,spacing:5,margin:10,regX:100,regY:100}"
+    :frames="{width:32,height:32,spacing:5,margin:10}"
     ...
 >
 ```
@@ -255,7 +251,7 @@ In that case, this format will be required:
 <easel-sprite-sheet
     :images="['/images/thomasChugging.png','/images/thomasBraking.png']"
     :frames="[
-        // x, y, width, height, imageIndex, regX, regY
+        // x, y, width, height, imageIndex
         [0, 0, 64, 32, 0],
         [0, 32, 64, 32, 0],
         ...
@@ -293,22 +289,22 @@ Example:
 
 ```
 <easel-sprite-sheet
-    :images="['/images/rapunzel.jpg']"
-    :frames="{width:32,height:64}"
+    :images="['images/lastguardian-all.png']"
+    :frames="{width:32,height:32}"
     :animations="{
-        stand: 0,
-        run: [1, 4, "stand"],
-        fall: {
+        stand: 7,
+        walk: [6, 7],
+        walkAndStand: [6, 7, 'stand'],
+        confusion: {
             frames: [5, 1, 0, 2],
         },
     }"
-    :framerate="30"
+    :framerate="4"
 >
     <easel-sprite
-        :x="100"
-        :y="100"
-        :align="['center','bottom']"
-        animation="run"
+        :x="32"
+        :y="32"
+        animation="walkAndStand"
     >
     </easel-sprite>
 >
@@ -329,8 +325,8 @@ Attributes:
 * scale - number, resizes the text. Default: 1.
 * shadow - array, cast a text-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
 * text - string, the text to display.
-* x - number, horizontal position based on the origin of the parent component. Required.
-* y - number, vertical position based on the origin of the parent component. Required.
+* x - number, horizontal position based on the origin of the parent component. Default: 0.
+* y - number, vertical position based on the origin of the parent component. Default: 0.
 
 Alignment:
 
@@ -341,8 +337,8 @@ Example:
 ```
 <easel-text
     text="The Ran In Span Falls Manly On The Plan"
-    :x="0"
-    :y="0"
+    :x="250"
+    :y="32"
     font="20px Arial"
     color="red"
 >
