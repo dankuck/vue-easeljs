@@ -4,7 +4,6 @@ import EaselText from '../src/components/EaselText.vue';
 import $ from 'jquery';
 import _ from 'lodash';
 import easeljs from '../src/easel.js';
-import mochaX from './mochaX.js';
 
 describe('EaselText', function () {
 
@@ -67,10 +66,10 @@ describe('EaselText', function () {
     it('should be able to change the text', function (done) {
         vm.text = Math.random();
         Vue.nextTick()
-            .then(mochaX(() => {
+            .then(() => {
                 assert(vm.text === text.component.text, 'Wrong text in: ' + text.component.text);
-                done();
-            }));
+            })
+            .then(done, done);
     });
 
     it('should have the right font', function () {
@@ -80,10 +79,10 @@ describe('EaselText', function () {
     it('should be able to change the font', function (done) {
         vm.font = Math.random();
         Vue.nextTick()
-            .then(mochaX(() => {
+            .then(() => {
                 assert(vm.font === text.component.font, 'Wrong font in: ' + text.component.font);
-                done();
-            }));
+            })
+            .then(done, done);
     });
 
     it('should have the right color', function () {
@@ -93,10 +92,10 @@ describe('EaselText', function () {
     it('should be able to change the color', function (done) {
         vm.color = 'grey';
         Vue.nextTick()
-            .then(mochaX(() => {
+            .then(() => {
                 assert(vm.color === text.component.color, 'Wrong color in: ' + text.component.color);
-                done();
-            }));
+            })
+            .then(done, done);
     });
 
     it('should have the right align', function () {
@@ -106,10 +105,10 @@ describe('EaselText', function () {
     it('should be able to change the align', function (done) {
         vm.align = 'center';
         Vue.nextTick()
-            .then(mochaX(() => {
+            .then(() => {
                 assert(vm.align === text.component.textAlign, 'Wrong textAlign in: ' + text.component.textAlign);
-                done();
-            }));
+            })
+            .then(done, done);
     });
 
     it('should have the right verticalAlign', function () {
@@ -119,18 +118,18 @@ describe('EaselText', function () {
     it('should be able to change the verticalAlign', function (done) {
         vm.verticalAlign = 'center';
         Vue.nextTick()
-            .then(mochaX(() => {
+            .then(() => {
                 assert(vm.verticalAlign === text.component.textBaseline, 'Wrong textBaseline in: ' + text.component.textBaseline);
-                done();
-            }));
+            })
+            .then(done, done);
     });
 
     it('should default verticalAlign to alphabetic', function (done) {
         vm.verticalAlign = '';
         Vue.nextTick()
-            .then(mochaX(() => {
+            .then(() => {
                 assert('alphabetic' === text.component.textBaseline, 'Wrong default textBaseline in: ' + text.component.textBaseline);
-                done();
-            }));
+            })
+            .then(done, done);
     });
 });

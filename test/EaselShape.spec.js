@@ -3,7 +3,6 @@ import _ from 'lodash';
 import assert from 'assert';
 import EaselCanvas from '../src/components/EaselCanvas.vue';
 import EaselShape from '../src/components/EaselShape.vue';
-import mochaX from './mochaX.js';
 import Vue from 'vue';
 
 var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick'];
@@ -132,7 +131,7 @@ describe('EaselShape', function () {
                 vm.showShape = true;
                 return Vue.nextTick();
             })
-            .then(mochaX(() => {
+            .then(() => {
                 shape = vm.$refs.theShape;
                 assert(shape.component.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.component.graphics._activeInstructions.length);
                 assert(shape.component.graphics._activeInstructions[0].x === 0, 'Wrong x of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
@@ -141,8 +140,8 @@ describe('EaselShape', function () {
                 assert(shape.component.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 assert(shape.component.regX === 25, 'regX: ' + shape.component.regX);
                 assert(shape.component.regY === 30, 'regY: ' + shape.component.regY);
-                done();
-            }));
+            })
+            .then(done, done);
     });
 
     it('should make a rounded corners rectangle', function (done) {
@@ -206,7 +205,7 @@ describe('EaselShape', function () {
                 vm.showShape = true;
                 return Vue.nextTick();
             })
-            .then(mochaX(() => {
+            .then(() => {
                 shape = vm.$refs.theShape;
                 assert(shape.component.graphics._activeInstructions.length === 1, 'Wrong number of instructions: ' + shape.component.graphics._activeInstructions.length);
                 assert(shape.component.graphics._activeInstructions[0].x === 50, 'Wrong x of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
@@ -217,7 +216,8 @@ describe('EaselShape', function () {
                 assert(shape.component.regX === 50, 'Wrong regX: ' + shape.component.regX);
                 assert(shape.component.regY === 50, 'Wrong regY: ' + shape.component.regY);
                 done();
-            }));
+            })
+            .then(done, done);
     });
 
     it('should make an ellipse', function (done) {

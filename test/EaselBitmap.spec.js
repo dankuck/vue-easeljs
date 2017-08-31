@@ -4,7 +4,6 @@ import EaselBitmap from '../src/components/EaselBitmap.vue';
 import $ from 'jquery';
 import _ from 'lodash';
 import easeljs from '../src/easel.js';
-import mochaX from './mochaX.js';
 
 describe('EaselBitmap', function () {
 
@@ -61,7 +60,7 @@ describe('EaselBitmap', function () {
         var image = vm.image;
         vm.image = Math.random();
         Vue.nextTick()
-            .then(mochaX(() => {
+            .then(() => {
                 var qr = new RegExp(vm.image);
                 assert(
                     qr.test(bitmap.component.image.src) || qr.test(bitmap.component.image), 
@@ -69,16 +68,16 @@ describe('EaselBitmap', function () {
                 );
                 vm.image = image;
                 return Vue.nextTick();
-            }))
-            .then(() => done());
+            })
+            .then(done, done);
     });
 
     it('should get bounds', function (done) {
         bitmap.getBounds()
-            .then(mochaX(bounds => {
+            .then(bounds => {
                 assert(bounds.width === 1500, 'Wrong width: ' + bounds.width);
                 assert(bounds.height === 946, 'Wrong height: ' + bounds.height);
-                done();
-            }));
+            })
+            .then(done, done);
     });
 });

@@ -4,7 +4,6 @@ import EaselSprite from '../src/components/EaselSprite.vue';
 import $ from 'jquery';
 import _ from 'lodash';
 import easeljs from '../src/easel.js';
-import mochaX from './mochaX.js';
 
 var garyStart = 32 * 6 + 16;
 var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
@@ -231,10 +230,10 @@ describe('EaselDisplayObject', function () {
     it('should become 50% opaque', function (done) {
         vm.alpha = .5;
         Vue.nextTick()
-            .then(mochaX(() => {
+            .then(() => {
                 assert(sprite.component.alpha === .5, "Wrong alpha: " + sprite.component.alpha);
-                done();
-            }));
+            })
+            .then(done, done);
     });
 
     it('should have no shadow', function () {
@@ -243,21 +242,23 @@ describe('EaselDisplayObject', function () {
 
     it('should have shadow', function (done) {
         vm.shadow = ["black", 5, 7, 10];
-        Vue.nextTick(mochaX(() => {
-            assert(sprite.component.shadow.color === 'black', 'Shadow color: ' + sprite.component.shadow.color);
-            assert(sprite.component.shadow.offsetX === 5, 'Shadow offsetX: ' + sprite.component.shadow.offsetX);
-            assert(sprite.component.shadow.offsetY === 7, 'Shadow offsetY: ' + sprite.component.shadow.offsetY);
-            assert(sprite.component.shadow.blur === 10, 'Shadow blur: ' + sprite.component.shadow.blur);
-            done();
-        }));
+        Vue.nextTick()
+            .then(() => {
+                assert(sprite.component.shadow.color === 'black', 'Shadow color: ' + sprite.component.shadow.color);
+                assert(sprite.component.shadow.offsetX === 5, 'Shadow offsetX: ' + sprite.component.shadow.offsetX);
+                assert(sprite.component.shadow.offsetY === 7, 'Shadow offsetY: ' + sprite.component.shadow.offsetY);
+                assert(sprite.component.shadow.blur === 10, 'Shadow blur: ' + sprite.component.shadow.blur);
+            })
+            .then(done, done);
     });
 
     it('should have no shadow again', function (done) {
         vm.shadow = null;
-        Vue.nextTick(mochaX(() => {
-            assert(sprite.component.shadow === null, "Component: " + sprite.component);
-            done();
-        }));
+        Vue.nextTick()
+            .then(() => {
+                assert(sprite.component.shadow === null, "Component: " + sprite.component);
+            })
+            .then(done, done);
     });
     
     it('should have the right hAlign', function () {
@@ -267,19 +268,19 @@ describe('EaselDisplayObject', function () {
     it('should be able to change the hAlign', function (done) {
         vm.hAlign = 'right';
         Vue.nextTick()
-            .then(mochaX(() => {
+            .then(() => {
                 assert(sprite.component.regX === 32, 'Wrong regX in: ' + sprite.component.regX);
-                done();
-            }));
+            })
+            .then(done, done);
     });
 
     it('should default hAlign to center', function (done) {
         vm.hAlign = '';
         Vue.nextTick()
-            .then(mochaX(() => {
+            .then(() => {
                 assert(sprite.component.regX === 16, 'Wrong default regX in: ' + sprite.component.regX);
-                done();
-            }));
+            })
+            .then(done, done);
     });
 
     it('should have the right vAlign', function () {
@@ -289,19 +290,19 @@ describe('EaselDisplayObject', function () {
     it('should be able to change the vAlign', function (done) {
         vm.vAlign = 'bottom';
         Vue.nextTick()
-            .then(mochaX(() => {
+            .then(() => {
                 assert(sprite.component.regY === 32, 'Wrong regY in: ' + sprite.component.regY);
-                done();
-            }));
+            })
+            .then(done, done);
     });
 
     it('should default vAlign to center', function (done) {
         vm.vAlign = '';
         Vue.nextTick()
-            .then(mochaX(() => {
+            .then(() => {
                 assert(sprite.component.regY === 16, 'Wrong default regY in: ' + sprite.component.regY);
-                done();
-            }));
+            })
+            .then(done, done);
     });
 
     it('should default to x=0,y=0', function (done) {
