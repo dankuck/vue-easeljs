@@ -45,6 +45,8 @@ The earliest components are hidden by later components whenever they overlap.
 </easel-canvas>
 ```
 
+<img src="https://dankuck.github.io/vue-easeljs/images/example1.png" />
+
 # Components
 
 ## easel-bitmap
@@ -74,7 +76,7 @@ Example:
 </easel-bitmap>
 ```
 
-<img src="https://dankuck.github.io/vue-easeljs/images/example1.png" />
+<img src="https://dankuck.github.io/vue-easeljs/images/example2.png" />
 
 ## easel-canvas
 
@@ -106,6 +108,8 @@ Example:
     </easel-text>
 </easel-canvas>
 ```
+
+<img src="https://dankuck.github.io/vue-easeljs/images/example3.png" />
 
 ## easel-container
 
@@ -142,6 +146,8 @@ Example:
 </easel-container>
 ```
 
+<img src="https://dankuck.github.io/vue-easeljs/images/example4.png" />
+
 ## easel-shape
 
 Show a shape.
@@ -177,6 +183,8 @@ Example, to draw a blue triangle with red stroke:
     :y="100"
 >
 ```
+
+<img src="https://dankuck.github.io/vue-easeljs/images/example5.png" />
 
 ## easel-sprite
 
@@ -311,6 +319,8 @@ Example:
 </easel-sprite-sheet>
 ```
 
+<img src="https://dankuck.github.io/vue-easeljs/images/example6.png" />
+
 ## easel-text
 
 Show some text.
@@ -344,6 +354,8 @@ Example:
 >
 </easel-text>
 ```
+
+<img src="https://dankuck.github.io/vue-easeljs/images/example7.png" />
 
 # Events
 
