@@ -42,7 +42,8 @@
                             These are the examples used in the <a href="https://github.com/dankuck/vue-easeljs">vue-easeljs README.md</a> on Github.
                         </p>
 
-                        <div v-for="html in examples">
+                        <div v-for="(html, key) in examples">
+                            <a :name="'readme.' + key"></a>
                             <exampler :html="html"></exampler>
                             <br />
                             <br />

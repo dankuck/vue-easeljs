@@ -8,11 +8,17 @@ Vue.component('exampler', require('./Exampler.vue'));
 var examplesContext = require.context('../examples', true, /.*\.html/);
 var examples = examplesContext.keys().map(examplesContext);
 
+var tab = 'gary';
+
+if (location.hash) {
+    tab = location.hash.substr(1).split(/\./)[0];
+}
+
 var app = new Vue({
     el: '#app',
     data() {
         return {
-            tab: 'gary',
+            tab: tab,
             examples: examples,
         };
     },
