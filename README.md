@@ -74,6 +74,8 @@ Example:
 </easel-bitmap>
 ```
 
+<img src="https://dankuck.github.io/vue-easeljs/images/example1.png" />
+
 ## easel-canvas
 
 Give the vue-easeljs components a place to live.
