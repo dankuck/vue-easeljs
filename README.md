@@ -78,6 +78,7 @@ Example:
 ```
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example2.png" />
+<a href="https://dankuck.github.io/vue-easeljs/#readme.1">See Demo</a>
 
 ## easel-canvas
 
@@ -111,6 +112,7 @@ Example:
 ```
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example3.png" />
+<a href="https://dankuck.github.io/vue-easeljs/#readme.2">See Demo</a>
 
 ## easel-container
 
@@ -148,6 +150,7 @@ Example:
 ```
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example4.png" />
+<a href="https://dankuck.github.io/vue-easeljs/#readme.3">See Demo</a>
 
 ## easel-shape
 
@@ -186,6 +189,7 @@ Example, to draw a blue triangle with red stroke:
 ```
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example5.png" />
+<a href="https://dankuck.github.io/vue-easeljs/#readme.4">See Demo</a>
 
 ## easel-sprite
 
@@ -321,6 +325,7 @@ Example:
 ```
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example6.png" />
+<a href="https://dankuck.github.io/vue-easeljs/#readme.5">See Demo</a>
 
 ## easel-text
 
@@ -357,6 +362,7 @@ Example:
 ```
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example7.png" />
+<a href="https://dankuck.github.io/vue-easeljs/#readme.6">See Demo</a>
 
 # Events
 
