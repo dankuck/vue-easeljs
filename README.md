@@ -46,6 +46,7 @@ The earliest components are hidden by later components whenever they overlap.
 ```
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example1.png" />
+<a href="https://dankuck.github.io/vue-easeljs/#readme.0">See Demo</a>
 
 # Components
 
