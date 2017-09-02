@@ -12,6 +12,7 @@
                 x="200"
                 y="150"
                 :scale="300 / 850"
+                :align="['center','center']"
                 >
             </easel-bitmap>
 
@@ -34,6 +35,7 @@
                     :dimensions="[16, 4]"
                     :alpha=".3"
                     :scale="resultScale"
+                    :align="['center','center']"
                 >
                 </easel-shape>
                 <easel-sprite
@@ -67,6 +69,7 @@
                 :fill="point === gary.target ? 'red' : ''"
                 :x="point[0]"
                 :y="point[1]"
+                :align="['center','center']"
             >
             </easel-shape>
         </easel-canvas>
