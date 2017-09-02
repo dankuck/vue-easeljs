@@ -55,7 +55,7 @@ The earliest components are hidden by later components whenever they overlap.
 Show a static image.
 
 Attributes:
-* align - array, controls what point of the image the x and y refer to. Default: ['center', 'center'].
+* align - array, controls what point of the image the x and y refer to. Default: ['top', 'left'].
 * alpha - 0 to 1, controls the opacity of the image. Default: 1, completely opaque.
 * flip - 'horizontal'|'vertical'|'both'|'', flips the image.
 * image - relative or absolute URL to an image file. Required.
@@ -157,7 +157,7 @@ Example:
 Show a shape.
 
 Attributes:
-* align - array, controls what point of the shape the x and y refer to. Default: ['center', 'center'].
+* align - array, controls what point of the shape the x and y refer to. Default: ['top', 'left'].
 * alpha - 0 to 1, controls the opacity of the shape. Default: 1, completely opaque.
 * dimensions - Depends on the form. See below. Required.
 * fill - color, the inside of the shape
@@ -196,7 +196,7 @@ Example, to draw a blue triangle with red stroke:
 Show a moving image. An `easel-sprite` must reside in an `easel-sprite-sheet` node. The `easel-sprite-sheet` defines the animations that can be used by the `easel-sprite`.
 
 Attributes:
-* align - array, controls what point of the image the x and y refer to. Default: ['center', 'center'].
+* align - array, controls what point of the image the x and y refer to. Default: ['top', 'left'].
 * alpha - 0 to 1, controls the opacity of the image. Default: 1, completely opaque.
 * animation - string, name of the animation to run from the `easel-sprite-sheet`. Required.
 * flip - 'horizontal'|'vertical'|'both'|'', flips the image.
@@ -332,7 +332,7 @@ Example:
 Show some text.
 
 Attributes:
-* align - array, controls what point of the text the x and y refer to. Default: ['center', 'alphabetical'].
+* align - array, controls what point of the text the x and y refer to. Default: ['top', 'left'].
 * alpha - 0 to 1, controls the opacity of the text. Default: 1, completely opaque.
 * color - color, the color to use for the text.
 * flip - 'horizontal'|'vertical'|'both'|'', flips the text.
@@ -343,10 +343,6 @@ Attributes:
 * text - string, the text to display.
 * x - number, horizontal position based on the origin of the parent component. Default: 0.
 * y - number, vertical position based on the origin of the parent component. Default: 0.
-
-Alignment:
-
-This is the only component that doesn't default alignment to center,center. This one defaults to center,alphabetical. The x value is the center of the text, and the y value is the bottom of an uppercase character. The values top and bottom are still available and work the same way as with other components.
 
 Example:
 
@@ -363,6 +359,25 @@ Example:
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example7.png" />
 <a href="https://dankuck.github.io/vue-easeljs/#readme.6">See Demo</a>
+
+# Align attribute
+
+All visible components can accept an `align` attribute. The align attribute
+defaults to `['left', 'top']`. 
+
+The field is formatted as `[horizontal-alignment, vertical-alignment]`.
+
+Alignment options:
+* horizontal: left, center, right
+* vertical: top, center, bottom
+
+The 'easel-text' component has some special alignment options:
+* horizontal: start, end, left, right, center
+* vertical: top, hanging, middle, alphabetic, ideographic, bottom
+
+These are described in the 
+<a href="https://html.spec.whatwg.org/multipage/canvas.html#text-styles">whatwg 
+spec</a> for HTML5 canvases.
 
 # Events
 
@@ -383,6 +398,8 @@ All visible components emit Vue.js events with an event object.
 * rollover - Fired when the mouse enters a comopnent's hit area.
 * tick - Fired many times a second to keep the components in sync. Using this event can impact performance.
 
+Modifiers such as `.stop` usually work with the events.
+
 These events will be made available in the future.
 
  * drawend
@@ -396,10 +413,6 @@ These events will be made available in the future.
  * tickstart
 
 # Pending
-
-These plans are in motion:
-
-* Build a demo on github.io
 
 These plans are merely dreams:
 
