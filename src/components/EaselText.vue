@@ -26,8 +26,8 @@ export default {
             this.displayObjectInit();
         },
         updateAlign() {
-            this.component.textAlign = (this.align && this.align[0]) || 'center';
-            this.component.textBaseline = (this.align && this.align[1]) || 'alphabetic';
+            this.component.textAlign = (this.align && this.align[0]) || 'left';
+            this.component.textBaseline = (this.align && this.align[1]) || 'top';
         },
     },
 };

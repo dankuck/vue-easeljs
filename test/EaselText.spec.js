@@ -124,11 +124,20 @@ describe('EaselText', function () {
             .then(done, done);
     });
 
-    it('should default verticalAlign to alphabetic', function (done) {
+    it('should default vertical align to top', function (done) {
         vm.verticalAlign = '';
         Vue.nextTick()
             .then(() => {
-                assert('alphabetic' === text.component.textBaseline, 'Wrong default textBaseline in: ' + text.component.textBaseline);
+                assert('top' === text.component.textBaseline, 'Wrong default textBaseline in: ' + text.component.textBaseline);
+            })
+            .then(done, done);
+    });
+
+    it('should default horizontal align to left', function (done) {
+        vm.align = '';
+        Vue.nextTick()
+            .then(() => {
+                assert('left' === text.component.textAlign, 'Wrong default textAlign in: ' + text.component.textAlign);
             })
             .then(done, done);
     });

@@ -274,11 +274,11 @@ describe('EaselDisplayObject', function () {
             .then(done, done);
     });
 
-    it('should default hAlign to center', function (done) {
+    it('should default hAlign to left', function (done) {
         vm.hAlign = '';
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.regX === 16, 'Wrong default regX in: ' + sprite.component.regX);
+                assert(sprite.component.regX === 0, 'Wrong default regX in: ' + sprite.component.regX);
             })
             .then(done, done);
     });
@@ -296,11 +296,11 @@ describe('EaselDisplayObject', function () {
             .then(done, done);
     });
 
-    it('should default vAlign to center', function (done) {
+    it('should default vAlign to top', function (done) {
         vm.vAlign = '';
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.regY === 16, 'Wrong default regY in: ' + sprite.component.regY);
+                assert(sprite.component.regY === 0, 'Wrong default regY in: ' + sprite.component.regY);
             })
             .then(done, done);
     });

@@ -104,8 +104,8 @@ module.exports = {
                 .then(bounds => {
                     var w = bounds.width,
                         h = bounds.height,
-                        hAlign = (this.align && this.align[0]) || 'center',
-                        vAlign = (this.align && this.align[1]) || 'center';
+                        hAlign = (this.align && this.align[0]) || 'left',
+                        vAlign = (this.align && this.align[1]) || 'top';
                     if (hAlign === 'left') {
                         this.component.regX = 0;
                     } else if (hAlign === 'center') {
