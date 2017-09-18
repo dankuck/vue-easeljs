@@ -7,6 +7,17 @@
 |
 */
 
+// Need to add and test these events for Canvas
+// * drawend
+// * drawstart
+// * mouseenter
+// * mouseleave
+// * stagemousedown
+// * stagemousemove
+// * stagemouseup
+// * tickend
+// * tickstart
+
 import _ from 'lodash';
 
 var eventTypes = [
