@@ -23,7 +23,7 @@ npm install vue-easeljs --save
 In app.js:
 
 ```
-require('vue-easeljs');
+Vue.use(require('vue-easeljs'));
 ```
 
 In your Vue.js code start with an `easel-canvas` component. Other components 
