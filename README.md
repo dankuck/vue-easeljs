@@ -430,3 +430,11 @@ There are no plans to implement these features:
 * Buttons
 * Complex Vector Paths
 * MovieClip
+
+# Contribution
+
+If you find a bug or want to contribute to the code or documentation, you can help by submitting an [issue](https://github.com/dankuck/vue-easeljs/issues) or a [pull request](https://github.com/dankuck/vue-easeljs/pulls).
+
+# License
+
+[MIT](http://opensource.org/licenses/MIT)
