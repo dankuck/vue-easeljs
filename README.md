@@ -87,7 +87,7 @@ Give the vue-easeljs components a place to live.
 Attributes:
 * anti-alias: boolean, whether or not edges should be smoothed on scaled images. Default: true.
 * height: number, the pixel height of the canvas on the page. Default: 300.
-* width: number, the pixel width of the canvas on the page. Default 150.
+* width: number, the pixel width of the canvas on the page. Default: 150.
 
 Example:
 
@@ -96,19 +96,23 @@ Example:
     <easel-shape
         form="rect"
         :dimensions="[500,100]"
-        :x="250"
-        :y="50"
+        :x="0"
+        :y="0"
         fill="#CCCCFF"
     >
     </easel-shape>
     <easel-text 
         text="This is so easy!"
         :x="250"
-        :y="50"
-        :align="['left', 'alphabetical']"
+        :y="75"
+        font="70px Calibri"
+        color="white"
+        :shadow="['#000088',3,2,3]"
+        :align="['center', 'alphabetical']"
     >
     </easel-text>
 </easel-canvas>
+
 ```
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example3.png" />
