@@ -46,7 +46,7 @@ The earliest components are hidden by later components whenever they overlap.
 ```
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example1.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.0">See Demo</a>
+<a href="https://dankuck.github.io/vue-easeljs/#readme.0">See Live Demo</a>
 
 # Components
 
@@ -78,7 +78,7 @@ Example:
 ```
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example2.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.1">See Demo</a>
+<a href="https://dankuck.github.io/vue-easeljs/#readme.1">See Live Demo</a>
 
 ## easel-canvas
 
@@ -116,7 +116,7 @@ Example:
 ```
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example3.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.2">See Demo</a>
+<a href="https://dankuck.github.io/vue-easeljs/#readme.2">See Live Demo</a>
 
 ## easel-container
 
@@ -154,7 +154,7 @@ Example:
 ```
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example4.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.3">See Demo</a>
+<a href="https://dankuck.github.io/vue-easeljs/#readme.3">See Live Demo</a>
 
 ## easel-shape
 
@@ -193,7 +193,7 @@ Example, to draw a blue triangle with red stroke:
 ```
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example5.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.4">See Demo</a>
+<a href="https://dankuck.github.io/vue-easeljs/#readme.4">See Live Demo</a>
 
 ## easel-sprite
 
@@ -329,7 +329,7 @@ Example:
 ```
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example6.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.5">See Demo</a>
+<a href="https://dankuck.github.io/vue-easeljs/#readme.5">See Live Demo</a>
 
 ## easel-text
 
@@ -362,7 +362,7 @@ Example:
 ```
 
 <img src="https://dankuck.github.io/vue-easeljs/images/example7.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.6">See Demo</a>
+<a href="https://dankuck.github.io/vue-easeljs/#readme.6">See Live Demo</a>
 
 # Align attribute
 
@@ -385,7 +385,7 @@ spec</a> for HTML5 canvases.
 
 # Events
 
-All visible components emit Vue.js events with an event object.
+All visible components and the canvas itself emit Vue.js events with an event object.
 
 * added - Fired when the component is added to its parent.
 * animationend - (easel-sprite only) - Fired when an animation completes.
