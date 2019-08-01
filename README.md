@@ -419,10 +419,10 @@ These events will be made available in the future.
 # Developer Tips
 
 Chrome/Chromium Users:
- * When developing locally, Chrome limits canvas access to local image files. They can be viewed but click events will error out *unless* Chrome is opened with the `--allow-file-access-from-files` flag. But be careful, since this flag opens your system up to some danger if the scripts you run on your page are untrustworthy. This is the case with all canvases.
+ * When developing locally, Chrome limits canvas access to local image files. They can be viewed but click events will error out *unless* Chrome is opened with the `--allow-file-access-from-files` flag. But be careful, since this flag opens your system up to some danger if the scripts you run on your page are untrustworthy. This is a limitation of canvas that applies to all canvas libraries.
 
 All users:
- * When accessing image files from other hosts, CORS must be setup on the foreign host or else click events will error out. This is the case with all canvases.
+ * When accessing image files from other hosts, CORS must be setup on the foreign host or else click events will error out. This is a limitation of canvas that applies to all canvas libraries.
 
 # Pending
 
