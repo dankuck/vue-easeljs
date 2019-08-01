@@ -1,9 +1,9 @@
 <template>
     <div>
-        <easel-canvas 
-            style="background-color: grey;" 
-            width="400" 
-            height="300" 
+        <easel-canvas
+            style="background-color: grey;"
+            width="400"
+            height="300"
             :anti-alias="false"
             @click="clickedCanvas"
         >
@@ -15,6 +15,19 @@
                 :align="['center','center']"
                 >
             </easel-bitmap>
+
+            <easel-shape
+                v-for="point in points"
+                v-if="showPoints"
+                form="circle"
+                dimensions="3"
+                stroke="black"
+                :fill="point === gary.target ? 'red' : ''"
+                :x="point[0]"
+                :y="point[1]"
+                :align="['center','center']"
+            >
+            </easel-shape>
 
             <easel-sprite-sheet
                 :images="['images/lastguardian-all.png']"
@@ -48,6 +61,7 @@
                 >
                 </easel-sprite>
             </easel-sprite-sheet>
+
             <easel-text
                 v-if="showLabels"
                 text="Gary"
@@ -60,18 +74,6 @@
                 :align="['center', 'alphabetical']"
             >
             </easel-text>
-            <easel-shape
-                v-for="point in points"
-                v-if="showPoints"
-                form="circle"
-                dimensions="3"
-                stroke="black"
-                :fill="point === gary.target ? 'red' : ''"
-                :x="point[0]"
-                :y="point[1]"
-                :align="['center','center']"
-            >
-            </easel-shape>
         </easel-canvas>
         <br />
         <div class="input-group col-xs-2">
@@ -88,7 +90,7 @@
         </div>
         <div class="input-group col-xs-2">
             <span class="input-group-addon">Scale</span>
-            <input class="form-control" v-model="gary.scale"> 
+            <input class="form-control" v-model="gary.scale">
         </div>
     </div>
 </template>
