@@ -11,7 +11,7 @@
 
 
 export default function sortByDom(components) {
-    return components.sort(sorter);
+    return [...components].sort(sorter);
 };
 
 export function sorter(a, b) {
