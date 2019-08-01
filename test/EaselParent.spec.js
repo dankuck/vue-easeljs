@@ -158,7 +158,7 @@ describe.only('EaselParent', function () {
                         assert(parent.children.length === 2, 'parent does not have right children' + parent.children.length);
                         assert(vm.$refs.one.component === parent.component.getChildAt(0), 'child `one` is not in the right place');
                         assert(vm.$refs.two.component === parent.component.getChildAt(1), 'child `two` is not in the right place');
-                        assert(two === vm.$refs.two, 'one changed to a new object');
+                        assert(two === vm.$refs.two, 'two changed to a new object');
                     })
                     .then(done, done);
             });
@@ -169,8 +169,8 @@ describe.only('EaselParent', function () {
                     .then(() => {
                         var one = vm.$refs.one;
                         assert(one.component.parent === parent.component);
-                        done();
-                    });
+                    })
+                    .then(done, done);
             });
         });
 
