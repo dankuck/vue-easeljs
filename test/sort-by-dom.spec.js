@@ -137,7 +137,7 @@ describe('sort-by-dom', function () {
         sorted.forEach((element, i) => assert(element === correct[i], `error at index ${i}: wrong=${element.name}, right=${correct[i].name}`));
     });
 
-    it('should allow using the sorter in other sort functions', function () {
+    it('should allow using the sorter in other sort functions, such as Array.sort', function () {
         const correct = [
             nester_1,
             nester_1_1,
@@ -147,6 +147,36 @@ describe('sort-by-dom', function () {
         ];
         const mixed = _.shuffle(correct);
         const sorted = mixed.sort(sorter);
+        assert(correct.length === sorted.length, 'Different length correct & sorted');
+        sorted.forEach((element, i) => assert(element === correct[i], `error at index ${i}: wrong=${element.name}, right=${correct[i].name}`));
+    });
+
+    it('should allow using the sorter in other sort functions, such as bubble sort', function () {
+        const correct = [
+            nester_1,
+            nester_1_1,
+            nester_1_2,
+            nester_1_2_1,
+            nester_1_3,
+        ];
+        const mixed = _.shuffle(correct);
+        const bubbleSort = function (source) {
+            const array = [...source];
+            for (let i = 0; i < array.length; i++) {
+                for (let j = i + 1; j < array.length; j++) {
+                    const compare = sorter(array[i], array[j]);
+                    if (compare <= 0) {
+                        // already correct
+                    } else {
+                        const temp = array[i];
+                        array[i] = array[j];
+                        array[j] = temp;
+                    }
+                }
+            }
+            return array;
+        };
+        const sorted = bubbleSort(mixed);
         assert(correct.length === sorted.length, 'Different length correct & sorted');
         sorted.forEach((element, i) => assert(element === correct[i], `error at index ${i}: wrong=${element.name}, right=${correct[i].name}`));
     });
