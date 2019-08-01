@@ -10,6 +10,7 @@
 
 import easeljs from '../easel.js';
 import sortByDom from '../libs/sort-by-dom.js';
+import Vue from 'vue';
 
 module.exports = {
     provide() {
@@ -23,17 +24,22 @@ module.exports = {
             children: [],
         };
     },
+    updated() {
+        // runs when the DOM changes
+        Vue.nextTick(() => this.syncEaselChildren());
+    },
     watch: {
         children() {
-            this.addPendingChildren();
+            this.syncEaselChildren();
         },
     },
     methods: {
-        addPendingChildren() {
+        syncEaselChildren() {
             if (this.component) {
                 sortByDom(this.children).forEach((vueChild, i) => {
                     const atPosition = this.component.numChildren >= i ? this.component.getChildAt(i) : null;
                     if (vueChild.component === atPosition) {
+                        // already there
                         return;
                     }
                     this.component.addChildAt(vueChild.component, i);

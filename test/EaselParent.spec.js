@@ -7,7 +7,7 @@ import easeljs from '../src/easel.js';
 import EaselShape from '../src/components/EaselShape.vue';
 import Vue from 'vue';
 
-describe.only('EaselParent', function () {
+describe('EaselParent', function () {
 
     _.forIn({EaselCanvas, EaselContainer}, (Implementor, className) => {
 
@@ -175,7 +175,7 @@ describe.only('EaselParent', function () {
                     .then(done, done);
             });
 
-            it.only('should get two children, then switch their locations', function (done) {
+            it('should get two children, then switch their locations', function (done) {
                 vm.showOne = false;
                 vm.showTwo = false;
 
@@ -193,6 +193,7 @@ describe.only('EaselParent', function () {
                         vm.list.pop();
                         vm.list.push('carol');
                         vm.list.push('bob');
+                        return Vue.nextTick();
                     })
                     .then(() => {
                         assert(parent.children.length === 2, 'parent does not have right children' + parent.children.length);

@@ -35,7 +35,6 @@ export default {
         if (typeof this.antiAlias !== 'undefined') {
             this.updateAntiAlias();
         }
-        this.addPendingChildren();
     },
     methods: {
         updateAntiAlias() {
