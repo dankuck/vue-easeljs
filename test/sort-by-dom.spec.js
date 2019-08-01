@@ -38,7 +38,7 @@ describe('sort-by-dom', function () {
         nester_1_3,
     } = vm.$refs;
 
-    it.only('should not change the order if its already correct', function () {
+    it('should not change the order if its already correct', function () {
         const correct = [
             nester_1,
             nester_1_1,
@@ -51,7 +51,7 @@ describe('sort-by-dom', function () {
         sorted.forEach((element, i) => assert(element === correct[i], `error at index ${i}: wrong=${element.name}, right=${correct[i].name}`));
     });
 
-    it.only('should put a parent before its child', function () {
+    it('should put a parent before its child', function () {
         const correct = [
             nester_1,
             nester_1_1,
@@ -65,7 +65,7 @@ describe('sort-by-dom', function () {
         sorted.forEach((element, i) => assert(element === correct[i], `error at index ${i}: wrong=${element.name}, right=${correct[i].name}`));
     });
 
-    it.only('should put a late sibling before an early sibling', function () {
+    it('should put a late sibling before an early sibling', function () {
         const correct = [
             nester_1_1,
             nester_1_2,
@@ -79,7 +79,7 @@ describe('sort-by-dom', function () {
         sorted.forEach((element, i) => assert(element === correct[i], `error at index ${i}: wrong=${element.name}, right=${correct[i].name}`));
     });
 
-    it.only('should throw an exception if one is disconnected', function () {
+    it('should throw an exception if one is disconnected', function () {
         let caught;
         const el1 = document.createElement('img');
         const array = [
@@ -94,7 +94,7 @@ describe('sort-by-dom', function () {
         assert(caught, 'No error on disconnected');
     });
 
-    it.only('should throw an exception if all are disconnected', function () {
+    it('should throw an exception if all are disconnected', function () {
         let caught;
         const el1 = document.createElement('img');
         const el2 = document.createElement('img');
@@ -110,7 +110,7 @@ describe('sort-by-dom', function () {
         assert(caught, 'No error on disconnected');
     });
 
-    it.only('should not change all elements are the same element', function () {
+    it('should not change all elements are the same element', function () {
         const correct = [
             nester_1,
             nester_1,
@@ -123,7 +123,7 @@ describe('sort-by-dom', function () {
         sorted.forEach((element, i) => assert(element === correct[i], `error at index ${i}: wrong=${element.name}, right=${correct[i].name}`));
     });
 
-    it.only('should sort a randomly mixed group', function () {
+    it('should sort a randomly mixed group', function () {
         const correct = [
             nester_1,
             nester_1_1,
@@ -137,7 +137,7 @@ describe('sort-by-dom', function () {
         sorted.forEach((element, i) => assert(element === correct[i], `error at index ${i}: wrong=${element.name}, right=${correct[i].name}`));
     });
 
-    it.only('should allow using the sorter in other sort functions', function () {
+    it('should allow using the sorter in other sort functions', function () {
         const correct = [
             nester_1,
             nester_1_1,
