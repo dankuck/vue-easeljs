@@ -26,7 +26,7 @@ In app.js:
 Vue.use(require('vue-easeljs'));
 ```
 
-In your Vue.js code start with an `easel-canvas` component. Other components 
+In your Vue.js code start with an `easel-canvas` component. Other components
 reside within it.
 
 The earliest components are hidden by later components whenever they overlap.
@@ -101,7 +101,7 @@ Example:
         fill="#CCCCFF"
     >
     </easel-shape>
-    <easel-text 
+    <easel-text
         text="This is so easy!"
         :x="250"
         :y="75"
@@ -144,7 +144,7 @@ Example:
         image="/images/wooden-sign-texture.png"
     >
     </easel-bitmap>
-    <easel-text 
+    <easel-text
         text="Dan's Left Shoe Emporium"
         font="50px 'Times New Roman'"
         :y="25"
@@ -229,12 +229,12 @@ In-depth:
 EaselJS provides a lot of options for defining sprite sheets, to allow you to
 format the images in whatever way suits you.
 
-A sprite sheet is a single image with a set of images on it that will be used 
+A sprite sheet is a single image with a set of images on it that will be used
 in rotation to show an animation.
 
-The friendliest approach is to layout the images in a grid. For example, if 
-a character requires 32x32 pixels to show, a sprite sheet might have 10 
-images of the character in a 320x32 pixel image. (Or a 32x320 image. Or a 
+The friendliest approach is to layout the images in a grid. For example, if
+a character requires 32x32 pixels to show, a sprite sheet might have 10
+images of the character in a 320x32 pixel image. (Or a 32x320 image. Or a
 160x64 image. EaselJS will figure it out.)
 
 In that case the following definition will do nicely:
@@ -247,7 +247,7 @@ In that case the following definition will do nicely:
 >
 ```
 
-But sometimes frames have space between them or margins around them. In these 
+But sometimes frames have space between them or margins around them. In these
 cases, you'll need to specify more information.
 
 In this example, there is space and margin between the frames.
@@ -277,19 +277,19 @@ In that case, this format will be required:
 >
 ```
 
-Animations give names to a series of frames. The name is used in the 
+Animations give names to a series of frames. The name is used in the
 `easel-sprite` component to determine what to show.
 
 The value of an animation is a number, array, or object.
 
 If the animation is just one frame, a number is appropriate.
 
-If the animation is multiple frames laid out in order in the sprite sheet, 
-then the array short form can be used. The first two values are the start and 
-end of the animation. The third value is an optional next animation to begin 
+If the animation is multiple frames laid out in order in the sprite sheet,
+then the array short form can be used. The first two values are the start and
+end of the animation. The third value is an optional next animation to begin
 when this one is done. The fourth is speed.
 
-If the animation uses frames that are not in order, use an object with the 
+If the animation uses frames that are not in order, use an object with the
 field `frames` and the optional `next` and `speed`.
 
 ```
@@ -367,7 +367,7 @@ Example:
 # Align attribute
 
 All visible components can accept an `align` attribute. The align attribute
-defaults to `['left', 'top']`. 
+defaults to `['left', 'top']`.
 
 The field is formatted as `[horizontal-alignment, vertical-alignment]`.
 
@@ -379,8 +379,8 @@ The 'easel-text' component has some special alignment options:
 * horizontal: start, end, left, right, center
 * vertical: top, hanging, middle, alphabetic, ideographic, bottom
 
-These are described in the 
-<a href="https://html.spec.whatwg.org/multipage/canvas.html#text-styles">whatwg 
+These are described in the
+<a href="https://html.spec.whatwg.org/multipage/canvas.html#text-styles">whatwg
 spec</a> for HTML5 canvases.
 
 # Events
@@ -415,6 +415,14 @@ These events will be made available in the future.
  * stagemouseup
  * tickend
  * tickstart
+
+# Developer Tips
+
+Chrome/Chromium Users:
+ * When developing locally, Chrome limits canvas access to local image files. They can be viewed but click events will error out *unless* Chrome is opened with the `--allow-file-access-from-files` flag. But be careful, since this flag opens your system up to some danger if the scripts you run on your page are untrustworthy. This is the case with all canvases.
+
+All users:
+ * When accessing image files from other hosts, CORS must be setup on the foreign host or else click events will error out. This is the case with all canvases.
 
 # Pending
 
