@@ -38,6 +38,17 @@ describe.only('EaselParent', function () {
                             dimensions="10"
                         >
                         </easel-shape>
+                        <easel-shape
+                            v-for="(name, i) in list"
+                            :ref="name"
+                            :key="name"
+                            x="1"
+                            y="2"
+                            fill="black"
+                            form="circle"
+                            dimensions="10"
+                        >
+                        </easel-shape>
                     </implementor>
                 `,
                 components: {
@@ -58,6 +69,7 @@ describe.only('EaselParent', function () {
                     return {
                         showOne: false,
                         showTwo: false,
+                        list: [],
                     };
                 },
             }).$mount();
@@ -159,6 +171,33 @@ describe.only('EaselParent', function () {
                         assert(vm.$refs.one.component === parent.component.getChildAt(0), 'child `one` is not in the right place');
                         assert(vm.$refs.two.component === parent.component.getChildAt(1), 'child `two` is not in the right place');
                         assert(two === vm.$refs.two, 'two changed to a new object');
+                    })
+                    .then(done, done);
+            });
+
+            it.only('should get two children, then switch their locations', function (done) {
+                vm.showOne = false;
+                vm.showTwo = false;
+
+                Vue.nextTick()
+                    .then(() => {
+                        vm.list.push('bob');
+                        vm.list.push('carol');
+                        return Vue.nextTick();
+                    })
+                    .then(() => {
+                        assert(parent.children.length === 2, 'parent does not have right children' + parent.children.length);
+                        assert(vm.$refs.bob[0].component === parent.component.getChildAt(0), 'before switch, child `bob` is not in the right place');
+                        assert(vm.$refs.carol[0].component === parent.component.getChildAt(1), 'before switch, child `carol` is not in the right place');
+                        vm.list.pop();
+                        vm.list.pop();
+                        vm.list.push('carol');
+                        vm.list.push('bob');
+                    })
+                    .then(() => {
+                        assert(parent.children.length === 2, 'parent does not have right children' + parent.children.length);
+                        assert(vm.$refs.carol[0].component === parent.component.getChildAt(0), 'after switch, child `carol` is not in the right place');
+                        assert(vm.$refs.bob[0].component === parent.component.getChildAt(1), 'after switch, child `bob` is not in the right place');
                     })
                     .then(done, done);
             });
