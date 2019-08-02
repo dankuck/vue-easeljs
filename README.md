@@ -392,6 +392,16 @@ Example:
 All visible components can accept an `align` attribute. The align attribute
 defaults to `['left', 'top']`.
 
+The values refer to where the x, y coordinates should lie in reference to the
+rest of the object.
+
+For example, if a 10x10 square shape is aligned at left-top, and its x and y
+are at 15, 20, then the square's top left point will be at 15, 20 and its
+bottom right point will be at 25, 30.
+
+If the same square was aligned at right-bottom, then it's bottom right point
+would be at 15, 20 and its top left point would be at 5, 10.
+
 The field is formatted as `[horizontal-alignment, vertical-alignment]`.
 
 Alignment options:
