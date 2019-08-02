@@ -87,8 +87,8 @@ describe('EaselShape', function () {
             })
             .then(() => {
                 shape = vm.$refs.theShape; // make sure others get the new var
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     it('should make a blue shape', function () {
@@ -118,8 +118,8 @@ describe('EaselShape', function () {
                 assert(shape.component.graphics._activeInstructions[0].radius === 50, 'Wrong radius of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 assert(shape.component.regX === 50, 'Wrong regX: ' + shape.component.regX);
                 assert(shape.component.regY === 50, 'Wrong regY: ' + shape.component.regY);
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     it('should make a rectangle', function (done) {
@@ -166,8 +166,8 @@ describe('EaselShape', function () {
                 assert(shape.component.graphics._activeInstructions[0].radiusBR === 5, 'Wrong radiusBR of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 assert(shape.component.regX === 25);
                 assert(shape.component.regY === 30);
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     it('should make a rounded corners rectangle with different radiuses', function (done) {
@@ -192,8 +192,8 @@ describe('EaselShape', function () {
                 assert(shape.component.graphics._activeInstructions[0].radiusBL === 8, 'Wrong radiusBL of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 assert(shape.component.regX === 25);
                 assert(shape.component.regY === 30);
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     it('should make a star', function (done) {
@@ -215,7 +215,6 @@ describe('EaselShape', function () {
                 assert(shape.component.graphics._activeInstructions[0].pointSize === .5, 'Wrong pointSize of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 assert(shape.component.regX === 50, 'Wrong regX: ' + shape.component.regX);
                 assert(shape.component.regY === 50, 'Wrong regY: ' + shape.component.regY);
-                done();
             })
             .then(done, done);
     });
@@ -238,8 +237,8 @@ describe('EaselShape', function () {
                 assert(shape.component.graphics._activeInstructions[0].h === 60, 'Wrong h of instruction: ' + JSON.stringify(shape.component.graphics._activeInstructions[0]));
                 assert(shape.component.regX === 25);
                 assert(shape.component.regY === 30);
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     _.each(eventTypes, (type) => {

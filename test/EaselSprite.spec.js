@@ -19,10 +19,10 @@ describe('EaselSprite', function () {
     var vm = new Vue({
         template: `
             <span>
-                <easel-sprite ref="sprite" 
+                <easel-sprite ref="sprite"
                     v-if="showSprite"
-                    :animation="animation" 
-                    :x="x" 
+                    :animation="animation"
+                    :x="x"
                     :y="y"
                     :flip="flip"
                 >
@@ -80,8 +80,8 @@ describe('EaselSprite', function () {
         Vue.nextTick()
             .then(() => {
                 assert(sprite.component._animation && sprite.component._animation.name === 'run');
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     it('should get bounds', function (done) {
@@ -89,8 +89,8 @@ describe('EaselSprite', function () {
             .then(bounds => {
                 assert(bounds.width === 32);
                 assert(bounds.height === 32);
-                done();
-            });
+            })
+            .then(done, done);
     });
 
 });

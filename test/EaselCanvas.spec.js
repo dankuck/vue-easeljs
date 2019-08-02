@@ -8,12 +8,12 @@ import easeljs from '../src/easel.js';
 var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
 
 describe('EaselCanvas', function () {
-    
+
     var eventHandlerCode = eventTypes.map(type => `@${type}="logEvent"`).join(' ');
     var vm = new Vue({
         template: `
-            <easel-canvas 
-                background-color="grey" 
+            <easel-canvas
+                background-color="grey"
                 ref="easelCanvas"
                 :anti-alias="antiAlias"
                 ${eventHandlerCode}
@@ -77,10 +77,11 @@ describe('EaselCanvas', function () {
 
     it('should not use anti-alias', function (done) {
         vm.antiAlias = false;
-        Vue.nextTick(() => {
-            assert(canvas.context.imageSmoothingEnabled === false, 'Smoothing, but should not: ' + canvas.context.imageSmoothingEnabled);
-            done();
-        });
+        Vue.nextTick()
+            .then(() => {
+                assert(canvas.context.imageSmoothingEnabled === false, 'Smoothing, but should not: ' + canvas.context.imageSmoothingEnabled);
+            })
+            .then(done, done);
     });
 
     it('should have touch', function () {

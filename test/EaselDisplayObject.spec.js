@@ -24,10 +24,10 @@ describe('EaselDisplayObject', function () {
     var vm = new Vue({
         template: `
             <span>
-                <easel-sprite ref="sprite" 
+                <easel-sprite ref="sprite"
                     v-if="showSprite"
-                    :animation="animation" 
-                    :x="x" 
+                    :animation="animation"
+                    :x="x"
                     :y="y"
                     :flip="flip"
                     :rotation="rotation"
@@ -113,8 +113,8 @@ describe('EaselDisplayObject', function () {
             .then(() => {
                 assert(sprite.component.x === 3);
                 assert(sprite.component.y === 4);
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     _.each(eventTypes, (type) => {
@@ -135,8 +135,8 @@ describe('EaselDisplayObject', function () {
             })
             .then(() => {
                 sprite = vm.$refs.sprite; // make sure others get the new var
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     it('should not flip', function (done) {
@@ -145,8 +145,8 @@ describe('EaselDisplayObject', function () {
             .then(() => {
                 assert(sprite.component.scaleX === 1);
                 assert(sprite.component.scaleY === 1);
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     it('should flip horizontal', function (done) {
@@ -155,8 +155,8 @@ describe('EaselDisplayObject', function () {
             .then(() => {
                 assert(sprite.component.scaleX === -1);
                 assert(sprite.component.scaleY === 1);
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     it('should flip vertical', function (done) {
@@ -165,8 +165,8 @@ describe('EaselDisplayObject', function () {
             .then(() => {
                 assert(sprite.component.scaleX === 1);
                 assert(sprite.component.scaleY === -1);
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     it('should flip both', function (done) {
@@ -175,8 +175,8 @@ describe('EaselDisplayObject', function () {
             .then(() => {
                 assert(sprite.component.scaleX === -1);
                 assert(sprite.component.scaleY === -1);
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     it('should not rotate', function () {
@@ -188,8 +188,8 @@ describe('EaselDisplayObject', function () {
         Vue.nextTick()
             .then(() => {
                 assert(sprite.component.rotation === 15);
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     it('should not scale', function (done) {
@@ -198,8 +198,8 @@ describe('EaselDisplayObject', function () {
             .then(() => {
                 assert(sprite.component.scaleX === 1);
                 assert(sprite.component.scaleY === 1);
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     it('should scale to double', function (done) {
@@ -208,8 +208,8 @@ describe('EaselDisplayObject', function () {
             .then(() => {
                 assert(sprite.component.scaleX === 2);
                 assert(sprite.component.scaleY === 2);
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     it('should scale and flip', function (done) {
@@ -219,8 +219,8 @@ describe('EaselDisplayObject', function () {
             .then(() => {
                 assert(sprite.component.scaleX === -2);
                 assert(sprite.component.scaleY === -2);
-                done();
-            });
+            })
+            .then(done, done);
     });
 
     it('should be 100% opaque', function () {
@@ -260,7 +260,7 @@ describe('EaselDisplayObject', function () {
             })
             .then(done, done);
     });
-    
+
     it('should have the right hAlign', function () {
         assert(sprite.component.regX === 0, 'Wrong regX: ' + sprite.component.regX);
     });
