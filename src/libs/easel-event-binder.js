@@ -1,6 +1,6 @@
 /*
 |--------------------------------------------------------------------------
-| EaselEventBinder
+| easel-event-binder.js
 |--------------------------------------------------------------------------
 |
 | Binds all requested EaselJS events to a Vue component
@@ -20,7 +20,7 @@
 
 import {intersection} from 'lodash';
 
-const eventTypes = [
+export const eventTypes = [
     'added',
     'animationend',
     'change',

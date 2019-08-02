@@ -1,18 +1,26 @@
 import assert from 'assert';
 import Vue from 'vue';
-import EaselSprite from '../src/components/EaselSprite.vue';
-import $ from 'jquery';
-import _ from 'lodash';
+import EaselDisplayObject from '../src/mixins/EaselDisplayObject.js';
 import easeljs from '../src/easel.js';
+import {eventTypes} from '../src/libs/easel-event-binder.js';
 
-var garyStart = 32 * 6 + 16;
-var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
+assert(eventTypes && eventTypes.length > 0, 'easel-event-binder.js did not return a good eventTypes array');
 
-describe('EaselDisplayObject', function () {
+describe.only('EaselDisplayObject', function () {
 
-    var eventHandlerCode = eventTypes.map(type => `@${type}="logEvent"`).join(' ');
+    const eventHandlerCode = eventTypes.map(type => `@${type}="logEvent"`).join(' ');
 
-    var easel = {
+    /**
+     * A fake easel object. It allows adding and removing a child and has extra
+     * methods to tell whether the object was added and removed.
+     */
+    const easel = {
+        gotChild(vueChild) {
+            return vueChild.added;
+        },
+        lostChild(vueChild) {
+            return vueChild.removed;
+        },
         addChild(vueChild) {
             vueChild.added = true;
         },
@@ -21,12 +29,30 @@ describe('EaselDisplayObject', function () {
         },
     };
 
-    var vm = new Vue({
+    /**
+     * A fake component that uses EaselDisplayObject.
+     * It uses a generic Shape internally.
+     * It has the size of a 32x32 square.
+     */
+    const EaselFake = {
+        template: '<!---->',
+        mixins: [EaselDisplayObject],
+        methods: {
+            init() {
+                this.component = new easeljs.Shape();
+                this.displayObjectInit();
+            },
+            getBounds() {
+                return Promise.resolve(new easeljs.Rectangle(0, 0, 32, 32));
+            },
+        },
+    };
+
+    const vm = new Vue({
         template: `
             <span>
-                <easel-sprite ref="sprite"
-                    v-if="showSprite"
-                    :animation="animation"
+                <easel-fake ref="fake"
+                    v-if="showFake"
                     :x="x"
                     :y="y"
                     :flip="flip"
@@ -37,30 +63,20 @@ describe('EaselDisplayObject', function () {
                     :align="[hAlign, vAlign]"
                     ${eventHandlerCode}
                 >
-                </easel-sprite>
+                </easel-fake>
             </span>
         `,
         provide() {
             return {
-                spriteSheet: new easeljs.SpriteSheet({
-                    images: ['/base/test/images/lastguardian-all.png'],
-                    frames: {width: 32, height: 32},
-                    animations: {
-                        stand: garyStart + 5,
-                        run: [garyStart + 6, garyStart + 7],
-                    },
-                    framerate: 30,
-                }),
                 easel: easel,
             };
         },
         data() {
             return {
-                animation: 'stand',
                 x: 1,
                 y: 2,
                 eventLog: [],
-                showSprite: true,
+                showFake: true,
                 flip: '',
                 rotation: null,
                 scale: 1,
@@ -71,7 +87,7 @@ describe('EaselDisplayObject', function () {
             };
         },
         components: {
-            'easel-sprite': EaselSprite,
+            EaselFake,
         },
         methods: {
             logEvent(event) {
@@ -83,27 +99,27 @@ describe('EaselDisplayObject', function () {
         },
     }).$mount();
 
-    var sprite = vm.$refs.sprite;
+    let fake = vm.$refs.fake;
 
     it('should exist', function () {
-        assert(sprite);
+        assert(fake);
     });
 
     it('should have same easel', function () {
-        assert(sprite.easel === easel);
+        assert(fake.easel === easel);
     });
 
     it('should have component field', function () {
-        assert(sprite.component);
+        assert(fake.component);
     });
 
     it('should have been added', function () {
-        assert(sprite.added);
+        assert(easel.gotChild(fake));
     });
 
     it('should have x and y', function () {
-        assert(sprite.component.x === 1);
-        assert(sprite.component.y === 2);
+        assert(fake.component.x === 1);
+        assert(fake.component.y === 2);
     });
 
     it('should change x and y', function (done) {
@@ -111,30 +127,30 @@ describe('EaselDisplayObject', function () {
         vm.y = 4;
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.x === 3);
-                assert(sprite.component.y === 4);
+                assert(fake.component.x === 3);
+                assert(fake.component.y === 4);
             })
             .then(done, done);
     });
 
-    _.each(eventTypes, (type) => {
+    eventTypes.forEach(type => {
         it(`emits ${type} event`, function () {
             vm.clearEventLog();
-            sprite.component.dispatchEvent(type);
+            fake.component.dispatchEvent(type);
             assert(vm.eventLog.length === 1);
         });
     });
 
     it('should go away when gone', function (done) {
-        vm.showSprite = false;
+        vm.showFake = false;
         Vue.nextTick()
             .then(() => {
-                assert(sprite.removed);
-                vm.showSprite = true;
+                assert(easel.lostChild(fake));
+                vm.showFake = true;
                 return Vue.nextTick();
             })
             .then(() => {
-                sprite = vm.$refs.sprite; // make sure others get the new var
+                fake = vm.$refs.fake; // make sure others get the new var
             })
             .then(done, done);
     });
@@ -143,8 +159,8 @@ describe('EaselDisplayObject', function () {
         vm.flip = '';
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.scaleX === 1);
-                assert(sprite.component.scaleY === 1);
+                assert(fake.component.scaleX === 1);
+                assert(fake.component.scaleY === 1);
             })
             .then(done, done);
     });
@@ -153,8 +169,8 @@ describe('EaselDisplayObject', function () {
         vm.flip = 'horizontal';
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.scaleX === -1);
-                assert(sprite.component.scaleY === 1);
+                assert(fake.component.scaleX === -1);
+                assert(fake.component.scaleY === 1);
             })
             .then(done, done);
     });
@@ -163,8 +179,8 @@ describe('EaselDisplayObject', function () {
         vm.flip = 'vertical';
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.scaleX === 1);
-                assert(sprite.component.scaleY === -1);
+                assert(fake.component.scaleX === 1);
+                assert(fake.component.scaleY === -1);
             })
             .then(done, done);
     });
@@ -173,21 +189,21 @@ describe('EaselDisplayObject', function () {
         vm.flip = 'both';
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.scaleX === -1);
-                assert(sprite.component.scaleY === -1);
+                assert(fake.component.scaleX === -1);
+                assert(fake.component.scaleY === -1);
             })
             .then(done, done);
     });
 
     it('should not rotate', function () {
-        assert(!sprite.component.rotation);
+        assert(!fake.component.rotation);
     });
 
     it('should rotate', function (done) {
         vm.rotation = 15;
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.rotation === 15);
+                assert(fake.component.rotation === 15);
             })
             .then(done, done);
     });
@@ -196,8 +212,8 @@ describe('EaselDisplayObject', function () {
         vm.flip = '';
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.scaleX === 1);
-                assert(sprite.component.scaleY === 1);
+                assert(fake.component.scaleX === 1);
+                assert(fake.component.scaleY === 1);
             })
             .then(done, done);
     });
@@ -206,8 +222,8 @@ describe('EaselDisplayObject', function () {
         vm.scale = 2;
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.scaleX === 2);
-                assert(sprite.component.scaleY === 2);
+                assert(fake.component.scaleX === 2);
+                assert(fake.component.scaleY === 2);
             })
             .then(done, done);
     });
@@ -217,37 +233,37 @@ describe('EaselDisplayObject', function () {
         vm.flip = "both";
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.scaleX === -2);
-                assert(sprite.component.scaleY === -2);
+                assert(fake.component.scaleX === -2);
+                assert(fake.component.scaleY === -2);
             })
             .then(done, done);
     });
 
     it('should be 100% opaque', function () {
-        assert(sprite.component.alpha === 1, "Wrong alpha: " + sprite.component.alpha);
+        assert(fake.component.alpha === 1, "Wrong alpha: " + fake.component.alpha);
     });
 
     it('should become 50% opaque', function (done) {
         vm.alpha = .5;
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.alpha === .5, "Wrong alpha: " + sprite.component.alpha);
+                assert(fake.component.alpha === .5, "Wrong alpha: " + fake.component.alpha);
             })
             .then(done, done);
     });
 
     it('should have no shadow', function () {
-        assert(sprite.component.shadow === null, "Component: " + sprite.component);
+        assert(fake.component.shadow === null, "Component: " + fake.component);
     });
 
     it('should have shadow', function (done) {
         vm.shadow = ["black", 5, 7, 10];
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.shadow.color === 'black', 'Shadow color: ' + sprite.component.shadow.color);
-                assert(sprite.component.shadow.offsetX === 5, 'Shadow offsetX: ' + sprite.component.shadow.offsetX);
-                assert(sprite.component.shadow.offsetY === 7, 'Shadow offsetY: ' + sprite.component.shadow.offsetY);
-                assert(sprite.component.shadow.blur === 10, 'Shadow blur: ' + sprite.component.shadow.blur);
+                assert(fake.component.shadow.color === 'black', 'Shadow color: ' + fake.component.shadow.color);
+                assert(fake.component.shadow.offsetX === 5, 'Shadow offsetX: ' + fake.component.shadow.offsetX);
+                assert(fake.component.shadow.offsetY === 7, 'Shadow offsetY: ' + fake.component.shadow.offsetY);
+                assert(fake.component.shadow.blur === 10, 'Shadow blur: ' + fake.component.shadow.blur);
             })
             .then(done, done);
     });
@@ -256,20 +272,20 @@ describe('EaselDisplayObject', function () {
         vm.shadow = null;
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.shadow === null, "Component: " + sprite.component);
+                assert(fake.component.shadow === null, "Component: " + fake.component);
             })
             .then(done, done);
     });
 
     it('should have the right hAlign', function () {
-        assert(sprite.component.regX === 0, 'Wrong regX: ' + sprite.component.regX);
+        assert(fake.component.regX === 0, 'Wrong regX: ' + fake.component.regX);
     });
 
     it('should be able to change the hAlign', function (done) {
         vm.hAlign = 'right';
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.regX === 32, 'Wrong regX in: ' + sprite.component.regX);
+                assert(fake.component.regX === 32, 'Wrong regX in: ' + fake.component.regX);
             })
             .then(done, done);
     });
@@ -278,20 +294,20 @@ describe('EaselDisplayObject', function () {
         vm.hAlign = '';
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.regX === 0, 'Wrong default regX in: ' + sprite.component.regX);
+                assert(fake.component.regX === 0, 'Wrong default regX in: ' + fake.component.regX);
             })
             .then(done, done);
     });
 
     it('should have the right vAlign', function () {
-        assert(sprite.component.regY === 0, 'Wrong regY: ' + sprite.component.regY);
+        assert(fake.component.regY === 0, 'Wrong regY: ' + fake.component.regY);
     });
 
     it('should be able to change the vAlign', function (done) {
         vm.vAlign = 'bottom';
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.regY === 32, 'Wrong regY in: ' + sprite.component.regY);
+                assert(fake.component.regY === 32, 'Wrong regY in: ' + fake.component.regY);
             })
             .then(done, done);
     });
@@ -300,7 +316,7 @@ describe('EaselDisplayObject', function () {
         vm.vAlign = '';
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.regY === 0, 'Wrong default regY in: ' + sprite.component.regY);
+                assert(fake.component.regY === 0, 'Wrong default regY in: ' + fake.component.regY);
             })
             .then(done, done);
     });
@@ -310,8 +326,8 @@ describe('EaselDisplayObject', function () {
         vm.y = undefined;
         Vue.nextTick()
             .then(() => {
-                assert(sprite.component.x === 0, 'Wrong default x in: ' + sprite.component.x);
-                assert(sprite.component.y === 0, 'Wrong default y in: ' + sprite.component.y);
+                assert(fake.component.x === 0, 'Wrong default x in: ' + fake.component.x);
+                assert(fake.component.y === 0, 'Wrong default y in: ' + fake.component.y);
             })
             .then(done, done);
     });
