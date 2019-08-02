@@ -2,8 +2,11 @@ import assert from 'assert';
 import Vue from 'vue';
 import EaselText from '../src/components/EaselText.vue';
 import easeljs from '../src/easel.js';
+import isADisplayObject from './includes/is-a-display-object.js';
 
 describe('EaselText', function () {
+
+    describe('is a display object that', isADisplayObject(EaselText, 'text="O hai"'));
 
     var easel = {
         addChild(vueChild) {

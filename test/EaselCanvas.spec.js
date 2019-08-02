@@ -7,9 +7,9 @@ import doesEvents from './includes/does-events.js';
 
 describe('EaselCanvas', function () {
 
-    describe('is an easel parent', isAnEaselParent(EaselCanvas));
+    describe('is an easel parent that', isAnEaselParent(EaselCanvas));
 
-    describe('does events', doesEvents(EaselCanvas));
+    describe('does events and', doesEvents(EaselCanvas));
 
     const vm = new Vue({
         template: `

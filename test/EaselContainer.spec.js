@@ -4,10 +4,13 @@ import easeljs from '../src/easel.js';
 import Vue from 'vue';
 import isAnEaselParent from './includes/is-an-easel-parent.js';
 import EaselFake from './fixtures/EaselFake.js';
+import isADisplayObject from './includes/is-a-display-object.js';
 
 describe('EaselContainer', function () {
 
-    describe('is an easel parent', isAnEaselParent(EaselContainer));
+    describe('is an easel parent that', isAnEaselParent(EaselContainer));
+
+    describe('is a display object that', isADisplayObject(EaselContainer));
 
     const easel = {
         addChild(vueChild) {

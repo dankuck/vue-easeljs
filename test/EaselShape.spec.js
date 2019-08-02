@@ -2,8 +2,11 @@ import assert from 'assert';
 import EaselCanvas from '../src/components/EaselCanvas.vue';
 import EaselShape from '../src/components/EaselShape.vue';
 import Vue from 'vue';
+import isADisplayObject from './includes/is-a-display-object.js';
 
 describe('EaselShape', function () {
+
+    describe('is a display object that', isADisplayObject(EaselShape, 'form="circle"'));
 
     const vm = new Vue({
         template: `
@@ -47,7 +50,6 @@ describe('EaselShape', function () {
         },
     }).$mount();
 
-    const canvas = vm.$refs.easelCanvas;
     let shape = vm.$refs.theShape;
 
     it('should exist', function () {
@@ -60,32 +62,6 @@ describe('EaselShape', function () {
 
     it('should have component field', function () {
         assert(shape.component);
-    });
-
-    it('should have same component as parent', function () {
-        assert(canvas === shape.easel);
-    });
-
-    it('should have a parent', function () {
-        assert(shape.component.parent);
-    });
-
-    it('should have the right parent', function () {
-        assert(canvas.component === shape.component.parent);
-    });
-
-    it('should go away when gone', function (done) {
-        vm.showShape = false;
-        Vue.nextTick()
-            .then(() => {
-                assert(canvas.component.children.length === 0);
-                vm.showShape = true;
-                return Vue.nextTick();
-            })
-            .then(() => {
-                shape = vm.$refs.theShape; // make sure others get the new var
-            })
-            .then(done, done);
     });
 
     it('should make a blue shape', function () {

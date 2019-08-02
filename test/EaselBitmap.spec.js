@@ -1,8 +1,11 @@
 import assert from 'assert';
 import Vue from 'vue';
 import EaselBitmap from '../src/components/EaselBitmap.vue';
+import isADisplayObject from './includes/is-a-display-object.js';
 
 describe('EaselBitmap', function () {
+
+    describe('is a display object that', isADisplayObject(EaselBitmap, 'text="/base/test/images/gulfstream_park.jpg"'));
 
     const easel = {
         addChild(vueChild) {

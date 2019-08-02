@@ -2,10 +2,31 @@ import assert from 'assert';
 import Vue from 'vue';
 import EaselSprite from '../src/components/EaselSprite.vue';
 import easeljs from '../src/easel.js';
+import isADisplayObject from './includes/is-a-display-object.js';
 
 var garyStart = 32 * 6 + 16;
 
+var spriteSheet = new easeljs.SpriteSheet({
+    images: ['/base/test/images/lastguardian-all.png'],
+    frames: {width: 32, height: 32},
+    animations: {
+        stand: garyStart + 5,
+        run: [garyStart + 6, garyStart + 7],
+    },
+    framerate: 30,
+});
+
 describe('EaselSprite', function () {
+
+    const mixin = {
+        provide() {
+            return {
+                spriteSheet,
+            };
+        },
+    };
+
+    describe('is a display object that', isADisplayObject(EaselSprite, '', mixin));
 
     var easel = {
         addChild(vueChild) {
@@ -29,16 +50,8 @@ describe('EaselSprite', function () {
         `,
         provide() {
             return {
-                spriteSheet: new easeljs.SpriteSheet({
-                    images: ['/base/test/images/lastguardian-all.png'],
-                    frames: {width: 32, height: 32},
-                    animations: {
-                        stand: garyStart + 5,
-                        run: [garyStart + 6, garyStart + 7],
-                    },
-                    framerate: 30,
-                }),
-                easel: easel,
+                spriteSheet,
+                easel,
             };
         },
         data() {
