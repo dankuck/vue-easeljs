@@ -55,6 +55,7 @@ The earliest components are hidden by later components whenever they overlap.
 Show a static image.
 
 Attributes:
+
 | Attr     | Type                                                   | Desc.                                                                              | Required/Default               |
 | -------- | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
 | align    | array                                                  | controls what point of the image the x and y refer to.                             | Default: ['top', 'left'].      |
