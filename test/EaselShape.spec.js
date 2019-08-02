@@ -5,15 +5,15 @@ import Vue from 'vue';
 
 describe('EaselShape', function () {
 
-    var vm = new Vue({
+    const vm = new Vue({
         template: `
             <easel-canvas ref="easelCanvas">
                 <easel-shape ref="theShape"
                     v-if="showShape"
                     :x=100
                     :y=100
-                    :fill="color"
-                    :stroke="stroke"
+                    :fill="shapeData.fill"
+                    :stroke="shapeData.stroke"
                     :form="shapeData.form"
                     :dimensions="shapeData.dimensions"
                     :align="['center', 'center']"
@@ -31,10 +31,10 @@ describe('EaselShape', function () {
                 shapeData: {
                     form: 'circle',
                     dimensions: 50,
+                    fill: 'DeepSkyBlue',
+                    stroke: '#00FFFF',
                 },
                 eventLog: [],
-                color: 'DeepSkyBlue',
-                stroke: '#00FFFF',
             };
         },
         methods: {
@@ -47,8 +47,8 @@ describe('EaselShape', function () {
         },
     }).$mount();
 
-    var canvas = vm.$refs.easelCanvas;
-    var shape = vm.$refs.theShape;
+    const canvas = vm.$refs.easelCanvas;
+    let shape = vm.$refs.theShape;
 
     it('should exist', function () {
         assert(shape);
@@ -93,7 +93,7 @@ describe('EaselShape', function () {
     });
 
     it('should change the color to red', function (done) {
-        vm.color = 'red';
+        vm.shapeData.fill = 'red';
         Vue.nextTick()
             .then(() => {
                 assert(shape.component.graphics._fill.style === 'red');
@@ -106,7 +106,7 @@ describe('EaselShape', function () {
     });
 
     it('should change the stroke to yellow', function (done) {
-        vm.stroke = 'yellow';
+        vm.shapeData.stroke = 'yellow';
         Vue.nextTick()
             .then(() => {
                 assert(shape.component.graphics._stroke.style === 'yellow');

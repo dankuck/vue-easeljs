@@ -1,8 +1,8 @@
 import assert from 'assert';
 import EaselEventBinder from '../src/libs/easel-event-binder.js';
 
-var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
-var fauxParentListeners = {};
+const eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
+const fauxParentListeners = {};
 eventTypes.forEach(type => {
     fauxParentListeners[type] = function () {};
 });
