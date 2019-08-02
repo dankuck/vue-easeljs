@@ -60,7 +60,7 @@ Attributes:
 | --------  | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
 | align     | array                                                  | controls what point of the image the x and y refer to.                             | Default: ['top', 'left'].      |
 | alpha     | 0 to 1                                                 | controls the opacity of the image.                                                 | Default: 1, completely opaque. |
-| flip      | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   |                                |
+| flip      | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   | Default: ''                    |
 | image     | string                                                 | relative or absolute URL to an image file.                                         | Required.                      |
 | rotation  | degrees                                                | rotates the image.                                                                 | Default: 0.                    |
 | scale     | number                                                 | resizes the image.                                                                 | Default: 1.                    |
@@ -88,9 +88,12 @@ Example:
 Give the vue-easeljs components a place to live.
 
 Attributes:
-* anti-alias: boolean, whether or not edges should be smoothed on scaled images. Default: true.
-* height: number, the pixel height of the canvas on the page. Default: 300.
-* width: number, the pixel width of the canvas on the page. Default: 150.
+
+| Attribute  | Values                                                 | Description                                                                        | Required/Default               |
+| --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
+| anti-alias | boolean                                                | whether or not edges should be smoothed on scaled images.                          | Default: true.                 |
+| height     | number                                                 | the pixel height of the canvas on the page.                                        | Default: 300.                  |
+| width      | number                                                 | the pixel width of the canvas on the page.                                         | Default: 150.                  |
 
 Example:
 
@@ -126,13 +129,16 @@ Example:
 Group other vue-easel components together and manipulate them as one.
 
 Attributes:
-* alpha - 0 to 1, controls the opacity of the container. Default: 1, completely opaque.
-* flip - 'horizontal'|'vertical'|'both'|'', flips the container.
-* rotation - degrees, rotates the container. Default: 0.
-* scale - number, resizes the container. Default: 1.
-* shadow - array, cast a shadow of all contained components. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
-* x - number, horizontal position based on the origin of the parent component. Default: 0.
-* y - number, vertical position based on the origin of the parent component. Default: 0.
+
+| Attribute | Values                                                 | Description                                                                                      | Required/Default               |
+| --------  | ------------------------------------------------------ | ----------------------------------------------------------------------------------               | ------------------------------ |
+| alpha     | 0 to 1                                                 | controls the opacity of the container.                                                           | Default: 1, completely opaque. |
+| flip      | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the container.                                                                             | Default: ''                    |
+| rotation  | degrees                                                | rotates the container.                                                                           | Default: 0.                    |
+| scale     | number                                                 | resizes the container.                                                                           | Default: 1.                    |
+| shadow    | array                                                  | cast a shadow of all contained components. Format: [color, xOffset, yOffset, amountOfBluriness]. | Default: null.                 |
+| x         | number                                                 | horizontal position based on the origin of the parent component.                                 | Default: 0.                    |
+| y         | number                                                 | vertical position based on the origin of the parent component.                                   | Default: 0.                    |
 
 Example:
 
@@ -164,26 +170,32 @@ Example:
 Show a shape.
 
 Attributes:
-* align - array, controls what point of the shape the x and y refer to. Default: ['top', 'left'].
-* alpha - 0 to 1, controls the opacity of the shape. Default: 1, completely opaque.
-* dimensions - Depends on the form. See below. Required.
-* fill - color, the inside of the shape
-* flip - 'horizontal'|'vertical'|'both'|'', flips the shape.
-* form - 'circle'|'ellipse'|'rect'|'star'. Required.
-* rotation - degrees, rotates the shape. Default: 0.
-* scale - number, resizes the shape. Default: 1.
-* shadow - array, cast a same-shape shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
-* stroke - color, the outline of the shape.
-* x - number, horizontal position based on the origin of the parent component. Default: 0.
-* y - number, vertical position based on the origin of the parent component. Default: 0.
+
+| Attribute  | Values                                                 | Description                                                                                                                   | Required/Default                                                                                                     |
+| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                            | ------------------------------                                                                                       |
+| align      | array                                                  | controls what point of the shape the x and y refer to.                                                                        | Default: ['top', 'left'].
+| alpha      | 0 to 1                                                 | controls the opacity of the shape.                                                                                            | Default: 1, completely opaque.
+| dimensions | Depends on the form.                                   | See below.                                                                                                                    | Required.
+| fill       | color                                                  | the inside of the shape                                                                                                       | Optional.
+| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the shape.                                                                                                              | Default: ''.
+| form       | 'circle' &#124; 'ellipse' &#124; 'rect' &#124; 'star'  |                                                                                                                               | Required.
+| rotation   | degrees                                                | rotates the shape.                                                                                                            | Default: 0.
+| scale      | number                                                 | resizes the shape.                                                                                                            | Default: 1.
+| shadow     | array                                                  | cast a same-shape shadow. Format: [color, xOffset, yOffset, amountOfBluriness].                                               | Default: null.
+| stroke     | color                                                  | the outline of the shape.                                                                                                     | Optional.
+| x          | number                                                 | horizontal position based on the origin of the parent component.                                                              | Default: 0.
+| y          | number                                                 | vertical position based on the origin of the parent component.                                                                | Default: 0.
 
 Dimensions for:
-* circle - number, the radius of the circle
-* ellipse - array, the width and height of the ellipse. Format: [width, height].
-* rect - array, the width and height of the rectangle. Optionally include the radius of rounded corners. Format: [width, height], or [width, height, allRadiuses], or [width, height, topLeftRadius, topRightRadius, bottomRightRadius, bottomLeftRadius].
-* star - array, the radius, sides count, and point size of a "star". Use point size 0 to draw a simple polygon. Max point size is 1.
 
-Example, to draw a blue triangle with red stroke:
+| Shape      | Dimension Type                                         | Format                                                                                                                        | Value explanation                                                                                                    |
+| ---------  | ------------------                                     | --------------                                                                                                                | -------------------                                                                                                  |
+| circle     | number                                                 |                                                                                                                               | the radius of the circle.                                                                                            |
+| ellipse    | array                                                  | [w, h]                                                                                                                        | the width and height of the ellipse.                                                                                 |
+| rect       | array                                                  | [w, h], or [w, h, r], or [w, h, topLeft, topRight, bottomRight, bottomLeft]                                                   | the width and height of the rectangle. Optionally include the radius of rounded corners as one value or four.        |
+| star       | array                                                  | [r, s, p]                                                                                                                     | the radius, sides count, and point size of a "star". Use point size 0 to draw a simple polygon. Max point size is 1. |
+
+Example:
 ```
 <easel-shape
     form="star"
@@ -203,15 +215,18 @@ Example, to draw a blue triangle with red stroke:
 Show a moving image. An `easel-sprite` must reside in an `easel-sprite-sheet` node. The `easel-sprite-sheet` defines the animations that can be used by the `easel-sprite`.
 
 Attributes:
-* align - array, controls what point of the image the x and y refer to. Default: ['top', 'left'].
-* alpha - 0 to 1, controls the opacity of the image. Default: 1, completely opaque.
-* animation - string, name of the animation to run from the `easel-sprite-sheet`. Required.
-* flip - 'horizontal'|'vertical'|'both'|'', flips the image.
-* rotation - degrees, rotates the image. Default: 0.
-* scale - number, resizes the image. Default: 1.
-* shadow - array, cast an image-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
-* x - number, horizontal position based on the origin of the parent component. Default: 0.
-* y - number, vertical position based on the origin of the parent component. Default: 0.
+
+| Attribute  | Values                                                 | Description                                                                                                                   | Required/Default                                                                                                     |
+| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                            | ------------------------------                                                                                       |
+| align      | array                                                  | controls what point of the image the x and y refer to.                                                                        | Default: ['top', 'left'].                                                                                            |
+| alpha      | 0 to 1                                                 | controls the opacity of the image.                                                                                            | Default: 1, completely opaque.                                                                                       |
+| animation  | string                                                 | name of the animation to run from the `easel-sprite-sheet`.                                                                   | Required.                                                                                                            |
+| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                                                              | Default: ''.                                                                                                         |
+| rotation   | degrees                                                | rotates the image.                                                                                                            | Default: 0.                                                                                                          |
+| scale      | number                                                 | resizes the image.                                                                                                            | Default: 1.                                                                                                          |
+| shadow     | array                                                  | cast an image-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness].                                            | Default: null.                                                                                                       |
+| x          | number                                                 | horizontal position based on the origin of the parent component.                                                              | Default: 0.                                                                                                          |
+| y          | number                                                 | vertical position based on the origin of the parent component.                                                                | Default: 0.                                                                                                          |
 
 Example:
 
@@ -222,10 +237,13 @@ See the `easel-sprite-sheet` example below.
 Define image animations for use in a sprite.
 
 Attributes:
-* animations - object, defines names for animations. Each animation is a series of frames. Format: {&lt;animationName>: [frame1, frame2, ...], ...}.
-* framerate - number, the speed the animation should play at.
-* frames - mixed, usually an object with format: {width: width, height: height}. Required.
-* images - array, relative or absolute URL's to image files. Required.
+
+| Attribute  | Values                                                 | Description                                                                                                                   | Required/Default                                                                                                     |
+| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                            | ------------------------------                                                                                       |
+| animations | object                                                 | defines names for animations. Each animation is a series of frames. Format: {&lt;animationName>: [frame1, frame2, ...], ...}. | Required.                                                                                                            |
+| framerate  | number                                                 | the speed the animation should play at.                                                                                       | Required.                                                                                                            |
+| frames     | mixed                                                  | usually an object with format: {width: width, height: height}.                                                                | Required.                                                                                                            |
+| images     | array                                                  | relative or absolute URL's to image files.                                                                                    | Required.                                                                                                            |
 
 In-depth:
 
@@ -339,10 +357,13 @@ Example:
 Show some text.
 
 Attributes:
+
+| Attribute | Values                                                 | Description                                                                                      | Required/Default               |
+| --------  | ------------------------------------------------------ | ----------------------------------------------------------------------------------               | ------------------------------ |
 * align - array, controls what point of the text the x and y refer to. Default: ['top', 'left'].
 * alpha - 0 to 1, controls the opacity of the text. Default: 1, completely opaque.
 * color - color, the color to use for the text.
-* flip - 'horizontal'|'vertical'|'both'|'', flips the text.
+* flip - 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '', flips the text.
 * font - string, size and family of the font. Format: "Npx family".
 * rotation - degrees, rotates the text. Default: 0.
 * scale - number, resizes the text. Default: 1.
