@@ -399,12 +399,12 @@ For example, if a 50x50 square shape is aligned at ['left', 'top'], and its x an
 are at 65, 70, then the square's top left point will be at 65, 70 and its
 bottom right point will be at 115, 120.
 
-![left top alignment](https://dankuck.github.io/vue-easeljs/images/alignment-1.png | width=150)
+<img src="https://dankuck.github.io/vue-easeljs/images/alignment-1.png" widht="150" alt="alignment, left, top" />
 
 If the same square was aligned at ['right', 'bottom'], then it's bottom right point
 would be at 65, 70 and its top left point would be at 15, 20.
 
-![right bottom alignment](https://dankuck.github.io/vue-easeljs/images/alignment-2.png | width=150)
+<img src="https://dankuck.github.io/vue-easeljs/images/alignment-2.png" widht="150" alt="alignment, right, bottom" />
 
 The field is formatted as `[horizontal-alignment, vertical-alignment]`.
 
