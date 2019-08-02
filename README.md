@@ -45,8 +45,8 @@ The earliest components are hidden by later components whenever they overlap.
 </easel-canvas>
 ```
 
-<img src="https://dankuck.github.io/vue-easeljs/images/example1.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.0">See Live Demo</a>
+<img src="https://www.dankuck.com/vue-easeljs/images/example1.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.0">See Live Demo</a>
 
 # Components
 
@@ -58,7 +58,7 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                        | Required/Default               |
 | --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: ['top', 'left'].      |
+| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: ['left', 'top'].      |
 | alpha      | 0 to 1                                                 | controls the opacity of the image.                                                 | Default: 1, completely opaque. |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   | Default: ''                    |
 | image      | string                                                 | relative or absolute URL to an image file.                                         | Required.                      |
@@ -80,8 +80,8 @@ Example:
 </easel-bitmap>
 ```
 
-<img src="https://dankuck.github.io/vue-easeljs/images/example2.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.1">See Live Demo</a>
+<img src="https://www.dankuck.com/vue-easeljs/images/example2.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.1">See Live Demo</a>
 
 ## easel-canvas
 
@@ -121,8 +121,8 @@ Example:
 
 ```
 
-<img src="https://dankuck.github.io/vue-easeljs/images/example3.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.2">See Live Demo</a>
+<img src="https://www.dankuck.com/vue-easeljs/images/example3.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.2">See Live Demo</a>
 
 ## easel-container
 
@@ -162,8 +162,8 @@ Example:
 </easel-container>
 ```
 
-<img src="https://dankuck.github.io/vue-easeljs/images/example4.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.3">See Live Demo</a>
+<img src="https://www.dankuck.com/vue-easeljs/images/example4.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.3">See Live Demo</a>
 
 ## easel-shape
 
@@ -173,7 +173,7 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                        | Required/Default               |
 | --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the shape the x and y refer to.                             | Default: ['top', 'left'].
+| align      | [alignment](#align-attribute)                          | controls what point of the shape the x and y refer to.                             | Default: ['left', 'top'].
 | alpha      | 0 to 1                                                 | controls the opacity of the shape.                                                 | Default: 1, completely opaque.
 | dimensions | Depends on the form.                                   | See below.                                                                         | Required.
 | fill       | HTML color                                             | the inside of the shape                                                            | Optional.
@@ -207,8 +207,8 @@ Example:
 >
 ```
 
-<img src="https://dankuck.github.io/vue-easeljs/images/example5.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.4">See Live Demo</a>
+<img src="https://www.dankuck.com/vue-easeljs/images/example5.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.4">See Live Demo</a>
 
 ## easel-sprite
 
@@ -218,7 +218,7 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                        | Required/Default               |
 | --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: ['top', 'left'].      |
+| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: ['left', 'top'].      |
 | alpha      | 0 to 1                                                 | controls the opacity of the image.                                                 | Default: 1, completely opaque. |
 | animation  | string                                                 | name of the animation to run from the `easel-sprite-sheet`.                        | Required.                      |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   | Default: ''.                   |
@@ -348,8 +348,8 @@ Example:
 </easel-sprite-sheet>
 ```
 
-<img src="https://dankuck.github.io/vue-easeljs/images/example6.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.5">See Live Demo</a>
+<img src="https://www.dankuck.com/vue-easeljs/images/example6.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.5">See Live Demo</a>
 
 ## easel-text
 
@@ -359,7 +359,7 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                        | Required/Default               |
 | --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the text the x and y refer to.                              | Default: ['top', 'left'].      |
+| align      | [alignment](#align-attribute)                          | controls what point of the text the x and y refer to.                              | Default: ['left', 'top'].      |
 | alpha      | 0 to 1                                                 | controls the opacity of the text.                                                  | Default: 1, completely opaque. |
 | HTML color | HTML color                                             | the color to use for the text.                                                     | Default: 'black'               |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the text.                                                                    | Default: ''                    |
@@ -384,8 +384,8 @@ Example:
 </easel-text>
 ```
 
-<img src="https://dankuck.github.io/vue-easeljs/images/example7.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.6">See Live Demo</a>
+<img src="https://www.dankuck.com/vue-easeljs/images/example7.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.6">See Live Demo</a>
 
 # Align attribute
 
@@ -399,12 +399,12 @@ For example, if a 50x50 square shape is aligned at ['left', 'top'], and its x an
 are at 65, 70, then the square's top left point will be at 65, 70 and its
 bottom right point will be at 115, 120.
 
-![left top alignment](https://dankuck.github.io/vue-easeljs/images/alignment-1.png?cache=1908021111)
+![left top alignment](https://www.dankuck.com/vue-easeljs/images/alignment-1.png?cache=1908021111)
 
 If the same square was aligned at ['right', 'bottom'], then it's bottom right point
 would be at 65, 70 and its top left point would be at 15, 20.
 
-![right bottom alignment](https://dankuck.github.io/vue-easeljs/images/alignment-2.png?cache=1908021111)
+![right bottom alignment](https://www.dankuck.com/vue-easeljs/images/alignment-2.png?cache=1908021111)
 
 The field is formatted as `[horizontal-alignment, vertical-alignment]`.
 
@@ -412,7 +412,7 @@ Alignment options:
 * horizontal: left, center, right
 * vertical: top, center, bottom
 
-The 'easel-text' component has some special alignment options:
+The `easel-text` component has some special alignment options:
 * horizontal: start, end, left, right, center
 * vertical: top, hanging, middle, alphabetic, ideographic, bottom
 
