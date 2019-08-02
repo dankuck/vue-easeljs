@@ -56,17 +56,17 @@ Show a static image.
 
 Attributes:
 
-| Attribute | Values                                                 | Description                                                                        | Required/Default               |
-| --------  | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align     | array                                                  | controls what point of the image the x and y refer to.                             | Default: ['top', 'left'].      |
-| alpha     | 0 to 1                                                 | controls the opacity of the image.                                                 | Default: 1, completely opaque. |
-| flip      | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   | Default: ''                    |
-| image     | string                                                 | relative or absolute URL to an image file.                                         | Required.                      |
-| rotation  | degrees                                                | rotates the image.                                                                 | Default: 0.                    |
-| scale     | number                                                 | resizes the image.                                                                 | Default: 1.                    |
-| shadow    | array                                                  | cast an image-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. | Default: null.                 |
-| x         | number                                                 | horizontal position based on the origin of the parent component.                   | Default: 0.                    |
-| y         | number                                                 | vertical position based on the origin of the parent component.                     | Default: 0.                    |
+| Attribute  | Values                                                 | Description                                                                                                                   | Required/Default                                                                                                     |
+| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                            | ------------------------------                                                                                       |
+| align      | array                                                  | controls what point of the image the x and y refer to.                                                                        | Default: ['top', 'left'].                                                                                            |
+| alpha      | 0 to 1                                                 | controls the opacity of the image.                                                                                            | Default: 1, completely opaque.                                                                                       |
+| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                                                              | Default: ''                                                                                                          |
+| image      | string                                                 | relative or absolute URL to an image file.                                                                                    | Required.                                                                                                            |
+| rotation   | degrees                                                | rotates the image.                                                                                                            | Default: 0.                                                                                                          |
+| scale      | number                                                 | resizes the image.                                                                                                            | Default: 1.                                                                                                          |
+| shadow     | [color, xOffset, yOffset, bluriness]                   | cast an image-shaped shadow.                                                                                                  | Default: null.                                                                                                       |
+| x          | number                                                 | horizontal position based on the origin of the parent component.                                                              | Default: 0.                                                                                                          |
+| y          | number                                                 | vertical position based on the origin of the parent component.                                                                | Default: 0.                                                                                                          |
 
 Example:
 
@@ -130,15 +130,15 @@ Group other vue-easel components together and manipulate them as one.
 
 Attributes:
 
-| Attribute | Values                                                 | Description                                                                                      | Required/Default               |
-| --------  | ------------------------------------------------------ | ----------------------------------------------------------------------------------               | ------------------------------ |
-| alpha     | 0 to 1                                                 | controls the opacity of the container.                                                           | Default: 1, completely opaque. |
-| flip      | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the container.                                                                             | Default: ''                    |
-| rotation  | degrees                                                | rotates the container.                                                                           | Default: 0.                    |
-| scale     | number                                                 | resizes the container.                                                                           | Default: 1.                    |
-| shadow    | array                                                  | cast a shadow of all contained components. Format: [color, xOffset, yOffset, amountOfBluriness]. | Default: null.                 |
-| x         | number                                                 | horizontal position based on the origin of the parent component.                                 | Default: 0.                    |
-| y         | number                                                 | vertical position based on the origin of the parent component.                                   | Default: 0.                    |
+| Attribute  | Values                                                 | Description                                                                                                                   | Required/Default                                                                                                     |
+| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                            | ------------------------------                                                                                       |
+| alpha      | 0 to 1                                                 | controls the opacity of the container.                                                                                        | Default: 1, completely opaque.                                                                                       |
+| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the container.                                                                                                          | Default: ''                                                                                                          |
+| rotation   | degrees                                                | rotates the container.                                                                                                        | Default: 0.                                                                                                          |
+| scale      | number                                                 | resizes the container.                                                                                                        | Default: 1.                                                                                                          |
+| shadow     | [color, xOffset, yOffset, bluriness]                   | cast a shadow of all contained components.                                                                                    | Default: null.                                                                                                       |
+| x          | number                                                 | horizontal position based on the origin of the parent component.                                                              | Default: 0.                                                                                                          |
+| y          | number                                                 | vertical position based on the origin of the parent component.                                                                | Default: 0.                                                                                                          |
 
 Example:
 
@@ -181,7 +181,7 @@ Attributes:
 | form       | 'circle' &#124; 'ellipse' &#124; 'rect' &#124; 'star'  |                                                                                                                               | Required.
 | rotation   | degrees                                                | rotates the shape.                                                                                                            | Default: 0.
 | scale      | number                                                 | resizes the shape.                                                                                                            | Default: 1.
-| shadow     | array                                                  | cast a same-shape shadow. Format: [color, xOffset, yOffset, amountOfBluriness].                                               | Default: null.
+| shadow     | [color, xOffset, yOffset, bluriness]                   | cast a same-shape shadow.                                                                                                     | Default: null.
 | stroke     | color                                                  | the outline of the shape.                                                                                                     | Optional.
 | x          | number                                                 | horizontal position based on the origin of the parent component.                                                              | Default: 0.
 | y          | number                                                 | vertical position based on the origin of the parent component.                                                                | Default: 0.
@@ -224,7 +224,7 @@ Attributes:
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                                                              | Default: ''.                                                                                                         |
 | rotation   | degrees                                                | rotates the image.                                                                                                            | Default: 0.                                                                                                          |
 | scale      | number                                                 | resizes the image.                                                                                                            | Default: 1.                                                                                                          |
-| shadow     | array                                                  | cast an image-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness].                                            | Default: null.                                                                                                       |
+| shadow     | [color, xOffset, yOffset, bluriness]                   | cast an image-shaped shadow.                                                                                                  | Default: null.                                                                                                       |
 | x          | number                                                 | horizontal position based on the origin of the parent component.                                                              | Default: 0.                                                                                                          |
 | y          | number                                                 | vertical position based on the origin of the parent component.                                                                | Default: 0.                                                                                                          |
 
@@ -358,19 +358,19 @@ Show some text.
 
 Attributes:
 
-| Attribute | Values                                                 | Description                                                                                      | Required/Default               |
-| --------  | ------------------------------------------------------ | ----------------------------------------------------------------------------------               | ------------------------------ |
-* align - array, controls what point of the text the x and y refer to. Default: ['top', 'left'].
-* alpha - 0 to 1, controls the opacity of the text. Default: 1, completely opaque.
-* color - color, the color to use for the text.
-* flip - 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '', flips the text.
-* font - string, size and family of the font. Format: "Npx family".
-* rotation - degrees, rotates the text. Default: 0.
-* scale - number, resizes the text. Default: 1.
-* shadow - array, cast a text-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
-* text - string, the text to display.
-* x - number, horizontal position based on the origin of the parent component. Default: 0.
-* y - number, vertical position based on the origin of the parent component. Default: 0.
+| Attribute  | Values                                                 | Description                                                                                                                   | Required/Default                                                                                                     |
+| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                            | ------------------------------                                                                                       |
+| align      | array                                                  | controls what point of the text the x and y refer to.                                                                         | Default: ['top', 'left'].                                                                                            |
+| alpha      | 0 to 1                                                 | controls the opacity of the text.                                                                                             | Default: 1, completely opaque.                                                                                       |
+| color      | color                                                  | the color to use for the text.                                                                                                | Default: 'black'                                                                                                     |
+| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the text.                                                                                                               | Default: ''                                                                                                          |
+| font       | string                                                 | size and family of the font. Format: "Npx family".                                                                            | Default: ?                                                                                                           |
+| rotation   | degrees                                                | rotates the text.                                                                                                             | Default: 0.                                                                                                          |
+| scale      | number                                                 | resizes the text.                                                                                                             | Default: 1.                                                                                                          |
+| shadow     | [color, xOffset, yOffset, bluriness]                   | cast a text-shaped shadow.                                                                                                    | Default: null.                                                                                                       |
+| text       | string                                                 | the text to display.                                                                                                          | Required.                                                                                                            |
+| x          | number                                                 | horizontal position based on the origin of the parent component.                                                              | Default: 0.                                                                                                          |
+| y          | number                                                 | vertical position based on the origin of the parent component.                                                                | Default: 0.                                                                                                          |
 
 Example:
 
