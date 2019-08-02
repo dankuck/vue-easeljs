@@ -7,7 +7,6 @@
 <script>
 import easeljs from '../easel.js';
 import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
-import _ from 'lodash';
 import EaselParent from '../mixins/EaselParent.js';
 
 export default {

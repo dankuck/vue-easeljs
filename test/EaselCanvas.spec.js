@@ -1,8 +1,6 @@
 import assert from 'assert';
 import Vue from 'vue';
 import EaselCanvas from '../src/components/EaselCanvas.vue';
-import $ from 'jquery';
-import _ from 'lodash';
 import easeljs from '../src/easel.js';
 import isAnEaselParent from './includes/is-an-easel-parent.js';
 import doesEvents from './includes/does-events.js';
@@ -13,7 +11,7 @@ describe('EaselCanvas', function () {
 
     describe('does events', doesEvents(EaselCanvas));
 
-    var vm = new Vue({
+    const vm = new Vue({
         template: `
             <easel-canvas
                 background-color="grey"
@@ -42,14 +40,14 @@ describe('EaselCanvas', function () {
         },
     }).$mount();
 
-    var canvas = vm.$refs.easelCanvas;
+    const canvas = vm.$refs.easelCanvas;
 
     it('should have a canvas object', function () {
         assert(vm.$el.nodeName === 'CANVAS');
     });
 
     it('should have the slot stuff we put in', function () {
-        assert($(vm.$el).find('#im-in-a-slot'));
+        assert(vm.$el.querySelector('#im-in-a-slot'));
     });
 
     it('should have an easel object with a component object', function () {
@@ -57,7 +55,7 @@ describe('EaselCanvas', function () {
     });
 
     it('should update a bunch', function (done) {
-        var update = canvas.component.update;
+        const update = canvas.component.update;
         canvas.component.update = function (event) {
             assert(event);
             canvas.component.update = update;
@@ -79,8 +77,8 @@ describe('EaselCanvas', function () {
     });
 
     it('should have touch', function () {
-        var Touch = easeljs.Touch;
-        var sawEnable, sawDisable;
+        const Touch = easeljs.Touch;
+        let sawEnable, sawDisable;
         easeljs.Touch = {
             enable(component) {
                 sawEnable = component;
@@ -89,7 +87,7 @@ describe('EaselCanvas', function () {
                 sawDisable = component;
             },
         };
-        var vm = new Vue({
+        const vm = new Vue({
             template: `
                 <easel-canvas></easel-canvas>
             `,

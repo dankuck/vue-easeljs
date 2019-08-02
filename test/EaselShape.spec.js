@@ -1,14 +1,10 @@
-import $ from 'jquery';
-import _ from 'lodash';
 import assert from 'assert';
 import EaselCanvas from '../src/components/EaselCanvas.vue';
 import EaselShape from '../src/components/EaselShape.vue';
 import Vue from 'vue';
 
-var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick'];
-
 describe('EaselShape', function () {
-    var eventHandlerCode = eventTypes.map(type => `@${type}="logEvent"`).join(' ');
+
     var vm = new Vue({
         template: `
             <easel-canvas ref="easelCanvas">
@@ -21,7 +17,6 @@ describe('EaselShape', function () {
                     :form="shapeData.form"
                     :dimensions="shapeData.dimensions"
                     :align="['center', 'center']"
-                    ${eventHandlerCode}
                     >
                 </easel-shape>
             </easel-canvas>
@@ -241,11 +236,4 @@ describe('EaselShape', function () {
             .then(done, done);
     });
 
-    _.each(eventTypes, (type) => {
-        it(`emits ${type} event`, function () {
-            vm.clearEventLog();
-            shape.component.dispatchEvent(type);
-            assert(vm.eventLog.length === 1);
-        });
-    });
 });

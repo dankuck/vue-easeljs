@@ -1,8 +1,6 @@
 import assert from 'assert';
 import Vue from 'vue';
 import EaselSprite from '../src/components/EaselSprite.vue';
-import $ from 'jquery';
-import _ from 'lodash';
 import easeljs from '../src/easel.js';
 
 var garyStart = 32 * 6 + 16;

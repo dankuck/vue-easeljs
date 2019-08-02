@@ -1,25 +1,22 @@
 import assert from 'assert';
 import Vue from 'vue';
 import EaselBitmap from '../src/components/EaselBitmap.vue';
-import $ from 'jquery';
-import _ from 'lodash';
-import easeljs from '../src/easel.js';
 
 describe('EaselBitmap', function () {
 
-    var easel = {
+    const easel = {
         addChild(vueChild) {
         },
         removeChild(vueChild) {
         },
     };
 
-    var vm = new Vue({
+    const vm = new Vue({
         template: `
             <span>
                 <easel-bitmap ref="bitmap"
                     v-if="showBitmap"
-                    :x="1" 
+                    :x="1"
                     :y="2"
                     :image="image"
                 >
@@ -42,7 +39,7 @@ describe('EaselBitmap', function () {
         },
     }).$mount();
 
-    var bitmap = vm.$refs.bitmap;
+    const bitmap = vm.$refs.bitmap;
 
     it('should exist', function () {
         assert(bitmap);
@@ -57,13 +54,13 @@ describe('EaselBitmap', function () {
     });
 
     it('should be able to change the image', function (done) {
-        var image = vm.image;
+        const image = vm.image;
         vm.image = Math.random();
         Vue.nextTick()
             .then(() => {
-                var qr = new RegExp(vm.image);
+                const qr = new RegExp(vm.image);
                 assert(
-                    qr.test(bitmap.component.image.src) || qr.test(bitmap.component.image), 
+                    qr.test(bitmap.component.image.src) || qr.test(bitmap.component.image),
                     'Wrong src in: ' + bitmap.component.image
                 );
                 vm.image = image;

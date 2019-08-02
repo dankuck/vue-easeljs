@@ -1,8 +1,6 @@
 import assert from 'assert';
 import Vue from 'vue';
 import EaselText from '../src/components/EaselText.vue';
-import $ from 'jquery';
-import _ from 'lodash';
 import easeljs from '../src/easel.js';
 
 describe('EaselText', function () {
@@ -19,7 +17,7 @@ describe('EaselText', function () {
             <span>
                 <easel-text ref="text"
                     v-if="showText"
-                    :x="1" 
+                    :x="1"
                     :y="2"
                     :text="text"
                     :font="font"

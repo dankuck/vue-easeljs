@@ -1,8 +1,6 @@
 import assert from 'assert';
 import Vue from 'vue';
 import EaselSpriteSheet from '../src/components/EaselSpriteSheet.vue';
-import $ from 'jquery';
-import _ from 'lodash';
 import easeljs from '../src/easel.js';
 
 describe('EaselSpriteSheet', function () {

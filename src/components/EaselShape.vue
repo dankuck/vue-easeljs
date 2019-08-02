@@ -1,7 +1,6 @@
 <script>
 import easeljs from '../easel.js';
 import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
-import _ from 'lodash';
 
 export default {
     mixins: [EaselDisplayObject],
@@ -46,7 +45,7 @@ export default {
                 } else {
                     var radiuses;
                     // If 4 radius dimensions were given, use them.
-                    // Otherwise, assume just 1 radius dimension was given 
+                    // Otherwise, assume just 1 radius dimension was given
                     // and use it four times
                     if (this.dimensions.length === 6) {
                         radiuses = this.dimensions.slice(2, 6);

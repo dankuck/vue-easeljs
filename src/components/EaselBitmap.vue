@@ -1,7 +1,6 @@
 <script>
 import easeljs from '../easel.js';
 import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
-import _ from 'lodash';
 
 export default {
     props: ['image'],
