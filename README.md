@@ -56,16 +56,17 @@ Show a static image.
 
 Attributes:
 
-| -------- | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align    | array                                                  | controls what point of the image the x and y refer to.                             | Default: ['top', 'left'].      |
-| alpha    | 0 to 1                                                 | controls the opacity of the image.                                                 | Default: 1, completely opaque. |
-| flip     | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   |                                |
-| image    | string                                                 | relative or absolute URL to an image file.                                         | Required.                      |
-| rotation | degrees                                                | rotates the image.                                                                 | Default: 0.                    |
-| scale    | number                                                 | resizes the image.                                                                 | Default: 1.                    |
-| shadow   | array                                                  | cast an image-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. | Default: null.                 |
-| x        | number                                                 | horizontal position based on the origin of the parent component.                   | Default: 0.                    |
-| y        | number                                                 | vertical position based on the origin of the parent component.                     | Default: 0.                    |
+| Attribute | Values                                                 | Description                                                                        | Required/Default               |
+| --------  | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
+| align     | array                                                  | controls what point of the image the x and y refer to.                             | Default: ['top', 'left'].      |
+| alpha     | 0 to 1                                                 | controls the opacity of the image.                                                 | Default: 1, completely opaque. |
+| flip      | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   |                                |
+| image     | string                                                 | relative or absolute URL to an image file.                                         | Required.                      |
+| rotation  | degrees                                                | rotates the image.                                                                 | Default: 0.                    |
+| scale     | number                                                 | resizes the image.                                                                 | Default: 1.                    |
+| shadow    | array                                                  | cast an image-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. | Default: null.                 |
+| x         | number                                                 | horizontal position based on the origin of the parent component.                   | Default: 0.                    |
+| y         | number                                                 | vertical position based on the origin of the parent component.                     | Default: 0.                    |
 
 Example:
 
