@@ -4,7 +4,8 @@
   "description": "A Vue.js plugin to control an HTML5 canvas using EaselJS",
   "main": "dist/index.js",
   "scripts": {
-    "test": "karma start karma.conf.js"
+    "test": "karma start karma.conf.js",
+    "build": "gulp"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,7 @@
     "laravel-elixir": "^6.0.0-15",
     "laravel-elixir-vue-2": "^0.3.0",
     "laravel-elixir-webpack-official": "^1.0.10",
-    "lodash": "^4.16.2",
+    "lodash": "^4.17.*",
     "mocha": "^3.2.0",
     "phantomjs-prebuilt": "^2.1.14",
     "vue": "^2.1.*",
