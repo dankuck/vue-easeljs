@@ -4,10 +4,13 @@ import EaselCanvas from '../src/components/EaselCanvas.vue';
 import $ from 'jquery';
 import _ from 'lodash';
 import easeljs from '../src/easel.js';
+import isAnEaselParent from './includes/is-an-easel-parent.js';
 
 var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
 
 describe('EaselCanvas', function () {
+
+    describe('is an easel parent', isAnEaselParent(EaselCanvas));
 
     var eventHandlerCode = eventTypes.map(type => `@${type}="logEvent"`).join(' ');
     var vm = new Vue({

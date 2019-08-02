@@ -3,6 +3,7 @@ import Vue from 'vue';
 import EaselDisplayObject from '../src/mixins/EaselDisplayObject.js';
 import easeljs from '../src/easel.js';
 import {eventTypes} from '../src/libs/easel-event-binder.js';
+import EaselFake from './fixtures/EaselFake.js';
 
 assert(eventTypes && eventTypes.length > 0, 'easel-event-binder.js did not return a good eventTypes array');
 
@@ -26,25 +27,6 @@ describe.only('EaselDisplayObject', function () {
         },
         removeChild(vueChild) {
             vueChild.removed = true;
-        },
-    };
-
-    /**
-     * A fake component that uses EaselDisplayObject.
-     * It uses a generic Shape internally.
-     * It has the size of a 32x32 square.
-     */
-    const EaselFake = {
-        template: '<!---->',
-        mixins: [EaselDisplayObject],
-        methods: {
-            init() {
-                this.component = new easeljs.Shape();
-                this.displayObjectInit();
-            },
-            getBounds() {
-                return Promise.resolve(new easeljs.Rectangle(0, 0, 32, 32));
-            },
         },
     };
 

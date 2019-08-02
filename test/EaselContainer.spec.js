@@ -6,10 +6,13 @@ import easeljs from '../src/easel.js';
 import EaselShape from '../src/components/EaselShape.vue';
 import EaselSprite from '../src/components/EaselSprite.vue';
 import Vue from 'vue';
+import isAnEaselParent from './includes/is-an-easel-parent.js';
 
 var garyStart = 32 * 6 + 16;
 
 describe('EaselContainer', function () {
+
+    describe('is an easel parent', isAnEaselParent(EaselContainer));
 
     var easel = {
         addChild(vueChild) {
@@ -21,9 +24,9 @@ describe('EaselContainer', function () {
     var vm = new Vue({
         template: `
             <easel-container ref="container">
-                <easel-sprite ref="sprite" 
-                    animation="stand" 
-                    x="3" 
+                <easel-sprite ref="sprite"
+                    animation="stand"
+                    x="3"
                     y="4"
                 >
                 </easel-sprite>
