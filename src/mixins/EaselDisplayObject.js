@@ -3,7 +3,7 @@
 | EaselDisplayObject
 |--------------------------------------------------------------------------
 |
-| This mixin gives an Easel Vue component the required elements to be 
+| This mixin gives an Easel Vue component the required elements to be
 | visible on the canvas.
 |
 */
@@ -102,7 +102,7 @@ module.exports = {
         updateAlign() {
             this.getBounds()
                 .then(bounds => {
-                    var w = bounds.width,
+                    const w = bounds.width,
                         h = bounds.height,
                         hAlign = (this.align && this.align[0]) || 'left',
                         vAlign = (this.align && this.align[1]) || 'top';
@@ -123,6 +123,7 @@ module.exports = {
                 });
         },
         getBounds() {
+            // Components should override this
             return Promise.reject('No bounds available');
         },
     },

@@ -18,30 +18,30 @@
 // * tickend
 // * tickstart
 
-import _ from 'lodash';
+import {intersection} from 'lodash';
 
-var eventTypes = [
-    'added', 
-    'animationend', 
+const eventTypes = [
+    'added',
+    'animationend',
     'change',
-    'click', 
-    'dblclick', 
-    'mousedown', 
-    'mouseout', 
-    'mouseover', 
-    'pressmove', 
-    'pressup', 
-    'removed', 
-    'rollout', 
-    'rollover', 
-    'tick', 
+    'click',
+    'dblclick',
+    'mousedown',
+    'mouseout',
+    'mouseover',
+    'pressmove',
+    'pressup',
+    'removed',
+    'rollout',
+    'rollover',
+    'tick',
 ];
 
-module.exports = {
+export default {
     bindEvents(component, object) {
-        var listenerNames = Object.keys(component.$options._parentListeners || {});
-        var requestedEvents = _.intersection(eventTypes, listenerNames);
-        _.each(requestedEvents, eventType => {
+        const listenerNames = Object.keys(component.$options._parentListeners || {});
+        const requestedEvents = intersection(eventTypes, listenerNames);
+        requestedEvents.forEach(eventType => {
             object.addEventListener(eventType, (event) => component.$emit(eventType, event));
         });
     }
