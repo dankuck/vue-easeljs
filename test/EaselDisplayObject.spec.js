@@ -1,15 +1,13 @@
 import assert from 'assert';
 import Vue from 'vue';
-import EaselDisplayObject from '../src/mixins/EaselDisplayObject.js';
 import easeljs from '../src/easel.js';
-import {eventTypes} from '../src/libs/easel-event-binder.js';
 import EaselFake from './fixtures/EaselFake.js';
+import doesEvents from './includes/does-events.js';
 
-assert(eventTypes && eventTypes.length > 0, 'easel-event-binder.js did not return a good eventTypes array');
 
-describe.only('EaselDisplayObject', function () {
+describe('EaselDisplayObject', function () {
 
-    const eventHandlerCode = eventTypes.map(type => `@${type}="logEvent"`).join(' ');
+    describe('does events', doesEvents(EaselFake));
 
     /**
      * A fake easel object. It allows adding and removing a child and has extra
@@ -43,7 +41,6 @@ describe.only('EaselDisplayObject', function () {
                     :alpha="alpha"
                     :shadow="shadow"
                     :align="[hAlign, vAlign]"
-                    ${eventHandlerCode}
                 >
                 </easel-fake>
             </span>
@@ -113,14 +110,6 @@ describe.only('EaselDisplayObject', function () {
                 assert(fake.component.y === 4);
             })
             .then(done, done);
-    });
-
-    eventTypes.forEach(type => {
-        it(`emits ${type} event`, function () {
-            vm.clearEventLog();
-            fake.component.dispatchEvent(type);
-            assert(vm.eventLog.length === 1);
-        });
     });
 
     it('should go away when gone', function (done) {

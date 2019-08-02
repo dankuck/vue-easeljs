@@ -5,21 +5,20 @@ import $ from 'jquery';
 import _ from 'lodash';
 import easeljs from '../src/easel.js';
 import isAnEaselParent from './includes/is-an-easel-parent.js';
-
-var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
+import doesEvents from './includes/does-events.js';
 
 describe('EaselCanvas', function () {
 
     describe('is an easel parent', isAnEaselParent(EaselCanvas));
 
-    var eventHandlerCode = eventTypes.map(type => `@${type}="logEvent"`).join(' ');
+    describe('does events', doesEvents(EaselCanvas));
+
     var vm = new Vue({
         template: `
             <easel-canvas
                 background-color="grey"
                 ref="easelCanvas"
                 :anti-alias="antiAlias"
-                ${eventHandlerCode}
             >
                 <span id="im-in-a-slot"></span>
             </easel-canvas>
@@ -64,14 +63,6 @@ describe('EaselCanvas', function () {
             canvas.component.update = update;
             done();
         };
-    });
-
-    _.each(eventTypes, (type) => {
-        it(`emits ${type} event`, function () {
-            vm.clearEventLog();
-            canvas.component.dispatchEvent(type);
-            assert(vm.eventLog.length === 1);
-        });
     });
 
     it('should be able to anti-alias', function () {
