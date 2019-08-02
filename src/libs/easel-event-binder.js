@@ -18,7 +18,7 @@
 // * tickend
 // * tickstart
 
-import {intersection} from 'lodash';
+import intersection from 'lodash.intersection';
 
 export const eventTypes = [
     'added',

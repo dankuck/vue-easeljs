@@ -1,6 +1,6 @@
 import assert from 'assert';
 import Vue from 'vue';
-import {shuffle} from 'lodash';
+import shuffle from 'lodash.shuffle';
 import sortByDom, {sorter} from '../src/libs/sort-by-dom.js';
 
 describe('sort-by-dom', function () {

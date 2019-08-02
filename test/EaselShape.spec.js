@@ -12,8 +12,8 @@ describe('EaselShape', function () {
                     v-if="showShape"
                     :x=100
                     :y=100
-                    fill="DeepSkyBlue"
-                    stroke="#00FFFF"
+                    :fill="color"
+                    :stroke="stroke"
                     :form="shapeData.form"
                     :dimensions="shapeData.dimensions"
                     :align="['center', 'center']"
@@ -33,6 +33,8 @@ describe('EaselShape', function () {
                     dimensions: 50,
                 },
                 eventLog: [],
+                color: 'DeepSkyBlue',
+                stroke: '#00FFFF',
             };
         },
         methods: {
@@ -87,13 +89,29 @@ describe('EaselShape', function () {
     });
 
     it('should make a blue shape', function () {
-        shape.refresh();
         assert(shape.component.graphics._fill.style === 'DeepSkyBlue');
     });
 
+    it('should change the color to red', function (done) {
+        vm.color = 'red';
+        Vue.nextTick()
+            .then(() => {
+                assert(shape.component.graphics._fill.style === 'red');
+            })
+            .then(done, done);
+    });
+
     it('should make a shape with cyan stroke', function () {
-        shape.refresh();
         assert(shape.component.graphics._stroke.style === '#00FFFF');
+    });
+
+    it('should change the stroke to yellow', function (done) {
+        vm.stroke = 'yellow';
+        Vue.nextTick()
+            .then(() => {
+                assert(shape.component.graphics._stroke.style === 'yellow');
+            })
+            .then(done, done);
     });
 
     it('should make a circle', function (done) {
