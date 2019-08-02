@@ -56,6 +56,7 @@ Show a static image.
 
 Attributes:
 
+| -------- | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
 | align    | array                                                  | controls what point of the image the x and y refer to.                             | Default: ['top', 'left'].      |
 | alpha    | 0 to 1                                                 | controls the opacity of the image.                                                 | Default: 1, completely opaque. |
 | flip     | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   |                                |
