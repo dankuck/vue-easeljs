@@ -85,7 +85,7 @@ Example:
 
 ## easel-canvas
 
-Give the vue-easeljs components a place to live.
+Give the vue-easeljs components a place to live. The canvas has no visible pixels of its own.
 
 Attributes:
 
@@ -126,13 +126,13 @@ Example:
 
 ## easel-container
 
-Group other vue-easel components together and manipulate them as one.
+Group other vue-easel components together and manipulate them as one. The container has no visible pixels of its own.
 
 Attributes:
 
 | Attribute  | Values                                                 | Description                                                                        | Required/Default               |
 | --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| alpha      | 0 to 1                                                 | controls the opacity of the container.                                             | Default: 1, completely opaque. |
+| alpha      | 0 to 1                                                 | controls the opacity of the container's contents.                                  | Default: 1, completely opaque. |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the container.                                                               | Default: ''                    |
 | rotation   | degrees                                                | rotates the container.                                                             | Default: 0.                    |
 | scale      | number                                                 | resizes the container.                                                             | Default: 1.                    |
@@ -422,24 +422,29 @@ Shadow options:
 
 All visible components and the canvas itself emit Vue.js events with an event object.
 
-* added - Fired when the component is added to its parent.
-* animationend - (easel-sprite only) - Fired when an animation completes.
-* change - (easel-sprite only) - Fired when an animation changes.
-* click - Fired when the component is clicked or tapped.
-* dblclick - Fired when the component is double-clicked or tapped.
-* mousedown - Fired when the component is clicked down.
-* mouseout - Fired when the mouse leaves a component's hit area.
-* mouseover - Fired when the mouse enters a component's hit area.
-* pressmove - Fired when the component is dragged.
-* pressup - Fired when the component is unclicked.
-* removed - Fired when the component is removed from its parent.
-* rollout - Fired when the mouse leaves a component's hit area.
-* rollover - Fired when the mouse enters a comopnent's hit area.
-* tick - Fired many times a second to keep the components in sync. Using this event can impact performance.
+| Event                            | Fired when...                                                                                      |
+| --------                         | ---------------                                                                                    |
+| added                            | Fired when the component is added to its parent.                                                   |
+| animationend (easel-sprite only) | Fired when an animation completes.                                                                 |
+| change (easel-sprite only)       | Fired when an animation changes.                                                                   |
+| click                            | Fired when the component is clicked or tapped.                                                     |
+| dblclick                         | Fired when the component is double-clicked or tapped.                                              |
+| mousedown                        | Fired when the component is clicked down.                                                          |
+| mouseout                         | Fired when the mouse leaves a component's hit area.                                                |
+| mouseover                        | Fired when the mouse enters a component's hit area.                                                |
+| pressmove                        | Fired when the component is dragged.                                                               |
+| pressup                          | Fired when the component is unclicked.                                                             |
+| removed                          | Fired when the component is removed from its parent.                                               |
+| rollout                          | Fired when the mouse leaves a component's hit area.                                                |
+| rollover                         | Fired when the mouse enters a comopnent's hit area.                                                |
+| tick                             | Fired many times a second to keep the components in sync. Using this event can impact performance. |
 
 Modifiers such as `.stop` usually work with the events.
 
-These events will be made available in the future.
+For performance reasons, the events are only emitted if a handler exists. They
+will not show up in the Vue.js devtools if no handler exists.
+
+These events will be made available in a future release:
 
  * drawend
  * drawstart
@@ -459,9 +464,11 @@ Chrome/Chromium Users:
 All users:
  * When accessing image files from other hosts, CORS must be setup on the foreign host or else click events will error out. This is a limitation of canvas that applies to all canvas libraries.
 
+The [EaselJS documents](https://www.createjs.com/docs/easeljs/modules/EaselJS.html) can be helpful. They are essential if you intend to fork this repo and make pull requests.
+
 # Pending
 
-These plans are merely dreams:
+These will be implemented in future releases:
 
 * Percentages
 * Caching shapes
@@ -470,7 +477,7 @@ These plans are merely dreams:
 * Mouse cursors
 * Hit areas
 
-There are no plans to implement these features:
+There are no plans to implement these features, but pull requests are accepted:
 
 * Filters
 * BitmapText
