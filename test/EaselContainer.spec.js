@@ -1,48 +1,33 @@
-import $ from 'jquery';
-import _ from 'lodash';
 import assert from 'assert';
 import EaselContainer from '../src/components/EaselContainer.vue';
 import easeljs from '../src/easel.js';
-import EaselShape from '../src/components/EaselShape.vue';
-import EaselSprite from '../src/components/EaselSprite.vue';
 import Vue from 'vue';
 import isAnEaselParent from './includes/is-an-easel-parent.js';
-
-var garyStart = 32 * 6 + 16;
+import EaselFake from './fixtures/EaselFake.js';
 
 describe('EaselContainer', function () {
 
     describe('is an easel parent', isAnEaselParent(EaselContainer));
 
-    var easel = {
+    const easel = {
         addChild(vueChild) {
         },
         removeChild(vueChild) {
         },
     };
 
-    var vm = new Vue({
+    const vm = new Vue({
         template: `
             <easel-container ref="container">
-                <easel-sprite ref="sprite"
-                    animation="stand"
+                <easel-fake ref="fake"
                     x="3"
                     y="4"
                 >
-                </easel-sprite>
+                </easel-fake>
             </easel-container>
         `,
         provide() {
             return {
-                spriteSheet: new easeljs.SpriteSheet({
-                    images: ['/base/test/images/lastguardian-all.png'],
-                    frames: {width: 32, height: 32},
-                    animations: {
-                        stand: garyStart + 5,
-                        run: [garyStart + 6, garyStart + 7],
-                    },
-                    framerate: 30,
-                }),
                 easel: easel,
             };
         },
@@ -51,13 +36,13 @@ describe('EaselContainer', function () {
             };
         },
         components: {
-            'easel-sprite': EaselSprite,
+            'easel-fake': EaselFake,
             'easel-container': EaselContainer,
         },
     }).$mount();
 
-    var container = vm.$refs.container;
-    var sprite = vm.$refs.sprite;
+    const container = vm.$refs.container;
+    const fake = vm.$refs.fake;
 
     it('should exist', function () {
         assert(container);
@@ -71,8 +56,8 @@ describe('EaselContainer', function () {
         assert(container.component);
     });
 
-    it('should be the parent of the sprite', function () {
-        assert(sprite.component.parent === container.component);
+    it('should be the parent of the fake', function () {
+        assert(fake.component.parent === container.component);
     });
 
     it('should getBounds', function (done) {
@@ -81,11 +66,11 @@ describe('EaselContainer', function () {
                 (bounds) => {
                     assert(bounds.width === 0);
                     assert(bounds.height === 0);
-                    done();
                 },
                 (error) => {
                     assert(false, error);
                 }
-            );
+            )
+            .then(done, done);
     });
 });

@@ -1,52 +1,51 @@
-import _ from 'lodash';
 import assert from 'assert';
-import EaselShape from '../../src/components/EaselShape.vue';
+import EaselFake from '../fixtures/EaselFake.js';
 import Vue from 'vue';
 
+/**
+ * Returns a function to be used with `describe` for any component using
+ * EaselParent.
+ *
+ * Like this:
+ * `describe('is a parent', isAnEaselParent(MyComponentThatIsAParent)`
+ * @param  VueComponent  implementor
+ * @return function
+ */
 export default function isAnEaselParent(implementor) {
 
     return function () {
-        var vm = new Vue({
+        const vm = new Vue({
             template: `
                 <implementor ref="parent">
-                    <easel-shape
+                    <easel-fake
                         v-if="showOne"
                         ref="one"
                         key="one"
                         x="1"
                         y="2"
-                        fill="black"
-                        form="circle"
-                        dimensions="10"
                     >
-                    </easel-shape>
-                    <easel-shape
+                    </easel-fake>
+                    <easel-fake
                         v-if="showTwo"
                         ref="two"
                         key="two"
                         x="1"
                         y="2"
-                        fill="black"
-                        form="circle"
-                        dimensions="10"
                     >
-                    </easel-shape>
-                    <easel-shape
+                    </easel-fake>
+                    <easel-fake
                         v-for="(name, i) in list"
                         :ref="name"
                         :key="name"
                         x="1"
                         y="2"
-                        fill="black"
-                        form="circle"
-                        dimensions="10"
                     >
-                    </easel-shape>
+                    </easel-fake>
                 </implementor>
             `,
             components: {
                 'implementor': implementor,
-                'easel-shape': EaselShape,
+                'easel-fake': EaselFake,
             },
             provide() {
                 return {
@@ -67,7 +66,7 @@ export default function isAnEaselParent(implementor) {
             },
         }).$mount();
 
-        var parent = vm.$refs.parent;
+        const parent = vm.$refs.parent;
 
         it('should have 0 children', function (done) {
             Vue.nextTick()
