@@ -93,6 +93,15 @@ export default function (implementor, extra_attributes = '', mixin = null) {
 
             let fake = vm.$refs.fake;
 
+            // The alignment functions depend on the getBounds function, which
+            // doesn't work well in fake environments, so we'll just sub it
+            // out.
+            const getBounds = function () {
+                return Promise.resolve(new easeljs.Rectangle(0, 0, 32, 32));
+            };
+
+            fake.getBounds = getBounds;
+
             it('should exist', function () {
                 assert(fake);
             });
@@ -119,7 +128,7 @@ export default function (implementor, extra_attributes = '', mixin = null) {
                     })
                     .then(() => {
                         fake = vm.$refs.fake; // make sure others get the new var
-                        assert(fake);
+                        fake.getBounds = getBounds;
                     })
                     .then(done, done);
             });
@@ -264,50 +273,6 @@ export default function (implementor, extra_attributes = '', mixin = null) {
                     })
                     .then(done, done);
             });
-
-            // it('should have the right hAlign', function () {
-            //     assert(fake.component.regX === 0, 'Wrong regX: ' + fake.component.regX);
-            // });
-
-            // it('should be able to change the hAlign', function (done) {
-            //     vm.hAlign = 'right';
-            //     Vue.nextTick()
-            //         .then(() => {
-            //             assert(fake.component.regX === 32, 'Wrong regX in: ' + fake.component.regX);
-            //         })
-            //         .then(done, done);
-            // });
-
-            // it('should default hAlign to left', function (done) {
-            //     vm.hAlign = '';
-            //     Vue.nextTick()
-            //         .then(() => {
-            //             assert(fake.component.regX === 0, 'Wrong default regX in: ' + fake.component.regX);
-            //         })
-            //         .then(done, done);
-            // });
-
-            // it('should have the right vAlign', function () {
-            //     assert(fake.component.regY === 0, 'Wrong regY: ' + fake.component.regY);
-            // });
-
-            // it('should be able to change the vAlign', function (done) {
-            //     vm.vAlign = 'bottom';
-            //     Vue.nextTick()
-            //         .then(() => {
-            //             assert(fake.component.regY === 32, 'Wrong regY in: ' + fake.component.regY);
-            //         })
-            //         .then(done, done);
-            // });
-
-            // it('should default vAlign to top', function (done) {
-            //     vm.vAlign = '';
-            //     Vue.nextTick()
-            //         .then(() => {
-            //             assert(fake.component.regY === 0, 'Wrong default regY in: ' + fake.component.regY);
-            //         })
-            //         .then(done, done);
-            // });
 
             it('should default to x=0,y=0', function (done) {
                 vm.x = undefined;
