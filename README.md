@@ -395,14 +395,14 @@ defaults to `['left', 'top']`.
 The values refer to where the x, y coordinates should lie in reference to the
 rest of the object.
 
-<img src="https://dankuck.github.io/vue-easeljs/images/alignment-1.png" style="float: right" />
 For example, if a 50x50 square shape is aligned at ['left', 'top'], and its x and y
 are at 65, 70, then the square's top left point will be at 65, 70 and its
 bottom right point will be at 115, 120.
+![left top alignment](https://dankuck.github.io/vue-easeljs/images/alignment-1.png =150x)
 
-<img src="https://dankuck.github.io/vue-easeljs/images/alignment-2.png" style="float: right" />
 If the same square was aligned at ['right', 'bottom'], then it's bottom right point
 would be at 65, 70 and its top left point would be at 15, 20.
+![right bottom alignment](https://dankuck.github.io/vue-easeljs/images/alignment-2.png =150x)
 
 The field is formatted as `[horizontal-alignment, vertical-alignment]`.
 
