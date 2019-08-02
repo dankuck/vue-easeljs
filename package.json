@@ -12,9 +12,9 @@
     "url": "git+https://github.com/dankuck/vue-easeljs.git"
   },
   "contributors": {
-    "name": "Daniel Kuck-Alvarez",
+    "name": "Dan Kuck-Alvarez",
     "email": "dankuck@gmail.com",
-    "url": "http://dankuck.github.io/"
+    "url": "http://www.dankuck.com/"
   },
   "license": "MIT",
   "bugs": {
