@@ -1,11 +1,11 @@
-
+<!--
 If the same square was aligned at ['right', 'bottom'], then it's bottom right point
 would be at 65, 70 and its top left point would be at 15, 20.
-
-<easel-canvas width="400" height="400">
+-->
+<easel-canvas width="200" height="150">
     <easel-container :x="35" :y="10">
         <easel-text text="(0,0)" :align="['right','bottom']" :x="0" :y="0"></easel-text>
-        <easel-shape form="rect" :dimensions="[500, 500]" stroke="#CCC" :x="0" :y="0" :align="['left', 'top']">
+        <easel-shape form="rect" :dimensions="[200, 200]" stroke="#CCC" :x="0" :y="0" :align="['left', 'top']">
         </easel-shape>
         <easel-shape form="circle" :dimensions="1" fill="black" :x="0" :y="0" :align="['center', 'center']">
         </easel-shape>
