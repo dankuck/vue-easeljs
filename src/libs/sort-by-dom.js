@@ -8,8 +8,6 @@
  |
  */
 
-
-
 export default function sortByDom(components) {
     return [...components].sort(sorter);
 };

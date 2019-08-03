@@ -13,7 +13,7 @@ import sortByDom from '../libs/sort-by-dom.js';
 import Vue from 'vue';
 import findIndex from 'lodash.findindex';
 
-module.exports = {
+export default {
     provide() {
         return {
             easel: this,

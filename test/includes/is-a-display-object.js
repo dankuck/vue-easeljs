@@ -3,7 +3,6 @@ import Vue from 'vue';
 import doesEvents from './does-events.js';
 import easeljs from '../../src/easel.js';
 
-var garyStart = 32 * 6 + 16;
 /**
  * Returns a function to be used with `describe` for any component that is an
  * EaselDisplayObject.
@@ -13,11 +12,11 @@ var garyStart = 32 * 6 + 16;
  * @param  VueComponent  implementor
  * @return function
  */
-export default function (implementor, extra_attributes = '', mixin = null) {
+export default function (implementor, extra_attributes = '', provide = {}) {
 
     return function () {
 
-        describe('does events and', doesEvents(implementor));
+        describe('does events and', doesEvents(implementor, extra_attributes, provide));
 
         describe('is a well-behaved child and', function () {
             /**
@@ -40,7 +39,6 @@ export default function (implementor, extra_attributes = '', mixin = null) {
             };
 
             const vm = new Vue({
-                mixins: mixin ? [mixin] : [],
                 template: `
                     <span>
                         <implementor ref="fake"
@@ -59,9 +57,8 @@ export default function (implementor, extra_attributes = '', mixin = null) {
                     </span>
                 `,
                 provide() {
-                    return {
-                        easel,
-                    };
+                    provide.easel = easel;
+                    return provide;
                 },
                 data() {
                     return {

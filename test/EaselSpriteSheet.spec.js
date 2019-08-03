@@ -5,7 +5,7 @@ import easeljs from '../src/easel.js';
 
 describe('EaselSpriteSheet', function () {
 
-    var vm = new Vue({
+    const vm = new Vue({
         template: `
             <easel-sprite-sheet ref="spriteSheet"
                 :images="['/base/test/images/lastguardian-all.png']"
@@ -25,8 +25,8 @@ describe('EaselSpriteSheet', function () {
         },
     }).$mount();
 
-    var spriteSheet = vm.$refs.spriteSheet;
-    var xInject = vm.$refs.xInject;
+    const spriteSheet = vm.$refs.spriteSheet;
+    const xInject = vm.$refs.xInject;
 
     it('renders', function () {
         assert(spriteSheet);

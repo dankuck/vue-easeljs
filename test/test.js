@@ -6,5 +6,5 @@ if (!global.Promise) {
     global.Promise = require('promise');
 }
 
-var testsContext = require.context('.', true, /\.spec$/)
+const testsContext = require.context('.', true, /\.spec$/)
 testsContext.keys().forEach(testsContext)

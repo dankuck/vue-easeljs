@@ -14,6 +14,21 @@ export default {
         stroke() {     this.refresh() },
         dimensions() { this.refresh() },
     },
+    computed: {
+        radiuses() {
+            // If no radius dimensions were given, empty array.
+            // If 4 radius dimensions were given, use them.
+            // Otherwise, assume just 1 radius dimension was given
+            // and use it four times
+            if (this.dimensions.length <= 2) {
+                return [];
+            } else if (this.dimensions.length === 6) {
+                return this.dimensions.slice(2, 6);
+            } else {
+                return [this.dimensions[2], this.dimensions[2], this.dimensions[2], this.dimensions[2]];
+            }
+        },
+    },
     methods: {
         init() {
             this.component = new easeljs.Shape();
@@ -39,19 +54,11 @@ export default {
             } else if (this.form === 'ellipse') {
                 this.component.graphics.drawEllipse(0, 0, this.dimensions[0], this.dimensions[1]);
             } else if (this.form === 'rect') {
+                const radiuses = this.radiuses;
                 // If no radius dimensions were given, draw a rectangle.
-                if (this.dimensions.length === 2) {
+                if (radiuses.length === 0) {
                     this.component.graphics.drawRect(0, 0, this.dimensions[0], this.dimensions[1]);
                 } else {
-                    var radiuses;
-                    // If 4 radius dimensions were given, use them.
-                    // Otherwise, assume just 1 radius dimension was given
-                    // and use it four times
-                    if (this.dimensions.length === 6) {
-                        radiuses = this.dimensions.slice(2, 6);
-                    } else {
-                        radiuses = [this.dimensions[2], this.dimensions[2], this.dimensions[2], this.dimensions[2]];
-                    }
                     this.component.graphics.drawRoundRectComplex(0, 0, this.dimensions[0], this.dimensions[1], radiuses[0], radiuses[1], radiuses[2], radiuses[3]);
                 }
             } else if (this.form === 'star') {

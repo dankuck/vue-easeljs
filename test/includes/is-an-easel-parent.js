@@ -123,7 +123,7 @@ export default function isAnEaselParent(implementor) {
 
         it('should get two children, one by one', function (done) {
             vm.showOne = true;
-            var one, two;
+            let one, two;
             Vue.nextTick()
                 .then(() => {
                     assert(parent.children.length === 1, 'parent does not have right children' + parent.children.length);

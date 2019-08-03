@@ -4,7 +4,7 @@ import {eventTypes} from '../../src/libs/easel-event-binder.js';
 
 assert(eventTypes && eventTypes.length > 0, 'easel-event-binder.js did not return a good eventTypes array');
 
-export default function (implementor) {
+export default function (implementor, extra_attributes = '', provide = {}) {
 
     return function () {
 
@@ -22,14 +22,14 @@ export default function (implementor) {
                 <span>
                     <implementor ref="fake"
                         ${eventHandlerCode}
+                        ${extra_attributes}
                     >
                     </implementor>
                 </span>
             `,
             provide() {
-                return {
-                    easel: easel,
-                };
+                provide.easel = easel;
+                return provide;
             },
             data() {
                 return {

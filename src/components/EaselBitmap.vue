@@ -25,7 +25,7 @@ export default {
         },
         getBounds() {
             return new Promise((resolve, error) => {
-                var getBounds = () => {
+                const getBounds = () => {
                     try {
                         if (!this.component) {
                             clearInterval(waiting);
@@ -38,7 +38,7 @@ export default {
                         throw e;
                     }
                 }
-                var waiting = setInterval(getBounds, 100);
+                const waiting = setInterval(getBounds, 100);
                 getBounds();
             });
         },

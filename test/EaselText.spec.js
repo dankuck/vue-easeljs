@@ -8,14 +8,14 @@ describe('EaselText', function () {
 
     describe('is a display object that', isADisplayObject(EaselText, 'text="O hai"'));
 
-    var easel = {
+    const easel = {
         addChild(vueChild) {
         },
         removeChild(vueChild) {
         },
     };
 
-    var vm = new Vue({
+    const vm = new Vue({
         template: `
             <span>
                 <easel-text ref="text"
@@ -50,7 +50,7 @@ describe('EaselText', function () {
         },
     }).$mount();
 
-    var text = vm.$refs.text;
+    const text = vm.$refs.text;
 
     it('should exist', function () {
         assert(text);

@@ -4,9 +4,9 @@ import EaselSprite from '../src/components/EaselSprite.vue';
 import easeljs from '../src/easel.js';
 import isADisplayObject from './includes/is-a-display-object.js';
 
-var garyStart = 32 * 6 + 16;
+const garyStart = 32 * 6 + 16;
 
-var spriteSheet = new easeljs.SpriteSheet({
+const spriteSheet = new easeljs.SpriteSheet({
     images: ['/base/test/images/lastguardian-all.png'],
     frames: {width: 32, height: 32},
     animations: {
@@ -18,24 +18,16 @@ var spriteSheet = new easeljs.SpriteSheet({
 
 describe('EaselSprite', function () {
 
-    const mixin = {
-        provide() {
-            return {
-                spriteSheet,
-            };
-        },
-    };
+    describe('is a display object that', isADisplayObject(EaselSprite, '', {spriteSheet}));
 
-    describe('is a display object that', isADisplayObject(EaselSprite, '', mixin));
-
-    var easel = {
+    const easel = {
         addChild(vueChild) {
         },
         removeChild(vueChild) {
         },
     };
 
-    var vm = new Vue({
+    const vm = new Vue({
         template: `
             <span>
                 <easel-sprite ref="sprite"
@@ -68,7 +60,7 @@ describe('EaselSprite', function () {
         },
     }).$mount();
 
-    var sprite = vm.$refs.sprite;
+    const sprite = vm.$refs.sprite;
 
     it('should exist', function () {
         assert(sprite);
