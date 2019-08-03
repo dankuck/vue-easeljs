@@ -11,50 +11,58 @@ describe('EaselCanvas', function () {
 
     describe('does events and', doesEvents(EaselCanvas));
 
-    const vm = new Vue({
-        template: `
-            <easel-canvas
-                background-color="grey"
-                ref="easelCanvas"
-                :anti-alias="antiAlias"
-            >
-                <span id="im-in-a-slot"></span>
-            </easel-canvas>
-        `,
-        data() {
-            return {
-                eventLog: [],
-                antiAlias: true,
-            };
-        },
-        components: {
-            'easel-canvas': EaselCanvas,
-        },
-        methods: {
-            logEvent(event) {
-                this.eventLog.push(event);
+    const buildVm = function () {
+        const vm = new Vue({
+            template: `
+                <easel-canvas
+                    background-color="grey"
+                    ref="easelCanvas"
+                    :anti-alias="antiAlias"
+                >
+                    <span id="im-in-a-slot"></span>
+                </easel-canvas>
+            `,
+            data() {
+                return {
+                    eventLog: [],
+                    antiAlias: true,
+                };
             },
-            clearEventLog() {
-                this.eventLog = [];
+            components: {
+                'easel-canvas': EaselCanvas,
             },
-        },
-    }).$mount();
+            methods: {
+                logEvent(event) {
+                    this.eventLog.push(event);
+                },
+                clearEventLog() {
+                    this.eventLog = [];
+                },
+            },
+        }).$mount();
 
-    const canvas = vm.$refs.easelCanvas;
+        const canvas = vm.$refs.easelCanvas;
+
+        return {vm, canvas};
+    };
 
     it('should have a canvas object', function () {
+        const {vm, canvas} = buildVm();
         assert(vm.$el.nodeName === 'CANVAS');
     });
 
     it('should have the slot stuff we put in', function () {
+        const {vm, canvas} = buildVm();
         assert(vm.$el.querySelector('#im-in-a-slot'));
     });
 
     it('should have an easel object with a component object', function () {
+        const {vm, canvas} = buildVm();
         assert(canvas.component);
     });
 
     it('should update a bunch', function (done) {
+        const {vm, canvas} = buildVm();
         const update = canvas.component.update;
         canvas.component.update = function (event) {
             assert(event);
@@ -64,10 +72,12 @@ describe('EaselCanvas', function () {
     });
 
     it('should be able to anti-alias', function () {
+        const {vm, canvas} = buildVm();
         assert(canvas.context.imageSmoothingEnabled === true, 'Not smoothing: ' + canvas.context.imageSmoothingEnabled);
     });
 
     it('should not use anti-alias', function (done) {
+        const {vm, canvas} = buildVm();
         vm.antiAlias = false;
         Vue.nextTick()
             .then(() => {

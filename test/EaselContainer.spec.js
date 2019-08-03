@@ -12,58 +12,71 @@ describe('EaselContainer', function () {
 
     describe('is a display object that', isADisplayObject(EaselContainer));
 
-    const easel = {
-        addChild(vueChild) {
-        },
-        removeChild(vueChild) {
-        },
+    const buildVm = function () {
+        const easel = {
+            addChild(vueChild) {
+            },
+            removeChild(vueChild) {
+            },
+        };
+
+        const vm = new Vue({
+            template: `
+                <easel-container ref="container">
+                    <easel-fake ref="fake"
+                        x="3"
+                        y="4"
+                    >
+                    </easel-fake>
+                </easel-container>
+            `,
+            provide() {
+                return {
+                    easel: easel,
+                };
+            },
+            data() {
+                return {
+                };
+            },
+            components: {
+                'easel-fake': EaselFake,
+                'easel-container': EaselContainer,
+            },
+        }).$mount();
+
+        const container = vm.$refs.container;
+        const fake = vm.$refs.fake;
+
+        return {vm, container, fake};
     };
 
-    const vm = new Vue({
-        template: `
-            <easel-container ref="container">
-                <easel-fake ref="fake"
-                    x="3"
-                    y="4"
-                >
-                </easel-fake>
-            </easel-container>
-        `,
-        provide() {
-            return {
-                easel: easel,
-            };
-        },
-        data() {
-            return {
-            };
-        },
-        components: {
-            'easel-fake': EaselFake,
-            'easel-container': EaselContainer,
-        },
-    }).$mount();
-
-    const container = vm.$refs.container;
-    const fake = vm.$refs.fake;
-
     it('should exist', function () {
+        const {vm, container, fake} = buildVm();
         assert(container);
     });
 
     it('should have an easel', function () {
+        const {vm, container, fake} = buildVm();
         assert(container.easel);
     });
 
     it('should have component field', function () {
+        const {vm, container, fake} = buildVm();
         assert(container.component);
     });
 
-    it('should be the parent of the fake', function () {
-        assert(fake.component.parent === container.component);
+    it('should be the parent of the fake', function (done) {
+        const {vm, container, fake} = buildVm();
+        Vue.nextTick()
+            .then(() => {
+                assert(fake.component.parent === container.component);
+            })
+            .then(done, done);
     });
 
     it('should getBounds', function (done) {
+        const {vm, container, fake} = buildVm();
         container.getBounds()
             .then(
                 (bounds) => {

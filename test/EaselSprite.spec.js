@@ -20,65 +20,74 @@ describe('EaselSprite', function () {
 
     describe('is a display object that', isADisplayObject(EaselSprite, '', {spriteSheet}));
 
-    const easel = {
-        addChild(vueChild) {
-        },
-        removeChild(vueChild) {
-        },
+    const buildVm = function () {
+        const easel = {
+            addChild(vueChild) {
+            },
+            removeChild(vueChild) {
+            },
+        };
+
+        const vm = new Vue({
+            template: `
+                <span>
+                    <easel-sprite ref="sprite"
+                        v-if="showSprite"
+                        :animation="animation"
+                        :x="x"
+                        :y="y"
+                        :flip="flip"
+                    >
+                    </easel-sprite>
+                </span>
+            `,
+            provide() {
+                return {
+                    spriteSheet,
+                    easel,
+                };
+            },
+            data() {
+                return {
+                    animation: 'stand',
+                    x: 1,
+                    y: 2,
+                    showSprite: true,
+                    flip: '',
+                };
+            },
+            components: {
+                'easel-sprite': EaselSprite,
+            },
+        }).$mount();
+
+        const sprite = vm.$refs.sprite;
+
+        return {vm, sprite};
     };
 
-    const vm = new Vue({
-        template: `
-            <span>
-                <easel-sprite ref="sprite"
-                    v-if="showSprite"
-                    :animation="animation"
-                    :x="x"
-                    :y="y"
-                    :flip="flip"
-                >
-                </easel-sprite>
-            </span>
-        `,
-        provide() {
-            return {
-                spriteSheet,
-                easel,
-            };
-        },
-        data() {
-            return {
-                animation: 'stand',
-                x: 1,
-                y: 2,
-                showSprite: true,
-                flip: '',
-            };
-        },
-        components: {
-            'easel-sprite': EaselSprite,
-        },
-    }).$mount();
-
-    const sprite = vm.$refs.sprite;
-
     it('should exist', function () {
+        const {vm, sprite} = buildVm();
         assert(sprite);
     });
 
     it('should have a spritesheet', function () {
+        const {vm, sprite} = buildVm();
         assert(sprite.spriteSheet);
     });
 
     it('should have component field', function () {
+        const {vm, sprite} = buildVm();
         assert(sprite.component);
     });
 
     it('should run `stand` animation', function () {
+        const {vm, sprite} = buildVm();
         assert(sprite.component._animation && sprite.component._animation.name === 'stand');
     });
 
     it('should change animation to `run`', function (done) {
+        const {vm, sprite} = buildVm();
         vm.animation = 'run';
         Vue.nextTick()
             .then(() => {
@@ -88,6 +97,7 @@ describe('EaselSprite', function () {
     });
 
     it('should get bounds', function (done) {
+        const {vm, sprite} = buildVm();
         sprite.getBounds()
             .then(bounds => {
                 assert(bounds.width === 32);
