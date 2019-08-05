@@ -10,6 +10,7 @@
 
 import EaselEventBinder from '../libs/easel-event-binder.js';
 import easeljs from '../easel.js';
+import normalizeAlignment from '../libs/normalize-alignment.js';
 
 export default {
     inject: ['easel'],
@@ -67,6 +68,11 @@ export default {
     destroyed() {
         this.displayObjectBreakdown();
     },
+    computed: {
+        normalizedAlign() {
+            return normalizeAlignment(this.align || ['', '']);
+        },
+    },
     methods: {
         displayObjectInit() {
             EaselEventBinder.bindEvents(this, this.component);
@@ -104,8 +110,8 @@ export default {
                 .then(bounds => {
                     const w = bounds.width,
                         h = bounds.height,
-                        hAlign = (this.align && this.align[0]) || 'left',
-                        vAlign = (this.align && this.align[1]) || 'top';
+                        hAlign = this.normalizedAlign[0] || 'left',
+                        vAlign = this.normalizedAlign[1] || 'top';
                     if (hAlign === 'left') {
                         this.component.regX = 0;
                     } else if (hAlign === 'center') {

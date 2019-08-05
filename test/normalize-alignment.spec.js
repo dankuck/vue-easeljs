@@ -1,7 +1,7 @@
 import assert from 'assert';
 import normalizeAlignment, {horizontalValues, verticalValues} from '../src/libs/normalize-alignment.js';
 
-describe.only('alignment-normalizer.js', function () {
+describe('alignment-normalizer.js', function () {
 
     it('exists', function () {
         assert(normalizeAlignment);
@@ -75,7 +75,19 @@ describe.only('alignment-normalizer.js', function () {
         assert(correct.join() === normal.join());
     });
 
-    describe('is ok with all permutations, and it', function () {
+    describe('it makes no change for <empty-string>,center, even though they are ambiguous', function () {
+        const correct = ['', 'center'];
+        const normal = normalizeAlignment(correct);
+        assert(correct.join() === normal.join());
+    });
+
+    describe('it makes no change for center,<empty-string>, even though they are ambiguous', function () {
+        const correct = ['center', ''];
+        const normal = normalizeAlignment(correct);
+        assert(correct.join() === normal.join());
+    });
+
+    describe('is ok with all permutations, so it', function () {
         horizontalValues.forEach(function (h) {
             verticalValues.forEach(function (v) {
 
@@ -85,26 +97,36 @@ describe.only('alignment-normalizer.js', function () {
                     assert(correct.join() === normal.join());
                 });
 
-                it(`should handle [${v},${h}]`, function () {
-                    const correct = [h, v];
-                    const incorrect = [h, v];
-                    const normal = normalizeAlignment(incorrect);
-                    assert(correct.join() === normal.join());
-                });
-
                 it(`should handle '${h}-${v}'`, function () {
                     const correct = [h, v];
                     const string = `${h}-${v}`;
                     const normal = normalizeAlignment(string);
-                    assert(correct.join() === normal.join());
+                    assert(correct.join() === normal.join(), correct.join() + ' !== ' + normal.join());
                 });
 
-                it(`should handle '${v}-${h}'`, function () {
-                    const correct = [h, v];
-                    const string = `${v}-${h}`;
-                    const normal = normalizeAlignment(string);
-                    assert(correct.join() === normal.join());
-                });
+                // Only run the following tests for a pairs of values that
+                // aren't in both sets, like '' and 'center'.
+                //
+                // A pair of values that ARE in both sets should remain
+                // unchanged.
+                const hIsAmbiguous = verticalValues.indexOf(h) > -1;
+                const vIsAmbiguous = horizontalValues.indexOf(v) > -1;
+                const bothAreAmbiguous = hIsAmbiguous && vIsAmbiguous;
+                if (!bothAreAmbiguous) {
+                    it(`should handle [${v},${h}]`, function () {
+                        const correct = [h, v];
+                        const incorrect = [v, h];
+                        const normal = normalizeAlignment(incorrect);
+                        assert(correct.join() === normal.join());
+                    });
+
+                    it(`should handle '${v}-${h}'`, function () {
+                        const correct = [h, v];
+                        const string = `${v}-${h}`;
+                        const normal = normalizeAlignment(string);
+                        assert(correct.join() === normal.join(), correct.join() + ' !== ' + normal.join());
+                    });
+                }
 
             });
         });

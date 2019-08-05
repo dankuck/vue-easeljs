@@ -1,6 +1,6 @@
 
-export const horizontalValues = ['left', 'center', 'right', 'start', 'end'];
-export const verticalValues = ['top', 'center', 'bottom', 'hanging', 'middle', 'alphabetic', 'ideographic'];
+export const horizontalValues = ['', 'left', 'center', 'right', 'start', 'end'];
+export const verticalValues = ['', 'top', 'center', 'bottom', 'hanging', 'middle', 'alphabetic', 'ideographic'];
 
 const isHorizontal = value => horizontalValues.indexOf(value) > -1;
 const isVertical = value => verticalValues.indexOf(value) > -1;
