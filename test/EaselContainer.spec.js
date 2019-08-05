@@ -1,88 +1,92 @@
-import $ from 'jquery';
-import _ from 'lodash';
 import assert from 'assert';
 import EaselContainer from '../src/components/EaselContainer.vue';
 import easeljs from '../src/easel.js';
-import EaselShape from '../src/components/EaselShape.vue';
-import EaselSprite from '../src/components/EaselSprite.vue';
 import Vue from 'vue';
-
-var garyStart = 32 * 6 + 16;
+import isAnEaselParent from './includes/is-an-easel-parent.js';
+import EaselFake from './fixtures/EaselFake.js';
+import isADisplayObject from './includes/is-a-display-object.js';
 
 describe('EaselContainer', function () {
 
-    var easel = {
-        addChild(vueChild) {
-        },
-        removeChild(vueChild) {
-        },
+    describe('is an easel parent that', isAnEaselParent(EaselContainer));
+
+    describe('is a display object that', isADisplayObject(EaselContainer));
+
+    const buildVm = function () {
+        const easel = {
+            addChild(vueChild) {
+            },
+            removeChild(vueChild) {
+            },
+        };
+
+        const vm = new Vue({
+            template: `
+                <easel-container ref="container">
+                    <easel-fake ref="fake"
+                        x="3"
+                        y="4"
+                    >
+                    </easel-fake>
+                </easel-container>
+            `,
+            provide() {
+                return {
+                    easel: easel,
+                };
+            },
+            data() {
+                return {
+                };
+            },
+            components: {
+                'easel-fake': EaselFake,
+                'easel-container': EaselContainer,
+            },
+        }).$mount();
+
+        const container = vm.$refs.container;
+        const fake = vm.$refs.fake;
+
+        return {vm, container, fake};
     };
 
-    var vm = new Vue({
-        template: `
-            <easel-container ref="container">
-                <easel-sprite ref="sprite" 
-                    animation="stand" 
-                    x="3" 
-                    y="4"
-                >
-                </easel-sprite>
-            </easel-container>
-        `,
-        provide() {
-            return {
-                spriteSheet: new easeljs.SpriteSheet({
-                    images: ['/base/test/images/lastguardian-all.png'],
-                    frames: {width: 32, height: 32},
-                    animations: {
-                        stand: garyStart + 5,
-                        run: [garyStart + 6, garyStart + 7],
-                    },
-                    framerate: 30,
-                }),
-                easel: easel,
-            };
-        },
-        data() {
-            return {
-            };
-        },
-        components: {
-            'easel-sprite': EaselSprite,
-            'easel-container': EaselContainer,
-        },
-    }).$mount();
-
-    var container = vm.$refs.container;
-    var sprite = vm.$refs.sprite;
-
     it('should exist', function () {
+        const {vm, container, fake} = buildVm();
         assert(container);
     });
 
     it('should have an easel', function () {
+        const {vm, container, fake} = buildVm();
         assert(container.easel);
     });
 
     it('should have component field', function () {
+        const {vm, container, fake} = buildVm();
         assert(container.component);
     });
 
-    it('should be the parent of the sprite', function () {
-        assert(sprite.component.parent === container.component);
+    it('should be the parent of the fake', function (done) {
+        const {vm, container, fake} = buildVm();
+        Vue.nextTick()
+            .then(() => {
+                assert(fake.component.parent === container.component);
+            })
+            .then(done, done);
     });
 
     it('should getBounds', function (done) {
+        const {vm, container, fake} = buildVm();
         container.getBounds()
             .then(
                 (bounds) => {
                     assert(bounds.width === 0);
                     assert(bounds.height === 0);
-                    done();
                 },
                 (error) => {
                     assert(false, error);
                 }
-            );
+            )
+            .then(done, done);
     });
 });

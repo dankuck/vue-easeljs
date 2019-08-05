@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import EaselEventBinder from '../EaselEventBinder.js';
+import EaselEventBinder from '../libs/easel-event-binder.js';
 import easeljs from '../easel.js';
 import EaselParent from '../mixins/EaselParent.js';
 

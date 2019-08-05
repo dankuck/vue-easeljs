@@ -1,7 +1,6 @@
 <script>
 import easeljs from '../easel.js';
 import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
-import _ from 'lodash';
 
 export default {
     inject: ['spriteSheet'],
@@ -11,7 +10,7 @@ export default {
         return '<!-- sprite -->';
     },
     watch: {
-        'animation': function () {
+        animation() {
             if (this.component) {
                 this.component.gotoAndPlay(this.animation);
             }
@@ -27,20 +26,24 @@ export default {
         },
         getBounds() {
             return new Promise((resolve, error) => {
-                var getBounds = () => {
+                const getBounds = () => {
                     try {
                         if (!this.component) {
+                            // Component not initialized or went away, abandon
+                            // Promise
                             clearInterval(waiting);
                         } else if (this.component.getBounds()) {
+                            // Got the bounds, resolve with them
                             clearInterval(waiting);
                             resolve(this.component.getBounds());
                         }
+                        // else Keep waiting...
                     } catch (e) {
                         clearInterval(waiting);
                         throw e;
                     }
                 }
-                var waiting = setInterval(getBounds, 100);
+                const waiting = setInterval(getBounds, 100);
                 getBounds();
             });
         },

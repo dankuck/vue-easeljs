@@ -1,7 +1,6 @@
 <script>
 import easeljs from '../easel.js';
 import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
-import _ from 'lodash';
 
 export default {
     props: ['image'],
@@ -26,7 +25,7 @@ export default {
         },
         getBounds() {
             return new Promise((resolve, error) => {
-                var getBounds = () => {
+                const getBounds = () => {
                     try {
                         if (!this.component) {
                             clearInterval(waiting);
@@ -39,7 +38,7 @@ export default {
                         throw e;
                     }
                 }
-                var waiting = setInterval(getBounds, 100);
+                const waiting = setInterval(getBounds, 100);
                 getBounds();
             });
         },

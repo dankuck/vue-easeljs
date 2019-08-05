@@ -1,7 +1,6 @@
 import assert from 'assert';
 import Vue from 'vue';
-import $ from 'jquery';
-import _ from 'lodash';
+import shuffle from 'lodash.shuffle';
 import sortByDom, {sorter} from '../src/libs/sort-by-dom.js';
 
 describe('sort-by-dom', function () {
@@ -131,7 +130,7 @@ describe('sort-by-dom', function () {
             nester_1_2_1,
             nester_1_3,
         ];
-        const mixed = _.shuffle(correct);
+        const mixed = shuffle(correct);
         const sorted = sortByDom(mixed);
         assert(correct.length === sorted.length, 'Different length correct & sorted');
         sorted.forEach((element, i) => assert(element === correct[i], `error at index ${i}: wrong=${element.name}, right=${correct[i].name}`));
@@ -145,7 +144,7 @@ describe('sort-by-dom', function () {
             nester_1_2_1,
             nester_1_3,
         ];
-        const mixed = _.shuffle(correct);
+        const mixed = shuffle(correct);
         const sorted = mixed.sort(sorter);
         assert(correct.length === sorted.length, 'Different length correct & sorted');
         sorted.forEach((element, i) => assert(element === correct[i], `error at index ${i}: wrong=${element.name}, right=${correct[i].name}`));
@@ -159,7 +158,7 @@ describe('sort-by-dom', function () {
             nester_1_2_1,
             nester_1_3,
         ];
-        const mixed = _.shuffle(correct);
+        const mixed = shuffle(correct);
         const bubbleSort = function (source) {
             const array = [...source];
             for (let i = 0; i < array.length; i++) {

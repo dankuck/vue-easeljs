@@ -1,17 +1,16 @@
 import assert from 'assert';
-import EaselEventBinder from '../src/EaselEventBinder.js';
-import _ from 'lodash';
+import EaselEventBinder from '../src/libs/easel-event-binder.js';
 
-var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
-var fauxParentListeners = {};
-_.each(eventTypes, (type) => {
+const eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
+const fauxParentListeners = {};
+eventTypes.forEach(type => {
     fauxParentListeners[type] = function () {};
 });
 
-describe('EaselEventBinder', function () {
+describe('easel-event-binder.js', function () {
 
     it('should bind all the things', function () {
-        var got = {};
+        const got = {};
         EaselEventBinder.bindEvents(
             {
                 $options: {
@@ -27,13 +26,13 @@ describe('EaselEventBinder', function () {
                 },
             }
         );
-        _.each(eventTypes, eventType => {
+        eventTypes.forEach(eventType => {
             assert(got[eventType]);
         });
     });
 
     it('should only bind dblclick', function () {
-        var got = {};
+        const got = {};
         EaselEventBinder.bindEvents(
             {
                 $options: {
@@ -57,7 +56,7 @@ describe('EaselEventBinder', function () {
     });
 
     it('should not bind', function () {
-        var got = {};
+        const got = {};
         EaselEventBinder.bindEvents(
             {
                 $options: {

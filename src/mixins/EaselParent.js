@@ -11,8 +11,9 @@
 import easeljs from '../easel.js';
 import sortByDom from '../libs/sort-by-dom.js';
 import Vue from 'vue';
+import findIndex from 'lodash.findindex';
 
-module.exports = {
+export default {
     provide() {
         return {
             easel: this,
@@ -66,7 +67,7 @@ module.exports = {
             return this.indexOfChild(vueChild) > -1;
         },
         indexOfChild(vueChild) {
-            return _.findIndex(this.children, vueChild);
+            return findIndex(this.children, vueChild);
         },
     },
 };

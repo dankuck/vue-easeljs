@@ -1,107 +1,108 @@
-import $ from 'jquery';
-import _ from 'lodash';
 import assert from 'assert';
 import EaselCanvas from '../src/components/EaselCanvas.vue';
 import EaselShape from '../src/components/EaselShape.vue';
 import Vue from 'vue';
-
-var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick'];
+import isADisplayObject from './includes/is-a-display-object.js';
 
 describe('EaselShape', function () {
-    var eventHandlerCode = eventTypes.map(type => `@${type}="logEvent"`).join(' ');
-    var vm = new Vue({
-        template: `
-            <easel-canvas ref="easelCanvas">
-                <easel-shape ref="theShape"
-                    v-if="showShape"
-                    :x=100
-                    :y=100
-                    fill="DeepSkyBlue"
-                    stroke="#00FFFF"
-                    :form="shapeData.form"
-                    :dimensions="shapeData.dimensions"
-                    :align="['center', 'center']"
-                    ${eventHandlerCode}
-                    >
-                </easel-shape>
-            </easel-canvas>
-        `,
-        components: {
-            'easel-canvas': EaselCanvas,
-            'easel-shape': EaselShape,
-        },
-        data() {
-            return {
-                showShape: true,
-                shapeData: {
-                    form: 'circle',
-                    dimensions: 50,
-                },
-                eventLog: [],
-            };
-        },
-        methods: {
-            logEvent(event) {
-                this.eventLog.push(event);
-            },
-            clearEventLog() {
-                this.eventLog = [];
-            },
-        },
-    }).$mount();
 
-    var canvas = vm.$refs.easelCanvas;
-    var shape = vm.$refs.theShape;
+    describe('is a display object that', isADisplayObject(EaselShape, 'form="circle"'));
+
+    const buildVm = function () {
+        const vm = new Vue({
+            template: `
+                <easel-canvas ref="easelCanvas">
+                    <easel-shape ref="theShape"
+                        v-if="showShape"
+                        :x=100
+                        :y=100
+                        :fill="shapeData.fill"
+                        :stroke="shapeData.stroke"
+                        :form="shapeData.form"
+                        :dimensions="shapeData.dimensions"
+                        :align="['center', 'center']"
+                        >
+                    </easel-shape>
+                </easel-canvas>
+            `,
+            components: {
+                'easel-canvas': EaselCanvas,
+                'easel-shape': EaselShape,
+            },
+            data() {
+                return {
+                    showShape: true,
+                    shapeData: {
+                        form: 'circle',
+                        dimensions: 50,
+                        fill: 'DeepSkyBlue',
+                        stroke: '#00FFFF',
+                    },
+                    eventLog: [],
+                };
+            },
+            methods: {
+                logEvent(event) {
+                    this.eventLog.push(event);
+                },
+                clearEventLog() {
+                    this.eventLog = [];
+                },
+            },
+        }).$mount();
+
+        const shape = vm.$refs.theShape;
+
+        return {vm, shape};
+    };
 
     it('should exist', function () {
+        const {vm, shape} = buildVm();
         assert(shape);
     });
 
     it('should have $el', function () {
+        const {vm, shape} = buildVm();
         assert(shape.$el);
     });
 
     it('should have component field', function () {
+        const {vm, shape} = buildVm();
         assert(shape.component);
     });
 
-    it('should have same component as parent', function () {
-        assert(canvas === shape.easel);
+    it('should make a blue shape', function () {
+        const {vm, shape} = buildVm();
+        assert(shape.component.graphics._fill.style === 'DeepSkyBlue');
     });
 
-    it('should have a parent', function () {
-        assert(shape.component.parent);
-    });
-
-    it('should have the right parent', function () {
-        assert(canvas.component === shape.component.parent);
-    });
-
-    it('should go away when gone', function (done) {
-        vm.showShape = false;
+    it('should change the color to red', function (done) {
+        const {vm, shape} = buildVm();
+        vm.shapeData.fill = 'red';
         Vue.nextTick()
             .then(() => {
-                assert(canvas.component.children.length === 0);
-                vm.showShape = true;
-                return Vue.nextTick();
-            })
-            .then(() => {
-                shape = vm.$refs.theShape; // make sure others get the new var
+                assert(shape.component.graphics._fill.style === 'red');
             })
             .then(done, done);
     });
 
-    it('should make a blue shape', function () {
-        shape.refresh();
-        assert(shape.component.graphics._fill.style === 'DeepSkyBlue');
-    });
-
     it('should make a shape with cyan stroke', function () {
-        shape.refresh();
+        const {vm, shape} = buildVm();
         assert(shape.component.graphics._stroke.style === '#00FFFF');
     });
 
+    it('should change the stroke to yellow', function (done) {
+        const {vm, shape} = buildVm();
+        vm.shapeData.stroke = 'yellow';
+        Vue.nextTick()
+            .then(() => {
+                assert(shape.component.graphics._stroke.style === 'yellow');
+            })
+            .then(done, done);
+    });
+
     it('should make a circle', function (done) {
+        let {vm, shape} = buildVm();
         vm.showShape = false;
         vm.shapeData.form = 'circle';
         vm.shapeData.dimensions = 50;
@@ -123,6 +124,7 @@ describe('EaselShape', function () {
     });
 
     it('should make a rectangle', function (done) {
+        let {vm, shape} = buildVm();
         vm.showShape = false;
         vm.shapeData.form = 'rect';
         vm.shapeData.dimensions = [50, 60];
@@ -145,6 +147,7 @@ describe('EaselShape', function () {
     });
 
     it('should make a rounded corners rectangle', function (done) {
+        let {vm, shape} = buildVm();
         vm.showShape = false;
         vm.shapeData.form = 'rect';
         vm.shapeData.dimensions = [50, 60, 5];
@@ -171,6 +174,7 @@ describe('EaselShape', function () {
     });
 
     it('should make a rounded corners rectangle with different radiuses', function (done) {
+        let {vm, shape} = buildVm();
         vm.showShape = false;
         vm.shapeData.form = 'rect';
         vm.shapeData.dimensions = [50, 60, 5, 6, 7, 8];
@@ -197,6 +201,7 @@ describe('EaselShape', function () {
     });
 
     it('should make a star', function (done) {
+        let {vm, shape} = buildVm();
         vm.showShape = false;
         vm.shapeData.form = 'star';
         vm.shapeData.dimensions = [50, 5, .5];
@@ -220,6 +225,7 @@ describe('EaselShape', function () {
     });
 
     it('should make an ellipse', function (done) {
+        let {vm, shape} = buildVm();
         vm.showShape = false;
         vm.shapeData.form = 'ellipse';
         vm.shapeData.dimensions = [50, 60];
@@ -241,11 +247,4 @@ describe('EaselShape', function () {
             .then(done, done);
     });
 
-    _.each(eventTypes, (type) => {
-        it(`emits ${type} event`, function () {
-            vm.clearEventLog();
-            shape.component.dispatchEvent(type);
-            assert(vm.eventLog.length === 1);
-        });
-    });
 });

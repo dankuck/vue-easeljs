@@ -6,7 +6,6 @@
 
 <script>
 import easeljs from '../easel.js';
-import _ from 'lodash';
 
 export default {
     provide() {

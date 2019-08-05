@@ -3,15 +3,15 @@
 | EaselDisplayObject
 |--------------------------------------------------------------------------
 |
-| This mixin gives an Easel Vue component the required elements to be 
+| This mixin gives an Easel Vue component the required elements to be
 | visible on the canvas.
 |
 */
 
-import EaselEventBinder from '../EaselEventBinder.js';
+import EaselEventBinder from '../libs/easel-event-binder.js';
 import easeljs from '../easel.js';
 
-module.exports = {
+export default {
     inject: ['easel'],
     props: ['x', 'y', 'flip', 'rotation', 'scale', 'alpha', 'shadow', 'align'],
     data() {
@@ -84,7 +84,7 @@ module.exports = {
         },
         updateScales() {
             if (this.component) {
-                var scale = this.scale || 1;
+                const scale = this.scale || 1;
                 this.component.scaleX = this.flip === 'horizontal' || this.flip === 'both' ? -scale : scale;
                 this.component.scaleY = this.flip === 'vertical' || this.flip === 'both' ? -scale : scale;
             }
@@ -102,7 +102,7 @@ module.exports = {
         updateAlign() {
             this.getBounds()
                 .then(bounds => {
-                    var w = bounds.width,
+                    const w = bounds.width,
                         h = bounds.height,
                         hAlign = (this.align && this.align[0]) || 'left',
                         vAlign = (this.align && this.align[1]) || 'top';
@@ -123,6 +123,7 @@ module.exports = {
                 });
         },
         getBounds() {
+            // Components should override this
             return Promise.reject('No bounds available');
         },
     },

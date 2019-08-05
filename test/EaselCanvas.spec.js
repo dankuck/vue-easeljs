@@ -1,61 +1,69 @@
 import assert from 'assert';
 import Vue from 'vue';
 import EaselCanvas from '../src/components/EaselCanvas.vue';
-import $ from 'jquery';
-import _ from 'lodash';
 import easeljs from '../src/easel.js';
-
-var eventTypes = ['added', 'click', 'dblclick', 'mousedown', 'mouseout', 'mouseover', 'pressmove', 'pressup', 'removed', 'rollout', 'rollover', 'tick', 'animationend', 'change'];
+import isAnEaselParent from './includes/is-an-easel-parent.js';
+import doesEvents from './includes/does-events.js';
 
 describe('EaselCanvas', function () {
 
-    var eventHandlerCode = eventTypes.map(type => `@${type}="logEvent"`).join(' ');
-    var vm = new Vue({
-        template: `
-            <easel-canvas
-                background-color="grey"
-                ref="easelCanvas"
-                :anti-alias="antiAlias"
-                ${eventHandlerCode}
-            >
-                <span id="im-in-a-slot"></span>
-            </easel-canvas>
-        `,
-        data() {
-            return {
-                eventLog: [],
-                antiAlias: true,
-            };
-        },
-        components: {
-            'easel-canvas': EaselCanvas,
-        },
-        methods: {
-            logEvent(event) {
-                this.eventLog.push(event);
-            },
-            clearEventLog() {
-                this.eventLog = [];
-            },
-        },
-    }).$mount();
+    describe('is an easel parent that', isAnEaselParent(EaselCanvas));
 
-    var canvas = vm.$refs.easelCanvas;
+    describe('does events and', doesEvents(EaselCanvas));
+
+    const buildVm = function () {
+        const vm = new Vue({
+            template: `
+                <easel-canvas
+                    background-color="grey"
+                    ref="easelCanvas"
+                    :anti-alias="antiAlias"
+                >
+                    <span id="im-in-a-slot"></span>
+                </easel-canvas>
+            `,
+            data() {
+                return {
+                    eventLog: [],
+                    antiAlias: true,
+                };
+            },
+            components: {
+                'easel-canvas': EaselCanvas,
+            },
+            methods: {
+                logEvent(event) {
+                    this.eventLog.push(event);
+                },
+                clearEventLog() {
+                    this.eventLog = [];
+                },
+            },
+        }).$mount();
+
+        const canvas = vm.$refs.easelCanvas;
+
+        return {vm, canvas};
+    };
 
     it('should have a canvas object', function () {
+        const {vm, canvas} = buildVm();
         assert(vm.$el.nodeName === 'CANVAS');
     });
 
     it('should have the slot stuff we put in', function () {
-        assert($(vm.$el).find('#im-in-a-slot'));
+        const {vm, canvas} = buildVm();
+        assert(vm.$el.querySelector('#im-in-a-slot'));
     });
 
     it('should have an easel object with a component object', function () {
+        const {vm, canvas} = buildVm();
         assert(canvas.component);
     });
 
     it('should update a bunch', function (done) {
-        var update = canvas.component.update;
+        const {vm, canvas} = buildVm();
+        const update = canvas.component.update;
         canvas.component.update = function (event) {
             assert(event);
             canvas.component.update = update;
@@ -63,19 +71,13 @@ describe('EaselCanvas', function () {
         };
     });
 
-    _.each(eventTypes, (type) => {
-        it(`emits ${type} event`, function () {
-            vm.clearEventLog();
-            canvas.component.dispatchEvent(type);
-            assert(vm.eventLog.length === 1);
-        });
-    });
-
     it('should be able to anti-alias', function () {
+        const {vm, canvas} = buildVm();
         assert(canvas.context.imageSmoothingEnabled === true, 'Not smoothing: ' + canvas.context.imageSmoothingEnabled);
     });
 
     it('should not use anti-alias', function (done) {
+        const {vm, canvas} = buildVm();
         vm.antiAlias = false;
         Vue.nextTick()
             .then(() => {
@@ -85,8 +87,8 @@ describe('EaselCanvas', function () {
     });
 
     it('should have touch', function () {
-        var Touch = easeljs.Touch;
-        var sawEnable, sawDisable;
+        const Touch = easeljs.Touch;
+        let sawEnable, sawDisable;
         easeljs.Touch = {
             enable(component) {
                 sawEnable = component;
@@ -95,7 +97,7 @@ describe('EaselCanvas', function () {
                 sawDisable = component;
             },
         };
-        var vm = new Vue({
+        const vm = new Vue({
             template: `
                 <easel-canvas></easel-canvas>
             `,
