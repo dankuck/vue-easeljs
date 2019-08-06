@@ -1,7 +1,26 @@
 <template>
     <div>
+        <div class="input-group col-xs-12 col-md-6 col-lg-3">
+            <span class="input-group-addon">
+                <input type="checkbox" v-model="showLabels">
+            </span>
+            <span class="form-control">Show Labels</span>
+        </div>
+        <div class="input-group col-xs-12 col-md-6 col-lg-3">
+            <span class="input-group-addon">
+                <input type="checkbox" v-model="showPoints">
+            </span>
+            <span class="form-control">Show Points</span>
+        </div>
+        <div class="input-group col-xs-12 col-md-6 col-lg-3">
+            <span class="input-group-addon">Scale</span>
+            <input class="form-control" v-model="gary.scale">
+        </div>
+
+        <br />
+
         <easel-canvas
-            style="background-color: grey;"
+            style="background-color: grey"
             width="400"
             height="300"
             :anti-alias="false"
@@ -71,27 +90,10 @@
                 :y="gary.y - 40 * resultScale"
                 :scale="resultScale"
                 :shadow="['black', 1, 1, 1]"
-                :align="['center', 'alphabetical']"
+                :align="['center', 'alphabetic']"
             >
             </easel-text>
         </easel-canvas>
-        <br />
-        <div class="input-group col-xs-2">
-            <span class="input-group-addon">
-                <input type="checkbox" v-model="showLabels">
-            </span>
-            <span class="form-control">Show Labels</span>
-        </div>
-        <div class="input-group col-xs-2">
-            <span class="input-group-addon">
-                <input type="checkbox" v-model="showPoints">
-            </span>
-            <span class="form-control">Show Points</span>
-        </div>
-        <div class="input-group col-xs-2">
-            <span class="input-group-addon">Scale</span>
-            <input class="form-control" v-model="gary.scale">
-        </div>
     </div>
 </template>
 

@@ -1,3 +1,10 @@
+<!--
+easel-sprite-sheet and easel-sprite example:
+A sprite sheet based on the grid at
+http://www.dankuck.com/vue-easeljs/images/lastguardian-all.png
+using the first character's frames from 0 to 7.
+Try changing the easel-sprite's animation to "confusion".
+-->
 <easel-canvas width="64" height="64">
     <easel-sprite-sheet
         :images="['images/lastguardian-all.png']"
@@ -19,6 +26,5 @@
             :align="['center','bottom']"
         >
         </easel-sprite>
-    >
     </easel-sprite-sheet>
 </easel-canvas>
