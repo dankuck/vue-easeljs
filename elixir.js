@@ -1,8 +1,10 @@
 
 var elixir = require('laravel-elixir');
+var webpack = require('webpack');
 
 elixir.ready(function () {
   elixir.webpack.mergeConfig({
+    devtool: 'source-map',
     // ensure we are using the version of Vue that supports templates
     resolve: {
       alias: {
@@ -49,7 +51,10 @@ elixir.ready(function () {
           loader: "html-loader"
         }
       ]
-    }
+    },
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin()
+    ],
   })
 });
 

@@ -41,7 +41,7 @@
                 form="circle"
                 dimensions="3"
                 stroke="black"
-                :fill="point === gary.target ? 'red' : ''"
+                :fill="point === gary.target ? 'red' : 'white'"
                 :x="point[0]"
                 :y="point[1]"
                 :align="['center','center']"
