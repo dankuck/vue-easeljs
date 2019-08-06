@@ -31,22 +31,10 @@ reside within it.
 
 The earliest components are hidden by later components whenever they overlap.
 
-```
-<easel-canvas width="400" height="300">
-    <easel-shape
-        :x="200"
-        :y="150"
-        form="circle"
-        fill="blue"
-        :dimensions="20"
-        :align="['center','center']"
-    >
-    </easel-shape>
-</easel-canvas>
-```
+# Example
 
-<img src="https://dankuck.github.io/vue-easeljs/images/example1.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.0">See Live Demo</a>
+<img src="https://dankuck.github.io/vue-easeljs/images/gary.png" />
+<a href="https://www.dankuck.com/vue-easeljs/">See Live Demo</a>
 
 # Components
 
@@ -367,21 +355,29 @@ Example:
 # Align attribute
 
 All visible components can accept an `align` attribute. The align attribute
-defaults to `['left', 'top']`.
+defaults to `['top', 'left']`.
 
-The field is formatted as `[horizontal-alignment, vertical-alignment]`.
+The field can be either a string or an array.
 
-Alignment options:
-* horizontal: left, center, right
+As a string it is formatted as 'vertical-horizontal'.
+
+As an array it is formatted as `[vertical, horizontal]`.
+
+Most components have these alignment options:
 * vertical: top, center, bottom
+* horizontal: left, center, right
 
-The 'easel-text' component has some special alignment options:
-* horizontal: start, end, left, right, center
+The `easel-text` component has extra alignment options:
 * vertical: top, hanging, middle, alphabetic, ideographic, bottom
+* horizontal: start, end, left, right, center
 
 These are described in the
 <a href="https://html.spec.whatwg.org/multipage/canvas.html#text-styles">whatwg
 spec</a> for HTML5 canvases.
+
+Note: For backwards compatibility, the horizontal and vertical parts of the
+string or array can be reversed. Future major versions will obsolete this
+option.
 
 # Events
 
