@@ -46,7 +46,7 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                        | Required/Default               |
 | --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: ['top', 'left'].      |
+| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: 'top-left'.           |
 | alpha      | 0 to 1                                                 | controls the opacity of the image.                                                 | Default: 1, completely opaque. |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   | Default: ''                    |
 | image      | string                                                 | relative or absolute URL to an image file.                                         | Required.                      |
@@ -161,7 +161,7 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                        | Required/Default               |
 | --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the shape the x and y refer to.                             | Default: ['top', 'left'].
+| align      | [alignment](#align-attribute)                          | controls what point of the shape the x and y refer to.                             | Default: 'top-left'.
 | alpha      | 0 to 1                                                 | controls the opacity of the shape.                                                 | Default: 1, completely opaque.
 | dimensions | Depends on the form.                                   | See below.                                                                         | Required.
 | fill       | HTML color                                             | the inside of the shape                                                            | Optional.
@@ -206,7 +206,7 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                        | Required/Default               |
 | --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: ['top', 'left'].      |
+| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: 'top-left'.           |
 | alpha      | 0 to 1                                                 | controls the opacity of the image.                                                 | Default: 1, completely opaque. |
 | animation  | string                                                 | name of the animation to run from the `easel-sprite-sheet`.                        | Required.                      |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   | Default: ''.                   |
@@ -347,7 +347,7 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                        | Required/Default               |
 | --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the text the x and y refer to.                              | Default: ['top', 'left'].      |
+| align      | [alignment](#align-attribute)                          | controls what point of the text the x and y refer to.                              | Default: 'top-left'.           |
 | alpha      | 0 to 1                                                 | controls the opacity of the text.                                                  | Default: 1, completely opaque. |
 | HTML color | HTML color                                             | the color to use for the text.                                                     | Default: 'black'               |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the text.                                                                    | Default: ''                    |
@@ -378,12 +378,12 @@ Example:
 # Align attribute
 
 All visible components can accept an `align` attribute. The align attribute
-defaults to `['top', 'left']`.
+defaults to `'top-left'`.
 
 The values refer to where the x, y coordinates should lie in reference to the
 rest of the object.
 
-For example, if a 50x50 square shape is aligned at ['top', 'left'], and its x and y
+For example, if a 50x50 square shape is aligned at 'top-left', and its x and y
 are at 65, 70, then the square's top left point will be at 65, 70 and its
 bottom right point will be at 115, 120.
 
