@@ -31,22 +31,10 @@ reside within it.
 
 The earliest components are hidden by later components whenever they overlap.
 
-```
-<easel-canvas width="400" height="300">
-    <easel-shape
-        :x="200"
-        :y="150"
-        form="circle"
-        fill="blue"
-        :dimensions="20"
-        :align="['center','center']"
-    >
-    </easel-shape>
-</easel-canvas>
-```
+# Example
 
-<img src="https://www.dankuck.com/vue-easeljs/images/example1.png" />
-<a href="https://www.dankuck.com/vue-easeljs/#readme.0">See Live Demo</a>
+<img src="https://dankuck.github.io/vue-easeljs/images/gary.png" />
+<a href="https://www.dankuck.com/vue-easeljs/">See Live Demo</a>
 
 # Components
 
@@ -58,7 +46,7 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                        | Required/Default               |
 | --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: ['left', 'top'].      |
+| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: 'top-left'.           |
 | alpha      | 0 to 1                                                 | controls the opacity of the image.                                                 | Default: 1, completely opaque. |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   | Default: ''                    |
 | image      | string                                                 | relative or absolute URL to an image file.                                         | Required.                      |
@@ -173,7 +161,7 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                        | Required/Default               |
 | --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the shape the x and y refer to.                             | Default: ['left', 'top'].
+| align      | [alignment](#align-attribute)                          | controls what point of the shape the x and y refer to.                             | Default: 'top-left'.
 | alpha      | 0 to 1                                                 | controls the opacity of the shape.                                                 | Default: 1, completely opaque.
 | dimensions | Depends on the form.                                   | See below.                                                                         | Required.
 | fill       | HTML color                                             | the inside of the shape                                                            | Optional.
@@ -218,7 +206,7 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                        | Required/Default               |
 | --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: ['left', 'top'].      |
+| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: 'top-left'.           |
 | alpha      | 0 to 1                                                 | controls the opacity of the image.                                                 | Default: 1, completely opaque. |
 | animation  | string                                                 | name of the animation to run from the `easel-sprite-sheet`.                        | Required.                      |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   | Default: ''.                   |
@@ -359,7 +347,7 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                        | Required/Default               |
 | --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the text the x and y refer to.                              | Default: ['left', 'top'].      |
+| align      | [alignment](#align-attribute)                          | controls what point of the text the x and y refer to.                              | Default: 'top-left'.           |
 | alpha      | 0 to 1                                                 | controls the opacity of the text.                                                  | Default: 1, completely opaque. |
 | HTML color | HTML color                                             | the color to use for the text.                                                     | Default: 'black'               |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the text.                                                                    | Default: ''                    |
@@ -390,35 +378,43 @@ Example:
 # Align attribute
 
 All visible components can accept an `align` attribute. The align attribute
-defaults to `['left', 'top']`.
+defaults to `'top-left'`.
 
 The values refer to where the x, y coordinates should lie in reference to the
 rest of the object.
 
-For example, if a 50x50 square shape is aligned at ['left', 'top'], and its x and y
+For example, if a 50x50 square shape is aligned at 'top-left', and its x and y
 are at 65, 70, then the square's top left point will be at 65, 70 and its
 bottom right point will be at 115, 120.
 
-![left top alignment](https://www.dankuck.com/vue-easeljs/images/alignment-1.png?cache=1908021111)
+![top left alignment](https://www.dankuck.com/vue-easeljs/images/alignment-1.png?cache=1908021111)
 
-If the same square was aligned at ['right', 'bottom'], then it's bottom right point
+If the same square was aligned at 'bottom-right', then it's bottom right point
 would be at 65, 70 and its top left point would be at 15, 20.
 
-![right bottom alignment](https://www.dankuck.com/vue-easeljs/images/alignment-2.png?cache=1908021111)
+![bottom right alignment](https://www.dankuck.com/vue-easeljs/images/alignment-2.png?cache=1908021111)
 
-The field is formatted as `[horizontal-alignment, vertical-alignment]`.
+The field can be either a string or an array.
 
-Alignment options:
-* horizontal: left, center, right
+As a string it is formatted as 'vertical-horizontal'.
+
+As an array it is formatted as `[vertical, horizontal]`.
+
+Most components have these alignment options:
 * vertical: top, center, bottom
+* horizontal: left, center, right
 
-The `easel-text` component has some special alignment options:
-* horizontal: start, end, left, right, center
+The `easel-text` component has extra alignment options:
 * vertical: top, hanging, middle, alphabetic, ideographic, bottom
+* horizontal: start, end, left, right, center
 
 These are described in the
 <a href="https://html.spec.whatwg.org/multipage/canvas.html#text-styles">whatwg
 spec</a> for HTML5 canvases.
+
+Note: For backwards compatibility, the horizontal and vertical parts of the
+string or array can be reversed. Future major versions will obsolete this
+option.
 
 # Shadow attribute
 

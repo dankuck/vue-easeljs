@@ -26,7 +26,7 @@ describe('EaselText', function () {
                         :text="text"
                         :font="font"
                         :color="color"
-                        :align="[align, verticalAlign]"
+                        :align="align"
                     >
                     </easel-text>
                 </span>
@@ -42,8 +42,7 @@ describe('EaselText', function () {
                     showText: true,
                     font: '20px Arial',
                     color: 'black',
-                    align: 'left',
-                    verticalAlign: 'top',
+                    align: ['left', 'top'],
                 };
             },
             components: {
@@ -113,50 +112,62 @@ describe('EaselText', function () {
 
     it('should have the right align', function () {
         const {vm, text} = buildVm();
-        assert(vm.align === text.component.textAlign, 'Wrong textAlign: ' + text.component.textAlign);
+        assert('left' === text.component.textAlign, 'Wrong textAlign: ' + text.component.textAlign);
+        assert('top' === text.component.textBaseline, 'Wrong default textBaseline in: ' + text.component.textBaseline);
     });
 
     it('should be able to change the align', function (done) {
         const {vm, text} = buildVm();
-        vm.align = 'center';
         Vue.nextTick()
             .then(() => {
-                assert(vm.align === text.component.textAlign, 'Wrong textAlign in: ' + text.component.textAlign);
+                vm.align = ['center', 'middle'];
+                return Vue.nextTick();
+            })
+            .then(() => {
+                assert('center' === text.component.textAlign, 'Wrong textAlign in: ' + text.component.textAlign);
+                assert('middle' === text.component.textBaseline, 'Wrong default textBaseline in: ' + text.component.textBaseline);
             })
             .then(done, done);
     });
 
-    it('should have the right verticalAlign', function () {
+    it('should default align correctly', function (done) {
         const {vm, text} = buildVm();
-        assert(vm.verticalAlign === text.component.textBaseline, 'Wrong textBaseline: ' + text.component.textBaseline);
-    });
-
-    it('should be able to change the verticalAlign', function (done) {
-        const {vm, text} = buildVm();
-        vm.verticalAlign = 'center';
         Vue.nextTick()
             .then(() => {
-                assert(vm.verticalAlign === text.component.textBaseline, 'Wrong textBaseline in: ' + text.component.textBaseline);
+                vm.align = ['', ''];
+                return Vue.nextTick();
             })
-            .then(done, done);
-    });
-
-    it('should default vertical align to top', function (done) {
-        const {vm, text} = buildVm();
-        vm.verticalAlign = '';
-        Vue.nextTick()
             .then(() => {
                 assert('top' === text.component.textBaseline, 'Wrong default textBaseline in: ' + text.component.textBaseline);
+                assert('left' === text.component.textAlign, 'Wrong default textAlign in: ' + text.component.textAlign);
             })
             .then(done, done);
     });
 
-    it('should default horizontal align to left', function (done) {
+    it('should normalize reversed array align prop', function (done) {
         const {vm, text} = buildVm();
-        vm.align = '';
         Vue.nextTick()
             .then(() => {
-                assert('left' === text.component.textAlign, 'Wrong default textAlign in: ' + text.component.textAlign);
+                vm.align = ['bottom', 'right'];
+                return Vue.nextTick();
+            })
+            .then(() => {
+                assert('right' === text.component.textAlign, 'Wrong default textAlign in: ' + text.component.textAlign);
+                assert('bottom' === text.component.textBaseline, 'Wrong default textBaseline in: ' + text.component.textBaseline);
+            })
+            .then(done, done);
+    });
+
+    it('should normalize reversed string align prop', function (done) {
+        const {vm, text} = buildVm();
+        Vue.nextTick()
+            .then(() => {
+                vm.align = 'bottom-right';
+                return Vue.nextTick();
+            })
+            .then(() => {
+                assert('right' === text.component.textAlign, 'Wrong default textAlign in: ' + text.component.textAlign);
+                assert('bottom' === text.component.textBaseline, 'Wrong default textBaseline in: ' + text.component.textBaseline);
             })
             .then(done, done);
     });

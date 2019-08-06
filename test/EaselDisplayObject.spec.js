@@ -41,7 +41,7 @@ describe('EaselDisplayObject', function () {
                         :scale="scale"
                         :alpha="alpha"
                         :shadow="shadow"
-                        :align="[hAlign, vAlign]"
+                        :align="align"
                     >
                     </easel-fake>
                 </span>
@@ -62,8 +62,7 @@ describe('EaselDisplayObject', function () {
                     scale: 1,
                     alpha: null,
                     shadow: null,
-                    hAlign: 'left',
-                    vAlign: 'top',
+                    align: ['left', 'top'],
                 };
             },
             components: {
@@ -89,52 +88,83 @@ describe('EaselDisplayObject', function () {
      * depend too much on having a real easel.
      */
 
-    it('should have the right hAlign', function () {
+    it('should have the right given alignment', function () {
         const {vm, fake} = buildVm();
         assert(fake.component.regX === 0, 'Wrong regX: ' + fake.component.regX);
-    });
-
-    it('should be able to change the hAlign', function (done) {
-        const {vm, fake} = buildVm();
-        vm.hAlign = 'right';
-        Vue.nextTick()
-            .then(() => {
-                assert(fake.component.regX === 32, 'Wrong regX in: ' + fake.component.regX);
-            })
-            .then(done, done);
-    });
-
-    it('should default hAlign to left', function (done) {
-        const {vm, fake} = buildVm();
-        vm.hAlign = '';
-        Vue.nextTick()
-            .then(() => {
-                assert(fake.component.regX === 0, 'Wrong default regX in: ' + fake.component.regX);
-            })
-            .then(done, done);
-    });
-
-    it('should have the right vAlign', function () {
-        const {vm, fake} = buildVm();
         assert(fake.component.regY === 0, 'Wrong regY: ' + fake.component.regY);
     });
 
-    it('should be able to change the vAlign', function (done) {
+    it('should be able to change the alignment', function (done) {
         const {vm, fake} = buildVm();
-        vm.vAlign = 'bottom';
         Vue.nextTick()
             .then(() => {
-                assert(fake.component.regY === 32, 'Wrong regY in: ' + fake.component.regY);
+                vm.align = ['right', 'bottom'];
+                return Vue.nextTick()
+            })
+            .then(() => {
+                assert(fake.component.regX === 32, 'Wrong regX in: ' + fake.component.regX);
+                assert(fake.component.regY === 48, 'Wrong regY in: ' + fake.component.regY);
             })
             .then(done, done);
     });
 
-    it('should default vAlign to top', function (done) {
+    it('should set the right default alignment', function (done) {
         const {vm, fake} = buildVm();
-        vm.vAlign = '';
         Vue.nextTick()
             .then(() => {
-                assert(fake.component.regY === 0, 'Wrong default regY in: ' + fake.component.regY);
+                vm.align = ['', ''];
+                return Vue.nextTick()
+            })
+            .then(() => {
+                assert(fake.component.regX === 0, 'Wrong regX in: ' + fake.component.regX);
+                assert(fake.component.regY === 0, 'Wrong regY in: ' + fake.component.regY);
+            })
+            .then(done, done);
+    });
+
+    it('should normalize reversed array align prop', function (done) {
+        const {vm, fake} = buildVm();
+        Vue.nextTick()
+            .then(() => {
+                vm.align = ['bottom', 'right'];
+                return Vue.nextTick();
+            })
+            .then(() => {
+                assert(fake.component.regX === 32, 'Wrong regX in: ' + fake.component.regX);
+                assert(fake.component.regY === 48, 'Wrong regY in: ' + fake.component.regY);
+            })
+            .then(done, done);
+    });
+
+    it('should normalize reversed string align prop', function (done) {
+        const {vm, fake} = buildVm();
+        Vue.nextTick()
+            .then(() => {
+                vm.align = 'bottom-left';
+                return Vue.nextTick();
+            })
+            .then(() => {
+                assert(fake.component.regX === 0, 'Wrong regX in: ' + fake.component.regX);
+                assert(fake.component.regY === 48, 'Wrong regY in: ' + fake.component.regY);
+            })
+            .then(done, done);
+    });
+
+    it('should default undefined align prop', function (done) {
+        Vue.config.errorHandler = done;
+        const {vm, fake} = buildVm();
+        Vue.nextTick()
+            .then(() => {
+                vm.align = ['bottom', 'right'];
+                return Vue.nextTick();
+            })
+            .then(() => {
+                vm.align = undefined;
+                return Vue.nextTick();
+            })
+            .then(() => {
+                assert(fake.component.regX === 0, 'Wrong regX in: ' + fake.component.regX);
+                assert(fake.component.regY === 0, 'Wrong regY in: ' + fake.component.regY);
             })
             .then(done, done);
     });
