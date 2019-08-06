@@ -389,7 +389,7 @@ bottom right point will be at 115, 120.
 
 ![top left alignment](https://www.dankuck.com/vue-easeljs/images/alignment-1.png?cache=1908021111)
 
-If the same square was aligned at ['bottom', 'right'], then it's bottom right point
+If the same square was aligned at 'bottom-right', then it's bottom right point
 would be at 65, 70 and its top left point would be at 15, 20.
 
 ![bottom right alignment](https://www.dankuck.com/vue-easeljs/images/alignment-2.png?cache=1908021111)
