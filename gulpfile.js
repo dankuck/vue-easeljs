@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var webpack = require('webpack');
 
 var elixir = require('./elixir.js');
 
@@ -8,6 +9,9 @@ elixir.ready(function () {
     output: {
       libraryTarget: 'commonjs',
     },
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin()
+    ]
   });
 });
 
