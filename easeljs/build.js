@@ -7,7 +7,13 @@
 
 const fs = require('fs');
 
-const header = fs.readFileSync(`${__dirname}/easel-header.js`);
-const body = fs.readFileSync(`${__dirname}/../node_modules/easeljs/lib/easeljs.js`);
-const whole = header + body;
-fs.writeFileSync(`${__dirname}/easel.js`, whole);
+/**
+ * Only run in dev mode. In dev mode we install easeljs. Nobody else needs it.
+ */
+if (fs.existsSync(`${__dirname}/../node_modules/easeljs`)) {
+    const header = fs.readFileSync(`${__dirname}/easel-header.js`);
+    const body = fs.readFileSync(`${__dirname}/../node_modules/easeljs/lib/easeljs.js`);
+    const whole = header + body;
+    fs.writeFileSync(`${__dirname}/easel.js`, whole);
+}
+
