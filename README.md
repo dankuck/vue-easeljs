@@ -43,15 +43,18 @@ The earliest components are hidden by later components whenever they overlap.
 Show a static image.
 
 Attributes:
-* align - array, controls what point of the image the x and y refer to. Default: ['top', 'left'].
-* alpha - 0 to 1, controls the opacity of the image. Default: 1, completely opaque.
-* flip - 'horizontal'|'vertical'|'both'|'', flips the image.
-* image - relative or absolute URL to an image file. Required.
-* rotation - degrees, rotates the image. Default: 0.
-* scale - number, resizes the image. Default: 1.
-* shadow - array, cast an image-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
-* x - number, horizontal position based on the origin of the parent component. Default: 0.
-* y - number, vertical position based on the origin of the parent component. Default: 0.
+
+| Attribute  | Values                                                 | Description                                                                        | Required/Default               |
+| --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
+| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: ['left', 'top'].      |
+| alpha      | 0 to 1                                                 | controls the opacity of the image.                                                 | Default: 1, completely opaque. |
+| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   | Default: ''                    |
+| image      | string                                                 | relative or absolute URL to an image file.                                         | Required.                      |
+| rotation   | degrees                                                | rotates the image.                                                                 | Default: 0.                    |
+| scale      | number                                                 | resizes the image.                                                                 | Default: 1.                    |
+| shadow     | [shadow](#shadow-attribute)                            | cast an image-shaped shadow.                                                       | Default: null.                 |
+| x          | number                                                 | horizontal position based on the origin of the parent component.                   | Default: 0.                    |
+| y          | number                                                 | vertical position based on the origin of the parent component.                     | Default: 0.                    |
 
 Example:
 
@@ -65,17 +68,20 @@ Example:
 </easel-bitmap>
 ```
 
-<img src="https://dankuck.github.io/vue-easeljs/images/example2.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.1">See Live Demo</a>
+<img src="https://www.dankuck.com/vue-easeljs/images/example2.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.1">See Live Demo</a>
 
 ## easel-canvas
 
-Give the vue-easeljs components a place to live.
+Give the vue-easeljs components a place to live. The canvas has no visible pixels of its own.
 
 Attributes:
-* anti-alias: boolean, whether or not edges should be smoothed on scaled images. Default: true.
-* height: number, the pixel height of the canvas on the page. Default: 300.
-* width: number, the pixel width of the canvas on the page. Default: 150.
+
+| Attribute  | Values                                                 | Description                                                                        | Required/Default               |
+| --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
+| anti-alias | boolean                                                | whether or not edges should be smoothed on scaled images.                          | Default: true.                 |
+| height     | number                                                 | the pixel height of the canvas on the page.                                        | Default: 300.                  |
+| width      | number                                                 | the pixel width of the canvas on the page.                                         | Default: 150.                  |
 
 Example:
 
@@ -103,21 +109,24 @@ Example:
 
 ```
 
-<img src="https://dankuck.github.io/vue-easeljs/images/example3.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.2">See Live Demo</a>
+<img src="https://www.dankuck.com/vue-easeljs/images/example3.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.2">See Live Demo</a>
 
 ## easel-container
 
-Group other vue-easel components together and manipulate them as one.
+Group other vue-easel components together and manipulate them as one. The container has no visible pixels of its own.
 
 Attributes:
-* alpha - 0 to 1, controls the opacity of the container. Default: 1, completely opaque.
-* flip - 'horizontal'|'vertical'|'both'|'', flips the container.
-* rotation - degrees, rotates the container. Default: 0.
-* scale - number, resizes the container. Default: 1.
-* shadow - array, cast a shadow of all contained components. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
-* x - number, horizontal position based on the origin of the parent component. Default: 0.
-* y - number, vertical position based on the origin of the parent component. Default: 0.
+
+| Attribute  | Values                                                 | Description                                                                        | Required/Default               |
+| --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
+| alpha      | 0 to 1                                                 | controls the opacity of the container's contents.                                  | Default: 1, completely opaque. |
+| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the container.                                                               | Default: ''                    |
+| rotation   | degrees                                                | rotates the container.                                                             | Default: 0.                    |
+| scale      | number                                                 | resizes the container.                                                             | Default: 1.                    |
+| shadow     | [shadow](#shadow-attribute)                            | cast a shadow of all contained components.                                         | Default: null.                 |
+| x          | number                                                 | horizontal position based on the origin of the parent component.                   | Default: 0.                    |
+| y          | number                                                 | vertical position based on the origin of the parent component.                     | Default: 0.                    |
 
 Example:
 
@@ -141,34 +150,40 @@ Example:
 </easel-container>
 ```
 
-<img src="https://dankuck.github.io/vue-easeljs/images/example4.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.3">See Live Demo</a>
+<img src="https://www.dankuck.com/vue-easeljs/images/example4.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.3">See Live Demo</a>
 
 ## easel-shape
 
 Show a shape.
 
 Attributes:
-* align - array, controls what point of the shape the x and y refer to. Default: ['top', 'left'].
-* alpha - 0 to 1, controls the opacity of the shape. Default: 1, completely opaque.
-* dimensions - Depends on the form. See below. Required.
-* fill - color, the inside of the shape
-* flip - 'horizontal'|'vertical'|'both'|'', flips the shape.
-* form - 'circle'|'ellipse'|'rect'|'star'. Required.
-* rotation - degrees, rotates the shape. Default: 0.
-* scale - number, resizes the shape. Default: 1.
-* shadow - array, cast a same-shape shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
-* stroke - color, the outline of the shape.
-* x - number, horizontal position based on the origin of the parent component. Default: 0.
-* y - number, vertical position based on the origin of the parent component. Default: 0.
+
+| Attribute  | Values                                                 | Description                                                                        | Required/Default               |
+| --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
+| align      | [alignment](#align-attribute)                          | controls what point of the shape the x and y refer to.                             | Default: ['left', 'top'].
+| alpha      | 0 to 1                                                 | controls the opacity of the shape.                                                 | Default: 1, completely opaque.
+| dimensions | Depends on the form.                                   | See below.                                                                         | Required.
+| fill       | HTML color                                             | the inside of the shape                                                            | Optional.
+| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the shape.                                                                   | Default: ''.
+| form       | 'circle' &#124; 'ellipse' &#124; 'rect' &#124; 'star'  |                                                                                    | Required.
+| rotation   | degrees                                                | rotates the shape.                                                                 | Default: 0.
+| scale      | number                                                 | resizes the shape.                                                                 | Default: 1.
+| shadow     | [shadow](#shadow-attribute)                            | cast a same-shape shadow.                                                          | Default: null.
+| stroke     | HTML color                                             | the outline of the shape.                                                          | Optional.
+| x          | number                                                 | horizontal position based on the origin of the parent component.                   | Default: 0.
+| y          | number                                                 | vertical position based on the origin of the parent component.                     | Default: 0.
 
 Dimensions for:
-* circle - number, the radius of the circle
-* ellipse - array, the width and height of the ellipse. Format: [width, height].
-* rect - array, the width and height of the rectangle. Optionally include the radius of rounded corners. Format: [width, height], or [width, height, allRadiuses], or [width, height, topLeftRadius, topRightRadius, bottomRightRadius, bottomLeftRadius].
-* star - array, the radius, sides count, and point size of a "star". Use point size 0 to draw a simple polygon. Max point size is 1.
 
-Example, to draw a blue triangle with red stroke:
+| Shape      | Dimension Type                                         | Format                                                                                                                        | Value explanation                                                                                                    |
+| ---------  | ------------------                                     | --------------                                                                                                                | -------------------                                                                                                  |
+| circle     | number                                                 |                                                                                                                               | the radius of the circle.                                                                                            |
+| ellipse    | array                                                  | [w, h]                                                                                                                        | the width and height of the ellipse.                                                                                 |
+| rect       | array                                                  | [w, h], or [w, h, r], or [w, h, topLeft, topRight, bottomRight, bottomLeft]                                                   | the width and height of the rectangle. Optionally include the radius of rounded corners as one value or four.        |
+| star       | array                                                  | [r, s, p]                                                                                                                     | the radius, sides count, and point size of a "star". Use point size 0 to draw a simple polygon. Max point size is 1. |
+
+Example:
 ```
 <easel-shape
     form="star"
@@ -180,23 +195,26 @@ Example, to draw a blue triangle with red stroke:
 >
 ```
 
-<img src="https://dankuck.github.io/vue-easeljs/images/example5.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.4">See Live Demo</a>
+<img src="https://www.dankuck.com/vue-easeljs/images/example5.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.4">See Live Demo</a>
 
 ## easel-sprite
 
 Show a moving image. An `easel-sprite` must reside in an `easel-sprite-sheet` node. The `easel-sprite-sheet` defines the animations that can be used by the `easel-sprite`.
 
 Attributes:
-* align - array, controls what point of the image the x and y refer to. Default: ['top', 'left'].
-* alpha - 0 to 1, controls the opacity of the image. Default: 1, completely opaque.
-* animation - string, name of the animation to run from the `easel-sprite-sheet`. Required.
-* flip - 'horizontal'|'vertical'|'both'|'', flips the image.
-* rotation - degrees, rotates the image. Default: 0.
-* scale - number, resizes the image. Default: 1.
-* shadow - array, cast an image-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
-* x - number, horizontal position based on the origin of the parent component. Default: 0.
-* y - number, vertical position based on the origin of the parent component. Default: 0.
+
+| Attribute  | Values                                                 | Description                                                                        | Required/Default               |
+| --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
+| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: ['left', 'top'].      |
+| alpha      | 0 to 1                                                 | controls the opacity of the image.                                                 | Default: 1, completely opaque. |
+| animation  | string                                                 | name of the animation to run from the `easel-sprite-sheet`.                        | Required.                      |
+| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   | Default: ''.                   |
+| rotation   | degrees                                                | rotates the image.                                                                 | Default: 0.                    |
+| scale      | number                                                 | resizes the image.                                                                 | Default: 1.                    |
+| shadow     | [shadow](#shadow-attribute)                            | cast an image-shaped shadow.                                                       | Default: null.                 |
+| x          | number                                                 | horizontal position based on the origin of the parent component.                   | Default: 0.                    |
+| y          | number                                                 | vertical position based on the origin of the parent component.                     | Default: 0.                    |
 
 Example:
 
@@ -207,12 +225,13 @@ See the `easel-sprite-sheet` example below.
 Define image animations for use in a sprite.
 
 Attributes:
-* animations - object, defines names for animations. Each animation is a series of frames. Format: {&lt;animationName>: [frame1, frame2, ...], ...}.
-* framerate - number, the speed the animation should play at.
-* frames - mixed, usually an object with format: {width: width, height: height}. Required.
-* images - array, relative or absolute URL's to image files. Required.
 
-In-depth:
+| Attribute  | Values                                                 | Description                                                                        | Required/Default               |
+| --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
+| animations | object                                                 | defines names for animations. Each animation is a series of frames.                | Required.                      |
+| framerate  | number                                                 | the speed the animation should play at.                                            | Required.                      |
+| frames     | mixed                                                  | usually an object with format: {width: width, height: height}.                     | Required.                      |
+| images     | array                                                  | relative or absolute URL's to image files.                                         | Required.                      |
 
 EaselJS provides a lot of options for defining sprite sheets, to allow you to
 format the images in whatever way suits you.
@@ -221,16 +240,17 @@ A sprite sheet is a single image with a set of images on it that will be used
 in rotation to show an animation.
 
 The friendliest approach is to layout the images in a grid. For example, if
-a character requires 32x32 pixels to show, a sprite sheet might have 10
-images of the character in a 320x32 pixel image. (Or a 32x320 image. Or a
-160x64 image. EaselJS will figure it out.)
+a character requires 32x32 pixels to show, you might create a sprite sheet with
+10 frames of the character in a 320x32 pixel image. Or a 32x320 image. Or a
+160x64 image. Whatever the image size, EaselJS will figure it out based on the
+width and height you give it.
 
 In that case the following definition will do nicely:
 
 ```
 <easel-sprite-sheet
     :images="['/images/character.png']"
-    :frames="{width:32,height:32}"
+    :frames="{width: 32, height: 32}"
     ...
 >
 ```
@@ -243,7 +263,7 @@ In this example, there is space and margin between the frames.
 ```
 <easel-sprite-sheet
     :images="['/images/lots-of-characters.png']"
-    :frames="{width:32,height:32,spacing:5,margin:10}"
+    :frames="{width: 32, height: 32, spacing: 5, margin: 10}"
     ...
 >
 ```
@@ -316,25 +336,28 @@ Example:
 </easel-sprite-sheet>
 ```
 
-<img src="https://dankuck.github.io/vue-easeljs/images/example6.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.5">See Live Demo</a>
+<img src="https://www.dankuck.com/vue-easeljs/images/example6.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.5">See Live Demo</a>
 
 ## easel-text
 
 Show some text.
 
 Attributes:
-* align - array, controls what point of the text the x and y refer to. Default: ['top', 'left'].
-* alpha - 0 to 1, controls the opacity of the text. Default: 1, completely opaque.
-* color - color, the color to use for the text.
-* flip - 'horizontal'|'vertical'|'both'|'', flips the text.
-* font - string, size and family of the font. Format: "Npx family".
-* rotation - degrees, rotates the text. Default: 0.
-* scale - number, resizes the text. Default: 1.
-* shadow - array, cast a text-shaped shadow. Format: [color, xOffset, yOffset, amountOfBluriness]. Default: null.
-* text - string, the text to display.
-* x - number, horizontal position based on the origin of the parent component. Default: 0.
-* y - number, vertical position based on the origin of the parent component. Default: 0.
+
+| Attribute  | Values                                                 | Description                                                                        | Required/Default               |
+| --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
+| align      | [alignment](#align-attribute)                          | controls what point of the text the x and y refer to.                              | Default: ['left', 'top'].      |
+| alpha      | 0 to 1                                                 | controls the opacity of the text.                                                  | Default: 1, completely opaque. |
+| HTML color | HTML color                                             | the color to use for the text.                                                     | Default: 'black'               |
+| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the text.                                                                    | Default: ''                    |
+| font       | string                                                 | size and family of the font. Format: "Npx family".                                 | Default: ?                     |
+| rotation   | degrees                                                | rotates the text.                                                                  | Default: 0.                    |
+| scale      | number                                                 | resizes the text.                                                                  | Default: 1.                    |
+| shadow     | [shadow](#shadow-attribute)                            | cast a text-shaped shadow.                                                         | Default: null.                 |
+| text       | string                                                 | the text to display.                                                               | Required.                      |
+| x          | number                                                 | horizontal position based on the origin of the parent component.                   | Default: 0.                    |
+| y          | number                                                 | vertical position based on the origin of the parent component.                     | Default: 0.                    |
 
 Example:
 
@@ -349,13 +372,27 @@ Example:
 </easel-text>
 ```
 
-<img src="https://dankuck.github.io/vue-easeljs/images/example7.png" />
-<a href="https://dankuck.github.io/vue-easeljs/#readme.6">See Live Demo</a>
+<img src="https://www.dankuck.com/vue-easeljs/images/example7.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.6">See Live Demo</a>
 
 # Align attribute
 
 All visible components can accept an `align` attribute. The align attribute
 defaults to `['top', 'left']`.
+
+The values refer to where the x, y coordinates should lie in reference to the
+rest of the object.
+
+For example, if a 50x50 square shape is aligned at ['left', 'top'], and its x and y
+are at 65, 70, then the square's top left point will be at 65, 70 and its
+bottom right point will be at 115, 120.
+
+![top left alignment](https://www.dankuck.com/vue-easeljs/images/alignment-1.png?cache=1908021111)
+
+If the same square was aligned at ['right', 'bottom'], then it's bottom right point
+would be at 65, 70 and its top left point would be at 15, 20.
+
+![bottom right alignment](https://www.dankuck.com/vue-easeljs/images/alignment-2.png?cache=1908021111)
 
 The field can be either a string or an array.
 
@@ -379,28 +416,45 @@ Note: For backwards compatibility, the horizontal and vertical parts of the
 string or array can be reversed. Future major versions will obsolete this
 option.
 
+# Shadow attribute
+
+All visible components can drop a shadow with an optional `shadow` attribute.
+
+The field is formatted as `[color, xOffset, yOffset, bluriness]`.
+
+Shadow options:
+* color: HTML color
+* xOffset: number
+* yOffset: number
+* bluriness: number
+
 # Events
 
 All visible components and the canvas itself emit Vue.js events with an event object.
 
-* added - Fired when the component is added to its parent.
-* animationend - (easel-sprite only) - Fired when an animation completes.
-* change - (easel-sprite only) - Fired when an animation changes.
-* click - Fired when the component is clicked or tapped.
-* dblclick - Fired when the component is double-clicked or tapped.
-* mousedown - Fired when the component is clicked down.
-* mouseout - Fired when the mouse leaves a component's hit area.
-* mouseover - Fired when the mouse enters a component's hit area.
-* pressmove - Fired when the component is dragged.
-* pressup - Fired when the component is unclicked.
-* removed - Fired when the component is removed from its parent.
-* rollout - Fired when the mouse leaves a component's hit area.
-* rollover - Fired when the mouse enters a comopnent's hit area.
-* tick - Fired many times a second to keep the components in sync. Using this event can impact performance.
+| Event                            | Fired when...                                                                                      |
+| --------                         | ---------------                                                                                    |
+| added                            | Fired when the component is added to its parent.                                                   |
+| animationend (easel-sprite only) | Fired when an animation completes.                                                                 |
+| change (easel-sprite only)       | Fired when an animation changes.                                                                   |
+| click                            | Fired when the component is clicked or tapped.                                                     |
+| dblclick                         | Fired when the component is double-clicked or tapped.                                              |
+| mousedown                        | Fired when the component is clicked down.                                                          |
+| mouseout                         | Fired when the mouse leaves a component's hit area.                                                |
+| mouseover                        | Fired when the mouse enters a component's hit area.                                                |
+| pressmove                        | Fired when the component is dragged.                                                               |
+| pressup                          | Fired when the component is unclicked.                                                             |
+| removed                          | Fired when the component is removed from its parent.                                               |
+| rollout                          | Fired when the mouse leaves a component's hit area.                                                |
+| rollover                         | Fired when the mouse enters a comopnent's hit area.                                                |
+| tick                             | Fired many times a second to keep the components in sync. Using this event can impact performance. |
 
 Modifiers such as `.stop` usually work with the events.
 
-These events will be made available in the future.
+For performance reasons, the events are only emitted if a handler exists. They
+will not show up in the Vue.js devtools if no handler exists.
+
+These events will be made available in a future release:
 
  * drawend
  * drawstart
@@ -420,9 +474,11 @@ Chrome/Chromium Users:
 All users:
  * When accessing image files from other hosts, CORS must be setup on the foreign host or else click events will error out. This is a limitation of canvas that applies to all canvas libraries.
 
+The [EaselJS documents](https://www.createjs.com/docs/easeljs/modules/EaselJS.html) can be helpful. They are essential if you intend to fork this repo and make pull requests.
+
 # Pending
 
-These plans are merely dreams:
+These will be implemented in future releases:
 
 * Percentages
 * Caching shapes
@@ -431,7 +487,7 @@ These plans are merely dreams:
 * Mouse cursors
 * Hit areas
 
-There are no plans to implement these features:
+There are no plans to implement these features, but pull requests are accepted:
 
 * Filters
 * BitmapText
