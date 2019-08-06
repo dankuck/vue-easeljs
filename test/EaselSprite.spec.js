@@ -1,7 +1,7 @@
 import assert from 'assert';
 import Vue from 'vue';
 import EaselSprite from '../src/components/EaselSprite.vue';
-import easeljs from '../src/easel.js';
+import easeljs from '../easeljs/easel.js';
 import isADisplayObject from './includes/is-a-display-object.js';
 
 const garyStart = 32 * 6 + 16;

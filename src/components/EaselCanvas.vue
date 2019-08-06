@@ -6,7 +6,7 @@
 
 <script>
 import EaselEventBinder from '../libs/easel-event-binder.js';
-import easeljs from '../easel.js';
+import easeljs from '../../easeljs/easel.js';
 import EaselParent from '../mixins/EaselParent.js';
 
 export default {

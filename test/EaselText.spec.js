@@ -1,7 +1,7 @@
 import assert from 'assert';
 import Vue from 'vue';
 import EaselText from '../src/components/EaselText.vue';
-import easeljs from '../src/easel.js';
+import easeljs from '../easeljs/easel.js';
 import isADisplayObject from './includes/is-a-display-object.js';
 
 describe('EaselText', function () {

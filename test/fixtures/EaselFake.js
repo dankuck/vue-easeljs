@@ -1,5 +1,5 @@
 import EaselDisplayObject from '../../src/mixins/EaselDisplayObject.js';
-import easeljs from '../../src/easel.js';
+import easeljs from '../../easeljs/easel.js';
 
 /**
  * A fake component that uses EaselDisplayObject.

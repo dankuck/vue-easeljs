@@ -1,7 +1,7 @@
 import assert from 'assert';
 import Vue from 'vue';
 import doesEvents from './does-events.js';
-import easeljs from '../../src/easel.js';
+import easeljs from '../../easeljs/easel.js';
 
 /**
  * Returns a function to be used with `describe` for any component that is an

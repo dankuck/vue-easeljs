@@ -9,5 +9,5 @@ export default createjs;
 
 /**
  * If any content follows this line, it comes from the easeljs repo.
+ * ----------------------------------------------------------------------------
  */
-
