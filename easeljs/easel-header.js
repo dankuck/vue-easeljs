@@ -7,7 +7,6 @@ const createjs = this.createjs = this.createjs || {};
 
 export default createjs;
 
-/**
- * If any content follows this line, it comes from the easeljs repo.
- * ----------------------------------------------------------------------------
- */
+// If any content follows this line, it comes from the easeljs repo.
+// ----------------------------------------------------------------------------
+
