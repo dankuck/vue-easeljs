@@ -1,6 +1,6 @@
 import assert from 'assert';
 import EaselContainer from '../src/components/EaselContainer.vue';
-import easeljs from '../src/easel.js';
+import easeljs from '../easeljs/easel.js';
 import Vue from 'vue';
 import isAnEaselParent from './includes/is-an-easel-parent.js';
 import EaselFake from './fixtures/EaselFake.js';

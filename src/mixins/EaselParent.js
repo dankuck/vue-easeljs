@@ -8,7 +8,7 @@
 |
 */
 
-import easeljs from '../easel.js';
+import easeljs from '../../easeljs/easel.js';
 import sortByDom from '../libs/sort-by-dom.js';
 import Vue from 'vue';
 import findIndex from 'lodash.findindex';

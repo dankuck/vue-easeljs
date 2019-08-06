@@ -1,7 +1,7 @@
 import assert from 'assert';
 import Vue from 'vue';
 import EaselSpriteSheet from '../src/components/EaselSpriteSheet.vue';
-import easeljs from '../src/easel.js';
+import easeljs from '../easeljs/easel.js';
 
 describe('EaselSpriteSheet', function () {
 

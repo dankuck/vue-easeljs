@@ -1,7 +1,7 @@
 import assert from 'assert';
 import Vue from 'vue';
 import EaselCanvas from '../src/components/EaselCanvas.vue';
-import easeljs from '../src/easel.js';
+import easeljs from '../easeljs/easel.js';
 import isAnEaselParent from './includes/is-an-easel-parent.js';
 import doesEvents from './includes/does-events.js';
 

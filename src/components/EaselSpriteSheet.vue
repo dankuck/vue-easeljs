@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import easeljs from '../easel.js';
+import easeljs from '../../easeljs/easel.js';
 
 export default {
     provide() {

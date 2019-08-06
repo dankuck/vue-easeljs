@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import easeljs from '../easel.js';
+import easeljs from '../../easeljs/easel.js';
 import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
 import EaselParent from '../mixins/EaselParent.js';
 

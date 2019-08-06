@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "karma start karma.conf.js",
-    "build": "gulp"
+    "build": "gulp",
+    "postinstall": "node ./easeljs/build.js"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,6 @@
     "mocha": "^3.2.0",
     "phantomjs-prebuilt": "^2.1.14",
     "vue": "^2.1.*",
-    "yuki-createjs": "0.0.3"
+    "easeljs": "^1.0.2"
   }
 }

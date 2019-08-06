@@ -9,7 +9,7 @@
 */
 
 import EaselEventBinder from '../libs/easel-event-binder.js';
-import easeljs from '../easel.js';
+import easeljs from '../../easeljs/easel.js';
 import normalizeAlignment from '../libs/normalize-alignment.js';
 
 export default {
