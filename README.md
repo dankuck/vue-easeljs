@@ -34,6 +34,7 @@ The earliest components are hidden by later components whenever they overlap.
 # Example
 
 <img src="https://dankuck.github.io/vue-easeljs/images/gary.png" />
+
 <a href="https://www.dankuck.com/vue-easeljs/">See Live Demo</a>
 
 # Components
@@ -69,6 +70,7 @@ Example:
 ```
 
 <img src="https://www.dankuck.com/vue-easeljs/images/example2.png" />
+
 <a href="https://www.dankuck.com/vue-easeljs/#readme.1">See Live Demo</a>
 
 ## easel-canvas
@@ -110,6 +112,7 @@ Example:
 ```
 
 <img src="https://www.dankuck.com/vue-easeljs/images/example3.png" />
+
 <a href="https://www.dankuck.com/vue-easeljs/#readme.2">See Live Demo</a>
 
 ## easel-container
@@ -151,6 +154,7 @@ Example:
 ```
 
 <img src="https://www.dankuck.com/vue-easeljs/images/example4.png" />
+
 <a href="https://www.dankuck.com/vue-easeljs/#readme.3">See Live Demo</a>
 
 ## easel-shape
@@ -196,6 +200,7 @@ Example:
 ```
 
 <img src="https://www.dankuck.com/vue-easeljs/images/example5.png" />
+
 <a href="https://www.dankuck.com/vue-easeljs/#readme.4">See Live Demo</a>
 
 ## easel-sprite
@@ -337,6 +342,7 @@ Example:
 ```
 
 <img src="https://www.dankuck.com/vue-easeljs/images/example6.png" />
+
 <a href="https://www.dankuck.com/vue-easeljs/#readme.5">See Live Demo</a>
 
 ## easel-text
@@ -373,6 +379,7 @@ Example:
 ```
 
 <img src="https://www.dankuck.com/vue-easeljs/images/example7.png" />
+
 <a href="https://www.dankuck.com/vue-easeljs/#readme.6">See Live Demo</a>
 
 # Align attribute
@@ -420,19 +427,19 @@ option.
 
 # Font attribute
 
-The font attribute is a string that controls the family, size, and weight of 
+The font attribute is a string that controls the family, size, and weight of
 text in an `easel-text` component.
 
-The string is mostly compatible with the 
+The string is mostly compatible with the
 [CSS font property](https://developer.mozilla.org/en-US/docs/Web/CSS/font)
-with 
+with
 [some changes](https://html.spec.whatwg.org/multipage/canvas.html#dom-context-2d-font).
 
 In most cases it must include the font size and font family.
 
 Example: "16px Garamond"
 
-It can optionally include any of font style, font variant, font weight, and 
+It can optionally include any of font style, font variant, font weight, and
 font stretch, in that order, before the font size.
 
 Example: "italic small-caps bold 16px cursive"
