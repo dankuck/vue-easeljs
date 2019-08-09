@@ -425,7 +425,8 @@ text in an `easel-text` component.
 
 The string is mostly compatible with the 
 [CSS font property](https://developer.mozilla.org/en-US/docs/Web/CSS/font)
-depending on browser.
+with 
+[some changes](https://html.spec.whatwg.org/multipage/canvas.html#dom-context-2d-font).
 
 In most cases it must include the font size and font family.
 
