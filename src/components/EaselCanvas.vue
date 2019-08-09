@@ -30,7 +30,6 @@ export default {
             this.updateAntiAlias();
         }
         this.updateSize();
-
     },
     destroyed() {
         easeljs.Touch.disable(this.component);
