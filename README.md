@@ -351,7 +351,7 @@ Attributes:
 | alpha      | 0 to 1                                                 | controls the opacity of the text.                                                  | Default: 1, completely opaque. |
 | HTML color | HTML color                                             | the color to use for the text.                                                     | Default: 'black'               |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the text.                                                                    | Default: ''                    |
-| font       | string                                                 | size and family of the font. Format: "Npx family".                                 | Default: ?                     |
+| font       | [font](#font-attribute)                                | size and family of the font. Format: "Npx family".                                 | Default: ?                     |
 | rotation   | degrees                                                | rotates the text.                                                                  | Default: 0.                    |
 | scale      | number                                                 | resizes the text.                                                                  | Default: 1.                    |
 | shadow     | [shadow](#shadow-attribute)                            | cast a text-shaped shadow.                                                         | Default: null.                 |
@@ -410,11 +410,31 @@ The `easel-text` component has extra alignment options:
 
 These are described in the
 <a href="https://html.spec.whatwg.org/multipage/canvas.html#text-styles">whatwg
-spec</a> for HTML5 canvases.
+spec</a> for HTML5 canvases. In cases of text with multiple lines, the
+horizontal alignment value applies to every line.
 
 Note: For backwards compatibility, the horizontal and vertical parts of the
 string or array can be reversed. Future major versions will obsolete this
 option.
+
+
+# Font attribute
+
+The font attribute is a string that controls the family, size, and weight of 
+text in an `easel-text` component.
+
+The string is mostly compatible with the 
+[CSS font property](https://developer.mozilla.org/en-US/docs/Web/CSS/font)
+depending on browser.
+
+In most cases it must include the font size and font family.
+
+Example: "16px Garamond"
+
+It can optionally include any of font style, font variant, font weight, and 
+font stretch, in that order, before the font size.
+
+Example: "italic small-caps bold 16px cursive"
 
 # Shadow attribute
 
