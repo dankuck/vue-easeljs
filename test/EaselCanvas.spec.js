@@ -18,6 +18,8 @@ describe('EaselCanvas', function () {
                     background-color="grey"
                     ref="easelCanvas"
                     :anti-alias="antiAlias"
+                    :height="height"
+                    :width="width"
                 >
                     <span id="im-in-a-slot"></span>
                 </easel-canvas>
@@ -26,6 +28,8 @@ describe('EaselCanvas', function () {
                 return {
                     eventLog: [],
                     antiAlias: true,
+                    height: 300,
+                    width: 400,
                 };
             },
             components: {
@@ -82,6 +86,59 @@ describe('EaselCanvas', function () {
         Vue.nextTick()
             .then(() => {
                 assert(canvas.context.imageSmoothingEnabled === false, 'Smoothing, but should not: ' + canvas.context.imageSmoothingEnabled);
+            })
+            .then(done, done);
+    });
+
+    it('should scale to device pixel ratio', function () {
+        window.devicePixelRatio = 2;
+        const {vm, canvas} = buildVm();
+        const htmlCanvas = canvas.$refs.easel;
+        assert(htmlCanvas.width === 800, `${htmlCanvas.width} !== 800`);
+        assert(htmlCanvas.height === 600, `${htmlCanvas.height} !== 600`);
+        assert(htmlCanvas.style.width === '400px', `${htmlCanvas.style.width} !== 400px`);
+        assert(htmlCanvas.style.height === '300px', `${htmlCanvas.style.height} !== 300px`);
+        assert(canvas.component.scale === 2, `${canvas.component.scale} !== 2`);
+    });
+
+    it('should rescale on device pixel ratio change', function (done) {
+        window.devicePixelRatio = 2;
+        const {vm, canvas} = buildVm();
+        const htmlCanvas = canvas.$refs.easel;
+        window.devicePixelRatio = 3;
+        window.dispatchEvent(new Event('resize'));
+        Vue.nextTick()
+            .then(() => {
+                assert(htmlCanvas.width === 1200, `${htmlCanvas.width} !== 1200`);
+                assert(htmlCanvas.height === 900, `${htmlCanvas.height} !== 900`);
+                assert(htmlCanvas.style.width === '400px', `${htmlCanvas.style.width} !== 400px`);
+                assert(htmlCanvas.style.height === '300px', `${htmlCanvas.style.height} !== 300px`);
+                assert(canvas.component.scale === 3, `${canvas.component.scale} !== 3`);
+            })
+            .then(done, done);
+    });
+
+    it('should rescale on width and height change', function (done) {
+        window.devicePixelRatio = 2;
+        const {vm, canvas} = buildVm();
+        const htmlCanvas = canvas.$refs.easel;
+        vm.height = 301;
+        Vue.nextTick()
+            .then(() => {
+                assert(htmlCanvas.width === 800, `${htmlCanvas.width} !== 800`);
+                assert(htmlCanvas.height === 602, `${htmlCanvas.height} !== 602`);
+                assert(htmlCanvas.style.width === '400px', `${htmlCanvas.style.width} !== 400px`);
+                assert(htmlCanvas.style.height === '301px', `${htmlCanvas.style.height} !== 301px`);
+                assert(canvas.component.scale === 2, `${canvas.component.scale} !== 2`);
+                vm.width = 401;
+                return Vue.nextTick();
+            })
+            .then(() => {
+                assert(htmlCanvas.width === 802, `${htmlCanvas.width} !== 802`);
+                assert(htmlCanvas.height === 602, `${htmlCanvas.height} !== 602`);
+                assert(htmlCanvas.style.width === '401px', `${htmlCanvas.style.width} !== 401px`);
+                assert(htmlCanvas.style.height === '301px', `${htmlCanvas.style.height} !== 301px`);
+                assert(canvas.component.scale === 2, `${canvas.component.scale} !== 2`);
             })
             .then(done, done);
     });
