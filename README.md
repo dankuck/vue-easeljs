@@ -33,7 +33,7 @@ The earliest components are hidden by later components whenever they overlap.
 
 # Example
 
-<img src="https://dankuck.github.io/vue-easeljs/images/gary.png" />
+<a href="https://www.dankuck.com/vue-easeljs/"><img src="https://dankuck.github.io/vue-easeljs/images/gary.png" /></a>
 
 <a href="https://www.dankuck.com/vue-easeljs/">See Live Demo</a>
 
@@ -69,7 +69,7 @@ Example:
 </easel-bitmap>
 ```
 
-<img src="https://www.dankuck.com/vue-easeljs/images/example2.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.1"><img src="https://www.dankuck.com/vue-easeljs/images/example2.png" </a>/>
 
 <a href="https://www.dankuck.com/vue-easeljs/#readme.1">See Live Demo</a>
 
@@ -111,7 +111,7 @@ Example:
 
 ```
 
-<img src="https://www.dankuck.com/vue-easeljs/images/example3.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.2"><img src="https://www.dankuck.com/vue-easeljs/images/example3.png" </a>/>
 
 <a href="https://www.dankuck.com/vue-easeljs/#readme.2">See Live Demo</a>
 
@@ -153,7 +153,7 @@ Example:
 </easel-container>
 ```
 
-<img src="https://www.dankuck.com/vue-easeljs/images/example4.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.3"><img src="https://www.dankuck.com/vue-easeljs/images/example4.png" </a>/>
 
 <a href="https://www.dankuck.com/vue-easeljs/#readme.3">See Live Demo</a>
 
@@ -199,7 +199,7 @@ Example:
 >
 ```
 
-<img src="https://www.dankuck.com/vue-easeljs/images/example5.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.4"><img src="https://www.dankuck.com/vue-easeljs/images/example5.png" </a>/>
 
 <a href="https://www.dankuck.com/vue-easeljs/#readme.4">See Live Demo</a>
 
@@ -341,7 +341,7 @@ Example:
 </easel-sprite-sheet>
 ```
 
-<img src="https://www.dankuck.com/vue-easeljs/images/example6.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.5"><img src="https://www.dankuck.com/vue-easeljs/images/example6.png" </a>/>
 
 <a href="https://www.dankuck.com/vue-easeljs/#readme.5">See Live Demo</a>
 
@@ -378,7 +378,7 @@ Example:
 </easel-text>
 ```
 
-<img src="https://www.dankuck.com/vue-easeljs/images/example7.png" />
+<a href="https://www.dankuck.com/vue-easeljs/#readme.6"><img src="https://www.dankuck.com/vue-easeljs/images/example7.png" </a>/>
 
 <a href="https://www.dankuck.com/vue-easeljs/#readme.6">See Live Demo</a>
 
