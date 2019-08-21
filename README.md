@@ -79,11 +79,13 @@ Give the vue-easeljs components a place to live. The canvas has no visible pixel
 
 Attributes:
 
-| Attribute  | Values                                                 | Description                                                                        | Required/Default               |
-| --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| anti-alias | boolean                                                | whether or not edges should be smoothed on scaled images.                          | Default: true.                 |
-| height     | number                                                 | the pixel height of the canvas on the page.                                        | Default: 300.                  |
-| width      | number                                                 | the pixel width of the canvas on the page.                                         | Default: 150.                  |
+| Attribute       | Values                                                 | Description                                                                        | Required/Default               |
+| --------        | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
+| anti-alias      | boolean                                                | whether or not edges should be smoothed on scaled images.                          | Default: true.                 |
+| height          | number                                                 | the pixel height of the canvas on the page.                                        | Default: 300.                  |
+| width           | number                                                 | the pixel width of the canvas on the page.                                         | Default: 150.                  |
+| viewport-height | number                                                 | the pixel height of the canvas internally.                                         | Default: equal to height       |
+| viewport-width  | number                                                 | the pixel width of the canvas internally.                                          | Default: equal to width        |
 
 Example:
 
