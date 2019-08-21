@@ -26,10 +26,12 @@ export default {
         easeljs.Ticker.addEventListener('tick', (event) => this.component.update(event));
         this.resizeHandler = () => this.updateSize();
         window.addEventListener('resize', this.resizeHandler);
-        if (typeof this.antiAlias !== 'undefined') {
-            this.updateAntiAlias();
-        }
         this.updateSize();
+        if (typeof this.antiAlias !== 'undefined') {
+            // For an unknown reason, it's necessary to do this after a tick
+            // or else it doesn't update
+            this.$nextTick(() => this.updateAntiAlias());
+        }
     },
     destroyed() {
         easeljs.Touch.disable(this.component);

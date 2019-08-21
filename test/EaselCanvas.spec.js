@@ -75,9 +75,13 @@ describe('EaselCanvas', function () {
         };
     });
 
-    it('should be able to anti-alias', function () {
+    it('should be able to anti-alias', function (done) {
         const {vm, canvas} = buildVm();
-        assert(canvas.context.imageSmoothingEnabled === true, 'Not smoothing: ' + canvas.context.imageSmoothingEnabled);
+        Vue.nextTick()
+            .then(() => {
+                assert(canvas.context.imageSmoothingEnabled === true, 'Not smoothing: ' + canvas.context.imageSmoothingEnabled);
+            })
+            .then(done, done);
     });
 
     it('should not use anti-alias', function (done) {
