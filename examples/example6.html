@@ -5,7 +5,7 @@ http://www.dankuck.com/vue-easeljs/images/lastguardian-all.png
 using the first character's frames from 0 to 7.
 Try changing the easel-sprite's animation to "confusion".
 -->
-<easel-canvas width="64" height="64">
+<easel-canvas width="64" height="64" :anti-alias="false">
     <easel-sprite-sheet
         :images="['images/lastguardian-all.png']"
         :frames="{width:32,height:32}"
@@ -23,7 +23,7 @@ Try changing the easel-sprite's animation to "confusion".
             :x="32"
             :y="48"
             animation="walk"
-            :align="['center','bottom']"
+            align="bottom-center"
         >
         </easel-sprite>
     </easel-sprite-sheet>

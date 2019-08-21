@@ -1,5 +1,10 @@
+// Expose these variables for people who like to use devtools
 window.Vue = require('vue');
-Vue.use(require('vue-easeljs'));
+window.VueEaseljs = require('vue-easeljs');
+window.createjs = window.VueEaseljs.createjs;
+window.easeljs = window.VueEaseljs.easeljs; // same object as createjs
+
+Vue.use(VueEaseljs);
 
 Vue.component('gary', require('./Gary.vue'));
 Vue.component('exampler', require('./Exampler.vue'));
