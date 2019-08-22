@@ -5,6 +5,7 @@ import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
 export default {
     mixins: [EaselDisplayObject],
     props: ['form', 'fill', 'stroke', 'dimensions'],
+    updatesEaselCache: ['form', 'fill', 'stroke', 'dimensions'],
     render() {
         return '<!-- shape -->';
     },
@@ -46,7 +47,6 @@ export default {
                 }
                 this.drawForm();
                 this.updateAlign();
-                this.cacheNeedsUpdate = true;
             }
         },
         drawForm() {

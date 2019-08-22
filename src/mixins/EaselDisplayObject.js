@@ -26,49 +26,41 @@ export default {
         x() {
             if (this.component) {
                 this.component.x = this.x || 0;
-                this.setEaselCacheNeedsUpdate();
             }
         },
         y() {
             if (this.component) {
                 this.component.y = this.y || 0;
-                this.setEaselCacheNeedsUpdate();
             }
         },
         flip() {
             if (this.component) {
                 this.updateScales();
-                this.setEaselCacheNeedsUpdate();
             }
         },
         scale() {
             if (this.component) {
                 this.updateScales();
-                this.setEaselCacheNeedsUpdate();
             }
         },
         rotation() {
             if (this.component) {
                 this.component.rotation = this.rotation;
-                this.setEaselCacheNeedsUpdate();
             }
         },
         alpha() {
             if (this.component) {
                 this.updateAlpha();
-                this.setEaselCacheNeedsUpdate();
             }
         },
         shadow() {
             if (this.component) {
                 this.updateShadow();
-                this.setEaselCacheNeedsUpdate();
             }
         },
         align() {
             if (this.component) {
                 this.updateAlign();
-                this.setEaselCacheNeedsUpdate();
             }
         },
     },

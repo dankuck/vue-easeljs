@@ -1,10 +1,19 @@
 export default {
     props: ['cache'],
+    updatesEaselCache: [],
     data() {
         return {
             cacheStarted: false,
             cacheNeedsUpdate: false,
         };
+    },
+    mounted() {
+        this.$options.updatesEaselCache.forEach(prop => {
+            this.$watch(prop, () => this.cacheNeedsUpdate = true);
+        });
+        Object.keys(this.$options.props).forEach(prop => {
+            this.$watch(prop, () => this.setEaselCacheNeedsUpdate());
+        });
     },
     watch: {
         cache() {
