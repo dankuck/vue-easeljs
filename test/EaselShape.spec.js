@@ -14,25 +14,25 @@ describe.only('EaselShape', function () {
             name: 'fill',
             value: 'black',
             changeTo: 'blue',
-            shouldUpdate: true,
+            shouldUpdateSameObject: true,
         },
         {
             name: 'stroke',
             value: 'black',
             changeTo: 'blue',
-            shouldUpdate: true,
+            shouldUpdateSameObject: true,
         },
         {
             name: 'dimensions',
             value: 50,
             changeTo: 100,
-            shouldUpdate: true,
+            shouldUpdateSameObject: true,
         },
         {
             name: 'form',
             value: 'circle',
             changeTo: 'rect',
-            shouldUpdate: true,
+            shouldUpdateSameObject: true,
         },
     ]));
 

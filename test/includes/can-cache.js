@@ -1,16 +1,72 @@
 import Vue from 'vue';
 import assert from 'assert';
 
-const parentPropChangers = [
-    {
-        name: 'flip',
-        value: '',
-        changeTo: 'horizontal',
-    },
-];
-
 export default function (implementor, extra_attributes = '', propChangers = []) {
     return function () {
+
+        const parentPropChangers = [
+            {
+                name: 'x',
+                value: 0,
+                changeTo: 1,
+                shouldUpdateSameObject: false,
+            },
+            {
+                name: 'y',
+                value: 0,
+                changeTo: 2,
+                shouldUpdateSameObject: false,
+            },
+            {
+                name: 'flip',
+                value: '',
+                changeTo: 'horizontal',
+                shouldUpdateSameObject: false,
+            },
+            {
+                name: 'rotation',
+                value: '',
+                changeTo: '90',
+                shouldUpdateSameObject: false,
+            },
+            {
+                name: 'scale',
+                value: 1,
+                changeTo: 2,
+                shouldUpdateSameObject: false,
+            },
+            {
+                name: 'alpha',
+                value: 1,
+                changeTo: .5,
+                shouldUpdateSameObject: false,
+            },
+            {
+                name: 'shadow',
+                value: ['red', 5, 6, .5],
+                changeTo: ['blue', 5, 6, .5],
+                shouldUpdateSameObject: false,
+            },
+            {
+                name: 'align',
+                value: 'top-left',
+                changeTo: 'bottom-right',
+                shouldUpdateSameObject: false,
+            },
+        ];
+
+        // Combine, favoring propChangers if there are conflicts
+        const allPropChangers = propChangers
+            .concat(parentPropChangers)
+            .reduce((map, changer) => {
+                if (map.used[changer.name]) {
+                    return map;
+                }
+                map.used[changer.name] = true;
+                map.values.push(changer);
+                return map;
+            }, {used: {}, values: []})
+            .values;
 
         const buildVm = function () {
             /**
@@ -24,8 +80,7 @@ export default function (implementor, extra_attributes = '', propChangers = []) 
                 cacheNeedsUpdate: false,
             };
 
-            const props = propChangers
-                .concat(parentPropChangers)
+            const props = allPropChangers
                 .map(changer => changer.name)
                 .map(name => `:${name}="${name}"`)
                 .join("\n");
@@ -48,8 +103,7 @@ export default function (implementor, extra_attributes = '', propChangers = []) 
                     const data = {
                         cache: true,
                     };
-                    return propChangers
-                        .concat(parentPropChangers)
+                    return allPropChangers
                         .reduce((acc, changer) => {
                             acc[changer.name] = changer.value;
                             return acc;
@@ -114,9 +168,8 @@ export default function (implementor, extra_attributes = '', propChangers = []) 
         });
 
         propChangers
-            .filter(changer => changer.changeTo)
-            .forEach(({name, changeTo, shouldUpdate}) => {
-                it(`should ${shouldUpdate ? 'YES' : 'NOT'} update cache when ${name} changes`, function (done) {
+            .forEach(({name, changeTo, shouldUpdateSameObject}) => {
+                it(`should ${shouldUpdateSameObject ? 'YES' : 'NOT'} update cache when ${name} changes`, function (done) {
                     const {vm, fake} = buildVm();
                     assert(fake.cache === true);
                     let updated = false;
@@ -129,14 +182,13 @@ export default function (implementor, extra_attributes = '', propChangers = []) 
                             return Vue.nextTick();
                         })
                         .then(() => {
-                            assert(updated === shouldUpdate, `${name} did ${updated ? 'YES' : 'NOT'} cause an update`);
+                            assert(updated === shouldUpdateSameObject, `${name} did ${updated ? 'YES' : 'NOT'} cause an update`);
                         })
                         .then(done, done);
                 });
             });
 
-        propChangers
-            .concat(parentPropChangers)
+        allPropChangers
             .forEach(({name, changeTo}) => {
                 it(`should update easel.cacheNeedsUpdate when ${name} changes`, function (done) {
                     const {vm, fake, easel} = buildVm();

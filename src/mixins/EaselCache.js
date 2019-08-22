@@ -30,10 +30,7 @@ export default {
                         if (this.component && this.component.cacheCanvas) {
                             this.component.updateCache();
                         }
-                        this.setEaselCacheNeedsUpdate();
                     });
-                } else {
-                    this.setEaselCacheNeedsUpdate();
                 }
             }
         },
