@@ -1,9 +1,10 @@
 <script>
 import easeljs from '../../easeljs/easel.js';
 import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
+import EaselCache from '../mixins/EaselCache.js';
 
 export default {
-    mixins: [EaselDisplayObject],
+    mixins: [EaselDisplayObject, EaselCache],
     props: ['form', 'fill', 'stroke', 'dimensions'],
     updatesEaselCache: ['form', 'fill', 'stroke', 'dimensions'],
     render() {

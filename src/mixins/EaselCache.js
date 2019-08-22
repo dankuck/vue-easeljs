@@ -12,8 +12,9 @@ export default {
             this.$watch(prop, () => this.cacheNeedsUpdate = true);
         });
         Object.keys(this.$options.props).forEach(prop => {
-            this.$watch(prop, () => this.setEaselCacheNeedsUpdate());
+            this.$watch(prop, () => this.setParentCacheNeedsUpdate());
         });
+        this.$nextTick(() => this.cacheInit());
     },
     watch: {
         cache() {
@@ -39,11 +40,14 @@ export default {
         cacheInit() {
             if (this.cache) {
                 this.getBounds()
-                    .then(rectangle => {
-                        this.component.cache(this.x, this.y, rectangle.width, rectangle.height);
-                        this.cacheStarted = true;
-                        this.cacheNeedsUpdate = false;
-                    });
+                    .then(
+                        rectangle => {
+                            this.component.cache(this.x, this.y, rectangle.width, rectangle.height);
+                            this.cacheStarted = true;
+                            this.cacheNeedsUpdate = false;
+                        },
+                        (error) => console.error('Cannot cache:', error)
+                    );
             }
         },
         cacheDestroy() {
@@ -51,7 +55,7 @@ export default {
             this.cacheStarted = false;
             this.cacheNeedsUpdate = false;
         },
-        setEaselCacheNeedsUpdate() {
+        setParentCacheNeedsUpdate() {
             if (this.easel && 'cacheNeedsUpdate' in this.easel) {
                 this.easel.cacheNeedsUpdate = true;
             }

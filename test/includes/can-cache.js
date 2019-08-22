@@ -1,72 +1,62 @@
 import Vue from 'vue';
 import assert from 'assert';
 
-export default function (implementor, extra_attributes = '', propChangers = []) {
+const parentPropChangers = [
+    {
+        name: 'x',
+        value: 0,
+        changeTo: 1,
+        shouldUpdateSameObject: false,
+    },
+    {
+        name: 'y',
+        value: 0,
+        changeTo: 2,
+        shouldUpdateSameObject: false,
+    },
+    {
+        name: 'flip',
+        value: '',
+        changeTo: 'horizontal',
+        shouldUpdateSameObject: false,
+    },
+    {
+        name: 'rotation',
+        value: '',
+        changeTo: '90',
+        shouldUpdateSameObject: false,
+    },
+    {
+        name: 'scale',
+        value: 1,
+        changeTo: 2,
+        shouldUpdateSameObject: false,
+    },
+    {
+        name: 'alpha',
+        value: 1,
+        changeTo: .5,
+        shouldUpdateSameObject: false,
+    },
+    {
+        name: 'shadow',
+        value: ['red', 5, 6, .5],
+        changeTo: ['blue', 5, 6, .5],
+        shouldUpdateSameObject: false,
+    },
+    {
+        name: 'align',
+        value: 'top-left',
+        changeTo: 'bottom-right',
+        shouldUpdateSameObject: false,
+    },
+];
+
+export default function (implementor, propChangers = []) {
     return function () {
 
-        const parentPropChangers = [
-            {
-                name: 'x',
-                value: 0,
-                changeTo: 1,
-                shouldUpdateSameObject: false,
-            },
-            {
-                name: 'y',
-                value: 0,
-                changeTo: 2,
-                shouldUpdateSameObject: false,
-            },
-            {
-                name: 'flip',
-                value: '',
-                changeTo: 'horizontal',
-                shouldUpdateSameObject: false,
-            },
-            {
-                name: 'rotation',
-                value: '',
-                changeTo: '90',
-                shouldUpdateSameObject: false,
-            },
-            {
-                name: 'scale',
-                value: 1,
-                changeTo: 2,
-                shouldUpdateSameObject: false,
-            },
-            {
-                name: 'alpha',
-                value: 1,
-                changeTo: .5,
-                shouldUpdateSameObject: false,
-            },
-            {
-                name: 'shadow',
-                value: ['red', 5, 6, .5],
-                changeTo: ['blue', 5, 6, .5],
-                shouldUpdateSameObject: false,
-            },
-            {
-                name: 'align',
-                value: 'top-left',
-                changeTo: 'bottom-right',
-                shouldUpdateSameObject: false,
-            },
-        ];
-
-        // Combine, favoring propChangers if there are conflicts
         const allPropChangers = propChangers
             .concat(parentPropChangers)
-            .reduce((map, changer) => {
-                if (map.used[changer.name]) {
-                    return map;
-                }
-                map.used[changer.name] = true;
-                map.values.push(changer);
-                return map;
-            }, {used: {}, values: []})
-            .values;
 
         const buildVm = function () {
             /**
@@ -91,7 +81,6 @@ export default function (implementor, extra_attributes = '', propChangers = []) 
                         <implementor ref="fake"
                             ${props}
                             :cache="cache"
-                            ${extra_attributes}
                         >
                         </implementor>
                     </span>
@@ -127,7 +116,7 @@ export default function (implementor, extra_attributes = '', propChangers = []) 
             assert(fake.component.cacheCanvas === null);
             Vue.nextTick()
                 .then(() => {
-                    assert(fake.component.cacheCanvas !== null);
+                    assert(fake.component.cacheCanvas !== null, 'Did not create cache');
                 })
                 .then(done, done);
         });

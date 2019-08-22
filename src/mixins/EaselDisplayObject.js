@@ -11,10 +11,8 @@
 import EaselEventBinder from '../libs/easel-event-binder.js';
 import easeljs from '../../easeljs/easel.js';
 import normalizeAlignment from '../libs/normalize-alignment.js';
-import EaselCache from '../mixins/EaselCache.js';
 
 export default {
-    mixins: [EaselCache],
     inject: ['easel'],
     props: ['x', 'y', 'flip', 'rotation', 'scale', 'alpha', 'shadow', 'align'],
     data() {
@@ -86,7 +84,6 @@ export default {
             this.updateShadow();
             this.updateAlign();
             this.easel.addChild(this);
-            this.cacheInit();
         },
         displayObjectBreakdown() {
             this.easel.removeChild(this);
