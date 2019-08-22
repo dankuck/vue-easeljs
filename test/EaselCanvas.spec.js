@@ -98,6 +98,22 @@ describe('EaselCanvas', function () {
             .then(done, done);
     });
 
+    it('should keep anti-alias off after resize', function (done) {
+        const {vm, canvas} = buildVm();
+        vm.antiAlias = false;
+        Vue.nextTick()
+            .then(() => {
+                assert(canvas.context.imageSmoothingEnabled === false, 'Smoothing, but should not: ' + canvas.context.imageSmoothingEnabled);
+                canvas.context.imageSmoothingEnabled = true;
+                window.dispatchEvent(new Event('resize'));
+                return Vue.nextTick();
+            })
+            .then(() => {
+                assert(canvas.context.imageSmoothingEnabled === false, 'Smoothing again, but should not: ' + canvas.context.imageSmoothingEnabled);
+            })
+            .then(done, done);
+    });
+
     it('should scale to device pixel ratio', function () {
         window.devicePixelRatio = 2;
         const {vm, canvas} = buildVm();

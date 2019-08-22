@@ -86,6 +86,7 @@ export default {
             canvas.style.height = this.height + 'px';
             this.component.scaleX = this.viewportScale.scaleX * window.devicePixelRatio;
             this.component.scaleY = this.viewportScale.scaleY * window.devicePixelRatio;
+            this.$nextTick(() => this.updateAntiAlias());
         },
     },
 };
