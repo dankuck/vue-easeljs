@@ -87,6 +87,22 @@ Attributes:
 | viewport-height | number                                                 | the pixel height of the canvas internally.                                         | Default: equal to height       |
 | viewport-width  | number                                                 | the pixel width of the canvas internally.                                          | Default: equal to width        |
 
+The `width` and `height` props control the size of the canvas element on the
+page.
+
+The separate `viewport-width` and `viewport-height` props control the size of
+the canvas internally. For example, a canvas with width and height of 100 can
+fully show an element of width and height 50. But the same canvas with
+`viewport-width` and `viewport-height` set to 40 cannot fully show the same
+element.
+
+The `viewport-width` and `viewport-height` props are a convenience feature,
+allowing a developer to specify subcomponents' pixel sizes at a set size
+regardless of the actual size of the canvas. Setting large viewport sizes
+will make elements inside larger, but if they are then scaled down again
+they will not be pixelated. They will regain their original size and
+pixelation.
+
 Example:
 
 ```
