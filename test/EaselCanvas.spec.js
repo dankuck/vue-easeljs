@@ -20,6 +20,8 @@ describe('EaselCanvas', function () {
                     :anti-alias="antiAlias"
                     :height="height"
                     :width="width"
+                    :viewport-height="vheight"
+                    :viewport-width="vwidth"
                 >
                     <span id="im-in-a-slot"></span>
                 </easel-canvas>
@@ -30,6 +32,8 @@ describe('EaselCanvas', function () {
                     antiAlias: true,
                     height: 300,
                     width: 400,
+                    vheight: null,
+                    vwidth: null,
                 };
             },
             components: {
@@ -65,7 +69,7 @@ describe('EaselCanvas', function () {
         assert(canvas.component);
     });
 
-    it('should update a bunch', function (done) {
+    it('should have a component that calls update on its own', function (done) {
         const {vm, canvas} = buildVm();
         const update = canvas.component.update;
         canvas.component.update = function (event) {
@@ -90,6 +94,22 @@ describe('EaselCanvas', function () {
         Vue.nextTick()
             .then(() => {
                 assert(canvas.context.imageSmoothingEnabled === false, 'Smoothing, but should not: ' + canvas.context.imageSmoothingEnabled);
+            })
+            .then(done, done);
+    });
+
+    it('should keep anti-alias off after resize', function (done) {
+        const {vm, canvas} = buildVm();
+        vm.antiAlias = false;
+        Vue.nextTick()
+            .then(() => {
+                assert(canvas.context.imageSmoothingEnabled === false, 'Smoothing, but should not: ' + canvas.context.imageSmoothingEnabled);
+                canvas.context.imageSmoothingEnabled = true;
+                window.dispatchEvent(new Event('resize'));
+                return Vue.nextTick();
+            })
+            .then(() => {
+                assert(canvas.context.imageSmoothingEnabled === false, 'Smoothing again, but should not: ' + canvas.context.imageSmoothingEnabled);
             })
             .then(done, done);
     });
@@ -143,6 +163,54 @@ describe('EaselCanvas', function () {
                 assert(htmlCanvas.style.width === '401px', `${htmlCanvas.style.width} !== 401px`);
                 assert(htmlCanvas.style.height === '301px', `${htmlCanvas.style.height} !== 301px`);
                 assert(canvas.component.scale === 2, `${canvas.component.scale} !== 2`);
+            })
+            .then(done, done);
+    });
+
+    it('should have viewport-height and viewport-width', function (done) {
+        window.devicePixelRatio = 1;
+        const {vm, canvas} = buildVm();
+        vm.vheight = 300;
+        vm.vwidth = 400;
+        Vue.nextTick()
+            .then(() => {
+                assert(canvas.viewportHeight === 300);
+                assert(canvas.viewportWidth === 400);
+                assert(canvas.component.scaleY === 1);
+                assert(canvas.component.scaleX === 1);
+            })
+            .then(done, done);
+    });
+
+    it('should change scaleX and scaleY with viewport-height and viewport-width', function (done) {
+        window.devicePixelRatio = 1;
+        const {vm, canvas} = buildVm();
+        vm.vheight = 600; // twice the canvas height
+        vm.vwidth = 200; // half the canvas width
+        Vue.nextTick()
+            .then(() => {
+                assert(canvas.component.scaleY === .5, JSON.stringify([canvas.viewport, canvas.viewportScale, canvas.component.scaleY, canvas.viewportHeight]));
+                assert(canvas.component.scaleX === 2);
+            })
+            .then(done, done);
+    });
+
+    it('should change scaleX and scaleY with viewport-height and viewport-width', function (done) {
+        window.devicePixelRatio = 1;
+        const {vm, canvas} = buildVm();
+        // cause scale to double
+        vm.vheight = 150;
+        vm.vwidth = 200;
+        Vue.nextTick()
+            .then(() => {
+                // cause scale to double again
+                window.devicePixelRatio = 2;
+                window.dispatchEvent(new Event('resize'));
+                return Vue.nextTick();
+            })
+            .then(() => {
+                assert(canvas.component.scaleY === 4);
+                assert(canvas.component.scaleX === 4);
             })
             .then(done, done);
     });

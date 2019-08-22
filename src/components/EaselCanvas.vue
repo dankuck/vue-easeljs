@@ -11,7 +11,13 @@ import EaselParent from '../mixins/EaselParent.js';
 
 export default {
     mixins: [EaselParent],
-    props: ['antiAlias', 'height', 'width'],
+    props: [
+        'antiAlias',
+        'height',
+        'width',
+        'viewportHeight',
+        'viewportWidth',
+    ],
     data() {
         return {
             component: null,
@@ -47,6 +53,23 @@ export default {
         width() {
             this.updateSize();
         },
+        viewportScale() {
+            this.updateSize();
+        },
+    },
+    computed: {
+        viewport() {
+            return {
+                width: this.viewportWidth || this.width,
+                height: this.viewportHeight || this.height,
+            };
+        },
+        viewportScale() {
+            return {
+                scaleX: this.width / this.viewport.width,
+                scaleY: this.height / this.viewport.height,
+            };
+        },
     },
     methods: {
         updateAntiAlias() {
@@ -61,7 +84,9 @@ export default {
             canvas.height = this.height * window.devicePixelRatio;
             canvas.style.width = this.width + 'px';
             canvas.style.height = this.height + 'px';
-            this.component.scale = window.devicePixelRatio;
+            this.component.scaleX = this.viewportScale.scaleX * window.devicePixelRatio;
+            this.component.scaleY = this.viewportScale.scaleY * window.devicePixelRatio;
+            this.$nextTick(() => this.updateAntiAlias());
         },
     },
 };
