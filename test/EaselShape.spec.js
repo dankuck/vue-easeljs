@@ -3,10 +3,38 @@ import EaselCanvas from '../src/components/EaselCanvas.vue';
 import EaselShape from '../src/components/EaselShape.vue';
 import Vue from 'vue';
 import isADisplayObject from './includes/is-a-display-object.js';
+import canCache from './includes/can-cache.js';
 
-describe('EaselShape', function () {
+describe.only('EaselShape', function () {
 
-    describe('is a display object that', isADisplayObject(EaselShape, 'form="circle"'));
+    describe('is a display object that', isADisplayObject(EaselShape, 'form="circle" dimensions="50"'));
+
+    describe('is cacheable and', canCache(EaselShape, '', [
+        {
+            name: 'fill',
+            value: 'black',
+            changeTo: 'blue',
+            shouldUpdate: true,
+        },
+        {
+            name: 'stroke',
+            value: 'black',
+            changeTo: 'blue',
+            shouldUpdate: true,
+        },
+        {
+            name: 'dimensions',
+            value: 50,
+            changeTo: 100,
+            shouldUpdate: true,
+        },
+        {
+            name: 'form',
+            value: 'circle',
+            changeTo: 'rect',
+            shouldUpdate: true,
+        },
+    ]));
 
     const buildVm = function () {
         const vm = new Vue({

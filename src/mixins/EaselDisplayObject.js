@@ -11,8 +11,10 @@
 import EaselEventBinder from '../libs/easel-event-binder.js';
 import easeljs from '../../easeljs/easel.js';
 import normalizeAlignment from '../libs/normalize-alignment.js';
+import EaselCache from '../mixins/EaselCache.js';
 
 export default {
+    mixins: [EaselCache],
     inject: ['easel'],
     props: ['x', 'y', 'flip', 'rotation', 'scale', 'alpha', 'shadow', 'align'],
     data() {
@@ -24,41 +26,49 @@ export default {
         x() {
             if (this.component) {
                 this.component.x = this.x || 0;
+                this.setEaselCacheNeedsUpdate();
             }
         },
         y() {
             if (this.component) {
                 this.component.y = this.y || 0;
+                this.setEaselCacheNeedsUpdate();
             }
         },
         flip() {
             if (this.component) {
                 this.updateScales();
+                this.setEaselCacheNeedsUpdate();
             }
         },
         scale() {
             if (this.component) {
                 this.updateScales();
+                this.setEaselCacheNeedsUpdate();
             }
         },
         rotation() {
             if (this.component) {
                 this.component.rotation = this.rotation;
+                this.setEaselCacheNeedsUpdate();
             }
         },
         alpha() {
             if (this.component) {
                 this.updateAlpha();
+                this.setEaselCacheNeedsUpdate();
             }
         },
         shadow() {
             if (this.component) {
                 this.updateShadow();
+                this.setEaselCacheNeedsUpdate();
             }
         },
         align() {
             if (this.component) {
                 this.updateAlign();
+                this.setEaselCacheNeedsUpdate();
             }
         },
     },
@@ -84,6 +94,7 @@ export default {
             this.updateShadow();
             this.updateAlign();
             this.easel.addChild(this);
+            this.cacheInit();
         },
         displayObjectBreakdown() {
             this.easel.removeChild(this);

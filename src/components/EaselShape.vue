@@ -46,6 +46,7 @@ export default {
                 }
                 this.drawForm();
                 this.updateAlign();
+                this.cacheNeedsUpdate = true;
             }
         },
         drawForm() {
