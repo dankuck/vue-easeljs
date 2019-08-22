@@ -98,10 +98,10 @@ element.
 
 The `viewport-width` and `viewport-height` props are a convenience feature,
 allowing a developer to specify subcomponents' pixel sizes at a set size
-regardless of the actual size of the canvas. Setting large viewport sizes
-will make elements inside larger, but if they are then scaled down again
-they will not be pixelated. They will regain their original size and
-pixelation.
+regardless of the actual size of the canvas. Setting small viewport sizes
+will make elements inside appear larger and pixelated, but if those elements
+are then scaled down they will not be pixelated. They will regain their
+original size and pixelation.
 
 Example:
 
