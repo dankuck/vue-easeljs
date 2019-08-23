@@ -4,12 +4,35 @@ import EaselText from '../src/components/EaselText.vue';
 import easeljs from '../easeljs/easel.js';
 import isADisplayObject from './includes/is-a-display-object.js';
 
+import canCache from './includes/can-cache.js';
+
 describe('EaselText', function () {
 
     describe('is a display object that', isADisplayObject(EaselText, 'text="O hai"'));
 
     // EaselText is also alignable, but it uses special alignment rules, so it
     // doesn't include the alignment tests.
+
+    describe('is cacheable and', canCache(EaselText, {}, [
+        {
+            name: 'color',
+            value: 'black',
+            changeTo: 'blue',
+            shouldUpdateSameObject: true,
+        },
+        {
+            name: 'text',
+            value: 'Oh, hi',
+            changeTo: 'Ohai',
+            shouldUpdateSameObject: true,
+        },
+        {
+            name: 'font',
+            value: '12px "Times New Roman"',
+            changeTo: '50px "Comic Sans"',
+            shouldUpdateSameObject: true,
+        },
+    ]));
 
     const buildVm = function () {
         const easel = {
