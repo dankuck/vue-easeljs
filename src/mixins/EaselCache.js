@@ -37,7 +37,7 @@ export default {
     methods: {
         cacheInit() {
             if (this.cache) {
-                this.getDimensions()
+                this.getCacheBounds()
                     .then(
                         ({width, height}) => {
                             this.component.cache(this.x, this.y, width, height);
@@ -57,6 +57,9 @@ export default {
             if (this.easel && 'cacheNeedsUpdate' in this.easel) {
                 this.easel.cacheNeedsUpdate = true;
             }
+        },
+        getCacheBounds() {
+            return Promise.reject('EaselCache components must define a `getCacheBounds` method');
         },
     },
 };

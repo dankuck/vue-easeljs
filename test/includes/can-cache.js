@@ -1,6 +1,13 @@
 import Vue from 'vue';
 import assert from 'assert';
 
+const wait = function (component) {
+    return Promise.all([
+        component.getCacheBounds(),
+        Vue.nextTick(),
+    ]);
+};
+
 const parentPropChangers = [
     {
         name: 'x',
@@ -114,7 +121,7 @@ export default function (implementor, propChangers = []) {
             const {vm, fake} = buildVm();
             assert(fake.cache === true);
             assert(fake.component.cacheCanvas === null);
-            Vue.nextTick()
+            wait(fake)
                 .then(() => {
                     assert(fake.component.cacheCanvas !== null, 'Did not create cache');
                 })
@@ -124,11 +131,11 @@ export default function (implementor, propChangers = []) {
         it('can clear cache', function (done) {
             const {vm, fake} = buildVm();
             assert(fake.cache === true);
-            Vue.nextTick()
+            wait(fake)
                 .then(() => {
                     assert(fake.component.cacheCanvas !== null, 'Did not create cache');
                     vm.cache = false;
-                    return Vue.nextTick();
+                    return wait(fake);
                 })
                 .then(() => {
                     assert(fake.component.cacheCanvas === null, 'Did not destroy cache');
@@ -139,16 +146,16 @@ export default function (implementor, propChangers = []) {
         it('can clear and recreate cache', function (done) {
             const {vm, fake} = buildVm();
             assert(fake.cache === true);
-            Vue.nextTick()
+            wait(fake)
                 .then(() => {
                     assert(fake.component.cacheCanvas !== null, 'Did not create cache');
                     vm.cache = false;
-                    return Vue.nextTick();
+                    return wait(fake);
                 })
                 .then(() => {
                     assert(fake.component.cacheCanvas === null, 'Did not destroy cache');
                     vm.cache = true;
-                    return Vue.nextTick();
+                    return wait(fake);
                 })
                 .then(() => {
                     assert(fake.component.cacheCanvas !== null, 'Did not re-create cache');
@@ -156,27 +163,41 @@ export default function (implementor, propChangers = []) {
                 .then(done, done);
         });
 
+        // Search catchers:
+        // ... should YES update cache when ...
+        // ... should NOT update cache when ...
         propChangers
             .forEach(({name, changeTo, shouldUpdateSameObject}) => {
                 it(`should ${shouldUpdateSameObject ? 'YES' : 'NOT'} update cache when ${name} changes`, function (done) {
                     const {vm, fake} = buildVm();
                     assert(fake.cache === true);
-                    let updated = false;
-                    fake.component.updateCache = () => updated = true;
-                    Vue.nextTick()
+                    let bitmapCache, cacheID;
+                    wait(fake)
                         .then(() => {
                             assert(fake.component.cacheCanvas !== null, 'Did not create cache');
-                            updated = false;
+                            bitmapCache = fake.component.bitmapCache;
+                            cacheID = bitmapCache && bitmapCache.cacheID;
                             vm[name] = changeTo;
-                            return Vue.nextTick();
+                            return wait(fake);
                         })
                         .then(() => {
-                            assert(updated === shouldUpdateSameObject, `${name} did ${updated ? 'YES' : 'NOT'} cause an update`);
+                            // Check the bitmapCache object and the cacheID
+                            // because the cache may have updated by replacing
+                            // the whole object or it may have just updated and
+                            // incremented its ID.
+                            const updated = (
+                                bitmapCache !== fake.component.bitmapCache
+                                || cacheID !== bitmapCache.cacheID
+                            );
+                            assert(updated === shouldUpdateSameObject, `${name} did ${updated ? 'YES' : 'NOT'} cause an update: ${fake[name]}`);
                         })
                         .then(done, done);
                 });
             });
 
+        // Search catchers:
+        // ... should YES update easel.cacheNeedsUpdate when ...
+        // ... should NOT update easel.cacheNeedsUpdate when ...
         allPropChangers
             .forEach(({name, changeTo}) => {
                 it(`should update easel.cacheNeedsUpdate when ${name} changes`, function (done) {
@@ -184,14 +205,14 @@ export default function (implementor, propChangers = []) {
                     // Works whether or not cache is on for this component
                     vm.cache = Math.random() > .5 ? true : false;
                     // Let the component catch up with `cache` change
-                    Vue.nextTick()
+                    wait(fake)
                         .then(() => {
                             easel.cacheNeedsUpdate = false;
                             vm[name] = changeTo;
-                            return Vue.nextTick();
+                            return wait(fake);
                         })
                         .then(() => {
-                            assert(easel.cacheNeedsUpdate === true);
+                            assert(easel.cacheNeedsUpdate === true, `${name} did NOT cause an update: ${fake[name]}`);
                         })
                         .then(done, done);
                 });

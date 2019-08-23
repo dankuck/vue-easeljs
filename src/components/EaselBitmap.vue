@@ -3,10 +3,12 @@ import easeljs from '../../easeljs/easel.js';
 import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
 import getDimensionsFromGetBounds from '../libs/get-dimensions-from-get-bounds.js';
 import EaselAlign from '../mixins/EaselAlign.js';
+import EaselCache from '../mixins/EaselCache.js';
 
 export default {
     props: ['image'],
-    mixins: [EaselDisplayObject, EaselAlign],
+    updatesEaselCache: ['component'],
+    mixins: [EaselDisplayObject, EaselAlign, EaselCache],
     render() {
         return '<!-- bitmap -->';
     },
@@ -27,6 +29,17 @@ export default {
         },
         getAlignDimensions() {
             return getDimensionsFromGetBounds(this);
+        },
+        getCacheBounds() {
+            return getDimensionsFromGetBounds(this)
+                .then(({width, height}) => {
+                    return {
+                        x: this.component.regX,
+                        y: this.component.regY,
+                        width,
+                        height,
+                    };
+                });
         },
     },
 };

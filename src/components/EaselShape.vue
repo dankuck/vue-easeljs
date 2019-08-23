@@ -68,15 +68,41 @@ export default {
                 this.component.graphics.drawPolyStar(this.dimensions[0], this.dimensions[0], this.dimensions[0], this.dimensions[1], this.dimensions[2], 0);
             }
         },
-        getAlignDimensions() {
+        /**
+         * Bounds that work fine for both EaselAlign and EaselCache
+         * @return {object}
+         */
+        getBounds() {
             if (this.form === 'rect' || this.form === 'ellipse') {
-                return Promise.resolve({width: this.dimensions[0], height: this.dimensions[1]});
+                return Promise.resolve({
+                    x: this.component.regX,
+                    y: this.component.regY,
+                    width: this.dimensions[0],
+                    height: this.dimensions[1],
+                });
             } else if (this.form === 'circle') {
-                return Promise.resolve({width: this.dimensions * 2, height: this.dimensions * 2});
+                return Promise.resolve({
+                    x: this.component.regX,
+                    y: this.component.regY,
+                    width: this.dimensions * 2,
+                    height: this.dimensions * 2,
+                });
             } else if (this.form === 'star') {
-                return Promise.resolve({width: this.dimensions[0] * 2, height: this.dimensions[0] * 2});
+                return Promise.resolve({
+                    x: this.component.regX,
+                    y: this.component.regY,
+                    width: this.dimensions[0] * 2,
+                    height: this.dimensions[0] * 2,
+                });
+            } else {
+                return Promise.reject(`No dimensions available for form ${this.form}`);
             }
-            return Promise.reject('No dimensions available');
+        },
+        getAlignDimensions() {
+            return this.getBounds();
+        },
+        getCacheBounds() {
+            return this.getBounds();
         },
     },
 };
