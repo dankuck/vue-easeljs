@@ -4,6 +4,7 @@ import EaselShape from '../src/components/EaselShape.vue';
 import Vue from 'vue';
 import isADisplayObject from './includes/is-a-display-object.js';
 import canCache from './includes/can-cache.js';
+import isAlignable from './includes/is-alignable.js';
 
 describe('EaselShape', function () {
 
@@ -35,6 +36,8 @@ describe('EaselShape', function () {
             shouldUpdateSameObject: true,
         },
     ]));
+
+    describe('is alignable and', isAlignable(EaselShape, {width: 100, height: 100}, 'form="circle" dimensions="50"'));
 
     const buildVm = function () {
         const vm = new Vue({

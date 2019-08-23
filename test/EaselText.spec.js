@@ -8,6 +8,9 @@ describe('EaselText', function () {
 
     describe('is a display object that', isADisplayObject(EaselText, 'text="O hai"'));
 
+    // EaselText is also alignable, but it uses special alignment rules, so it
+    // doesn't include the alignment tests.
+
     const buildVm = function () {
         const easel = {
             addChild(vueChild) {
