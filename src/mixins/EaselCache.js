@@ -25,15 +25,13 @@ export default {
             }
         },
         cacheNeedsUpdate() {
-            if (this.cacheNeedsUpdate) {
-                if (this.cache) {
+            if (this.cacheNeedsUpdate && this.cache) {
                     this.$nextTick(() => {
                         if (this.component && this.component.cacheCanvas) {
                             this.component.updateCache();
                         }
                     });
                 }
-            }
         },
     },
     methods: {
