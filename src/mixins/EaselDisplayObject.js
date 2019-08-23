@@ -10,11 +10,10 @@
 
 import EaselEventBinder from '../libs/easel-event-binder.js';
 import easeljs from '../../easeljs/easel.js';
-import normalizeAlignment from '../libs/normalize-alignment.js';
 
 export default {
     inject: ['easel'],
-    props: ['x', 'y', 'flip', 'rotation', 'scale', 'alpha', 'shadow', 'align'],
+    props: ['x', 'y', 'flip', 'rotation', 'scale', 'alpha', 'shadow'],
     data() {
         return {
             component: null,
@@ -56,22 +55,12 @@ export default {
                 this.updateShadow();
             }
         },
-        align() {
-            if (this.component) {
-                this.updateAlign();
-            }
-        },
     },
     mounted() {
         this.init();
     },
     destroyed() {
         this.displayObjectBreakdown();
-    },
-    computed: {
-        normalizedAlign() {
-            return normalizeAlignment(this.align || ['', '']);
-        },
     },
     methods: {
         displayObjectInit() {
@@ -82,7 +71,6 @@ export default {
             this.updateScales();
             this.updateAlpha();
             this.updateShadow();
-            this.updateAlign();
             this.easel.addChild(this);
         },
         displayObjectBreakdown() {
@@ -104,33 +92,6 @@ export default {
             } else {
                 this.component.shadow = null;
             }
-        },
-        updateAlign() {
-            this.getDimensions()
-                .then(dimensions => {
-                    const w = dimensions.width,
-                        h = dimensions.height,
-                        hAlign = this.normalizedAlign[0] || 'left',
-                        vAlign = this.normalizedAlign[1] || 'top';
-                    if (hAlign === 'left') {
-                        this.component.regX = 0;
-                    } else if (hAlign === 'center') {
-                        this.component.regX = w / 2;
-                    } else if (hAlign === 'right') {
-                        this.component.regX = w;
-                    }
-                    if (vAlign === 'top') {
-                        this.component.regY = 0;
-                    } else if (vAlign === 'center') {
-                        this.component.regY = h / 2;
-                    } else if (vAlign === 'bottom') {
-                        this.component.regY = h;
-                    }
-                });
-        },
-        getDimensions() {
-            // Components should override this
-            return Promise.reject('No dimensions available');
         },
     },
 };

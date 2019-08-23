@@ -2,10 +2,11 @@
 import easeljs from '../../easeljs/easel.js';
 import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
 import getDimensionsFromGetBounds from '../libs/get-dimensions-from-get-bounds.js';
+import EaselAlign from '../mixins/EaselAlign.js';
 
 export default {
     props: ['image'],
-    mixins: [EaselDisplayObject],
+    mixins: [EaselDisplayObject, EaselAlign],
     render() {
         return '<!-- bitmap -->';
     },

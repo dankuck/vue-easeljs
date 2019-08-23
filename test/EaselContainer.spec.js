@@ -74,19 +74,4 @@ describe('EaselContainer', function () {
             })
             .then(done, done);
     });
-
-    it('should getDimensions', function (done) {
-        const {vm, container, fake} = buildVm();
-        container.getDimensions()
-            .then(
-                (dimensions) => {
-                    assert(dimensions.width === 0);
-                    assert(dimensions.height === 0);
-                },
-                (error) => {
-                    assert(false, error);
-                }
-            )
-            .then(done, done);
-    });
 });
