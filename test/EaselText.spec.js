@@ -197,4 +197,21 @@ describe('EaselText', function () {
             })
             .then(done, done);
     });
+
+    ['center-left', 'top-left', 'bottom-right']
+        .forEach(align => {
+            it.only('should get cache bounds (no matter the align)', function (done) {
+                const {vm, text} = buildVm();
+                vm.align = align;
+                Vue.nextTick()
+                    .then(() => text.getCacheBounds())
+                    .then(({x, y, width, height}) => {
+                        assert(x === 0, `x is wrong: ${x}`);
+                        assert(y === 0, `y is wrong: ${y}`);
+                        assert(Math.floor(width) === 381, `width is wrong: ${width}`);
+                        assert(Math.floor(height) === 19, `height is wrong: ${height}`);
+                    })
+                    .then(done, done);
+            });
+        });
 });

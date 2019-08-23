@@ -51,7 +51,7 @@ describe('EaselShape', function () {
                         :stroke="shapeData.stroke"
                         :form="shapeData.form"
                         :dimensions="shapeData.dimensions"
-                        :align="['center', 'center']"
+                        :align="shapeData.align"
                         >
                     </easel-shape>
                 </easel-canvas>
@@ -68,6 +68,7 @@ describe('EaselShape', function () {
                         dimensions: 50,
                         fill: 'DeepSkyBlue',
                         stroke: '#00FFFF',
+                        align: 'center-center',
                     },
                     eventLog: [],
                 };
@@ -278,4 +279,54 @@ describe('EaselShape', function () {
             .then(done, done);
     });
 
+    ['center-left', 'top-left', 'bottom-right']
+        .forEach(align => {
+            it.only('should get cache bounds for a circle (no matter the align)', function (done) {
+                const {vm, shape} = buildVm();
+                vm.shapeData.form = 'circle';
+                vm.shapeData.dimensions = 50;
+                vm.shapeData.align = align;
+                Vue.nextTick()
+                    .then(() => shape.getCacheBounds())
+                    .then(({x, y, width, height}) => {
+                        assert(x === -50, `x is wrong: ${x}`);
+                        assert(y === -50, `y is wrong: ${y}`);
+                        assert(width === 100, `width is wrong: ${width}`);
+                        assert(height === 100, `height is wrong: ${height}`);
+                    })
+                    .then(done, done);
+            });
+
+            it.only('should get cache bounds for a star (no matter the align)', function (done) {
+                const {vm, shape} = buildVm();
+                vm.shapeData.form = 'star';
+                vm.shapeData.dimensions = [40, 5, .5];
+                vm.shapeData.align = align;
+                Vue.nextTick()
+                    .then(() => shape.getCacheBounds())
+                    .then(({x, y, width, height}) => {
+                        assert(x === -40, `x is wrong: ${x}`);
+                        assert(y === -40, `y is wrong: ${y}`);
+                        assert(width === 80, `width is wrong: ${width}`);
+                        assert(height === 80, `height is wrong: ${height}`);
+                    })
+                    .then(done, done);
+            });
+
+            it.only('should get cache bounds for a square (no matter the align)', function (done) {
+                const {vm, shape} = buildVm();
+                vm.shapeData.form = 'rect';
+                vm.shapeData.dimensions = [40, 50];
+                vm.shapeData.align = align;
+                Vue.nextTick()
+                    .then(() => shape.getCacheBounds())
+                    .then(({x, y, width, height}) => {
+                        assert(x === 0, `x is wrong: ${x}`);
+                        assert(y === 0, `y is wrong: ${y}`);
+                        assert(width === 40, `width is wrong: ${width}`);
+                        assert(height === 50, `height is wrong: ${height}`);
+                    })
+                    .then(done, done);
+            });
+        });
 });

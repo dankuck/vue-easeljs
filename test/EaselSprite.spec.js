@@ -50,6 +50,7 @@ describe('EaselSprite', function () {
                         :x="x"
                         :y="y"
                         :flip="flip"
+                        :align="align"
                     >
                     </easel-sprite>
                 </span>
@@ -67,6 +68,7 @@ describe('EaselSprite', function () {
                     y: 2,
                     showSprite: true,
                     flip: '',
+                    align: 'top-left',
                 };
             },
             components: {
@@ -119,4 +121,20 @@ describe('EaselSprite', function () {
             .then(done, done);
     });
 
+    ['center-left', 'top-left', 'bottom-right']
+        .forEach(align => {
+            it.only('should get cache bounds (no matter the align)', function (done) {
+                const {vm, sprite} = buildVm();
+                vm.align = align;
+                Vue.nextTick()
+                    .then(() => sprite.getCacheBounds())
+                    .then(({x, y, width, height}) => {
+                        assert(x === 0, `x is wrong: ${x}`);
+                        assert(y === 0, `y is wrong: ${y}`);
+                        assert(width === 32, `width is wrong: ${width}`);
+                        assert(height === 32, `height is wrong: ${height}`);
+                    })
+                    .then(done, done);
+            });
+        });
 });

@@ -35,8 +35,8 @@ export default {
             return getDimensionsFromGetBounds(this)
                 .then(({width, height}) => {
                     return {
-                        x: this.component.regX,
-                        y: this.component.regY,
+                        x: 0,
+                        y: 0,
                         width,
                         height,
                     };

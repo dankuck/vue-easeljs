@@ -51,12 +51,8 @@ const parentPropChangers = [
         changeTo: ['blue', 5, 6, .5],
         shouldUpdateSameObject: false,
     },
-    {
-        name: 'align',
-        value: 'top-left',
-        changeTo: 'bottom-right',
-        shouldUpdateSameObject: false,
-    },
+    // `align` could technically be on this list, but it's not guaranteed to be
+    // on all EaselCache components
 ];
 
 export default function (implementor, provide = {}, propChangers = []) {

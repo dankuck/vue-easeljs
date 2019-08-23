@@ -26,12 +26,12 @@ export default {
         },
         cacheNeedsUpdate() {
             if (this.cacheNeedsUpdate && this.cache) {
-                    this.$nextTick(() => {
-                        if (this.component && this.component.cacheCanvas) {
-                            this.component.updateCache();
-                        }
-                    });
-                }
+                this.$nextTick(() => {
+                    if (this.component && this.component.cacheCanvas) {
+                        this.component.updateCache();
+                    }
+                });
+            }
         },
     },
     methods: {
@@ -39,8 +39,8 @@ export default {
             if (this.cache) {
                 this.getCacheBounds()
                     .then(
-                        ({width, height}) => {
-                            this.component.cache(this.x, this.y, width, height);
+                        ({x, y, width, height}) => {
+                            this.component.cache(-x, -y, width, height);
                             this.cacheStarted = true;
                             this.cacheNeedsUpdate = false;
                         },

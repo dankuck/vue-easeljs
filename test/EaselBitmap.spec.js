@@ -36,6 +36,7 @@ describe('EaselBitmap', function () {
                         :x="1"
                         :y="2"
                         :image="image"
+                        :align="align"
                     >
                     </easel-bitmap>
                 </span>
@@ -49,6 +50,7 @@ describe('EaselBitmap', function () {
                 return {
                     image: '/base/test/images/gulfstream_park.jpg',
                     showBitmap: true,
+                    align: 'top-left',
                 };
             },
             components: {
@@ -102,4 +104,21 @@ describe('EaselBitmap', function () {
             })
             .then(done, done);
     });
+
+    ['center-left', 'top-left', 'bottom-right']
+        .forEach(align => {
+            it.only('should get cache bounds (no matter the align)', function (done) {
+                const {vm, bitmap} = buildVm();
+                vm.align = align;
+                Vue.nextTick()
+                    .then(() => bitmap.getCacheBounds())
+                    .then(({x, y, width, height}) => {
+                        assert(x === 0, `x is wrong: ${x}`);
+                        assert(y === 0, `y is wrong: ${y}`);
+                        assert(width === 1500, `width is wrong: ${width}`);
+                        assert(height === 946, `height is wrong: ${height}`);
+                    })
+                    .then(done, done);
+            });
+        });
 });

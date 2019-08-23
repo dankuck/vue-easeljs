@@ -75,22 +75,22 @@ export default {
         getBounds() {
             if (this.form === 'rect' || this.form === 'ellipse') {
                 return Promise.resolve({
-                    x: this.component.regX,
-                    y: this.component.regY,
+                    x: 0,
+                    y: 0,
                     width: this.dimensions[0],
                     height: this.dimensions[1],
                 });
             } else if (this.form === 'circle') {
                 return Promise.resolve({
-                    x: this.component.regX,
-                    y: this.component.regY,
+                    x: -this.dimensions,
+                    y: -this.dimensions,
                     width: this.dimensions * 2,
                     height: this.dimensions * 2,
                 });
             } else if (this.form === 'star') {
                 return Promise.resolve({
-                    x: this.component.regX,
-                    y: this.component.regY,
+                    x: -this.dimensions[0],
+                    y: -this.dimensions[0],
                     width: this.dimensions[0] * 2,
                     height: this.dimensions[0] * 2,
                 });
