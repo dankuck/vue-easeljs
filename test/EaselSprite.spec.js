@@ -98,7 +98,7 @@ describe('EaselSprite', function () {
 
     it('should get dimensions', function (done) {
         const {vm, sprite} = buildVm();
-        sprite.getDimensions()
+        sprite.getAlignDimensions()
             .then(dimensions => {
                 assert(dimensions.width === 32);
                 assert(dimensions.height === 32);

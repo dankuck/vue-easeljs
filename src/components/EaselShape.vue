@@ -1,9 +1,10 @@
 <script>
 import easeljs from '../../easeljs/easel.js';
 import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
+import EaselAlign from '../mixins/EaselAlign.js';
 
 export default {
-    mixins: [EaselDisplayObject],
+    mixins: [EaselDisplayObject, EaselAlign],
     props: ['form', 'fill', 'stroke', 'dimensions'],
     render() {
         return '<!-- shape -->';
@@ -65,7 +66,7 @@ export default {
                 this.component.graphics.drawPolyStar(this.dimensions[0], this.dimensions[0], this.dimensions[0], this.dimensions[1], this.dimensions[2], 0);
             }
         },
-        getDimensions() {
+        getAlignDimensions() {
             if (this.form === 'rect' || this.form === 'ellipse') {
                 return Promise.resolve({width: this.dimensions[0], height: this.dimensions[1]});
             } else if (this.form === 'circle') {

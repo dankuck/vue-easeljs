@@ -2,11 +2,12 @@
 import easeljs from '../../easeljs/easel.js';
 import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
 import getDimensionsFromGetBounds from '../libs/get-dimensions-from-get-bounds.js';
+import EaselAlign from '../mixins/EaselAlign.js';
 
 export default {
     inject: ['spriteSheet'],
     props: ['animation'],
-    mixins: [EaselDisplayObject],
+    mixins: [EaselDisplayObject, EaselAlign],
     render() {
         return '<!-- sprite -->';
     },
@@ -25,7 +26,7 @@ export default {
             }
             this.displayObjectInit();
         },
-        getDimensions() {
+        getAlignDimensions() {
             return getDimensionsFromGetBounds(this);
         },
     },
