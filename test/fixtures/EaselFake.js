@@ -14,7 +14,7 @@ export default {
             this.component = new easeljs.Shape();
             this.displayObjectInit();
         },
-        getBounds() {
+        getDimensions() {
             return Promise.resolve(new easeljs.Rectangle(0, 0, 32, 48));
         },
     },

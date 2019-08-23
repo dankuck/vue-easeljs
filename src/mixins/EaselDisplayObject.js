@@ -106,10 +106,10 @@ export default {
             }
         },
         updateAlign() {
-            this.getBounds()
-                .then(bounds => {
-                    const w = bounds.width,
-                        h = bounds.height,
+            this.getDimensions()
+                .then(dimensions => {
+                    const w = dimensions.width,
+                        h = dimensions.height,
                         hAlign = this.normalizedAlign[0] || 'left',
                         vAlign = this.normalizedAlign[1] || 'top';
                     if (hAlign === 'left') {
@@ -128,9 +128,9 @@ export default {
                     }
                 });
         },
-        getBounds() {
+        getDimensions() {
             // Components should override this
-            return Promise.reject('No bounds available');
+            return Promise.reject('No dimensions available');
         },
     },
 };

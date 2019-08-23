@@ -80,12 +80,12 @@ describe('EaselBitmap', function () {
             .then(done, done);
     });
 
-    it('should get bounds', function (done) {
+    it('should get dimensions', function (done) {
         const {vm, bitmap} = buildVm();
-        bitmap.getBounds()
-            .then(bounds => {
-                assert(bounds.width === 1500, 'Wrong width: ' + bounds.width);
-                assert(bounds.height === 946, 'Wrong height: ' + bounds.height);
+        bitmap.getDimensions()
+            .then(dimensions => {
+                assert(dimensions.width === 1500, 'Wrong width: ' + dimensions.width);
+                assert(dimensions.height === 946, 'Wrong height: ' + dimensions.height);
             })
             .then(done, done);
     });

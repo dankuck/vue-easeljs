@@ -1,6 +1,7 @@
 <script>
 import easeljs from '../../easeljs/easel.js';
 import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
+import getDimensionsFromGetBounds from '../libs/get-dimensions-from-get-bounds.js';
 
 export default {
     props: ['image'],
@@ -23,24 +24,8 @@ export default {
             this.component = new easeljs.Bitmap(this.image);
             this.displayObjectInit();
         },
-        getBounds() {
-            return new Promise((resolve, error) => {
-                const getBounds = () => {
-                    try {
-                        if (!this.component) {
-                            clearInterval(waiting);
-                        } else if (this.component.getBounds()) {
-                            clearInterval(waiting);
-                            resolve(this.component.getBounds());
-                        }
-                    } catch (e) {
-                        clearInterval(waiting);
-                        throw e;
-                    }
-                }
-                const waiting = setInterval(getBounds, 100);
-                getBounds();
-            });
+        getDimensions() {
+            return getDimensionsFromGetBounds(this);
         },
     },
 };
