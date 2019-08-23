@@ -96,12 +96,12 @@ describe('EaselSprite', function () {
             .then(done, done);
     });
 
-    it('should get bounds', function (done) {
+    it('should get dimensions', function (done) {
         const {vm, sprite} = buildVm();
-        sprite.getBounds()
-            .then(bounds => {
-                assert(bounds.width === 32);
-                assert(bounds.height === 32);
+        sprite.getDimensions()
+            .then(dimensions => {
+                assert(dimensions.width === 32);
+                assert(dimensions.height === 32);
             })
             .then(done, done);
     });

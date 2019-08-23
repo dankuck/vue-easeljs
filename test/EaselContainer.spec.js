@@ -75,13 +75,13 @@ describe('EaselContainer', function () {
             .then(done, done);
     });
 
-    it('should getBounds', function (done) {
+    it('should getDimensions', function (done) {
         const {vm, container, fake} = buildVm();
-        container.getBounds()
+        container.getDimensions()
             .then(
-                (bounds) => {
-                    assert(bounds.width === 0);
-                    assert(bounds.height === 0);
+                (dimensions) => {
+                    assert(dimensions.width === 0);
+                    assert(dimensions.height === 0);
                 },
                 (error) => {
                     assert(false, error);
