@@ -3,6 +3,8 @@ import Vue from 'vue';
 import EaselSprite from '../src/components/EaselSprite.vue';
 import easeljs from '../easeljs/easel.js';
 import isADisplayObject from './includes/is-a-display-object.js';
+import canCache from './includes/can-cache.js';
+import isAlignable from './includes/is-alignable.js';
 
 const garyStart = 32 * 6 + 16;
 
@@ -19,6 +21,17 @@ const spriteSheet = new easeljs.SpriteSheet({
 describe('EaselSprite', function () {
 
     describe('is a display object that', isADisplayObject(EaselSprite, '', {spriteSheet}));
+
+    describe('is cacheable and', canCache(EaselSprite, {spriteSheet}, [
+        {
+            name: 'animation',
+            value: 'stand',
+            changeTo: 'run',
+            shouldUpdateSameObject: true,
+        },
+    ]));
+
+    // describe('is alignable and', isAlignable(EaselSprite, {width: 100, height: 100}, 'form="circle" dimensions="50"'));
 
     const buildVm = function () {
         const easel = {

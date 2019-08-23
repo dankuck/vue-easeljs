@@ -10,7 +10,7 @@ describe('EaselShape', function () {
 
     describe('is a display object that', isADisplayObject(EaselShape, 'form="circle" dimensions="50"'));
 
-    describe('is cacheable and', canCache(EaselShape, [
+    describe('is cacheable and', canCache(EaselShape, {}, [
         {
             name: 'fill',
             value: 'black',

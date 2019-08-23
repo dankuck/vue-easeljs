@@ -9,7 +9,7 @@ describe('EaselBitmap', function () {
 
     describe('is a display object that', isADisplayObject(EaselBitmap, 'image="/base/test/images/gulfstream_park.jpg"'));
 
-    describe('is cacheable and', canCache(EaselBitmap, [
+    describe('is cacheable and', canCache(EaselBitmap, {}, [
         {
             name: 'image',
             value: '/base/test/images/gulfstream_park.jpg',

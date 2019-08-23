@@ -59,7 +59,7 @@ const parentPropChangers = [
     },
 ];
 
-export default function (implementor, propChangers = []) {
+export default function (implementor, provide = {}, propChangers = []) {
     return function () {
 
         const allPropChangers = propChangers
@@ -93,7 +93,8 @@ export default function (implementor, propChangers = []) {
                     </span>
                 `,
                 provide() {
-                    return {easel};
+                    provide.easel = easel;
+                    return provide;
                 },
                 data() {
                     const data = {
