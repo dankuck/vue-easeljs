@@ -123,7 +123,7 @@ describe('EaselSprite', function () {
 
     ['center-left', 'top-left', 'bottom-right']
         .forEach(align => {
-            it.only('should get cache bounds (no matter the align)', function (done) {
+            it('should get cache bounds (no matter the align)', function (done) {
                 const {vm, sprite} = buildVm();
                 vm.align = align;
                 Vue.nextTick()

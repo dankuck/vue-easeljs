@@ -281,7 +281,7 @@ describe('EaselShape', function () {
 
     ['center-left', 'top-left', 'bottom-right']
         .forEach(align => {
-            it.only('should get cache bounds for a circle (no matter the align)', function (done) {
+            it('should get cache bounds for a circle (no matter the align)', function (done) {
                 const {vm, shape} = buildVm();
                 vm.shapeData.form = 'circle';
                 vm.shapeData.dimensions = 50;
@@ -297,7 +297,7 @@ describe('EaselShape', function () {
                     .then(done, done);
             });
 
-            it.only('should get cache bounds for a star (no matter the align)', function (done) {
+            it('should get cache bounds for a star (no matter the align)', function (done) {
                 const {vm, shape} = buildVm();
                 vm.shapeData.form = 'star';
                 vm.shapeData.dimensions = [40, 5, .5];
@@ -313,7 +313,7 @@ describe('EaselShape', function () {
                     .then(done, done);
             });
 
-            it.only('should get cache bounds for a square (no matter the align)', function (done) {
+            it('should get cache bounds for a square (no matter the align)', function (done) {
                 const {vm, shape} = buildVm();
                 vm.shapeData.form = 'rect';
                 vm.shapeData.dimensions = [40, 50];
