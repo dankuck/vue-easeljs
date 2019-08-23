@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         updateAlign() {
-            this.getDimensions()
+            this.getAlignDimensions()
                 .then(dimensions => {
                     const w = dimensions.width,
                         h = dimensions.height,
@@ -52,7 +52,7 @@ export default {
                     }
                 });
         },
-        getDimensions() {
+        getAlignDimensions() {
             // Components should override this
             return Promise.reject('EaselAlign components must define a `getDimensions` method');
         },

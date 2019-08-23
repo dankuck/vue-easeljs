@@ -14,7 +14,7 @@ export default {
             this.component = new easeljs.Shape();
             this.displayObjectInit();
         },
-        getDimensions() {
+        getAlignDimensions() {
             return Promise.resolve({width: 32, height: 48});
         },
     },

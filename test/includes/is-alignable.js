@@ -3,7 +3,7 @@ import Vue from 'vue';
 
 const wait = function (component) {
     return Promise.all([
-        component.getDimensions(),
+        component.getAlignDimensions(),
         Vue.nextTick(),
     ]);
 };

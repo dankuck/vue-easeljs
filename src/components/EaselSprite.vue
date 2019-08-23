@@ -26,7 +26,7 @@ export default {
             }
             this.displayObjectInit();
         },
-        getDimensions() {
+        getAlignDimensions() {
             return getDimensionsFromGetBounds(this);
         },
     },

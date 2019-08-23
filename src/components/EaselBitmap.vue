@@ -25,7 +25,7 @@ export default {
             this.component = new easeljs.Bitmap(this.image);
             this.displayObjectInit();
         },
-        getDimensions() {
+        getAlignDimensions() {
             return getDimensionsFromGetBounds(this);
         },
     },

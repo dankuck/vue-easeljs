@@ -85,7 +85,7 @@ describe('EaselBitmap', function () {
 
     it('should get dimensions', function (done) {
         const {vm, bitmap} = buildVm();
-        bitmap.getDimensions()
+        bitmap.getAlignDimensions()
             .then(dimensions => {
                 assert(dimensions.width === 1500, 'Wrong width: ' + dimensions.width);
                 assert(dimensions.height === 946, 'Wrong height: ' + dimensions.height);
