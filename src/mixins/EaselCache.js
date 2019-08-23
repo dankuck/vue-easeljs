@@ -37,10 +37,10 @@ export default {
     methods: {
         cacheInit() {
             if (this.cache) {
-                this.getBounds()
+                this.getDimensions()
                     .then(
-                        rectangle => {
-                            this.component.cache(this.x, this.y, rectangle.width, rectangle.height);
+                        ({width, height}) => {
+                            this.component.cache(this.x, this.y, width, height);
                             this.cacheStarted = true;
                             this.cacheNeedsUpdate = false;
                         },
