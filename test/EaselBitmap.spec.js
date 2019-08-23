@@ -2,10 +2,13 @@ import assert from 'assert';
 import Vue from 'vue';
 import EaselBitmap from '../src/components/EaselBitmap.vue';
 import isADisplayObject from './includes/is-a-display-object.js';
+import isAlignable from './includes/is-alignable.js';
 
 describe('EaselBitmap', function () {
 
-    describe('is a display object that', isADisplayObject(EaselBitmap, 'text="/base/test/images/gulfstream_park.jpg"'));
+    describe('is a display object that', isADisplayObject(EaselBitmap, 'image="/base/test/images/gulfstream_park.jpg"'));
+
+    describe('is alignable and', isAlignable(EaselBitmap, {width: 1500, height: 946}, 'image="/base/test/images/gulfstream_park.jpg"'));
 
     const buildVm = function () {
         const easel = {
