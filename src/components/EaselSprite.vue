@@ -1,6 +1,7 @@
 <script>
 import easeljs from '../../easeljs/easel.js';
 import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
+import getDimensionsFromGetBounds from '../libs/get-dimensions-from-get-bounds.js';
 
 export default {
     inject: ['spriteSheet'],
@@ -24,28 +25,8 @@ export default {
             }
             this.displayObjectInit();
         },
-        getBounds() {
-            return new Promise((resolve, error) => {
-                const getBounds = () => {
-                    try {
-                        if (!this.component) {
-                            // Component not initialized or went away, abandon
-                            // Promise
-                            clearInterval(waiting);
-                        } else if (this.component.getBounds()) {
-                            // Got the bounds, resolve with them
-                            clearInterval(waiting);
-                            resolve(this.component.getBounds());
-                        }
-                        // else Keep waiting...
-                    } catch (e) {
-                        clearInterval(waiting);
-                        throw e;
-                    }
-                }
-                const waiting = setInterval(getBounds, 100);
-                getBounds();
-            });
+        getDimensions() {
+            return getDimensionsFromGetBounds(this);
         },
     },
 };

@@ -67,15 +67,15 @@ export default {
                 this.component.graphics.drawPolyStar(this.dimensions[0], this.dimensions[0], this.dimensions[0], this.dimensions[1], this.dimensions[2], 0);
             }
         },
-        getBounds() {
+        getDimensions() {
             if (this.form === 'rect' || this.form === 'ellipse') {
-                return Promise.resolve(new easeljs.Rectangle(0, 0, this.dimensions[0], this.dimensions[1]));
+                return Promise.resolve({width: this.dimensions[0], height: this.dimensions[1]});
             } else if (this.form === 'circle') {
-                return Promise.resolve(new easeljs.Rectangle(0, 0, this.dimensions * 2, this.dimensions * 2));
+                return Promise.resolve({width: this.dimensions * 2, height: this.dimensions * 2});
             } else if (this.form === 'star') {
-                return Promise.resolve(new easeljs.Rectangle(0, 0, this.dimensions[0] * 2, this.dimensions[0] * 2));
+                return Promise.resolve({width: this.dimensions[0] * 2, height: this.dimensions[0] * 2});
             }
-            return Promise.reject('No bounds available');
+            return Promise.reject('No dimensions available');
         },
     },
 };
