@@ -8,6 +8,17 @@ export default {
         };
     },
     mounted() {
+        this.updateCacheOnChange = () => {
+            this.cacheNeedsUpdate = true;
+            this.setParentCacheNeedsUpdate();
+        };
+        const setupOnChange = () => {
+            if (this.component) {
+                this.component.on('change', this.updateCacheOnChange);
+            }
+        };
+        setupOnChange();
+        this.$watch('component', setupOnChange);
         this.$options.updatesEaselCache.forEach(prop => {
             this.$watch(prop, () => this.cacheNeedsUpdate = true);
         });
@@ -29,6 +40,7 @@ export default {
                 this.$nextTick(() => {
                     if (this.component && this.component.cacheCanvas) {
                         this.component.updateCache();
+                        this.cacheNeedsUpdate = false;
                     }
                 });
             }
