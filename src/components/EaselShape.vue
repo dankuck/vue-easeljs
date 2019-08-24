@@ -68,29 +68,19 @@ export default {
                 this.component.graphics.drawPolyStar(this.dimensions[0], this.dimensions[0], this.dimensions[0], this.dimensions[1], this.dimensions[2], 0);
             }
         },
-        /**
-         * Bounds that work fine for both EaselAlign and EaselCache
-         * @return {object}
-         */
-        getBounds() {
+        getAlignDimensions() {
             if (this.form === 'rect' || this.form === 'ellipse') {
                 return Promise.resolve({
-                    x: 0,
-                    y: 0,
                     width: this.dimensions[0],
                     height: this.dimensions[1],
                 });
             } else if (this.form === 'circle') {
                 return Promise.resolve({
-                    x: -this.dimensions,
-                    y: -this.dimensions,
                     width: this.dimensions * 2,
                     height: this.dimensions * 2,
                 });
             } else if (this.form === 'star') {
                 return Promise.resolve({
-                    x: -this.dimensions[0],
-                    y: -this.dimensions[0],
                     width: this.dimensions[0] * 2,
                     height: this.dimensions[0] * 2,
                 });
@@ -98,11 +88,16 @@ export default {
                 return Promise.reject(`No dimensions available for form ${this.form}`);
             }
         },
-        getAlignDimensions() {
-            return this.getBounds();
-        },
         getCacheBounds() {
-            return Vue.nextTick(() => this.getBounds());
+            return this.updateAlign() // make sure that's in place
+                .then(({width, height}) => {
+                    return {
+                        x: 0,
+                        y: 0,
+                        width,
+                        height,
+                    };
+                });
         },
     },
 };

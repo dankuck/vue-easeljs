@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         updateAlign() {
-            this.getAlignDimensions()
+            return this.getAlignDimensions()
                 .then(
                     dimensions => {
                         const w = dimensions.width,
@@ -51,8 +51,12 @@ export default {
                         } else if (vAlign === 'bottom') {
                             this.component.regY = h;
                         }
+                        return dimensions;
                     },
-                    error => console.error('Cannot align:', error)
+                    error => {
+                        console.error('Cannot align:', error);
+                        throw error;
+                    }
                 );
         },
         getAlignDimensions() {

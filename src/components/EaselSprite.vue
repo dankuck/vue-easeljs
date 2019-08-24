@@ -32,7 +32,7 @@ export default {
             return getDimensionsFromGetBounds(this);
         },
         getCacheBounds() {
-            return getDimensionsFromGetBounds(this)
+            return this.updateAlign()
                 .then(({width, height}) => {
                     return {
                         x: 0,
