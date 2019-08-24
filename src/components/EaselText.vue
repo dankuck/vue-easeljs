@@ -34,10 +34,10 @@ export default {
         },
         getCacheBounds() {
             return getDimensionsFromGetBounds(this)
-                .then(({width, height}) => {
+                .then(({x, y, width, height}) => {
                     return {
-                        x: 0,
-                        y: 0,
+                        x: -x,
+                        y: -y,
                         width,
                         height,
                     };

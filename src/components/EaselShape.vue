@@ -102,7 +102,7 @@ export default {
             return this.getBounds();
         },
         getCacheBounds() {
-            return this.getBounds();
+            return Vue.nextTick(() => this.getBounds());
         },
     },
 };
