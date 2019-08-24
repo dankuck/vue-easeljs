@@ -17,6 +17,7 @@ export default {
                 this.component.on('change', this.updateCacheOnChange);
             }
         };
+        window.addEventListener('resize', this.updateCacheOnChange);
         setupOnChange();
         this.$watch('component', setupOnChange);
         this.$options.updatesEaselCache.forEach(prop => {
@@ -52,7 +53,7 @@ export default {
                 this.getCacheBounds()
                     .then(
                         ({x, y, width, height}) => {
-                            this.component.cache(-x, -y, width, height);
+                            this.component.cache(-x, -y, width, height, window.devicePixelRatio * (this.scale || 1));
                             this.cacheStarted = true;
                             this.cacheNeedsUpdate = false;
                         },

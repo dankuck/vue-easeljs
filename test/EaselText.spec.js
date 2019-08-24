@@ -198,7 +198,18 @@ describe('EaselText', function () {
             .then(done, done);
     });
 
-    it.skip('should convert center vertical to middle', function () {
+    it('should convert center vertical to middle', function (done) {
+        const {vm, text} = buildVm();
+        Vue.nextTick()
+            .then(() => {
+                vm.align = 'center-center';
+                return Vue.nextTick();
+            })
+            .then(() => {
+                assert('center' === text.component.textAlign, 'Wrong default textAlign in: ' + text.component.textAlign);
+                assert('middle' === text.component.textBaseline, 'Wrong default textBaseline in: ' + text.component.textBaseline);
+            })
+            .then(done, done);
     });
 
 
@@ -209,7 +220,7 @@ describe('EaselText', function () {
             .then(() => text.getCacheBounds())
             .then(({x, y, width, height}) => {
                 assert(x === 0, `x is wrong: ${x}`);
-                assert(y === 0, `y is wrong: ${y}`);
+                assert(Math.floor(y) === 7, `y is wrong: ${y}`);
                 assert(Math.floor(width) === 381, `width is wrong: ${width}`);
                 assert(Math.floor(height) === 19, `height is wrong: ${height}`);
             })

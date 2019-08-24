@@ -248,7 +248,30 @@ export default function (implementor, provide = {}, propChangers = []) {
                 .then(done, done);
         });
 
-        it.skip('should update cache on window resize', function () {
+        it('should update cache on window resize', function (done) {
+            const {vm, fake, easel} = buildVm();
+            let bitmapCache, cacheID;
+            wait(fake)
+                .then(() => {
+                    assert(fake.component.cacheCanvas !== null, 'Did not create cache');
+                    bitmapCache = fake.component.bitmapCache;
+                    cacheID = bitmapCache && bitmapCache.cacheID;
+                    window.dispatchEvent(new Event('resize'));
+                    return wait(fake);
+                })
+                .then(() => {
+                    // Check the bitmapCache object and the cacheID
+                    // because the cache may have updated by replacing
+                    // the whole object or it may have just updated and
+                    // incremented its ID.
+                    const updated = (
+                        bitmapCache !== fake.component.bitmapCache
+                        || cacheID !== bitmapCache.cacheID
+                    );
+                    assert(updated, `Window resize did not cause an update`);
+                    assert(easel.cacheNeedsUpdate === true, `Window resize did NOT cause an update to easel.cacheNeedsUpdate`);
+                })
+                .then(done, done);
         });
     };
 };

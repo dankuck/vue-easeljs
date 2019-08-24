@@ -30,7 +30,8 @@ export default {
         },
         updateAlign() {
             this.component.textAlign = this.normalizedAlign[0] || 'left';
-            this.component.textBaseline = this.normalizedAlign[1] || 'top';
+            const vertical = this.normalizedAlign[1] || 'top';
+            this.component.textBaseline = vertical === 'center' ? 'middle' : vertical;
         },
         getCacheBounds() {
             return getDimensionsFromGetBounds(this)
