@@ -289,8 +289,8 @@ describe('EaselShape', function () {
                 Vue.nextTick()
                     .then(() => shape.getCacheBounds())
                     .then(({x, y, width, height}) => {
-                        assert(x === -50, `x is wrong: ${x}`);
-                        assert(y === -50, `y is wrong: ${y}`);
+                        assert(x === 0, `x is wrong: ${x}`);
+                        assert(y === 0, `y is wrong: ${y}`);
                         assert(width === 100, `width is wrong: ${width}`);
                         assert(height === 100, `height is wrong: ${height}`);
                     })
@@ -305,8 +305,8 @@ describe('EaselShape', function () {
                 Vue.nextTick()
                     .then(() => shape.getCacheBounds())
                     .then(({x, y, width, height}) => {
-                        assert(x === -40, `x is wrong: ${x}`);
-                        assert(y === -40, `y is wrong: ${y}`);
+                        assert(x === 0, `x is wrong: ${x}`);
+                        assert(y === 0, `y is wrong: ${y}`);
                         assert(width === 80, `width is wrong: ${width}`);
                         assert(height === 80, `height is wrong: ${height}`);
                     })

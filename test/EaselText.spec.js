@@ -198,20 +198,50 @@ describe('EaselText', function () {
             .then(done, done);
     });
 
-    ['center-left', 'top-left', 'bottom-right']
-        .forEach(align => {
-            it('should get cache bounds (no matter the align)', function (done) {
-                const {vm, text} = buildVm();
-                vm.align = align;
-                Vue.nextTick()
-                    .then(() => text.getCacheBounds())
-                    .then(({x, y, width, height}) => {
-                        assert(x === 0, `x is wrong: ${x}`);
-                        assert(y === 0, `y is wrong: ${y}`);
-                        assert(Math.floor(width) === 381, `width is wrong: ${width}`);
-                        assert(Math.floor(height) === 19, `height is wrong: ${height}`);
-                    })
-                    .then(done, done);
-            });
-        });
+    it.skip('should convert center vertical to middle', function () {
+    });
+
+
+    it('should get cache bounds center-left', function (done) {
+        const {vm, text} = buildVm();
+        vm.align = 'center-left';
+        Vue.nextTick()
+            .then(() => text.getCacheBounds())
+            .then(({x, y, width, height}) => {
+                assert(x === 0, `x is wrong: ${x}`);
+                assert(y === 0, `y is wrong: ${y}`);
+                assert(Math.floor(width) === 381, `width is wrong: ${width}`);
+                assert(Math.floor(height) === 19, `height is wrong: ${height}`);
+            })
+            .then(done, done);
+    });
+
+    it('should get cache bounds top-left', function (done) {
+        const {vm, text} = buildVm();
+        vm.align = 'top-left';
+        Vue.nextTick()
+            .then(() => text.getCacheBounds())
+            .then(({x, y, width, height}) => {
+                assert(x === 0, `x is wrong: ${x}`);
+                assert(y === 0, `y is wrong: ${y}`);
+                assert(Math.floor(width) === 381, `width is wrong: ${width}`);
+                assert(Math.floor(height) === 19, `height is wrong: ${height}`);
+            })
+            .then(done, done);
+    });
+
+    it('should get cache bounds bottom-right', function (done) {
+        const {vm, text} = buildVm();
+        vm.align = 'bottom-right';
+        Vue.nextTick()
+            .then(() => text.getCacheBounds())
+            .then(({x, y, width, height}) => {
+                assert(Math.floor(x) === 381, `x is wrong: ${x}`);
+                assert(Math.floor(y) === 19, `y is wrong: ${y}`);
+                assert(Math.floor(width) === 381, `width is wrong: ${width}`);
+                assert(Math.floor(height) === 19, `height is wrong: ${height}`);
+            })
+            .then(done, done);
+    });
+
 });

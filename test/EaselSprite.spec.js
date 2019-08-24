@@ -137,4 +137,7 @@ describe('EaselSprite', function () {
                     .then(done, done);
             });
         });
+
+    it.skip('should stay animated when cached', function () {
+    });
 });

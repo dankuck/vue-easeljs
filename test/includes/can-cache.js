@@ -1,11 +1,16 @@
 import Vue from 'vue';
 import assert from 'assert';
 
-const wait = function (component) {
-    return Promise.all([
+const wait = function (component, count = 1) {
+    let promise = Promise.all([
         component.getCacheBounds(),
         Vue.nextTick(),
     ]);
+    if (count > 1) {
+        return promise.then(() => wait(component, count - 1));
+    } else {
+        return promise;
+    }
 };
 
 const parentPropChangers = [
@@ -152,7 +157,7 @@ export default function (implementor, provide = {}, propChangers = []) {
                 .then(() => {
                     assert(fake.component.cacheCanvas === null, 'Did not destroy cache');
                     vm.cache = true;
-                    return wait(fake);
+                    return wait(fake, 2);
                 })
                 .then(() => {
                     assert(fake.component.cacheCanvas !== null, 'Did not re-create cache');
@@ -214,5 +219,9 @@ export default function (implementor, provide = {}, propChangers = []) {
                         .then(done, done);
                 });
             });
+
+        it.skip('should update cache on window resize', function () {
+
+        });
     };
 };
