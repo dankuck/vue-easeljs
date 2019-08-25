@@ -21,10 +21,9 @@ export default {
             return Promise.all(
                     this.children
                         .map(component => {
-                            return component.getRelativeCacheBounds()
-                                .catch(error => {
-                                    throw new Error(`Error with component <${component.$options.name}>: ${error}`)
-                                });
+                            return component.getRelativeCacheBounds
+                                ? component.getRelativeCacheBounds()
+                                : Promise.reject(`<${component.$options.name}> does not mixin EaselCache`);
                         })
                 )
                 .then(allBounds => {
