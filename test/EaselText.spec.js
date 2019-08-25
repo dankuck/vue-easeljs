@@ -220,7 +220,7 @@ describe('EaselText', function () {
             .then(() => text.getCacheBounds())
             .then(({x, y, width, height}) => {
                 assert(x === 0, `x is wrong: ${x}`);
-                assert(Math.floor(y) === 7, `y is wrong: ${y}`);
+                assert(Math.floor(y) === -8, `y is wrong: ${y}`);
                 assert(Math.floor(width) === 381, `width is wrong: ${width}`);
                 assert(Math.floor(height) === 19, `height is wrong: ${height}`);
             })
@@ -247,8 +247,8 @@ describe('EaselText', function () {
         Vue.nextTick()
             .then(() => text.getCacheBounds())
             .then(({x, y, width, height}) => {
-                assert(Math.floor(x) === 381, `x is wrong: ${x}`);
-                assert(Math.floor(y) === 19, `y is wrong: ${y}`);
+                assert(Math.floor(x) === -382, `x is wrong: ${x}`);
+                assert(Math.floor(y) === -20, `y is wrong: ${y}`);
                 assert(Math.floor(width) === 381, `width is wrong: ${width}`);
                 assert(Math.floor(height) === 19, `height is wrong: ${height}`);
             })

@@ -28,15 +28,15 @@ export default {
                 )
                 .then(allBounds => {
                     return allBounds
-                        .reduce((acc, {minX, width, minY, height}) => {
-                            if (minX < acc.x) {
-                                acc.x = minX;
+                        .reduce((acc, {x, width, y, height}) => {
+                            if (x < acc.x) {
+                                acc.x = x;
                             }
-                            if (minY < acc.y) {
-                                acc.y = minY
+                            if (y < acc.y) {
+                                acc.y = y
                             }
-                            const newWidth = (minX - acc.x) + width;
-                            const newHeight = (minY - acc.y) + height;
+                            const newWidth = (x - acc.x) + width;
+                            const newHeight = (y - acc.y) + height;
                             if (newHeight > acc.height) {
                                 acc.height = newHeight;
                             }

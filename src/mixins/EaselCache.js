@@ -82,11 +82,11 @@ export default {
         getRelativeCacheBounds() {
             return this.getCacheBounds()
                 .then(bounds => {
-                    const minX = ((this.x || 0) - this.component.regX) + bounds.x;
-                    const minY = ((this.y || 0) - this.component.regY) + bounds.y;
+                    const x = ((this.x || 0) - this.component.regX) + bounds.x;
+                    const y = ((this.y || 0) - this.component.regY) + bounds.y;
                     return {
-                        minX: minX,
-                        minY: minY,
+                        x,
+                        y,
                         width: bounds.width,
                         height: bounds.height,
                     };
