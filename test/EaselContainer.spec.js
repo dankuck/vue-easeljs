@@ -5,12 +5,15 @@ import Vue from 'vue';
 import isAnEaselParent from './includes/is-an-easel-parent.js';
 import EaselFake from './fixtures/EaselFake.js';
 import isADisplayObject from './includes/is-a-display-object.js';
+import canCache from './includes/can-cache.js';
 
 describe('EaselContainer', function () {
 
     describe('is an easel parent that', isAnEaselParent(EaselContainer));
 
     describe('is a display object that', isADisplayObject(EaselContainer));
+
+    describe('is cacheable and', canCache(EaselContainer, {}, []));
 
     const buildVm = function () {
         const easel = {

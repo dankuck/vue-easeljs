@@ -38,8 +38,8 @@ export default {
                 .then(({x, y, width, height}) => {
                     console.log('text', {x,y,width,height});
                     return {
-                        x: x,
-                        y: y,
+                        x: -x,
+                        y: -y,
                         width,
                         height,
                     };

@@ -20,12 +20,16 @@ export default {
         getCacheBounds() {
             return Promise.all(
                     this.children
-                        .map(component => component.getRelativeCacheBounds())
+                        .map(component => {
+                            return component.getRelativeCacheBounds()
+                                .catch(error => {
+                                    throw new Error(`Error with component <${component.$options.name}>: ${error}`)
+                                });
+                        })
                 )
                 .then(allBounds => {
                     const {x, y, width, height} = allBounds
                         .reduce((acc, {minX, width, minY, height}) => {
-                            console.log(acc, '+', {minX, width, minY, height});
                             if (minX < acc.x) {
                                 acc.x = minX;
                             }
@@ -40,7 +44,6 @@ export default {
                             if (width > acc.width) {
                                 acc.width = width;
                             }
-                            console.log('to', acc);
                             return acc;
                         }, {x: 0, y: 0, width: 1, height: 1});
                     return {x:-x,y:-y,width,height};
