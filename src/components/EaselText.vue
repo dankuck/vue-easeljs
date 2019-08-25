@@ -36,13 +36,7 @@ export default {
         getCacheBounds() {
             return getDimensionsFromGetBounds(this)
                 .then(({x, y, width, height}) => {
-                    console.log('text', {x,y,width,height});
-                    return {
-                        x: -x,
-                        y: -y,
-                        width,
-                        height,
-                    };
+                    return {x, y, width, height};
                 });
         },
     },

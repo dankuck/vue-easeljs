@@ -53,7 +53,7 @@ export default {
                 this.getCacheBounds()
                     .then(
                         ({x, y, width, height}) => {
-                            this.component.cache(-x, -y, width, height, window.devicePixelRatio * (this.scale || 1));
+                            this.component.cache(x, y, width, height, window.devicePixelRatio * (this.scale || 1));
                             this.cacheStarted = true;
                             this.cacheNeedsUpdate = false;
                         },
@@ -82,8 +82,8 @@ export default {
         getRelativeCacheBounds() {
             return this.getCacheBounds()
                 .then(bounds => {
-                    const minX = (this.x || 0) - this.component.regX + -bounds.x;
-                    const minY = (this.y || 0) - this.component.regY + -bounds.y;
+                    const minX = ((this.x || 0) - this.component.regX) + bounds.x;
+                    const minY = ((this.y || 0) - this.component.regY) + bounds.y;
                     return {
                         minX: minX,
                         minY: minY,
