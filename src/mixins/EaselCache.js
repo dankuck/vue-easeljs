@@ -107,7 +107,7 @@ export default {
                     // in every direction. Needs to be every direction, since
                     // rotation is applied before shadow.
                     const [color, offsetX, offsetY, blurriness] = this.shadow;
-                    const longest = Max.max(offsetX, offsetY) + blurriness;
+                    const longest = Math.max(offsetX, offsetY) + blurriness;
                     return {
                         x: bounds.x - longest,
                         y: bounds.y - longest,
