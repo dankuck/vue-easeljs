@@ -124,6 +124,34 @@ describe('EaselCanvas', function () {
             .then(done, done);
     });
 
+    it('should provide canvases to any code it wraps', function () {
+        const {vm, canvas} = buildVm();
+        canvas.createCanvas(() => {
+            assert(easeljs.createCanvas, 'createCanvas does not exist');
+        });
+        assert(!easeljs.createCanvas, 'createCanvas exists');
+    });
+
+    it('should provide different canvases to any code it wraps twice', function () {
+        const {vm, canvas} = buildVm();
+        let firstCreateCanvas,
+            secondCreateCanvas,
+            firstCreateCanvasAgain;
+        canvas.createCanvas(() => {
+            firstCreateCanvas = easeljs.createCanvas;
+            canvas.createCanvas(() => {
+                secondCreateCanvas = easeljs.createCanvas;
+            });
+            firstCreateCanvasAgain = easeljs.createCanvas;
+        });
+        assert(firstCreateCanvas, 'firstCreateCanvas should exist');
+        assert(secondCreateCanvas, 'secondCreateCanvas should exist');
+        assert(firstCreateCanvasAgain, 'firstCreateCanvasAgain should exist');
+        assert(secondCreateCanvas !== firstCreateCanvas, '1st and 2nd should not be the same');
+        assert(firstCreateCanvas === firstCreateCanvasAgain, '1st and 3rd should be the same');
+        assert(!easeljs.createCanvas, 'createCanvas should not exist');
+    });
+
     it('should scale to device pixel ratio', function () {
         window.devicePixelRatio = 2;
         const {vm, canvas} = buildVm();

@@ -11,13 +11,15 @@ import EaselParent from '../mixins/EaselParent.js';
 
 export default {
     mixins: [EaselParent],
-    props: [
-        'antiAlias',
-        'height',
-        'width',
-        'viewportHeight',
-        'viewportWidth',
-    ],
+    props: {
+        antiAlias: {
+            default: true,
+        },
+        height: {},
+        width: {},
+        viewportHeight: {},
+        viewportWidth: {},
+    },
     data() {
         return {
             component: null,
@@ -68,11 +70,10 @@ export default {
     },
     methods: {
         updateAntiAlias() {
-            const antiAlias = typeof this.antiAlias === 'undefined' || this.antiAlias;
-            this.context.imageSmoothingEnabled       = antiAlias;
-            this.context.mozImageSmoothingEnabled    = antiAlias;
-            this.context.webkitImageSmoothingEnabled = antiAlias;
-            this.context.msImageSmoothingEnabled     = antiAlias;
+            this.context.imageSmoothingEnabled       = this.antiAlias;
+            this.context.mozImageSmoothingEnabled    = this.antiAlias;
+            this.context.webkitImageSmoothingEnabled = this.antiAlias;
+            this.context.msImageSmoothingEnabled     = this.antiAlias;
         },
         updateSize() {
             const canvas = this.$refs.easel;
@@ -83,6 +84,20 @@ export default {
             this.component.scaleX = this.viewportScale.scaleX * window.devicePixelRatio;
             this.component.scaleY = this.viewportScale.scaleY * window.devicePixelRatio;
             this.$nextTick(() => this.updateAntiAlias());
+        },
+        createCanvas(cb) {
+            const beforeCreateCanvas = easeljs.createCanvas;
+            easeljs.createCanvas = () => {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                context.imageSmoothingEnabled       = this.antiAlias;
+                context.mozImageSmoothingEnabled    = this.antiAlias;
+                context.webkitImageSmoothingEnabled = this.antiAlias;
+                context.msImageSmoothingEnabled     = this.antiAlias;
+                return canvas;
+            };
+            cb();
+            easeljs.createCanvas = beforeCreateCanvas;
         },
     },
 };
