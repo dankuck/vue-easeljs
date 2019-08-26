@@ -84,7 +84,8 @@ export default {
         /**
          * Get the cache bounds as they would be seen from the parent's
          * perspective, and large enough to contain the element rotated to any
-         * degree.
+         * degree along with its shadow, if any.
+         * EaselContainer uses this to calculate its own cache bounds.
          * @return {object}
          */
         getRelativeCacheBounds() {
@@ -92,12 +93,6 @@ export default {
                 .then(bounds => {
                     const x = ((this.x || 0) - this.component.regX) + bounds.x;
                     const y = ((this.y || 0) - this.component.regY) + bounds.y;
-                    console.log('relative bounds', {
-                        x,
-                        y,
-                        width: bounds.width,
-                        height: bounds.height,
-                    });
                     return {
                         x,
                         y,
@@ -105,30 +100,8 @@ export default {
                         height: bounds.height,
                     };
                 })
-                .then(bounds => {
-                    if (!this.shadow) {
-                        console.log('no shadow');
-                        return bounds;
-                    }
-                    // Expand bounds to cover the shadow offsets and blurriness
-                    // in every direction. Needs to be every direction, since
-                    // rotation is applied before shadow.
-                    const [color, offsetX, offsetY, blurriness] = this.shadow;
-                    const longest = Math.max(offsetX, offsetY) + blurriness;
-                    console.log('shadow bounds', this.shadow, {
-                        x: bounds.x - longest,
-                        y: bounds.y - longest,
-                        width: bounds.width + longest * 2,
-                        height: bounds.height + longest * 2,
-                    });
-                    return {
-                        x: bounds.x - longest,
-                        y: bounds.y - longest,
-                        width: bounds.width + longest * 2,
-                        height: bounds.height + longest * 2,
-                    };
-                })
-                .then(this.getSmallestSquare)
+                .then(bounds => this.expandForShadow(bounds))
+                .then(bounds => this.getSmallestSquare(bounds))
         },
         /**
          * Return the bounds of the smallest square that can contain the given
@@ -137,21 +110,14 @@ export default {
          * @return {Object}
          */
         getSmallestSquare({x, y, width, height}) {
-            const longest = Math.max(
-                Math.abs(x),
-                Math.abs(y),
-                x + width,
-                y + height
+            // Use width and height as the legs of a right triangle and figure
+            // out the hypotenuse. Thanks, Pythagoras.
+            // The hypotenuse is the longest possible length that the object
+            // could extend.
+            const hypotenuse = Math.sqrt(
+                Math.pow(width, 2)
+                + Math.pow(height, 2)
             );
-            // Use `longest` as the legs of a right triangle and figure out the
-            // hypotenuse. Thanks, Pythagoras.
-            const hypotenuse = Math.sqrt(Math.pow(longest, 2) * 2)
-            console.log('smallest square', {
-                x: -hypotenuse,
-                y: -hypotenuse,
-                width: hypotenuse * 2,
-                height: hypotenuse * 2,
-            });
             return {
                 x: -hypotenuse,
                 y: -hypotenuse,
@@ -177,17 +143,34 @@ export default {
                 (b.y - y) + b.height,
                 (a.y - y) + a.height
             );
-            console.log('smallest combination', a, b, {
-                x,
-                y,
-                width,
-                height,
-            });
             return {
                 x,
                 y,
                 width,
                 height,
+            };
+        },
+        /**
+         * If a shadow exists, add its dimensions as padding on all sides
+         * @return {Object}
+         */
+        expandForShadow(bounds) {
+            if (!this.shadow) {
+                return bounds;
+            }
+            // Expand bounds to cover the shadow offsets and blurriness
+            // in every direction. Needs to be every direction, since
+            // rotation is applied before shadow.
+            const [color, offsetX, offsetY, blurriness] = this.shadow;
+            // Find the longest possible edge and expand the bounds in
+            // every direction. We cannot be less naive, because we
+            // want to account for every rotation.
+            const padding = Math.max(offsetX, offsetY) + blurriness;
+            return {
+                x: bounds.x - padding,
+                y: bounds.y - padding,
+                width: bounds.width + padding * 2,
+                height: bounds.height + padding * 2,
             };
         },
     },

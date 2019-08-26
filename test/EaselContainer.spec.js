@@ -30,6 +30,7 @@ describe('EaselContainer', function () {
                     <easel-fake ref="fake"
                         :x="x"
                         :y="y"
+                        :shadow="shadow"
                     >
                     </easel-fake>
                 </easel-container>
@@ -43,6 +44,7 @@ describe('EaselContainer', function () {
                 return {
                     x: 3,
                     y: 4,
+                    shadow: null,
                 };
             },
             components: {
@@ -81,7 +83,7 @@ describe('EaselContainer', function () {
             .then(done, done);
     });
 
-    it.only('should get cache dimensions including the fake', function (done) {
+    it('should get cache dimensions including the fake', function (done) {
         const {vm, container, fake} = buildVm();
         Vue.nextTick()
             .then(() => {
@@ -106,19 +108,75 @@ describe('EaselContainer', function () {
                     },
                     fakeBounds
                 );
-                // the square that surrounds a rotating EaselFake
+                // The square that surrounds a rotating EaselFake
+                // The square is calculated using the hypotenuse of the above
+                // rectangle.
+                // √(30² + 40²) = 50, a super-convenient exact number
                 deepStrictEqual(
                     {
-                        x: -29,
-                        y: -29,
-                        width: 56,
-                        height: 56,
+                        x: -50,
+                        y: -50,
+                        width: 100,
+                        height: 100,
                     },
                     {
-                        x: Math.floor(containerBounds.x),
-                        y: Math.floor(containerBounds.y),
-                        width: Math.floor(containerBounds.width),
-                        height: Math.floor(containerBounds.height),
+                        x: containerBounds.x,
+                        y: containerBounds.y,
+                        width: containerBounds.width,
+                        height: containerBounds.height,
+                    }
+                );
+            })
+            .then(done, done);
+    });
+
+    it('should get cache dimensions including the shadow', function (done) {
+        const {vm, container, fake} = buildVm();
+        Vue.nextTick()
+            .then(() => {
+                vm.x = 0;
+                vm.y = 0;
+                vm.shadow = ['black', 5, 10, 5];
+                return Vue.nextTick();
+            })
+            .then(() => {
+                return Promise.all([
+                        fake.getCacheBounds(),
+                        container.getCacheBounds(),
+                    ]);
+            })
+            .then(([fakeBounds, containerBounds]) => {
+                // from EaselFake fixture
+                deepStrictEqual(
+                    {
+                        x: -10,
+                        y: -20,
+                        width: 30,
+                        height: 40,
+                    },
+                    fakeBounds
+                );
+                // The square that surrounds a rotating EaselFake
+                // First the shadow's padding is added to all sides.
+                // The shadow padding is done by adding its longest offset and
+                // the blurriness amount. In this case 10 and 5. Since it's on
+                // all sides, it's applied twice to width and height. That
+                // makes an addition of 30 to both.
+                // The square is calculated using the hypotenuse of the
+                // resulting rectangle.
+                // √((30 + 30)² + (40 + 30)²) ~= 92
+                deepStrictEqual(
+                    {
+                        x: -92,
+                        y: -92,
+                        width: 184,
+                        height: 184,
+                    },
+                    {
+                        x: Math.round(containerBounds.x),
+                        y: Math.round(containerBounds.y),
+                        width: Math.round(containerBounds.width),
+                        height: Math.round(containerBounds.height),
                     }
                 );
             })

@@ -27,11 +27,10 @@ export default {
                         })
                 )
                 .then(allBounds => {
-                    return allBounds
-                        .reduce(
-                            this.getSmallestCombination,
-                            {x: 0, y: 0, width: 1, height: 1}
-                        );
+                    return allBounds.reduce(
+                        this.getSmallestCombination,
+                        {x: 0, y: 0, width: 1, height: 1}
+                    );
                 });
         },
     },
