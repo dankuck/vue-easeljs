@@ -4,12 +4,35 @@ import EaselText from '../src/components/EaselText.vue';
 import easeljs from '../easeljs/easel.js';
 import isADisplayObject from './includes/is-a-display-object.js';
 
+import canCache from './includes/can-cache.js';
+
 describe('EaselText', function () {
 
     describe('is a display object that', isADisplayObject(EaselText, 'text="O hai"'));
 
     // EaselText is also alignable, but it uses special alignment rules, so it
     // doesn't include the alignment tests.
+
+    describe('is cacheable and', canCache(EaselText, {}, [
+        {
+            name: 'color',
+            value: 'black',
+            changeTo: 'blue',
+            shouldUpdateSameObject: true,
+        },
+        {
+            name: 'text',
+            value: 'Oh, hi',
+            changeTo: 'Ohai',
+            shouldUpdateSameObject: true,
+        },
+        {
+            name: 'font',
+            value: '12px "Times New Roman"',
+            changeTo: '50px "Comic Sans"',
+            shouldUpdateSameObject: true,
+        },
+    ]));
 
     const buildVm = function () {
         const easel = {
@@ -174,4 +197,62 @@ describe('EaselText', function () {
             })
             .then(done, done);
     });
+
+    it('should convert center vertical to middle', function (done) {
+        const {vm, text} = buildVm();
+        Vue.nextTick()
+            .then(() => {
+                vm.align = 'center-center';
+                return Vue.nextTick();
+            })
+            .then(() => {
+                assert('center' === text.component.textAlign, 'Wrong default textAlign in: ' + text.component.textAlign);
+                assert('middle' === text.component.textBaseline, 'Wrong default textBaseline in: ' + text.component.textBaseline);
+            })
+            .then(done, done);
+    });
+
+
+    it('should get cache bounds center-left', function (done) {
+        const {vm, text} = buildVm();
+        vm.align = 'center-left';
+        Vue.nextTick()
+            .then(() => text.getCacheBounds())
+            .then(({x, y, width, height}) => {
+                assert(x === 0, `x is wrong: ${x}`);
+                assert(Math.floor(y) === -8, `y is wrong: ${y}`);
+                assert(Math.floor(width) === 381, `width is wrong: ${width}`);
+                assert(Math.floor(height) === 19, `height is wrong: ${height}`);
+            })
+            .then(done, done);
+    });
+
+    it('should get cache bounds top-left', function (done) {
+        const {vm, text} = buildVm();
+        vm.align = 'top-left';
+        Vue.nextTick()
+            .then(() => text.getCacheBounds())
+            .then(({x, y, width, height}) => {
+                assert(x === 0, `x is wrong: ${x}`);
+                assert(y === 0, `y is wrong: ${y}`);
+                assert(Math.floor(width) === 381, `width is wrong: ${width}`);
+                assert(Math.floor(height) === 19, `height is wrong: ${height}`);
+            })
+            .then(done, done);
+    });
+
+    it('should get cache bounds bottom-right', function (done) {
+        const {vm, text} = buildVm();
+        vm.align = 'bottom-right';
+        Vue.nextTick()
+            .then(() => text.getCacheBounds())
+            .then(({x, y, width, height}) => {
+                assert(Math.floor(x) === -382, `x is wrong: ${x}`);
+                assert(Math.floor(y) === -20, `y is wrong: ${y}`);
+                assert(Math.floor(width) === 381, `width is wrong: ${width}`);
+                assert(Math.floor(height) === 19, `height is wrong: ${height}`);
+            })
+            .then(done, done);
+    });
+
 });

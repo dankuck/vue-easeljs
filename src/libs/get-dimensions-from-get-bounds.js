@@ -9,8 +9,8 @@ export default function getDimensionsFromGetBounds(component) {
                 } else if (component.component.getBounds()) {
                     // Got the bounds, resolve with them
                     clearInterval(waiting);
-                    const {width, height} = component.component.getBounds();
-                    resolve({width, height});
+                    const {x, y, width, height} = component.component.getBounds();
+                    resolve({x, y, width, height});
                 }
                 // else keep waiting...
             } catch (e) {

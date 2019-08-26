@@ -1,11 +1,13 @@
 <script>
 import easeljs from '../../easeljs/easel.js';
 import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
+import EaselCache from '../mixins/EaselCache.js';
 import EaselAlign from '../mixins/EaselAlign.js';
 
 export default {
-    mixins: [EaselDisplayObject, EaselAlign],
+    mixins: [EaselDisplayObject, EaselAlign, EaselCache],
     props: ['form', 'fill', 'stroke', 'dimensions'],
+    updatesEaselCache: ['form', 'fill', 'stroke', 'dimensions'],
     render() {
         return '<!-- shape -->';
     },
@@ -68,13 +70,34 @@ export default {
         },
         getAlignDimensions() {
             if (this.form === 'rect' || this.form === 'ellipse') {
-                return Promise.resolve({width: this.dimensions[0], height: this.dimensions[1]});
+                return Promise.resolve({
+                    width: this.dimensions[0],
+                    height: this.dimensions[1],
+                });
             } else if (this.form === 'circle') {
-                return Promise.resolve({width: this.dimensions * 2, height: this.dimensions * 2});
+                return Promise.resolve({
+                    width: this.dimensions * 2,
+                    height: this.dimensions * 2,
+                });
             } else if (this.form === 'star') {
-                return Promise.resolve({width: this.dimensions[0] * 2, height: this.dimensions[0] * 2});
+                return Promise.resolve({
+                    width: this.dimensions[0] * 2,
+                    height: this.dimensions[0] * 2,
+                });
+            } else {
+                return Promise.reject(`No dimensions available for form ${this.form}`);
             }
-            return Promise.reject('No dimensions available');
+        },
+        getCacheBounds() {
+            return this.updateAlign() // make sure that's in place
+                .then(({width, height}) => {
+                    return {
+                        x: 0,
+                        y: 0,
+                        width,
+                        height,
+                    };
+                });
         },
     },
 };

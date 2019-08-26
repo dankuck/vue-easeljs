@@ -1,4 +1,5 @@
 import EaselDisplayObject from '../../src/mixins/EaselDisplayObject.js';
+import EaselCache from '../../src/mixins/EaselCache.js';
 import easeljs from '../../easeljs/easel.js';
 
 /**
@@ -8,7 +9,7 @@ import easeljs from '../../easeljs/easel.js';
  */
 export default {
     template: '<!---->',
-    mixins: [EaselDisplayObject],
+    mixins: [EaselDisplayObject, EaselCache],
     methods: {
         init() {
             this.component = new easeljs.Shape();
@@ -16,6 +17,9 @@ export default {
         },
         getAlignDimensions() {
             return Promise.resolve({width: 32, height: 48});
+        },
+        getCacheBounds() {
+            return Promise.resolve({x: -10, y: -20, width: 30, height: 40});
         },
     },
 };
