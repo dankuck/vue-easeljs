@@ -92,6 +92,12 @@ export default {
                 .then(bounds => {
                     const x = ((this.x || 0) - this.component.regX) + bounds.x;
                     const y = ((this.y || 0) - this.component.regY) + bounds.y;
+                    console.log('relative bounds', {
+                        x,
+                        y,
+                        width: bounds.width,
+                        height: bounds.height,
+                    });
                     return {
                         x,
                         y,
@@ -101,6 +107,7 @@ export default {
                 })
                 .then(bounds => {
                     if (!this.shadow) {
+                        console.log('no shadow');
                         return bounds;
                     }
                     // Expand bounds to cover the shadow offsets and blurriness
@@ -108,6 +115,12 @@ export default {
                     // rotation is applied before shadow.
                     const [color, offsetX, offsetY, blurriness] = this.shadow;
                     const longest = Math.max(offsetX, offsetY) + blurriness;
+                    console.log('shadow bounds', this.shadow, {
+                        x: bounds.x - longest,
+                        y: bounds.y - longest,
+                        width: bounds.width + longest * 2,
+                        height: bounds.height + longest * 2,
+                    });
                     return {
                         x: bounds.x - longest,
                         y: bounds.y - longest,
@@ -130,11 +143,20 @@ export default {
                 x + width,
                 y + height
             );
+            // Use `longest` as the legs of a right triangle and figure out the
+            // hypotenuse. Thanks, Pythagoras.
+            const hypotenuse = Math.sqrt(Math.pow(longest, 2) * 2)
+            console.log('smallest square', {
+                x: -hypotenuse,
+                y: -hypotenuse,
+                width: hypotenuse * 2,
+                height: hypotenuse * 2,
+            });
             return {
-                x: -longest,
-                y: -longest,
-                width: longest * 2,
-                height: longest * 2,
+                x: -hypotenuse,
+                y: -hypotenuse,
+                width: hypotenuse * 2,
+                height: hypotenuse * 2,
             };
 
         },
@@ -155,6 +177,12 @@ export default {
                 (b.y - y) + b.height,
                 (a.y - y) + a.height
             );
+            console.log('smallest combination', a, b, {
+                x,
+                y,
+                width,
+                height,
+            });
             return {
                 x,
                 y,

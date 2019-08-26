@@ -6,6 +6,7 @@ import isAnEaselParent from './includes/is-an-easel-parent.js';
 import EaselFake from './fixtures/EaselFake.js';
 import isADisplayObject from './includes/is-a-display-object.js';
 import canCache from './includes/can-cache.js';
+const {deepStrictEqual} = assert;
 
 describe('EaselContainer', function () {
 
@@ -27,8 +28,8 @@ describe('EaselContainer', function () {
             template: `
                 <easel-container ref="container">
                     <easel-fake ref="fake"
-                        x="3"
-                        y="4"
+                        :x="x"
+                        :y="y"
                     >
                     </easel-fake>
                 </easel-container>
@@ -40,6 +41,8 @@ describe('EaselContainer', function () {
             },
             data() {
                 return {
+                    x: 3,
+                    y: 4,
                 };
             },
             components: {
@@ -74,6 +77,50 @@ describe('EaselContainer', function () {
         Vue.nextTick()
             .then(() => {
                 assert(fake.component.parent === container.component);
+            })
+            .then(done, done);
+    });
+
+    it.only('should get cache dimensions including the fake', function (done) {
+        const {vm, container, fake} = buildVm();
+        Vue.nextTick()
+            .then(() => {
+                vm.x = 0;
+                vm.y = 0;
+                return Vue.nextTick();
+            })
+            .then(() => {
+                return Promise.all([
+                        fake.getCacheBounds(),
+                        container.getCacheBounds(),
+                    ]);
+            })
+            .then(([fakeBounds, containerBounds]) => {
+                // from EaselFake fixture
+                deepStrictEqual(
+                    {
+                        x: -10,
+                        y: -20,
+                        width: 30,
+                        height: 40,
+                    },
+                    fakeBounds
+                );
+                // the square that surrounds a rotating EaselFake
+                deepStrictEqual(
+                    {
+                        x: -29,
+                        y: -29,
+                        width: 56,
+                        height: 56,
+                    },
+                    {
+                        x: Math.floor(containerBounds.x),
+                        y: Math.floor(containerBounds.y),
+                        width: Math.floor(containerBounds.width),
+                        height: Math.floor(containerBounds.height),
+                    }
+                );
             })
             .then(done, done);
     });
