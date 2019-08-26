@@ -24,11 +24,22 @@ export default {
         this.$nextTick(() => this.updateAlign());
     },
     computed: {
+        /**
+         * Normalizes the `align` prop's value by ensuring it is an array and
+         * horizontal value comes before vertical value.
+         * @return {Array}
+         */
         normalizedAlign() {
             return normalizeAlignment(this.align || ['', '']);
         },
     },
     methods: {
+        /**
+         * Sets the offset values for this element to those set by the align
+         * prop. Returns a Promise that resolves with dimensions that were
+         * passed to this method.
+         * @return {Object}
+         */
         updateAlign() {
             return this.getAlignDimensions()
                 .then(
@@ -59,6 +70,12 @@ export default {
                     }
                 );
         },
+        /**
+         * Returns a Promise that resolves with an object like
+         * `{width, height}` so that alignment can be calculated. Subclasses
+         * must define this method.
+         * @return {Object}
+         */
         getAlignDimensions() {
             // Components should override this
             throw new Error('EaselAlign components must define a `getAlignDimensions` method');
