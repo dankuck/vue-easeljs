@@ -114,6 +114,16 @@ describe('EaselCanvas', function () {
             .then(done, done);
     });
 
+    it('should default anti-alias to true', function (done) {
+        const {vm, canvas} = buildVm();
+        vm.antiAlias = undefined;
+        Vue.nextTick()
+            .then(() => {
+                assert(canvas.context.imageSmoothingEnabled === true, 'Not smoothing, but should: ' + canvas.context.imageSmoothingEnabled);
+            })
+            .then(done, done);
+    });
+
     it('should scale to device pixel ratio', function () {
         window.devicePixelRatio = 2;
         const {vm, canvas} = buildVm();
