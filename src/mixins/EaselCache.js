@@ -71,6 +71,13 @@ export default {
                 this.easel.cacheNeedsUpdate = true;
             }
         },
+        /**
+         * Get the bounds of a rectangle containing the element. This must be
+         * defined by the subclass. It must return `{x, y, width, height}`.
+         * These values are passed directly to EaselJS's cache() method. See
+         * its documentation.
+         * @return {Object}
+         */
         getCacheBounds() {
             return Promise.reject('EaselCache components must define a `getCacheBounds` method');
         },
@@ -92,8 +99,23 @@ export default {
                         height: bounds.height,
                     };
                 })
+                .then(bounds => {
+                    if (!this.shadow) {
+                        return bounds;
+                    }
+                    // Expand bounds to cover the shadow offsets and blurriness
+                    // in every direction. Needs to be every direction, since
+                    // rotation is applied before shadow.
+                    const [color, offsetX, offsetY, blurriness] = this.shadow;
+                    const longest = Max.max(offsetX, offsetY) + blurriness;
+                    return {
+                        x: bounds.x - longest,
+                        y: bounds.y - longest,
+                        width: bounds.width + longest * 2,
+                        height: bounds.height + longest * 2,
+                    };
+                })
                 .then(this.getSmallestSquare)
-                .then((arg) => {console.log(arg); return arg});
         },
         /**
          * Return the bounds of the smallest square that can contain the given
