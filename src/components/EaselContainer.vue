@@ -12,6 +12,7 @@ import EaselCache from '../mixins/EaselCache.js';
 
 export default {
     mixins: [EaselDisplayObject, EaselParent, EaselCache],
+    updatesEaselCache: ['children'],
     methods: {
         init() {
             this.component = new easeljs.Container();

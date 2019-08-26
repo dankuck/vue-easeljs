@@ -28,6 +28,7 @@ describe('EaselContainer', function () {
             template: `
                 <easel-container ref="container">
                     <easel-fake ref="fake"
+                        v-if="showFake"
                         :x="x"
                         :y="y"
                         :shadow="shadow"
@@ -42,6 +43,7 @@ describe('EaselContainer', function () {
             },
             data() {
                 return {
+                    showFake: true,
                     x: 3,
                     y: 4,
                     shadow: null,
@@ -179,6 +181,38 @@ describe('EaselContainer', function () {
                         height: Math.round(containerBounds.height),
                     }
                 );
+            })
+            .then(done, done);
+    });
+
+    it('should update cache when children disappear', function (done) {
+        const {vm, container, fake} = buildVm();
+        Vue.nextTick()
+            .then(() => {
+                container.cacheNeedsUpdate = false;
+                vm.showFake = false;
+                return Vue.nextTick();
+            })
+            .then(() => {
+                assert(container.cacheNeedsUpdate);
+            })
+            .then(done, done);
+    });
+
+    it('should update cache when children reappear', function (done) {
+        const {vm, container, fake} = buildVm();
+        Vue.nextTick()
+            .then(() => {
+                vm.showFake = false;
+                return Vue.nextTick();
+            })
+            .then(() => {
+                container.cacheNeedsUpdate = false;
+                vm.showFake = true;
+                return Vue.nextTick();
+            })
+            .then(() => {
+                assert(container.cacheNeedsUpdate);
             })
             .then(done, done);
     });
