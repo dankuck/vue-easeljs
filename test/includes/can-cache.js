@@ -224,7 +224,7 @@ export default function (implementor, provide = {}, propChangers = []) {
             const {vm, fake, easel} = buildVm();
             assert(fake.cache === true);
             let bitmapCache, cacheID;
-            wait(fake)
+            wait(fake, 2) // EaselBitmap needs an extra tick
                 .then(() => {
                     assert(fake.component.cacheCanvas !== null, 'Did not create cache');
                     bitmapCache = fake.component.bitmapCache;
@@ -251,7 +251,7 @@ export default function (implementor, provide = {}, propChangers = []) {
         it('should update cache on window resize', function (done) {
             const {vm, fake, easel} = buildVm();
             let bitmapCache, cacheID;
-            wait(fake)
+            wait(fake, 2) // EaselBitmap needs an extra tick
                 .then(() => {
                     assert(fake.component.cacheCanvas !== null, 'Did not create cache');
                     bitmapCache = fake.component.bitmapCache;

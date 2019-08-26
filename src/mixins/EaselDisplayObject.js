@@ -57,7 +57,14 @@ export default {
         },
     },
     mounted() {
-        this.init();
+        this.$watch('component', (now, old) => {
+            if (old) {
+                this.displayObjectBreakdown();
+            }
+            if (now) {
+                this.displayObjectInit();
+            }
+        });
     },
     destroyed() {
         this.displayObjectBreakdown();

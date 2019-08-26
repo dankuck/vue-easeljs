@@ -6,6 +6,7 @@ export default function getDimensionsFromGetBounds(component) {
                 if (!component.component) {
                     // Component is uninitialized or went away, abandon.
                     clearInterval(waiting);
+                    reject('No component available to getBounds');
                 } else if (component.component.getBounds()) {
                     // Got the bounds, resolve with them
                     clearInterval(waiting);
@@ -19,7 +20,7 @@ export default function getDimensionsFromGetBounds(component) {
                 throw e;
             }
         }
-        const waiting = setInterval(getBounds, 100);
+        const waiting = setInterval(getBounds, 10);
         getBounds();
     });
 };

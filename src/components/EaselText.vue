@@ -23,15 +23,14 @@ export default {
             this.component.color = this.color;
         },
     },
+    mounted() {
+        this.component = new easeljs.Text(this.text, this.font, this.color);
+    },
     methods: {
-        init() {
-            this.component = new easeljs.Text(this.text, this.font, this.color);
-            this.displayObjectInit();
-        },
         updateAlign() {
-            this.component.textAlign = this.normalizedAlign[0] || 'left';
-            const vertical = this.normalizedAlign[1] || 'top';
-            this.component.textBaseline = vertical === 'center' ? 'middle' : vertical;
+            const [horizontal, vertical] = this.normalizedAlign;
+            this.component.textAlign = horizontal || 'left';
+            this.component.textBaseline = vertical === 'center' ? 'middle' : (vertical || 'top');
         },
         getCacheBounds() {
             return getDimensionsFromGetBounds(this)

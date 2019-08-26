@@ -10,11 +10,10 @@ import easeljs from '../../easeljs/easel.js';
 export default {
     template: '<!---->',
     mixins: [EaselDisplayObject, EaselCache],
+    mounted() {
+        this.component = new easeljs.Shape();
+    },
     methods: {
-        init() {
-            this.component = new easeljs.Shape();
-            this.displayObjectInit();
-        },
         getAlignDimensions() {
             return Promise.resolve({width: 32, height: 48});
         },

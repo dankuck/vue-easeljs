@@ -15,18 +15,14 @@ export default {
     watch: {
         image() {
             if (this.component) {
-                this.init();
+                this.component = new easeljs.Bitmap(this.image);
             }
         },
     },
+    mounted() {
+        this.component = new easeljs.Bitmap(this.image);
+    },
     methods: {
-        init() {
-            if (this.component) {
-                this.displayObjectBreakdown();
-            }
-            this.component = new easeljs.Bitmap(this.image);
-            this.displayObjectInit();
-        },
         getAlignDimensions() {
             return getDimensionsFromGetBounds(this);
         },
