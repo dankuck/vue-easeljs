@@ -79,7 +79,9 @@ export default {
                 this.getCacheBounds()
                     .then(
                         ({x, y, width, height}) => {
-                            this.component.cache(x, y, width, height, window.devicePixelRatio * (this.scale || 1));
+                            this.easel.createCanvas(() => {
+                                this.component.cache(x, y, width, height, window.devicePixelRatio * (this.scale || 1));
+                            });
                             this.cacheStarted = true;
                             this.cacheNeedsUpdate = false;
                         },
