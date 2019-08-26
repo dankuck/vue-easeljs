@@ -1,10 +1,13 @@
 /*
 |--------------------------------------------------------------------------
-| EaselDisplayObject
+| EaselAlign
 |--------------------------------------------------------------------------
+| This mixin provides alignment support to a component. It handles the
+| `align` prop.
 |
-| This mixin gives an Easel Vue component the required elements to be
-| visible on the canvas.
+| A component that mixes this in should provide:
+| * getAlignDimensions - A method that returns a Promise that resolves with
+|                        an object formatted as `{x, y, width, height}`.
 |
 */
 

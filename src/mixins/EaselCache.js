@@ -1,5 +1,29 @@
+/**
+ |-----------------------------------------------------------------------------
+ | EaselCache
+ |-----------------------------------------------------------------------------
+ | This mixin provides cache support to a component. It handles the `cache`
+ | prop at initialization and any updates.
+ |
+ | It operates transparently, so it should be impossible to tell it's active
+ | except that the code may operate more speedily.
+ |
+ | A component that mixes this in should provide:
+ | * updatesEaselCache - A top-level Array of the names of props or properties
+ |                       to watch for changes that should trigger a cache
+ |                       refresh
+ | * getCacheBounds    - A method that returns a Promise which resolves with
+ |                       an object formatted as `{x, y, width, height}`.
+ |
+ */
+
 export default {
     props: ['cache'],
+    /**
+     * Components that mix this in should replace this with an array of props
+     * or properties that should trigger cache refreshes when they change.
+     * @type {Array}
+     */
     updatesEaselCache: [],
     data() {
         return {
