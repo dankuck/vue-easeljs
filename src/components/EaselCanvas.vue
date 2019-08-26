@@ -32,12 +32,7 @@ export default {
         easeljs.Ticker.addEventListener('tick', (event) => this.component.update(event));
         this.resizeHandler = () => this.updateSize();
         window.addEventListener('resize', this.resizeHandler);
-        this.updateSize();
-        if (typeof this.antiAlias !== 'undefined') {
-            // For an unknown reason, it's necessary to do this after a tick
-            // or else it doesn't update
-            this.$nextTick(() => this.updateAntiAlias());
-        }
+        this.updateSize(); // updates anti-alias afterward
     },
     destroyed() {
         easeljs.Touch.disable(this.component);
@@ -73,10 +68,11 @@ export default {
     },
     methods: {
         updateAntiAlias() {
-            this.context.imageSmoothingEnabled = this.antiAlias;
-            this.context.mozImageSmoothingEnabled = this.antiAlias;
-            this.context.webkitImageSmoothingEnabled = this.antiAlias;
-            this.context.msImageSmoothingEnabled = this.antiAlias;
+            const antiAlias = typeof this.antiAlias === 'undefined' || this.antiAlias;
+            this.context.imageSmoothingEnabled       = antiAlias;
+            this.context.mozImageSmoothingEnabled    = antiAlias;
+            this.context.webkitImageSmoothingEnabled = antiAlias;
+            this.context.msImageSmoothingEnabled     = antiAlias;
         },
         updateSize() {
             const canvas = this.$refs.easel;
