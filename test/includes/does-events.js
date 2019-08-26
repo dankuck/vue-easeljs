@@ -61,11 +61,15 @@ export default function (implementor, extra_attributes = '', provide = {}) {
         });
 
         eventTypes.forEach(type => {
-            it(`emits ${type} event`, function () {
+            it(`emits ${type} event`, function (done) {
                 const {vm, fake} = buildVm();
-                vm.clearEventLog();
-                fake.component.dispatchEvent(type);
-                assert(vm.eventLog.length === 1);
+                Vue.nextTick()
+                    .then(() => {
+                        vm.clearEventLog();
+                        fake.component.dispatchEvent(type);
+                        assert(vm.eventLog.length === 1, `wrong number of events ${vm.eventLog.length}`);
+                    })
+                    .then(done, done)
             });
         });
     };
