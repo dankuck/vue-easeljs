@@ -5,6 +5,8 @@
 | This mixin provides alignment support to a component. It handles the
 | `align` prop.
 |
+| Any component mixing this in should also mix in EaselDisplayObject.
+|
 | A component that mixes this in should provide:
 | * getAlignDimensions - A method that returns a Promise that resolves with
 |                        an object formatted as `{x, y, width, height}`.
@@ -41,7 +43,7 @@ export default {
          * Sets the offset values for this element to those set by the align
          * prop. Returns a Promise that resolves with dimensions that were
          * passed to this method.
-         * @return {Object}
+         * @return Promise
          */
         updateAlign() {
             return this.getAlignDimensions()

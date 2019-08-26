@@ -8,6 +8,8 @@
  | It operates transparently, so it should be impossible to tell it's active
  | except that the code may operate more speedily.
  |
+ | Any component mixing this in should also mix in EaselDisplayObject.
+ |
  | A component that mixes this in should provide:
  | * updatesEaselCache - A top-level Array of the names of props or properties
  |                       to watch for changes that should trigger a cache
