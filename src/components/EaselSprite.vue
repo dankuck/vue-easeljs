@@ -20,14 +20,13 @@ export default {
             }
         },
     },
+    mounted() {
+        this.component = new easeljs.Sprite(this.spriteSheet);
+        if (this.animation) {
+            this.component.gotoAndPlay(this.animation);
+        }
+    },
     methods: {
-        init() {
-            this.component = new easeljs.Sprite(this.spriteSheet);
-            if (this.animation) {
-                this.component.gotoAndPlay(this.animation);
-            }
-            this.displayObjectInit();
-        },
         getAlignDimensions() {
             return getDimensionsFromGetBounds(this);
         },

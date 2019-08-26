@@ -12,11 +12,10 @@ import EaselCache from '../mixins/EaselCache.js';
 
 export default {
     mixins: [EaselDisplayObject, EaselParent, EaselCache],
+    mounted() {
+        this.component = new easeljs.Container();
+    },
     methods: {
-        init() {
-            this.component = new easeljs.Container();
-            this.displayObjectInit();
-        },
         getCacheBounds() {
             return Promise.all(
                     this.children

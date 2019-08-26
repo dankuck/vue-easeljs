@@ -32,12 +32,11 @@ export default {
             }
         },
     },
+    mounted() {
+        this.component = new easeljs.Shape();
+        this.refresh();
+    },
     methods: {
-        init() {
-            this.component = new easeljs.Shape();
-            this.refresh();
-            this.displayObjectInit();
-        },
         refresh() {
             if (this.component) {
                 this.component.graphics.clear();
