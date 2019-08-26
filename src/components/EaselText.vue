@@ -28,9 +28,9 @@ export default {
     },
     methods: {
         updateAlign() {
-            this.component.textAlign = this.normalizedAlign[0] || 'left';
-            const vertical = this.normalizedAlign[1] || 'top';
-            this.component.textBaseline = vertical === 'center' ? 'middle' : vertical;
+            const [horizontal, vertical] = this.normalizedAlign;
+            this.component.textAlign = horizontal || 'left';
+            this.component.textBaseline = vertical === 'center' ? 'middle' : (vertical || 'top');
         },
         getCacheBounds() {
             return getDimensionsFromGetBounds(this)
