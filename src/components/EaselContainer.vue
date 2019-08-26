@@ -28,23 +28,10 @@ export default {
                 )
                 .then(allBounds => {
                     return allBounds
-                        .reduce((acc, {x, width, y, height}) => {
-                            if (x < acc.x) {
-                                acc.x = x;
-                            }
-                            if (y < acc.y) {
-                                acc.y = y
-                            }
-                            const newWidth = (x - acc.x) + width;
-                            const newHeight = (y - acc.y) + height;
-                            if (newHeight > acc.height) {
-                                acc.height = newHeight;
-                            }
-                            if (newWidth > acc.width) {
-                                acc.width = newWidth;
-                            }
-                            return acc;
-                        }, {x: 0, y: 0, width: 1, height: 1});
+                        .reduce(
+                            this.getSmallestCombination,
+                            {x: 0, y: 0, width: 1, height: 1}
+                        );
                 });
         },
     },

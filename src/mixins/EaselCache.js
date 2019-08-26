@@ -76,7 +76,8 @@ export default {
         },
         /**
          * Get the cache bounds as they would be seen from the parent's
-         * perspective.
+         * perspective, and large enough to contain the element rotated to any
+         * degree.
          * @return {object}
          */
         getRelativeCacheBounds() {
@@ -90,7 +91,54 @@ export default {
                         width: bounds.width,
                         height: bounds.height,
                     };
-                });
+                })
+                .then(this.getSmallestSquare)
+                .then((arg) => {console.log(arg); return arg});
+        },
+        /**
+         * Return the bounds of the smallest square that can contain the given
+         * bounds rotated to any degree.
+         * @param  {Object} bounds
+         * @return {Object}
+         */
+        getSmallestSquare({x, y, width, height}) {
+            const longest = Math.max(
+                Math.abs(x),
+                Math.abs(y),
+                x + width,
+                y + height
+            );
+            return {
+                x: -longest,
+                y: -longest,
+                width: longest * 2,
+                height: longest * 2,
+            };
+
+        },
+        /**
+         * Return the smallest bounds that can contain both bounds
+         * @param  {Object} a
+         * @param  {Object} b
+         * @return {Object}
+         */
+        getSmallestCombination(a, b) {
+            const x = Math.min(a.x, b.x);
+            const y = Math.min(a.y, b.y);
+            const width = Math.max(
+                (b.x - x) + b.width,
+                (a.x - x) + a.width
+            );
+            const height = Math.max(
+                (b.y - y) + b.height,
+                (a.y - y) + a.height
+            );
+            return {
+                x,
+                y,
+                width,
+                height,
+            };
         },
     },
 };
