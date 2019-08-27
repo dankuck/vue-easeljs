@@ -45,17 +45,18 @@ Show a static image.
 
 Attributes:
 
-| Attribute  | Values                                                 | Description                                                                        | Required/Default               |
-| --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: 'top-left'.           |
-| alpha      | 0 to 1                                                 | controls the opacity of the image.                                                 | Default: 1, completely opaque. |
-| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   | Default: ''                    |
-| image      | string                                                 | relative or absolute URL to an image file.                                         | Required.                      |
-| rotation   | degrees                                                | rotates the image.                                                                 | Default: 0.                    |
-| scale      | number                                                 | resizes the image.                                                                 | Default: 1.                    |
-| shadow     | [shadow](#shadow-attribute)                            | cast an image-shaped shadow.                                                       | Default: null.                 |
-| x          | number                                                 | horizontal position based on the origin of the parent component.                   | Default: 0.                    |
-| y          | number                                                 | vertical position based on the origin of the parent component.                     | Default: 0.                    |
+| Attribute  | Values                                                 | Description                                                                                                                    | Required/Default               |
+| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
+| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                                                                         | Default: 'top-left'.           |
+| alpha      | 0 to 1                                                 | controls the opacity of the image.                                                                                             | Default: 1, completely opaque. |
+| cache      | boolean                                                | instead of drawing from source constantly, use a (cached version)[#cache-attribute] of the source                              | Default: false                 |
+| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                                                               | Default: ''                    |
+| image      | string                                                 | relative or absolute URL to an image file.                                                                                     | Required.                      |
+| rotation   | degrees                                                | rotates the image.                                                                                                             | Default: 0.                    |
+| scale      | number                                                 | resizes the image.                                                                                                             | Default: 1.                    |
+| shadow     | [shadow](#shadow-attribute)                            | cast an image-shaped shadow.                                                                                                   | Default: null.                 |
+| x          | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0.                    |
+| y          | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0.                    |
 
 Example:
 
@@ -139,15 +140,16 @@ Group other vue-easel components together and manipulate them as one. The contai
 
 Attributes:
 
-| Attribute  | Values                                                 | Description                                                                        | Required/Default               |
-| --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| alpha      | 0 to 1                                                 | controls the opacity of the container's contents.                                  | Default: 1, completely opaque. |
-| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the container.                                                               | Default: ''                    |
-| rotation   | degrees                                                | rotates the container.                                                             | Default: 0.                    |
-| scale      | number                                                 | resizes the container.                                                             | Default: 1.                    |
-| shadow     | [shadow](#shadow-attribute)                            | cast a shadow of all contained components.                                         | Default: null.                 |
-| x          | number                                                 | horizontal position based on the origin of the parent component.                   | Default: 0.                    |
-| y          | number                                                 | vertical position based on the origin of the parent component.                     | Default: 0.                    |
+| Attribute  | Values                                                 | Description                                                                                                                    | Required/Default               |
+| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
+| alpha      | 0 to 1                                                 | controls the opacity of the container's contents.                                                                              | Default: 1, completely opaque. |
+| cache      | boolean                                                | instead of drawing contained element from source constantly, use a (cached version)[#cache-attribute] of all elements together | Default: false                 |
+| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the container.                                                                                                           | Default: ''                    |
+| rotation   | degrees                                                | rotates the container.                                                                                                         | Default: 0.                    |
+| scale      | number                                                 | resizes the container.                                                                                                         | Default: 1.                    |
+| shadow     | [shadow](#shadow-attribute)                            | cast a shadow of all contained components.                                                                                     | Default: null.                 |
+| x          | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0.                    |
+| y          | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0.                    |
 
 Example:
 
@@ -181,20 +183,21 @@ Show a shape.
 
 Attributes:
 
-| Attribute  | Values                                                 | Description                                                                        | Required/Default               |
-| --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the shape the x and y refer to.                             | Default: 'top-left'.
-| alpha      | 0 to 1                                                 | controls the opacity of the shape.                                                 | Default: 1, completely opaque.
-| dimensions | Depends on the form.                                   | See below.                                                                         | Required.
-| fill       | HTML color                                             | the inside of the shape                                                            | Optional.
-| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the shape.                                                                   | Default: ''.
-| form       | 'circle' &#124; 'ellipse' &#124; 'rect' &#124; 'star'  |                                                                                    | Required.
-| rotation   | degrees                                                | rotates the shape.                                                                 | Default: 0.
-| scale      | number                                                 | resizes the shape.                                                                 | Default: 1.
-| shadow     | [shadow](#shadow-attribute)                            | cast a same-shape shadow.                                                          | Default: null.
-| stroke     | HTML color                                             | the outline of the shape.                                                          | Optional.
-| x          | number                                                 | horizontal position based on the origin of the parent component.                   | Default: 0.
-| y          | number                                                 | vertical position based on the origin of the parent component.                     | Default: 0.
+| Attribute  | Values                                                 | Description                                                                                                                    | Required/Default               |
+| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
+| align      | [alignment](#align-attribute)                          | controls what point of the shape the x and y refer to.                                                                         | Default: 'top-left'.           |
+| alpha      | 0 to 1                                                 | controls the opacity of the shape.                                                                                             | Default: 1, completely opaque. |
+| cache      | boolean                                                | instead of drawing the shape constantly, use a (cached version)[#cache-attribute] of the shape                                 | Default: false                 |
+| dimensions | Depends on the form.                                   | See below.                                                                                                                     | Required.                      |
+| fill       | HTML color                                             | the inside of the shape                                                                                                        | Optional.                      |
+| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the shape.                                                                                                               | Default: ''.                   |
+| form       | 'circle' &#124; 'ellipse' &#124; 'rect' &#124; 'star'  |                                                                                                                                | Required.                      |
+| rotation   | degrees                                                | rotates the shape.                                                                                                             | Default: 0.                    |
+| scale      | number                                                 | resizes the shape.                                                                                                             | Default: 1.                    |
+| shadow     | [shadow](#shadow-attribute)                            | cast a same-shape shadow.                                                                                                      | Default: null.                 |
+| stroke     | HTML color                                             | the outline of the shape.                                                                                                      | Optional.                      |
+| x          | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0.                    |
+| y          | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0.                    |
 
 Dimensions for:
 
@@ -227,17 +230,18 @@ Show a moving image. An `easel-sprite` must reside in an `easel-sprite-sheet` no
 
 Attributes:
 
-| Attribute  | Values                                                 | Description                                                                        | Required/Default               |
-| --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                             | Default: 'top-left'.           |
-| alpha      | 0 to 1                                                 | controls the opacity of the image.                                                 | Default: 1, completely opaque. |
-| animation  | string                                                 | name of the animation to run from the `easel-sprite-sheet`.                        | Required.                      |
-| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                   | Default: ''.                   |
-| rotation   | degrees                                                | rotates the image.                                                                 | Default: 0.                    |
-| scale      | number                                                 | resizes the image.                                                                 | Default: 1.                    |
-| shadow     | [shadow](#shadow-attribute)                            | cast an image-shaped shadow.                                                       | Default: null.                 |
-| x          | number                                                 | horizontal position based on the origin of the parent component.                   | Default: 0.                    |
-| y          | number                                                 | vertical position based on the origin of the parent component.                     | Default: 0.                    |
+| Attribute  | Values                                                 | Description                                                                                                                    | Required/Default               |
+| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
+| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                                                                         | Default: 'top-left'.           |
+| alpha      | 0 to 1                                                 | controls the opacity of the image.                                                                                             | Default: 1, completely opaque. |
+| animation  | string                                                 | name of the animation to run from the `easel-sprite-sheet`.                                                                    | Required.                      |
+| cache      | boolean                                                | instead of drawing from source constantly, use a (cached version)[#cache-attribute] of the source                              | Default: false                 |
+| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                                                               | Default: ''.                   |
+| rotation   | degrees                                                | rotates the image.                                                                                                             | Default: 0.                    |
+| scale      | number                                                 | resizes the image.                                                                                                             | Default: 1.                    |
+| shadow     | [shadow](#shadow-attribute)                            | cast an image-shaped shadow.                                                                                                   | Default: null.                 |
+| x          | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0.                    |
+| y          | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0.                    |
 
 Example:
 
@@ -369,19 +373,20 @@ Show some text.
 
 Attributes:
 
-| Attribute  | Values                                                 | Description                                                                        | Required/Default               |
-| --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the text the x and y refer to.                              | Default: 'top-left'.           |
-| alpha      | 0 to 1                                                 | controls the opacity of the text.                                                  | Default: 1, completely opaque. |
-| HTML color | HTML color                                             | the color to use for the text.                                                     | Default: 'black'               |
-| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the text.                                                                    | Default: ''                    |
-| font       | [font](#font-attribute)                                | size and family of the font. Format: "Npx family".                                 | Default: ?                     |
-| rotation   | degrees                                                | rotates the text.                                                                  | Default: 0.                    |
-| scale      | number                                                 | resizes the text.                                                                  | Default: 1.                    |
-| shadow     | [shadow](#shadow-attribute)                            | cast a text-shaped shadow.                                                         | Default: null.                 |
-| text       | string                                                 | the text to display.                                                               | Required.                      |
-| x          | number                                                 | horizontal position based on the origin of the parent component.                   | Default: 0.                    |
-| y          | number                                                 | vertical position based on the origin of the parent component.                     | Default: 0.                    |
+| Attribute  | Values                                                 | Description                                                                                                                    | Required/Default               |
+| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
+| align      | [alignment](#align-attribute)                          | controls what point of the text the x and y refer to.                                                                          | Default: 'top-left'.           |
+| alpha      | 0 to 1                                                 | controls the opacity of the text.                                                                                              | Default: 1, completely opaque. |
+| cache      | boolean                                                | instead of drawing constantly, use a (cached version)[#cache-attribute] of the text                                            | Default: false                 |
+| color      | HTML color                                             | the color to use for the text.                                                                                                 | Default: 'black'               |
+| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the text.                                                                                                                | Default: ''                    |
+| font       | [font](#font-attribute)                                | size and family of the font. Format: "Npx family".                                                                             | Default: ?                     |
+| rotation   | degrees                                                | rotates the text.                                                                                                              | Default: 0.                    |
+| scale      | number                                                 | resizes the text.                                                                                                              | Default: 1.                    |
+| shadow     | [shadow](#shadow-attribute)                            | cast a text-shaped shadow.                                                                                                     | Default: null.                 |
+| text       | string                                                 | the text to display.                                                                                                           | Required.                      |
+| x          | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0.                    |
+| y          | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0.                    |
 
 Example:
 
@@ -442,6 +447,32 @@ Note: For backwards compatibility, the horizontal and vertical parts of the
 string or array can be reversed. Future major versions will obsolete this
 option.
 
+# Cache attribute
+
+The cache attribute is a boolean.
+
+When caching is active, a rasterized version of the element is created in
+memory and used instead of the source material that the element uses. The
+element essentially becomes an EaselBitmap.
+
+Many of an element's props will cause a cache refresh when they are changed.
+
+The props `alpha`, `flip`, `rotation`, `shadow`, `x`, and `y` are applied to
+an element after caching and will not cause a cache refresh. However, if an
+element is part of a cached EaselContainer, changing those props on the child
+element will refresh the container's cache.
+
+An animated sprite will refresh the rasterized image on each frame change.
+
+And so a cached element should behave no differently from a non-cached element
+in most respects.
+
+The difference is that caching has an impact on performance. In many cases it
+increases an element's speed, but if the cache needs to refresh often it can
+decrease speed.
+
+Caching exists for those performance purposes and also because it will be
+necessary when filters are implemented in a future version of this library.
 
 # Font attribute
 

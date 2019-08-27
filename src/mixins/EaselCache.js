@@ -19,6 +19,10 @@
  |
  */
 
+import Vue from 'vue';
+
+Vue.config.optionMergeStrategies.updatesEaselCache = (a, b) => (a || []).concat(b || []);
+
 export default {
     props: ['cache'],
     /**
@@ -26,7 +30,7 @@ export default {
      * or properties that should trigger cache refreshes when they change.
      * @type {Array}
      */
-    updatesEaselCache: [],
+    updatesEaselCache: ['scale'],
     data() {
         return {
             cacheStarted: false,

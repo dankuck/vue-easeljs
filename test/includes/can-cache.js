@@ -42,7 +42,7 @@ const parentPropChangers = [
         name: 'scale',
         value: 1,
         changeTo: 2,
-        shouldUpdateSameObject: false,
+        shouldUpdateSameObject: true,
     },
     {
         name: 'alpha',
@@ -171,7 +171,7 @@ export default function (implementor, provide = {}, propChangers = []) {
         // Search catchers:
         // ... should YES update cache when ...
         // ... should NOT update cache when ...
-        propChangers
+        allPropChangers
             .forEach(({name, changeTo, shouldUpdateSameObject}) => {
                 it(`should ${shouldUpdateSameObject ? 'YES' : 'NOT'} update cache when ${name} changes`, function (done) {
                     const {vm, fake} = buildVm();
