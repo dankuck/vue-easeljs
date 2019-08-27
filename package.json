@@ -1,6 +1,6 @@
 {
   "name": "vue-easeljs",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "description": "A Vue.js plugin to control an HTML5 canvas using EaselJS",
   "main": "dist/index.js",
   "scripts": {
