@@ -179,38 +179,38 @@ export default {
             }
         },
         startMoving() {
-            var gary = this.gary;
+            const gary = this.gary;
             if (!gary.target) {
                 gary.target = this.points[0];
             }
-            var garyGo = () => {
-                var diffX = gary.target[0] - gary.x;
-                var diffY = gary.target[1] - gary.y;
-                var distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+            const garyGo = () => {
+                const diffX = gary.target[0] - gary.x;
+                const diffY = gary.target[1] - gary.y;
+                const distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
                 if (distance < this.speed) {
                     this.chooseNextTarget();
                     return;
                 }
-                var moveX, moveY;
+                let moveX, moveY;
                 if (diffX === 0) {
                     moveX = 0;
                     moveY = diffY > 0 ? this.speed : -this.speed;
                 } else {
-                    var percent = this.speed / distance;
+                    const percent = this.speed / distance;
                     moveX = diffX * percent;
                     moveY = diffY * percent;
                 }
                 gary.x += moveX;
                 gary.y += moveY;
                 if (Math.abs(moveX) < Math.abs(moveY) * 2) {
-                    var animation = moveY > 0 ? 'runDown' : 'runUp';
+                    const animation = moveY > 0 ? 'runDown' : 'runUp';
                     if (gary.animation != animation) {
                         gary.animation = animation;
                         gary.flip = '';
                     }
                 } else {
-                    var animation = 'runRight';
-                    var flip = moveX > 0 ? '' : 'horizontal';
+                    const animation = 'runRight';
+                    const flip = moveX > 0 ? '' : 'horizontal';
                     if (gary.animation != animation || gary.flip != flip) {
                         gary.animation = animation;
                         gary.flip = flip;
@@ -221,13 +221,13 @@ export default {
             garyGo();
         },
         stopMoving() {
-            var gary = this.gary;
+            const gary = this.gary;
             gary.animation = 'stand';
             clearInterval(gary.moving);
             gary.moving = null;
         },
         chooseNextTarget() {
-            var i = this.points.indexOf(this.gary.target);
+            let i = this.points.indexOf(this.gary.target);
             i = (i + 1) % this.points.length;
             this.gary.target = this.points[i];
         },
