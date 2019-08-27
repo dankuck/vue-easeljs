@@ -59,10 +59,12 @@ export default {
     mounted() {
         this.$watch('component', (now, old) => {
             if (old) {
-                this.displayObjectBreakdown();
+                console.log('out with the old');
+                this.displayObjectBreakdown(old);
             }
             if (now) {
-                this.displayObjectInit();
+                console.log('in with the now');
+                this.$nextTick(() => this.displayObjectInit());
             }
         });
     },
@@ -80,8 +82,8 @@ export default {
             this.updateShadow();
             this.easel.addChild(this);
         },
-        displayObjectBreakdown() {
-            this.easel.removeChild(this);
+        displayObjectBreakdown(easelComponent) {
+            this.easel.removeChild(this, easelComponent);
         },
         updateScales() {
             if (this.component) {
