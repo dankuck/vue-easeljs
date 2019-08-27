@@ -27,8 +27,8 @@
             style="background-color: grey"
             :width="width"
             :height="height"
-            :viewport-width="maxWidth"
-            :viewport-height="maxHeight"
+            viewport-width="400"
+            viewport-height="300"
             :anti-alias="false"
             @click="toggleRun"
         >
@@ -102,14 +102,14 @@
 </template>
 
 <script>
+import keepTrying from './keep-trying.js';
+
 export default {
     data() {
         return {
             width: 400,
             height: 300,
             ratio: 300 / 400,
-            maxWidth: 400,
-            maxHeight: 300,
             garyStart: 32 * 6 + 16,
             gary: {
                 animation: 'stand',
@@ -131,11 +131,15 @@ export default {
         };
     },
     mounted() {
-        this.resizeHandler = () => {
-            const {offsetWidth} = this.$refs.canvas.$el.parentNode;
-            this.width = offsetWidth;
-            this.height = this.width * this.ratio;
-        };
+        this.resizeHandler = keepTrying((tryAgain) => {
+            let {offsetWidth} = this.$refs.canvas.$el.parentNode;
+            if (offsetWidth == 0) {
+                tryAgain();
+            } else {
+                this.width = offsetWidth;
+                this.height = this.width * this.ratio;
+            }
+        });
         window.addEventListener('resize', this.resizeHandler);
         this.resizeHandler();
     },
@@ -152,10 +156,11 @@ export default {
         },
         resultScale: {
             get() {
-                if (isNaN(parseFloat(this.gary.scale))) {
+                if (isNaN(this.gary.scale)) {
                     return this.baseScale;
+                } else {
+                    return this.baseScale * this.gary.scale;
                 }
-                return this.baseScale * this.gary.scale;
             },
             set(value) {
                 this.gary.scale = value / this.baseScale;
@@ -189,15 +194,11 @@ export default {
                 var moveX, moveY;
                 if (diffX === 0) {
                     moveX = 0;
-                    moveY = diffY > 0 ? 1 : -1;
+                    moveY = diffY > 0 ? this.speed : -this.speed;
                 } else {
-                    var direction = Math.atan(diffY / diffX);
-                    moveY = Math.sin(direction) * this.speed;
-                    moveX = Math.cos(direction) * this.speed;
-                    if (diffX < 0) { // atan is for X>0, so we must reflect
-                        moveX *= -1;
-                        moveY *= -1;
-                    }
+                    var percent = this.speed / distance;
+                    moveX = diffX * percent;
+                    moveY = diffY * percent;
                 }
                 gary.x += moveX;
                 gary.y += moveY;
