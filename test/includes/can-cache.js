@@ -76,6 +76,9 @@ export default function (implementor, provide = {}, propChangers = []) {
                 removeChild() {
                 },
                 cacheNeedsUpdate: false,
+                createCanvas(cb) {
+                    return cb();
+                },
             };
 
             const props = allPropChangers

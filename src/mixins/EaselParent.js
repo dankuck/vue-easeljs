@@ -27,7 +27,7 @@ export default {
     },
     updated() {
         // runs when the DOM changes
-        Vue.nextTick(() => this.syncEaselChildren());
+        this.$nextTick(() => this.syncEaselChildren());
     },
     watch: {
         children() {
@@ -55,7 +55,6 @@ export default {
         removeChild(vueChild, easelComponent = null) {
             const index = this.indexOfChild(vueChild);
             if (index < 0) {
-                console.log('child not found');
                 return false;
             }
             this.children.splice(index, 1);
