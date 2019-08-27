@@ -14,9 +14,8 @@ export default {
     },
     watch: {
         image() {
-            if (this.component) {
-                this.component = new easeljs.Bitmap(this.image);
-            }
+            console.log('image changed');
+            this.component = new easeljs.Bitmap(this.image);
         },
     },
     mounted() {

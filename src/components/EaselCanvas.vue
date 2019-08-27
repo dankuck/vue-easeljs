@@ -86,18 +86,36 @@ export default {
             this.$nextTick(() => this.updateAntiAlias());
         },
         createCanvas(cb) {
+            // Save any existing createCanvas
             const beforeCreateCanvas = easeljs.createCanvas;
-            easeljs.createCanvas = () => {
+            // Create a new createCanvas that will apply our changes
+            easeljs.createCanvas = this.createCreateCanvasMethod();
+            // Call code that will need createCanvas
+            cb();
+            // Replace old createCanvas
+            easeljs.createCanvas = beforeCreateCanvas;
+        },
+        createCreateCanvasMethod() {
+            return () => {
+                // Create canvas
                 const canvas = document.createElement('canvas');
-                const context = canvas.getContext('2d');
-                context.imageSmoothingEnabled       = this.antiAlias;
-                context.mozImageSmoothingEnabled    = this.antiAlias;
-                context.webkitImageSmoothingEnabled = this.antiAlias;
-                context.msImageSmoothingEnabled     = this.antiAlias;
+                // Save the original getContext
+                const getContext = canvas.getContext.bind(canvas);
+                // Replace the original getContext
+                canvas.getContext = (type) => {
+                    // Get the context using the original
+                    const context = getContext(type);
+                    // Set the anti-aliasing
+                    context.imageSmoothingEnabled       = this.antiAlias;
+                    context.mozImageSmoothingEnabled    = this.antiAlias;
+                    context.webkitImageSmoothingEnabled = this.antiAlias;
+                    context.msImageSmoothingEnabled     = this.antiAlias;
+                    // Return the context, as usual
+                    return context;
+                }
+                // Return the new, auto-alias-fixing canvas
                 return canvas;
             };
-            cb();
-            easeljs.createCanvas = beforeCreateCanvas;
         },
     },
 };
