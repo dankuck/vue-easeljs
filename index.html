@@ -8,6 +8,19 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        .code {
+            font-family: monospace;
+            color: maroon;
+            background-color: #F0F0EF;
+            padding-left: .25em;
+            padding-right: .25em;
+            border-radius: 3px;
+        }
+    </style>
 </head>
 <body>
 
@@ -20,21 +33,110 @@
 
         <div id="app">
 
-            <div class="row">
+            <div class="row" style="padding-bottom: 1em">
                 <div class="col-xs-12">
                     <ul class="nav nav-tabs">
-                        <li :class="{active: tab == 'gary'}" @click="tab='gary'"><a href="javascript:void(0);">Gary</a></li>
-                        <li :class="{active: tab == 'readme'}" @click="tab='readme'"><a href="javascript:void(0);">Github Examples</a></li>
+                        <li :class="{active: tab === 'gary'}" @click="tab = 'gary'"><a href="javascript:void(0);">Meet Gary</a></li>
+                        <li :class="{active: tab === 'readme'}" @click="tab = 'readme'"><a href="javascript:void(0);">Github Examples</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-xs-12">
-                    <div v-if="tab=='gary'">
-                        <gary></gary>
+                    <div v-show="tab === 'gary'">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <gary></gary>
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <h2>
+                                        Meet Gary.
+                                    </h2>
+                                    <p>
+                                        Gary is an example of vue-easeljs in
+                                        action.
+                                    </p>
+                                    <p>
+                                        The background is an
+                                        <span class="code">&lt;easel-bitmap></span>
+                                        element.
+                                    </p>
+                                    <p>
+                                        The Gary image is an
+                                        <span class="code">&lt;easel-sprite></span>
+                                        element.
+                                    </p>
+                                    <p>
+                                        When the canvas is clicked, a Vue
+                                        event causes Gary to start running!
+                                    </p>
+                                    <p>
+                                        As Gary runs up and down the canvas,
+                                        custom code causes their scale to
+                                        increase and decrease.
+                                    </p>
+                                    <p>
+                                        Gary's speed changes with his scale.
+                                    </p>
+                                    <p>
+                                        If you change the Scale, this changes
+                                        Gary's base scale and adjustments are
+                                        made as they run back and forth.
+                                    </p>
+                                    <p>
+                                        Gary has a shadow, which is a black
+                                        <span class="code">&lt;easel-shape></span>
+                                        ellipse with an alpha of .3 to make it
+                                        mostly transparent.
+                                    <p>
+                                        When Show Points is checked, four
+                                        <span class="code">&lt;easel-shape></span>
+                                        elements appear. These are the points
+                                        Gary runs to.
+                                    </p>
+                                    <p>
+                                        When Show Labels is checked, Gary's
+                                        name is displayed above their head with
+                                        an
+                                        <span class="code">&lt;easel-text></span>.
+                                        The text is yellow with a shadow to
+                                        make it stand out.
+                                    </p>
+                                    <p>
+                                        Gary is inside of an
+                                        <span class="code">&lt;easel-container></span>
+                                        element, along with his name and his
+                                        shadow.
+                                    </p>
+                                    <p>
+                                        Gary's sprite has 7 frames. When they
+                                        are standing still, Gary uses one
+                                        frame. When they are running upstage,
+                                        there are two other frames. When they
+                                        are running downstage, there are two
+                                        more.
+                                    </p>
+                                    <p>
+                                        When Gary is running right-to-left,
+                                        there are two more frames. And when
+                                        Gary needs to run left-to-right, Gary
+                                        reuses the same sideways frames and
+                                        sets
+                                        <span class="code">:flip="true"</span>.
+                                    </p>
+                                    <p>
+                                        <a href="https://github.com/dankuck/vue-easeljs/blob/gh-pages/src/Gary.vue">
+                                            See Gary's code here!
+                                        </a>
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div v-if="tab=='readme'">
+                    <div v-show="tab === 'readme'">
                         <p>
                             These are the examples used in the <a href="https://github.com/dankuck/vue-easeljs">vue-easeljs README.md</a> on Github.
                         </p>

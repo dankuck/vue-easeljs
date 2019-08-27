@@ -1,30 +1,36 @@
 <template>
     <div>
-        <div class="input-group col-xs-12 col-md-6 col-lg-3">
-            <span class="input-group-addon">
-                <input type="checkbox" v-model="showLabels">
-            </span>
-            <span class="form-control">Show Labels</span>
-        </div>
-        <div class="input-group col-xs-12 col-md-6 col-lg-3">
-            <span class="input-group-addon">
-                <input type="checkbox" v-model="showPoints">
-            </span>
-            <span class="form-control">Show Points</span>
-        </div>
-        <div class="input-group col-xs-12 col-md-6 col-lg-3">
-            <span class="input-group-addon">Scale</span>
-            <input class="form-control" v-model="gary.scale">
+        <div class="row">
+            <div class="input-group col-xs-12">
+                <span class="input-group-addon">
+                    <input type="checkbox" v-model="showLabels">
+                </span>
+                <span class="form-control">Show Labels</span>
+            </div>
+            <div class="input-group col-xs-12">
+                <span class="input-group-addon">
+                    <input type="checkbox" v-model="showPoints">
+                </span>
+                <span class="form-control">Show Points</span>
+            </div>
+            <div class="input-group col-xs-12">
+                <span class="input-group-addon">Scale</span>
+                <input v-model.number="resultScale" type="range" aria-label="Gary's Scale" class="form-control" min="0.01" max="20.00" step="0.1">
+            </div>
+            <button v-if="runningLocally" @click="toggleRun">Toggle Run</button>
         </div>
 
         <br />
 
         <easel-canvas
+            ref="canvas"
             style="background-color: grey"
-            width="400"
-            height="300"
+            :width="width"
+            :height="height"
+            :viewport-width="maxWidth"
+            :viewport-height="maxHeight"
             :anti-alias="false"
-            @click="clickedCanvas"
+            @click="toggleRun"
         >
             <easel-bitmap
                 image="images/gulfstream_park.jpg"
@@ -59,40 +65,38 @@
                 }"
                 :framerate="30"
             >
-                <easel-shape
+                <easel-container
                     :x="gary.x"
                     :y="gary.y"
-                    fill="black"
-                    form="ellipse"
-                    :dimensions="[16, 4]"
-                    :alpha=".3"
                     :scale="resultScale"
-                    :align="['center','center']"
                 >
-                </easel-shape>
-                <easel-sprite
-                    :x="gary.x"
-                    :y="gary.y"
-                    :animation="gary.animation"
-                    :flip="gary.flip"
-                    :scale="resultScale"
-                    :align="['center','bottom']"
-                >
-                </easel-sprite>
+                    <easel-shape
+                        fill="black"
+                        form="ellipse"
+                        :dimensions="[16, 4]"
+                        alpha=".3"
+                        align="center-center"
+                    >
+                    </easel-shape>
+                    <easel-sprite
+                        :animation="gary.animation"
+                        :flip="gary.flip"
+                        align="bottom-center"
+                    >
+                    </easel-sprite>
+                    <easel-text
+                        v-if="showLabels"
+                        text="Gary"
+                        color="yellow"
+                        font="20px Helvetica"
+                        :y="-40"
+                        :shadow="['black', 2, 2, 5]"
+                        align="alphabetic-center"
+                    >
+                    </easel-text>
+                </easel-container>
             </easel-sprite-sheet>
 
-            <easel-text
-                v-if="showLabels"
-                text="Gary"
-                color="yellow"
-                font="20px Helvetica"
-                :x="gary.x"
-                :y="gary.y - 40 * resultScale"
-                :scale="resultScale"
-                :shadow="['black', 1, 1, 1]"
-                :align="['center', 'alphabetic']"
-            >
-            </easel-text>
         </easel-canvas>
     </div>
 </template>
@@ -101,6 +105,11 @@
 export default {
     data() {
         return {
+            width: 400,
+            height: 300,
+            ratio: 300 / 400,
+            maxWidth: 400,
+            maxHeight: 300,
             garyStart: 32 * 6 + 16,
             gary: {
                 animation: 'stand',
@@ -121,23 +130,43 @@ export default {
             showPoints: false,
         };
     },
+    mounted() {
+        this.resizeHandler = () => {
+            const {offsetWidth} = this.$refs.canvas.$el.parentNode;
+            this.width = offsetWidth;
+            this.height = this.width * this.ratio;
+        };
+        window.addEventListener('resize', this.resizeHandler);
+        this.resizeHandler();
+    },
+    destroyed() {
+        window.removeEventListener('resize', this.resizeHandler);
+    },
     computed: {
         baseScale() {
             // some magic numbers
-            return (this.gary.y - 207.10) / 67.9;
+            return Math.abs(this.gary.y - 207.10) / 67.9;
         },
         speed() {
             return 5 * this.resultScale;
         },
-        resultScale() {
-            if (isNaN(parseFloat(this.gary.scale))) {
-                return this.baseScale;
-            }
-            return this.baseScale * this.gary.scale;
+        resultScale: {
+            get() {
+                if (isNaN(parseFloat(this.gary.scale))) {
+                    return this.baseScale;
+                }
+                return this.baseScale * this.gary.scale;
+            },
+            set(value) {
+                this.gary.scale = value / this.baseScale;
+            },
+        },
+        runningLocally() {
+            return /^file:\/\//.test(location.href);
         },
     },
     methods: {
-        clickedCanvas: function() {
+        toggleRun() {
             if (!this.gary.moving) {
                 this.startMoving();
             } else {

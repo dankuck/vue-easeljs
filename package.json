@@ -35,7 +35,9 @@
     "lodash": "^4.16.2",
     "mocha": "^3.2.0",
     "phantomjs-prebuilt": "^2.1.14",
-    "vue": "^2.1.*",
-    "vue-easeljs": "^0.1.6"
+    "vue": "^2.1.*"
+  },
+  "dependencies": {
+    "vue-easeljs": "^0.1.8"
   }
 }
