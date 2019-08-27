@@ -69,7 +69,7 @@ Example:
 </easel-bitmap>
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.1"><img src="https://www.dankuck.com/vue-easeljs/images/example2.png" </a>/>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.1"><img src="https://www.dankuck.com/vue-easeljs/images/example2.png"/></a>
 
 <a href="https://www.dankuck.com/vue-easeljs/#readme.1">See Live Demo</a>
 
@@ -129,7 +129,7 @@ Example:
 
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.2"><img src="https://www.dankuck.com/vue-easeljs/images/example3.png" </a>/>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.2"><img src="https://www.dankuck.com/vue-easeljs/images/example3.png" /></a>
 
 <a href="https://www.dankuck.com/vue-easeljs/#readme.2">See Live Demo</a>
 
@@ -171,7 +171,7 @@ Example:
 </easel-container>
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.3"><img src="https://www.dankuck.com/vue-easeljs/images/example4.png" </a>/>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.3"><img src="https://www.dankuck.com/vue-easeljs/images/example4.png" /></a>
 
 <a href="https://www.dankuck.com/vue-easeljs/#readme.3">See Live Demo</a>
 
@@ -217,7 +217,7 @@ Example:
 >
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.4"><img src="https://www.dankuck.com/vue-easeljs/images/example5.png" </a>/>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.4"><img src="https://www.dankuck.com/vue-easeljs/images/example5.png" /></a>
 
 <a href="https://www.dankuck.com/vue-easeljs/#readme.4">See Live Demo</a>
 
@@ -359,7 +359,7 @@ Example:
 </easel-sprite-sheet>
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.5"><img src="https://www.dankuck.com/vue-easeljs/images/example6.png" </a>/>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.5"><img src="https://www.dankuck.com/vue-easeljs/images/example6.png" /></a>
 
 <a href="https://www.dankuck.com/vue-easeljs/#readme.5">See Live Demo</a>
 
@@ -396,7 +396,7 @@ Example:
 </easel-text>
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.6"><img src="https://www.dankuck.com/vue-easeljs/images/example7.png" </a>/>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.6"><img src="https://www.dankuck.com/vue-easeljs/images/example7.png" /></a>
 
 <a href="https://www.dankuck.com/vue-easeljs/#readme.6">See Live Demo</a>
 

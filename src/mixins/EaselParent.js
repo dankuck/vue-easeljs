@@ -27,7 +27,7 @@ export default {
     },
     updated() {
         // runs when the DOM changes
-        Vue.nextTick(() => this.syncEaselChildren());
+        this.$nextTick(() => this.syncEaselChildren());
     },
     watch: {
         children() {
@@ -52,14 +52,14 @@ export default {
                 this.children.push(vueChild);
             }
         },
-        removeChild(vueChild) {
+        removeChild(vueChild, easelComponent = null) {
             const index = this.indexOfChild(vueChild);
             if (index < 0) {
                 return false;
             }
             this.children.splice(index, 1);
             if (this.component) {
-                this.component.removeChild(vueChild.component);
+                this.component.removeChild(easelComponent || vueChild.component);
             }
             return true;
         },

@@ -11,13 +11,15 @@ import EaselParent from '../mixins/EaselParent.js';
 
 export default {
     mixins: [EaselParent],
-    props: [
-        'antiAlias',
-        'height',
-        'width',
-        'viewportHeight',
-        'viewportWidth',
-    ],
+    props: {
+        antiAlias: {
+            default: true,
+        },
+        height: {},
+        width: {},
+        viewportHeight: {},
+        viewportWidth: {},
+    },
     data() {
         return {
             component: null,
@@ -32,12 +34,7 @@ export default {
         easeljs.Ticker.addEventListener('tick', (event) => this.component.update(event));
         this.resizeHandler = () => this.updateSize();
         window.addEventListener('resize', this.resizeHandler);
-        this.updateSize();
-        if (typeof this.antiAlias !== 'undefined') {
-            // For an unknown reason, it's necessary to do this after a tick
-            // or else it doesn't update
-            this.$nextTick(() => this.updateAntiAlias());
-        }
+        this.updateSize(); // updates anti-alias afterward
     },
     destroyed() {
         easeljs.Touch.disable(this.component);
@@ -73,10 +70,10 @@ export default {
     },
     methods: {
         updateAntiAlias() {
-            this.context.imageSmoothingEnabled = this.antiAlias;
-            this.context.mozImageSmoothingEnabled = this.antiAlias;
+            this.context.imageSmoothingEnabled       = this.antiAlias;
+            this.context.mozImageSmoothingEnabled    = this.antiAlias;
             this.context.webkitImageSmoothingEnabled = this.antiAlias;
-            this.context.msImageSmoothingEnabled = this.antiAlias;
+            this.context.msImageSmoothingEnabled     = this.antiAlias;
         },
         updateSize() {
             const canvas = this.$refs.easel;
@@ -87,6 +84,38 @@ export default {
             this.component.scaleX = this.viewportScale.scaleX * window.devicePixelRatio;
             this.component.scaleY = this.viewportScale.scaleY * window.devicePixelRatio;
             this.$nextTick(() => this.updateAntiAlias());
+        },
+        createCanvas(cb) {
+            // Save any existing createCanvas
+            const beforeCreateCanvas = easeljs.createCanvas;
+            // Create a new createCanvas that will apply our changes
+            easeljs.createCanvas = this.createCreateCanvasMethod();
+            // Call code that will need createCanvas
+            cb();
+            // Replace old createCanvas
+            easeljs.createCanvas = beforeCreateCanvas;
+        },
+        createCreateCanvasMethod() {
+            return () => {
+                // Create canvas
+                const canvas = document.createElement('canvas');
+                // Save the original getContext
+                const getContext = canvas.getContext.bind(canvas);
+                // Replace the original getContext
+                canvas.getContext = (type) => {
+                    // Get the context using the original
+                    const context = getContext(type);
+                    // Set the anti-aliasing
+                    context.imageSmoothingEnabled       = this.antiAlias;
+                    context.mozImageSmoothingEnabled    = this.antiAlias;
+                    context.webkitImageSmoothingEnabled = this.antiAlias;
+                    context.msImageSmoothingEnabled     = this.antiAlias;
+                    // Return the context, as usual
+                    return context;
+                }
+                // Return the new, auto-alias-fixing canvas
+                return canvas;
+            };
         },
     },
 };

@@ -77,14 +77,14 @@ export default {
         cacheInit() {
             if (this.cache) {
                 this.getCacheBounds()
-                    .then(
-                        ({x, y, width, height}) => {
+                    .then(({x, y, width, height}) => {
+                        this.easel.createCanvas(() => {
                             this.component.cache(x, y, width, height, window.devicePixelRatio * (this.scale || 1));
-                            this.cacheStarted = true;
-                            this.cacheNeedsUpdate = false;
-                        },
-                        (error) => console.error('Cannot cache:', error)
-                    );
+                        });
+                        this.cacheStarted = true;
+                        this.cacheNeedsUpdate = false;
+                    })
+                    .catch((error) => console.error('Cannot cache:', error));
             }
         },
         cacheDestroy() {

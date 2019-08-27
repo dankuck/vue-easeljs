@@ -59,7 +59,7 @@ export default {
     mounted() {
         this.$watch('component', (now, old) => {
             if (old) {
-                this.displayObjectBreakdown();
+                this.displayObjectBreakdown(old);
             }
             if (now) {
                 this.displayObjectInit();
@@ -80,8 +80,8 @@ export default {
             this.updateShadow();
             this.easel.addChild(this);
         },
-        displayObjectBreakdown() {
-            this.easel.removeChild(this);
+        displayObjectBreakdown(easelComponent = null) {
+            this.easel.removeChild(this, easelComponent);
         },
         updateScales() {
             if (this.component) {
