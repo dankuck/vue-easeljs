@@ -564,7 +564,7 @@ These will be implemented in future releases:
 * Hit areas
 * Filters
 
-There are no plans to implement these features, but pull requests are accepted:
+There are no plans to implement these features that EaselJS provides, but pull requests are accepted:
 
 * BitmapText
 * Buttons
