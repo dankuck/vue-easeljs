@@ -38,7 +38,7 @@ describe('EaselContainer', function () {
             `,
             provide() {
                 return {
-                    easel: easel,
+                    easelParent: easel,
                 };
             },
             data() {
@@ -68,7 +68,7 @@ describe('EaselContainer', function () {
 
     it('should have an easel', function () {
         const {vm, container, fake} = buildVm();
-        assert(container.easel);
+        assert(container.easelParent);
     });
 
     it('should have component field', function () {

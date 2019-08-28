@@ -58,7 +58,7 @@ describe('EaselSprite', function () {
             provide() {
                 return {
                     spriteSheet,
-                    easel,
+                    easelParent: easel,
                 };
             },
             data() {

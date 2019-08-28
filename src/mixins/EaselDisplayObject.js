@@ -12,7 +12,7 @@ import EaselEventBinder from '../libs/easel-event-binder.js';
 import easeljs from '../../easeljs/easel.js';
 
 export default {
-    inject: ['easel'],
+    inject: ['easelParent'],
     props: ['x', 'y', 'flip', 'rotation', 'scale', 'alpha', 'shadow'],
     data() {
         return {
@@ -78,10 +78,10 @@ export default {
             this.updateScales();
             this.updateAlpha();
             this.updateShadow();
-            this.easel.addChild(this);
+            this.easelParent.addChild(this);
         },
         displayObjectBreakdown(easelComponent = null) {
-            this.easel.removeChild(this, easelComponent);
+            this.easelParent.removeChild(this, easelComponent);
         },
         updateScales() {
             if (this.component) {

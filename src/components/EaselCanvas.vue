@@ -1,5 +1,5 @@
 <template>
-    <canvas ref="easel">
+    <canvas ref="canvas">
         <slot></slot>
     </canvas>
 </template>
@@ -27,7 +27,7 @@ export default {
         };
     },
     mounted() {
-        this.component = new easeljs.Stage(this.$refs.easel);
+        this.component = new easeljs.Stage(this.$refs.canvas);
         this.context = this.component.canvas.getContext('2d');
         easeljs.Touch.enable(this.component, false, true);
         EaselEventBinder.bindEvents(this, this.component);
@@ -76,7 +76,7 @@ export default {
             this.context.msImageSmoothingEnabled     = this.antiAlias;
         },
         updateSize() {
-            const canvas = this.$refs.easel;
+            const canvas = this.$refs.canvas;
             canvas.width = this.width * window.devicePixelRatio;
             canvas.height = this.height * window.devicePixelRatio;
             canvas.style.width = this.width + 'px';

@@ -43,7 +43,7 @@ describe('EaselBitmap', function () {
             `,
             provide() {
                 return {
-                    easel,
+                    easelParent: easel,
                 };
             },
             data() {

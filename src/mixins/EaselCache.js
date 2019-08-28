@@ -82,7 +82,7 @@ export default {
             if (this.cache) {
                 this.getCacheBounds()
                     .then(({x, y, width, height}) => {
-                        this.easel.createCanvas(() => {
+                        this.easelParent.createCanvas(() => {
                             this.component.cache(x, y, width, height, window.devicePixelRatio * (this.scale || 1));
                         });
                         this.cacheStarted = true;
@@ -97,8 +97,8 @@ export default {
             this.cacheNeedsUpdate = false;
         },
         setParentCacheNeedsUpdate() {
-            if (this.easel && 'cacheNeedsUpdate' in this.easel) {
-                this.easel.cacheNeedsUpdate = true;
+            if (this.easelParent && 'cacheNeedsUpdate' in this.easelParent) {
+                this.easelParent.cacheNeedsUpdate = true;
             }
         },
         /**

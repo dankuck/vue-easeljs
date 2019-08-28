@@ -155,7 +155,7 @@ describe('EaselCanvas', function () {
     it('should scale to device pixel ratio', function () {
         window.devicePixelRatio = 2;
         const {vm, canvas} = buildVm();
-        const htmlCanvas = canvas.$refs.easel;
+        const htmlCanvas = canvas.$refs.canvas;
         assert(htmlCanvas.width === 800, `${htmlCanvas.width} !== 800`);
         assert(htmlCanvas.height === 600, `${htmlCanvas.height} !== 600`);
         assert(htmlCanvas.style.width === '400px', `${htmlCanvas.style.width} !== 400px`);
@@ -166,7 +166,7 @@ describe('EaselCanvas', function () {
     it('should rescale on device pixel ratio change', function (done) {
         window.devicePixelRatio = 2;
         const {vm, canvas} = buildVm();
-        const htmlCanvas = canvas.$refs.easel;
+        const htmlCanvas = canvas.$refs.canvas;
         window.devicePixelRatio = 3;
         window.dispatchEvent(new Event('resize'));
         Vue.nextTick()
@@ -183,7 +183,7 @@ describe('EaselCanvas', function () {
     it('should rescale on width and height change', function (done) {
         window.devicePixelRatio = 2;
         const {vm, canvas} = buildVm();
-        const htmlCanvas = canvas.$refs.easel;
+        const htmlCanvas = canvas.$refs.canvas;
         vm.height = 301;
         Vue.nextTick()
             .then(() => {
