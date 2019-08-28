@@ -558,15 +558,14 @@ The [EaselJS documents](https://www.createjs.com/docs/easeljs/modules/EaselJS.ht
 These will be implemented in future releases:
 
 * Percentages
-* Caching shapes
 * Pre-load images
 * Masks
 * Mouse cursors
 * Hit areas
+* Filters
 
 There are no plans to implement these features, but pull requests are accepted:
 
-* Filters
 * BitmapText
 * Buttons
 * Complex Vector Paths
