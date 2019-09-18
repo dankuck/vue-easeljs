@@ -58,7 +58,7 @@ export default function (implementor, extra_attributes = '', provide = {}) {
                     </span>
                 `,
                 provide() {
-                    provide.easel = easel;
+                    provide.easelParent = easel;
                     return provide;
                 },
                 data() {
@@ -101,7 +101,7 @@ export default function (implementor, extra_attributes = '', provide = {}) {
 
         it('should have same easel', function () {
             const {fake, vm, easel} = buildVm();
-            assert(fake.easel === easel);
+            assert(fake.easelParent === easel);
         });
 
         it('should have component field', function () {

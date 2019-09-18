@@ -51,7 +51,7 @@ export default function isAnEaselParent(implementor) {
                 },
                 provide() {
                     return {
-                        easel: {
+                        easelParent: {
                             addChild() {
                             },
                             removeChild() {

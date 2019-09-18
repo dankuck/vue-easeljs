@@ -16,7 +16,7 @@ import findIndex from 'lodash.findindex';
 export default {
     provide() {
         return {
-            easel: this,
+            easelParent: this,
         };
     },
     data() {

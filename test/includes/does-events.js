@@ -29,7 +29,7 @@ export default function (implementor, extra_attributes = '', provide = {}) {
                     </span>
                 `,
                 provide() {
-                    provide.easel = easel;
+                    provide.easelParent = easel;
                     return provide;
                 },
                 data() {

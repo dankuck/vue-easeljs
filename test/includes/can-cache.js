@@ -97,7 +97,7 @@ export default function (implementor, provide = {}, propChangers = []) {
                     </span>
                 `,
                 provide() {
-                    provide.easel = easel;
+                    provide.easelParent = easel;
                     return provide;
                 },
                 data() {
