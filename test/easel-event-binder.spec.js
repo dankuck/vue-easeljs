@@ -73,4 +73,6 @@ describe('easel-event-binder.js', function () {
         );
         assert(Object.keys(got).length === 0, 'bound too many things');
     });
+
+    it.skip('should add viewportX and viewportY to an event');
 });

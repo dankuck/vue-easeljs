@@ -60,6 +60,7 @@ describe('EaselText', function () {
             provide() {
                 return {
                     easelParent: easel,
+                    easelCanvas: easel,
                 };
             },
             data() {

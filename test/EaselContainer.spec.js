@@ -39,6 +39,7 @@ describe('EaselContainer', function () {
             provide() {
                 return {
                     easelParent: easel,
+                    easelCanvas: easel,
                 };
             },
             data() {

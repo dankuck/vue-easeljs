@@ -12,7 +12,7 @@ import EaselEventBinder from '../libs/easel-event-binder.js';
 import easeljs from '../../easeljs/easel.js';
 
 export default {
-    inject: ['easelParent'],
+    inject: ['easelParent', 'easelCanvas'],
     props: ['x', 'y', 'flip', 'rotation', 'scale', 'alpha', 'shadow'],
     data() {
         return {

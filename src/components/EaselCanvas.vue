@@ -11,6 +11,11 @@ import EaselParent from '../mixins/EaselParent.js';
 
 export default {
     mixins: [EaselParent],
+    provide() {
+        return {
+            easelCanvas: this,
+        };
+    },
     props: {
         antiAlias: {
             default: true,
@@ -116,6 +121,12 @@ export default {
                 // Return the new, auto-alias-fixing canvas
                 return canvas;
             };
+        },
+        translateCoordinates(stageX, stageY) {
+            return [
+                stageX / this.component.scaleX,
+                stageY / this.component.scaleY
+            ];
         },
     },
 };

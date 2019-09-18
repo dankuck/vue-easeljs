@@ -59,6 +59,7 @@ export default function (implementor, extra_attributes = '', provide = {}) {
                 `,
                 provide() {
                     provide.easelParent = easel;
+                    provide.easelCanvas = easel;
                     return provide;
                 },
                 data() {

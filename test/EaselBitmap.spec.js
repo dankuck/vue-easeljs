@@ -44,6 +44,7 @@ describe('EaselBitmap', function () {
             provide() {
                 return {
                     easelParent: easel,
+                    easelCanvas: easel,
                 };
             },
             data() {

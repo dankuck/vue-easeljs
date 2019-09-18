@@ -59,6 +59,7 @@ describe('EaselSprite', function () {
                 return {
                     spriteSheet,
                     easelParent: easel,
+                    easelCanvas: easel,
                 };
             },
             data() {
