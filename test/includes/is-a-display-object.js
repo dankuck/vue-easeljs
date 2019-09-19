@@ -54,6 +54,7 @@ export default function (implementor, extra_attributes = '', provide = {}) {
                             :align="[hAlign, vAlign]"
                             :cursor="cursor"
                             :visible="visible"
+                            :name="name"
                             ${extra_attributes}
                         >
                         </implementor>
@@ -78,6 +79,7 @@ export default function (implementor, extra_attributes = '', provide = {}) {
                         vAlign: 'top',
                         cursor: null,
                         visible: null,
+                        name: null,
                     };
                 },
                 components: {
@@ -293,12 +295,13 @@ export default function (implementor, extra_attributes = '', provide = {}) {
             cursor: 'pointer',
             rotation: 15,
             visible: false,
+            name: 'Charles Wallace',
         };
 
         Object.keys(passthrough).forEach(function (field) {
             const value = passthrough[field];
 
-            it(`should have no ${field}`, function (done) {
+            it(`should have ${field} = null`, function (done) {
                 const {fake, vm, easel} = buildVm();
                 Vue.nextTick()
                     .then(() => {
@@ -307,7 +310,7 @@ export default function (implementor, extra_attributes = '', provide = {}) {
                     .then(done, done);
             });
 
-            it(`should have ${field}`, function (done) {
+            it(`should have ${field} = ${value}`, function (done) {
                 const {fake, vm, easel} = buildVm();
                 vm[field] = value;
                 Vue.nextTick()
@@ -318,7 +321,7 @@ export default function (implementor, extra_attributes = '', provide = {}) {
                     .then(done, done);
             });
 
-            it(`should have no ${field} again`, function (done) {
+            it(`should have ${field} = ${value}, then null again`, function (done) {
                 const {fake, vm, easel} = buildVm();
                 vm[field] = value;
                 Vue.nextTick()
