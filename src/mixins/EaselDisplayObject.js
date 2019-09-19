@@ -13,7 +13,7 @@ import easeljs from '../../easeljs/easel.js';
 
 export default {
     inject: ['easelParent'],
-    props: ['x', 'y', 'flip', 'rotation', 'scale', 'alpha', 'shadow'],
+    props: ['x', 'y', 'flip', 'rotation', 'scale', 'alpha', 'shadow', 'cursor'],
     data() {
         return {
             component: null,
@@ -55,6 +55,11 @@ export default {
                 this.updateShadow();
             }
         },
+        cursor() {
+            if (this.component) {
+                this.updateCursor();
+            }
+        },
     },
     mounted() {
         this.$watch('component', (now, old) => {
@@ -78,6 +83,7 @@ export default {
             this.updateScales();
             this.updateAlpha();
             this.updateShadow();
+            this.updateCursor();
             this.easelParent.addChild(this);
         },
         displayObjectBreakdown(easelComponent = null) {
@@ -99,6 +105,9 @@ export default {
             } else {
                 this.component.shadow = null;
             }
+        },
+        updateCursor() {
+            this.component.cursor = this.cursor;
         },
     },
 };
