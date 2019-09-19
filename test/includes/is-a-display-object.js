@@ -19,7 +19,7 @@ export default function (implementor, extra_attributes = '', provide = {}) {
         describe('does events and', doesEvents(implementor, extra_attributes, provide));
 
 
-        const buildVm = function () {
+        const buildVm = function (flag) {
             /**
              * A fake easel object. It allows adding and removing a child and has extra
              * methods to tell whether the object was added and removed.
@@ -39,22 +39,28 @@ export default function (implementor, extra_attributes = '', provide = {}) {
                 },
             };
 
+            const attributes = flag === 'barebones'
+                ? ''
+                : `
+                    :x="x"
+                    :y="y"
+                    :flip="flip"
+                    :rotation="rotation"
+                    :scale="scale"
+                    :alpha="alpha"
+                    :shadow="shadow"
+                    :align="[hAlign, vAlign]"
+                    :cursor="cursor"
+                    :visible="visible"
+                    :name="name"
+                `;
+
             const vm = new Vue({
                 template: `
                     <span>
                         <implementor ref="fake"
                             v-if="showFake"
-                            :x="x"
-                            :y="y"
-                            :flip="flip"
-                            :rotation="rotation"
-                            :scale="scale"
-                            :alpha="alpha"
-                            :shadow="shadow"
-                            :align="[hAlign, vAlign]"
-                            :cursor="cursor"
-                            :visible="visible"
-                            :name="name"
+                            ${attributes}
                             ${extra_attributes}
                         >
                         </implementor>
@@ -296,6 +302,7 @@ export default function (implementor, extra_attributes = '', provide = {}) {
             rotation: 15,
             visible: false,
             name: 'Charles Wallace',
+            alpha: .5,
         };
 
         Object.keys(passthrough).forEach(function (field) {
@@ -336,6 +343,20 @@ export default function (implementor, extra_attributes = '', provide = {}) {
                     })
                     .then(done, done);
             });
+        });
+
+        it(`should have default values`, function () {
+            const {fake, vm, easel} = buildVm('barebones');
+            assert(fake.x === 0, `Wrong x: ${fake.x}`);
+            assert(fake.y === 0, `Wrong y: ${fake.y}`);
+            assert(fake.flip === '', `Wrong flip: ${fake.flip}`);
+            assert(fake.rotation === null, `Wrong rotation: ${fake.rotation}`);
+            assert(fake.scale === 1, `Wrong scale: ${fake.scale}`);
+            assert(fake.alpha === 1, `Wrong alpha: ${fake.alpha}`);
+            assert(fake.shadow === null, `Wrong shadow: ${fake.shadow}`);
+            assert(fake.cursor === null, `Wrong cursor: ${fake.cursor}`);
+            assert(fake.visible === true, `Wrong visible: ${fake.visible}`);
+            assert(fake.name === null, `Wrong name: ${fake.name}`);
         });
 
         it('should default to x=0,y=0', function (done) {
