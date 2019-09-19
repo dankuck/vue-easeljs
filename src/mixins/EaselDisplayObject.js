@@ -11,11 +11,21 @@
 import EaselEventBinder from '../libs/easel-event-binder.js';
 import easeljs from '../../easeljs/easel.js';
 
-const passthroughProps = ['rotation', 'cursor'];
+const passthroughProps = ['rotation', 'cursor', 'visible'];
 
 export default {
     inject: ['easelParent'],
-    props: ['x', 'y', 'flip', 'rotation', 'scale', 'alpha', 'shadow', 'cursor'],
+    props: [
+        'x',
+        'y',
+        'flip',
+        'rotation',
+        'scale',
+        'alpha',
+        'shadow',
+        'cursor',
+        'visible',
+    ],
     data() {
         return {
             component: null,

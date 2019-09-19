@@ -53,6 +53,7 @@ export default function (implementor, extra_attributes = '', provide = {}) {
                             :shadow="shadow"
                             :align="[hAlign, vAlign]"
                             :cursor="cursor"
+                            :visible="visible"
                             ${extra_attributes}
                         >
                         </implementor>
@@ -76,6 +77,7 @@ export default function (implementor, extra_attributes = '', provide = {}) {
                         hAlign: 'left',
                         vAlign: 'top',
                         cursor: null,
+                        visible: null,
                     };
                 },
                 components: {
@@ -290,6 +292,7 @@ export default function (implementor, extra_attributes = '', provide = {}) {
         const passthrough = {
             cursor: 'pointer',
             rotation: 15,
+            visible: false,
         };
 
         Object.keys(passthrough).forEach(function (field) {
