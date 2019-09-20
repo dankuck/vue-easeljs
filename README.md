@@ -45,20 +45,20 @@ Show a static image.
 
 Attributes:
 
-| Attribute  | Values                                                 | Description                                                                                                                    | Required/Default               |
-| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                                                                         | Default: 'top-left'.           |
-| alpha      | 0 to 1                                                 | controls the opacity of the image.                                                                                             | Default: 1, completely opaque. |
-| cache      | boolean                                                | instead of drawing from source constantly, use a [cached version](#cache-attribute) of the source                              | Default: false                 |
-| cursor     | string                                                 | set the CSS mouse cursor to use when hovering over this bitmap                                                                 | Default: null                  |
-| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                                                               | Default: ''                    |
-| image      | string                                                 | relative or absolute URL to an image file.                                                                                     | Required.                      |
-| rotation   | degrees                                                | rotates the image.                                                                                                             | Default: 0.                    |
-| scale      | number                                                 | resizes the image.                                                                                                             | Default: 1.                    |
-| shadow     | [shadow](#shadow-attribute)                            | cast an image-shaped shadow.                                                                                                   | Default: null.                 |
-| visible    | boolean                                                | draw or do not draw the bitmap on canvas                                                                                       | Default: true                  |
-| x          | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0.                    |
-| y          | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0.                    |
+| Attribute       | Values                                                 | Description                                                                                                                    | Required/Default               |
+| --------        | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
+| align           | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                                                                         | Default: 'top-left'            |
+| alpha           | 0 to 1                                                 | controls the opacity of the image.                                                                                             | Default: 1, completely opaque  |
+| cache           | boolean                                                | instead of drawing from source constantly, use a [cached version](#cache-attribute) of the source                              | Default: false                 |
+| cursor          | string                                                 | set the CSS mouse cursor to use when hovering over this bitmap                                                                 | Default: null                  |
+| flip            | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                                                               | Default: ''                    |
+| image           | string                                                 | relative or absolute URL to an image file.                                                                                     | Required                       |
+| rotation        | degrees                                                | rotates the image.                                                                                                             | Default: 0                     |
+| scale           | number                                                 | resizes the image.                                                                                                             | Default: 1                     |
+| shadow          | [shadow](#shadow-attribute)                            | cast an image-shaped shadow.                                                                                                   | Default: null                  |
+| visible         | boolean                                                | draw or do not draw the bitmap on canvas                                                                                       | Default: true                  |
+| x               | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0                     |
+| y               | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0                     |
 
 Example:
 
@@ -82,13 +82,13 @@ Give the vue-easeljs components a place to live. The canvas has no visible pixel
 
 Attributes:
 
-| Attribute       | Values                                                 | Description                                                                        | Required/Default               |
-| --------        | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| anti-alias      | boolean                                                | whether or not edges should be smoothed on scaled images.                          | Default: true.                 |
-| height          | number                                                 | the pixel height of the canvas on the page.                                        | Default: 300.                  |
-| width           | number                                                 | the pixel width of the canvas on the page.                                         | Default: 150.                  |
-| viewport-height | number                                                 | the pixel height of the canvas internally.                                         | Default: equal to height       |
-| viewport-width  | number                                                 | the pixel width of the canvas internally.                                          | Default: equal to width        |
+| Attribute       | Values                                                 | Description                                                                                                                    | Required/Default               |
+| --------        | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
+| anti-alias      | boolean                                                | whether or not edges should be smoothed on scaled images.                                                                      | Default: true                  |
+| height          | number                                                 | the pixel height of the canvas on the page.                                                                                    | Default: 300                   |
+| width           | number                                                 | the pixel width of the canvas on the page.                                                                                     | Default: 150                   |
+| viewport-height | number                                                 | the pixel height of the canvas internally.                                                                                     | Default: equal to height       |
+| viewport-width  | number                                                 | the pixel width of the canvas internally.                                                                                      | Default: equal to width        |
 
 The `width` and `height` props control the size of the canvas element on the
 page.
@@ -142,18 +142,18 @@ Group other vue-easel components together and manipulate them as one. The contai
 
 Attributes:
 
-| Attribute  | Values                                                 | Description                                                                                                                    | Required/Default               |
-| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
-| alpha      | 0 to 1                                                 | controls the opacity of the container's contents.                                                                              | Default: 1, completely opaque. |
-| cache      | boolean                                                | instead of drawing contained element from source constantly, use a [cached version](#cache-attribute) of all elements together | Default: false                 |
-| cursor     | string                                                 | set the CSS mouse cursor to use when hovering over the elements in this container                                              | Default: null                  |
-| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the container.                                                                                                           | Default: ''                    |
-| rotation   | degrees                                                | rotates the container.                                                                                                         | Default: 0.                    |
-| scale      | number                                                 | resizes the container.                                                                                                         | Default: 1.                    |
-| shadow     | [shadow](#shadow-attribute)                            | cast a shadow of all contained components.                                                                                     | Default: null.                 |
-| visible    | boolean                                                | draw or do not draw the container's elements on canvas                                                                         | Default: true                  |
-| x          | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0.                    |
-| y          | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0.                    |
+| Attribute       | Values                                                 | Description                                                                                                                    | Required/Default               |
+| --------        | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
+| alpha           | 0 to 1                                                 | controls the opacity of the container's contents.                                                                              | Default: 1, completely opaque  |
+| cache           | boolean                                                | instead of drawing contained element from source constantly, use a [cached version](#cache-attribute) of all elements together | Default: false                 |
+| cursor          | string                                                 | set the CSS mouse cursor to use when hovering over the elements in this container                                              | Default: null                  |
+| flip            | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the container.                                                                                                           | Default: ''                    |
+| rotation        | degrees                                                | rotates the container.                                                                                                         | Default: 0                     |
+| scale           | number                                                 | resizes the container.                                                                                                         | Default: 1                     |
+| shadow          | [shadow](#shadow-attribute)                            | cast a shadow of all contained components.                                                                                     | Default: null                  |
+| visible         | boolean                                                | draw or do not draw the container's elements on canvas                                                                         | Default: true                  |
+| x               | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0                     |
+| y               | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0                     |
 
 Example:
 
@@ -187,23 +187,23 @@ Show a shape.
 
 Attributes:
 
-| Attribute  | Values                                                 | Description                                                                                                                    | Required/Default               |
-| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the shape the x and y refer to.                                                                         | Default: 'top-left'.           |
-| alpha      | 0 to 1                                                 | controls the opacity of the shape.                                                                                             | Default: 1, completely opaque. |
-| cache      | boolean                                                | instead of drawing the shape constantly, use a [cached version](#cache-attribute) of the shape                                 | Default: false                 |
-| cursor     | string                                                 | set the CSS mouse cursor to use when hovering over this shape                                                                  | Default: null                  |
-| dimensions | Depends on the form.                                   | See below.                                                                                                                     | Required.                      |
-| fill       | HTML color                                             | the inside of the shape                                                                                                        | Optional.                      |
-| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the shape.                                                                                                               | Default: ''.                   |
-| form       | 'circle' &#124; 'ellipse' &#124; 'rect' &#124; 'star'  |                                                                                                                                | Required.                      |
-| rotation   | degrees                                                | rotates the shape.                                                                                                             | Default: 0.                    |
-| scale      | number                                                 | resizes the shape.                                                                                                             | Default: 1.                    |
-| shadow     | [shadow](#shadow-attribute)                            | cast a same-shape shadow.                                                                                                      | Default: null.                 |
-| stroke     | HTML color                                             | the outline of the shape.                                                                                                      | Optional.                      |
-| visible    | boolean                                                | draw or do not draw the shape on canvas                                                                                        | Default: true                  |
-| x          | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0.                    |
-| y          | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0.                    |
+| Attribute       | Values                                                 | Description                                                                                                                    | Required/Default               |
+| --------        | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
+| align           | [alignment](#align-attribute)                          | controls what point of the shape the x and y refer to.                                                                         | Default: 'top-left'            |
+| alpha           | 0 to 1                                                 | controls the opacity of the shape.                                                                                             | Default: 1, completely opaque  |
+| cache           | boolean                                                | instead of drawing the shape constantly, use a [cached version](#cache-attribute) of the shape                                 | Default: false                 |
+| cursor          | string                                                 | set the CSS mouse cursor to use when hovering over this shape                                                                  | Default: null                  |
+| dimensions      | Depends on the form.                                   | See below.                                                                                                                     | Required                       |
+| fill            | HTML color                                             | the inside of the shape                                                                                                        | Optional.                      |
+| flip            | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the shape.                                                                                                               | Default: ''                    |
+| form            | 'circle' &#124; 'ellipse' &#124; 'rect' &#124; 'star'  |                                                                                                                                | Required                       |
+| rotation        | degrees                                                | rotates the shape.                                                                                                             | Default: 0                     |
+| scale           | number                                                 | resizes the shape.                                                                                                             | Default: 1                     |
+| shadow          | [shadow](#shadow-attribute)                            | cast a same-shape shadow.                                                                                                      | Default: null                  |
+| stroke          | HTML color                                             | the outline of the shape.                                                                                                      | Optional.                      |
+| visible         | boolean                                                | draw or do not draw the shape on canvas                                                                                        | Default: true                  |
+| x               | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0                     |
+| y               | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0                     |
 
 Dimensions for:
 
@@ -236,20 +236,20 @@ Show a moving image. An `easel-sprite` must reside in an `easel-sprite-sheet` no
 
 Attributes:
 
-| Attribute  | Values                                                 | Description                                                                                                                    | Required/Default               |
-| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                                                                         | Default: 'top-left'.           |
-| alpha      | 0 to 1                                                 | controls the opacity of the image.                                                                                             | Default: 1, completely opaque. |
-| animation  | string                                                 | name of the animation to run from the `easel-sprite-sheet`.                                                                    | Required.                      |
-| cache      | boolean                                                | instead of drawing from source constantly, use a [cached version](#cache-attribute) of the source                              | Default: false                 |
-| cursor     | string                                                 | set the CSS mouse cursor to use when hovering over this sprite                                                                 | Default: null                  |
-| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                                                               | Default: ''.                   |
-| rotation   | degrees                                                | rotates the image.                                                                                                             | Default: 0.                    |
-| scale      | number                                                 | resizes the image.                                                                                                             | Default: 1.                    |
-| shadow     | [shadow](#shadow-attribute)                            | cast an image-shaped shadow.                                                                                                   | Default: null.                 |
-| visible    | boolean                                                | draw or do not draw the sprite on canvas                                                                                       | Default: true                  |
-| x          | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0.                    |
-| y          | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0.                    |
+| Attribute       | Values                                                 | Description                                                                                                                    | Required/Default               |
+| --------        | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
+| align           | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                                                                         | Default: 'top-left'            |
+| alpha           | 0 to 1                                                 | controls the opacity of the image.                                                                                             | Default: 1, completely opaque  |
+| animation       | string                                                 | name of the animation to run from the `easel-sprite-sheet`.                                                                    | Required                       |
+| cache           | boolean                                                | instead of drawing from source constantly, use a [cached version](#cache-attribute) of the source                              | Default: false                 |
+| cursor          | string                                                 | set the CSS mouse cursor to use when hovering over this sprite                                                                 | Default: null                  |
+| flip            | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                                                               | Default: ''                    |
+| rotation        | degrees                                                | rotates the image.                                                                                                             | Default: 0                     |
+| scale           | number                                                 | resizes the image.                                                                                                             | Default: 1                     |
+| shadow          | [shadow](#shadow-attribute)                            | cast an image-shaped shadow.                                                                                                   | Default: null                  |
+| visible         | boolean                                                | draw or do not draw the sprite on canvas                                                                                       | Default: true                  |
+| x               | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0                     |
+| y               | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0                     |
 
 Example:
 
@@ -261,12 +261,12 @@ Define image animations for use in a sprite.
 
 Attributes:
 
-| Attribute  | Values                                                 | Description                                                                        | Required/Default               |
-| --------   | ------------------------------------------------------ | ---------------------------------------------------------------------------------- | ------------------------------ |
-| animations | object                                                 | defines names for animations. Each animation is a series of frames.                | Required.                      |
-| framerate  | number                                                 | the speed the animation should play at.                                            | Required.                      |
-| frames     | mixed                                                  | usually an object with format: {width: width, height: height}.                     | Required.                      |
-| images     | array                                                  | relative or absolute URL's to image files.                                         | Required.                      |
+| Attribute       | Values                                                 | Description                                                                                                                    | Required/Default               |
+| --------        | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
+| animations      | object                                                 | defines names for animations. Each animation is a series of frames.                                                            | Required                       |
+| framerate       | number                                                 | the speed the animation should play at.                                                                                        | Required                       |
+| frames          | mixed                                                  | usually an object with format: {width: width, height: height}.                                                                 | Required                       |
+| images          | array                                                  | relative or absolute URL's to image files.                                                                                     | Required                       |
 
 EaselJS provides a lot of options for defining sprite sheets, to allow you to
 format the images in whatever way suits you.
@@ -381,22 +381,22 @@ Show some text.
 
 Attributes:
 
-| Attribute  | Values                                                 | Description                                                                                                                    | Required/Default               |
-| --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the text the x and y refer to.                                                                          | Default: 'top-left'.           |
-| alpha      | 0 to 1                                                 | controls the opacity of the text.                                                                                              | Default: 1, completely opaque. |
-| cache      | boolean                                                | instead of drawing constantly, use a [cached version](#cache-attribute) of the text                                            | Default: false                 |
-| color      | HTML color                                             | the color to use for the text.                                                                                                 | Default: 'black'               |
-| cursor     | string                                                 | set the CSS mouse cursor to use when hovering over this text                                                                   | Default: null                  |
-| flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the text.                                                                                                                | Default: ''                    |
-| font       | [font](#font-attribute)                                | size and family of the font. Format: "Npx family".                                                                             | Default: ?                     |
-| rotation   | degrees                                                | rotates the text.                                                                                                              | Default: 0.                    |
-| scale      | number                                                 | resizes the text.                                                                                                              | Default: 1.                    |
-| shadow     | [shadow](#shadow-attribute)                            | cast a text-shaped shadow.                                                                                                     | Default: null.                 |
-| text       | string                                                 | the text to display.                                                                                                           | Required.                      |
-| visible    | boolean                                                | draw or do not draw the text on canvas                                                                                         | Default: true                  |
-| x          | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0.                    |
-| y          | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0.                    |
+| Attribute       | Values                                                 | Description                                                                                                                    | Required/Default               |
+| --------        | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
+| align           | [alignment](#align-attribute)                          | controls what point of the text the x and y refer to.                                                                          | Default: 'top-left'            |
+| alpha           | 0 to 1                                                 | controls the opacity of the text.                                                                                              | Default: 1, completely opaque  |
+| cache           | boolean                                                | instead of drawing constantly, use a [cached version](#cache-attribute) of the text                                            | Default: false                 |
+| color           | HTML color                                             | the color to use for the text.                                                                                                 | Default: 'black'               |
+| cursor          | string                                                 | set the CSS mouse cursor to use when hovering over this text                                                                   | Default: null                  |
+| flip            | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the text.                                                                                                                | Default: ''                    |
+| font            | [font](#font-attribute)                                | size and family of the font. Format: "Npx family".                                                                             | Default: ?                     |
+| rotation        | degrees                                                | rotates the text.                                                                                                              | Default: 0                     |
+| scale           | number                                                 | resizes the text.                                                                                                              | Default: 1                     |
+| shadow          | [shadow](#shadow-attribute)                            | cast a text-shaped shadow.                                                                                                     | Default: null                  |
+| text            | string                                                 | the text to display.                                                                                                           | Required                       |
+| visible         | boolean                                                | draw or do not draw the text on canvas                                                                                         | Default: true                  |
+| x               | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0                     |
+| y               | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0                     |
 
 Example:
 
