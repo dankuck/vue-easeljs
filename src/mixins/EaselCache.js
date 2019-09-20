@@ -82,7 +82,7 @@ export default {
             if (this.cache) {
                 this.getCacheBounds()
                     .then(({x, y, width, height}) => {
-                        this.easelParent.createCanvas(() => {
+                        this.easelCanvas.createCanvas(() => {
                             this.component.cache(x, y, width, height, window.devicePixelRatio * (this.scale || 1));
                         });
                         this.cacheStarted = true;

@@ -81,6 +81,27 @@ export default function (implementor, provide = {}, propChangers = []) {
                 },
             };
 
+            const container = new Vue({
+                provide() {
+                    return {
+                        easelParent: easel,
+                        easelCanvas: easel,
+                    };
+                },
+                data() {
+                    return {
+                        addChild() {
+                        },
+                        removeChild() {
+                        },
+                        cacheNeedsUpdate: false,
+                        createCanvas(cb) {
+                            return cb();
+                        },
+                    };
+                },
+            });
+
             const props = allPropChangers
                 .map(changer => changer.name)
                 .map(name => `:${name}="${name}"`)
@@ -97,7 +118,7 @@ export default function (implementor, provide = {}, propChangers = []) {
                     </span>
                 `,
                 provide() {
-                    provide.easelParent = easel;
+                    provide.easelParent = container;
                     provide.easelCanvas = easel;
                     return provide;
                 },
@@ -120,7 +141,7 @@ export default function (implementor, provide = {}, propChangers = []) {
 
             const fake = vm.$refs.fake;
 
-            return {fake, vm, easel};
+            return {fake, vm, easel, container};
         };
 
         it('can cache on init', function (done) {
@@ -207,7 +228,7 @@ export default function (implementor, provide = {}, propChangers = []) {
         allPropChangers
             .forEach(({name, changeTo}) => {
                 it(`should update easel.cacheNeedsUpdate when ${name} changes`, function (done) {
-                    const {vm, fake, easel} = buildVm();
+                    const {vm, fake, easel, container} = buildVm();
                     // Works whether or not cache is on for this component
                     vm.cache = Math.random() > .5 ? true : false;
                     // Let the component catch up with `cache` change
@@ -218,14 +239,14 @@ export default function (implementor, provide = {}, propChangers = []) {
                             return wait(fake);
                         })
                         .then(() => {
-                            assert(easel.cacheNeedsUpdate === true, `${name} did NOT cause an update: ${fake[name]}`);
+                            assert(container.cacheNeedsUpdate === true, `${name} did NOT cause an update: ${fake[name]}`);
                         })
                         .then(done, done);
                 });
             });
 
         it('should update on change event', function (done) {
-            const {vm, fake, easel} = buildVm();
+            const {vm, fake, easel, container} = buildVm();
             assert(fake.cache === true);
             let bitmapCache, cacheID;
             wait(fake, 2) // EaselBitmap needs an extra tick
@@ -247,13 +268,13 @@ export default function (implementor, provide = {}, propChangers = []) {
                         || cacheID !== bitmapCache.cacheID
                     );
                     assert(updated, `Event 'change' did not cause an update`);
-                    assert(easel.cacheNeedsUpdate === true, `Event 'change' did NOT cause an update to easel.cacheNeedsUpdate`);
+                    assert(container.cacheNeedsUpdate === true, `Event 'change' did NOT cause an update to container.cacheNeedsUpdate`);
                 })
                 .then(done, done);
         });
 
         it('should update cache on window resize', function (done) {
-            const {vm, fake, easel} = buildVm();
+            const {vm, fake, easel, container} = buildVm();
             let bitmapCache, cacheID;
             wait(fake, 2) // EaselBitmap needs an extra tick
                 .then(() => {
@@ -273,7 +294,7 @@ export default function (implementor, provide = {}, propChangers = []) {
                         || cacheID !== bitmapCache.cacheID
                     );
                     assert(updated, `Window resize did not cause an update`);
-                    assert(easel.cacheNeedsUpdate === true, `Window resize did NOT cause an update to easel.cacheNeedsUpdate`);
+                    assert(container.cacheNeedsUpdate === true, `Window resize did NOT cause an update to container.cacheNeedsUpdate`);
                 })
                 .then(done, done);
         });
