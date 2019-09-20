@@ -15,18 +15,20 @@ const passthroughProps = ['rotation', 'cursor', 'visible', 'name'];
 
 export default {
     inject: ['easelParent'],
-    props: [
-        'x',
-        'y',
-        'flip',
-        'rotation',
-        'scale',
-        'alpha',
-        'shadow',
-        'cursor',
-        'visible',
-        'name',
-    ],
+    props: {
+        x: {},
+        y: {},
+        flip: {},
+        rotation: {},
+        scale: {},
+        alpha: {},
+        shadow: {},
+        cursor: {},
+        visible: {
+            default: true,
+        },
+        name: {},
+    },
     data() {
         return {
             component: null,
