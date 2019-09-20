@@ -41,6 +41,7 @@ export default {
         this.resizeHandler = () => this.updateSize();
         window.addEventListener('resize', this.resizeHandler);
         this.updateSize(); // updates anti-alias afterward
+        this.component.enableMouseOver();
     },
     destroyed() {
         easeljs.Touch.disable(this.component);
