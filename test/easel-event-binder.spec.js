@@ -11,20 +11,22 @@ describe('easel-event-binder.js', function () {
 
     it('should bind all the things', function () {
         const got = {};
-        EaselEventBinder.bindEvents(
-            {
-                $options: {
-                    _parentListeners: fauxParentListeners,
-                },
-                $emit(eventType, event) {
-                    got[eventType] = event;
-                },
+        const vueComponent = {
+            $options: {
+                _parentListeners: fauxParentListeners,
             },
-            {
-                addEventListener(event, handler) {
-                    handler({type: event});
-                },
-            }
+            $emit(eventType, event) {
+                got[eventType] = event;
+            },
+        };
+        const easelComponent = {
+            addEventListener(event, handler) {
+                handler({type: event});
+            },
+        };
+        EaselEventBinder.bindEvents(
+            vueComponent,
+            easelComponent
         );
         eventTypes.forEach(eventType => {
             assert(got[eventType]);
@@ -33,23 +35,25 @@ describe('easel-event-binder.js', function () {
 
     it('should only bind dblclick', function () {
         const got = {};
-        EaselEventBinder.bindEvents(
-            {
-                $options: {
-                    _parentListeners: {
-                        dblclick() {},
-                        NOT_A_REAL_EVENT_TYPE() {},
-                    },
-                },
-                $emit(eventType, event) {
-                    got[eventType] = event;
+        const vueComponent = {
+            $options: {
+                _parentListeners: {
+                    dblclick() {},
+                    NOT_A_REAL_EVENT_TYPE() {},
                 },
             },
-            {
-                addEventListener(event, handler) {
-                    handler({type: event});
-                },
-            }
+            $emit(eventType, event) {
+                got[eventType] = event;
+            },
+        };
+        const easelComponent = {
+            addEventListener(event, handler) {
+                handler({type: event});
+            },
+        };
+        EaselEventBinder.bindEvents(
+            vueComponent,
+            easelComponent
         );
         assert(Object.keys(got).length === 1, 'bound too many things');
         assert(got.dblclick);
@@ -57,22 +61,51 @@ describe('easel-event-binder.js', function () {
 
     it('should not bind', function () {
         const got = {};
-        EaselEventBinder.bindEvents(
-            {
-                $options: {
-                },
-                $emit(eventType, event) {
-                    got[eventType] = event;
-                },
+        const vueComponent = {
+            $options: {
             },
-            {
-                addEventListener(event, handler) {
-                    handler({type: event});
-                },
-            }
+            $emit(eventType, event) {
+                got[eventType] = event;
+            },
+        };
+        const easelComponent = {
+            addEventListener(event, handler) {
+                handler({type: event});
+            },
+        };
+        EaselEventBinder.bindEvents(
+            vueComponent,
+            easelComponent
         );
         assert(Object.keys(got).length === 0, 'bound too many things');
     });
 
-    it.skip('should add viewportX and viewportY to an event');
+    it('should add viewportX and viewportY to an event', function () {
+        const event = {
+            stageX: 100,
+            stageY: 200,
+        };
+        const easelCanvas = {
+            translateCoordinates(x, y) {
+                return [300, 400];
+            },
+        };
+        const vueComponent = {
+            easelCanvas,
+            $options: {
+                _parentListeners: {
+                    click() {},
+                },
+            },
+            $emit() {},
+        };
+        const easelComponent = {
+            addEventListener(eventType, handler) {
+                handler(event);
+            },
+        };
+        EaselEventBinder.bindEvents(vueComponent, easelComponent);
+        assert(event.viewportX === 300);
+        assert(event.viewportY === 400);
+    });
 });
