@@ -46,10 +46,8 @@ const componentDemandsEventType = function (component, eventType) {
 
 const augmentEvent = function (component, event) {
     event.component = component;
-    if (event.stageX && event.stageY && component.easelCanvas.translateCoordinates) {
-        const [x, y] = component.easelCanvas.translateCoordinates(event.stageX, event.stageY);
-        event.viewportX = x;
-        event.viewportY = y;
+    if (component.easelCanvas && component.easelCanvas.augmentEvent) {
+        event = component.easelCanvas.augmentEvent(event);
     }
     return event;
 };

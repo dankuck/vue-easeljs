@@ -80,14 +80,12 @@ describe('easel-event-binder.js', function () {
         assert(Object.keys(got).length === 0, 'bound too many things');
     });
 
-    it('should add viewportX and viewportY to an event', function () {
-        const event = {
-            stageX: 100,
-            stageY: 200,
-        };
+    it('should augment an event via the canvas', function () {
+        const event = {};
         const easelCanvas = {
-            translateCoordinates(x, y) {
-                return [300, 400];
+            augmentEvent(event) {
+                event.changed = true;
+                return event;
             },
         };
         const vueComponent = {
@@ -105,7 +103,6 @@ describe('easel-event-binder.js', function () {
             },
         };
         EaselEventBinder.bindEvents(vueComponent, easelComponent);
-        assert(event.viewportX === 300);
-        assert(event.viewportY === 400);
+        assert(event.changed);
     });
 });

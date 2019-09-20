@@ -122,6 +122,12 @@ export default {
                 return canvas;
             };
         },
+        augmentEvent(event) {
+            const [x, y] = this.translateCoordinates(event.stageX, event.stageY);
+            event.viewportX = x;
+            event.viewportY = y;
+            return event;
+        },
         translateCoordinates(stageX, stageY) {
             return [
                 stageX / this.component.scaleX,
