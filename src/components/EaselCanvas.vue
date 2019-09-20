@@ -11,6 +11,11 @@ import EaselParent from '../mixins/EaselParent.js';
 
 export default {
     mixins: [EaselParent],
+    provide() {
+        return {
+            easelCanvas: this,
+        };
+    },
     props: {
         antiAlias: {
             default: true,
@@ -24,6 +29,7 @@ export default {
         return {
             component: null,
             context: null,
+            easelCanvas: this,
         };
     },
     mounted() {
@@ -35,6 +41,7 @@ export default {
         this.resizeHandler = () => this.updateSize();
         window.addEventListener('resize', this.resizeHandler);
         this.updateSize(); // updates anti-alias afterward
+        this.component.enableMouseOver();
     },
     destroyed() {
         easeljs.Touch.disable(this.component);
@@ -116,6 +123,18 @@ export default {
                 // Return the new, auto-alias-fixing canvas
                 return canvas;
             };
+        },
+        augmentEvent(event) {
+            const [x, y] = this.translateCoordinates(event.stageX, event.stageY);
+            event.viewportX = x;
+            event.viewportY = y;
+            return event;
+        },
+        translateCoordinates(stageX, stageY) {
+            return [
+                stageX / this.component.scaleX,
+                stageY / this.component.scaleY
+            ];
         },
     },
 };

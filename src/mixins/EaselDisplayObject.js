@@ -14,7 +14,7 @@ import easeljs from '../../easeljs/easel.js';
 const passthroughProps = ['rotation', 'cursor', 'visible', 'name'];
 
 export default {
-    inject: ['easelParent'],
+    inject: ['easelParent', 'easelCanvas'],
     props: {
         x: {},
         y: {},

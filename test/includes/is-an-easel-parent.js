@@ -57,6 +57,7 @@ export default function isAnEaselParent(implementor) {
                             removeChild() {
                             },
                         },
+                        easelCanvas: {},
                     };
                 },
                 data() {

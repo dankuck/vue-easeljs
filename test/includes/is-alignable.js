@@ -45,6 +45,7 @@ export default function isAlignable(implementor, {width, height}, extra_attribut
                 provide() {
                     return {
                         easelParent: easel,
+                        easelCanvas: easel,
                     };
                 },
                 data() {

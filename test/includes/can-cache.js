@@ -98,6 +98,7 @@ export default function (implementor, provide = {}, propChangers = []) {
                 `,
                 provide() {
                     provide.easelParent = easel;
+                    provide.easelCanvas = easel;
                     return provide;
                 },
                 data() {

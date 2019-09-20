@@ -277,4 +277,15 @@ describe('EaselCanvas', function () {
         assert(sawDisable, 'did not see disable');
         easeljs.Touch = Touch;
     });
+
+    it('should augment events', function () {
+        window.devicePixelRatio = 2;
+        const {vm, canvas} = buildVm();
+        const event = canvas.augmentEvent({
+            stageX: 100,
+            stageY: 200,
+        });
+        assert(event.viewportX === 50);
+        assert(event.viewportY === 100);
+    });
 });
