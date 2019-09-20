@@ -11,50 +11,28 @@
 import EaselEventBinder from '../libs/easel-event-binder.js';
 import easeljs from '../../easeljs/easel.js';
 
+const passthroughProps = ['rotation', 'cursor', 'visible', 'name'];
+
 export default {
     inject: ['easelParent', 'easelCanvas'],
-    props: ['x', 'y', 'flip', 'rotation', 'scale', 'alpha', 'shadow'],
+    props: {
+        x: {},
+        y: {},
+        flip: {},
+        rotation: {},
+        scale: {},
+        alpha: {},
+        shadow: {},
+        cursor: {},
+        visible: {
+            default: true,
+        },
+        name: {},
+    },
     data() {
         return {
             component: null,
         };
-    },
-    watch: {
-        x() {
-            if (this.component) {
-                this.component.x = this.x || 0;
-            }
-        },
-        y() {
-            if (this.component) {
-                this.component.y = this.y || 0;
-            }
-        },
-        flip() {
-            if (this.component) {
-                this.updateScales();
-            }
-        },
-        scale() {
-            if (this.component) {
-                this.updateScales();
-            }
-        },
-        rotation() {
-            if (this.component) {
-                this.component.rotation = this.rotation;
-            }
-        },
-        alpha() {
-            if (this.component) {
-                this.updateAlpha();
-            }
-        },
-        shadow() {
-            if (this.component) {
-                this.updateShadow();
-            }
-        },
     },
     mounted() {
         this.$watch('component', (now, old) => {
@@ -63,6 +41,44 @@ export default {
             }
             if (now) {
                 this.displayObjectInit();
+            }
+        });
+        // These just get copied directly onto the component; no funny business
+        passthroughProps.forEach(prop => {
+            this.$watch(prop, () => {
+                if (this.component) {
+                    this.component[prop] = this[prop];
+                }
+            });
+        });
+        this.$watch('x', () => {
+            if (this.component) {
+                this.component.x = this.x || 0;
+            }
+        });
+        this.$watch('y', () => {
+            if (this.component) {
+                this.component.y = this.y || 0;
+            }
+        });
+        this.$watch('flip', () => {
+            if (this.component) {
+                this.updateScales();
+            }
+        });
+        this.$watch('scale', () => {
+            if (this.component) {
+                this.updateScales();
+            }
+        });
+        this.$watch('alpha', () => {
+            if (this.component) {
+                this.updateAlpha();
+            }
+        });
+        this.$watch('shadow', () => {
+            if (this.component) {
+                this.updateShadow();
             }
         });
     },
@@ -74,7 +90,9 @@ export default {
             EaselEventBinder.bindEvents(this, this.component);
             this.component.x = this.x || 0;
             this.component.y = this.y || 0;
-            this.component.rotation = this.rotation;
+            passthroughProps.forEach(prop => {
+                this.component[prop] = this[prop];
+            });
             this.updateScales();
             this.updateAlpha();
             this.updateShadow();

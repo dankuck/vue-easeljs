@@ -52,6 +52,9 @@ export default function (implementor, extra_attributes = '', provide = {}) {
                             :alpha="alpha"
                             :shadow="shadow"
                             :align="[hAlign, vAlign]"
+                            :cursor="cursor"
+                            :visible="visible"
+                            :name="name"
                             ${extra_attributes}
                         >
                         </implementor>
@@ -75,6 +78,9 @@ export default function (implementor, extra_attributes = '', provide = {}) {
                         shadow: null,
                         hAlign: 'left',
                         vAlign: 'top',
+                        cursor: null,
+                        visible: null,
+                        name: null,
                     };
                 },
                 components: {
@@ -197,21 +203,6 @@ export default function (implementor, extra_attributes = '', provide = {}) {
                 .then(done, done);
         });
 
-        it('should not rotate', function () {
-            const {fake, vm, easel} = buildVm();
-            assert(!fake.component.rotation);
-        });
-
-        it('should rotate', function (done) {
-            const {fake, vm, easel} = buildVm();
-            vm.rotation = 15;
-            Vue.nextTick()
-                .then(() => {
-                    assert(fake.component.rotation === 15);
-                })
-                .then(done, done);
-        });
-
         it('should not scale', function (done) {
             const {fake, vm, easel} = buildVm();
             vm.flip = '';
@@ -284,12 +275,68 @@ export default function (implementor, extra_attributes = '', provide = {}) {
 
         it('should have no shadow again', function (done) {
             const {fake, vm, easel} = buildVm();
-            vm.shadow = null;
+            vm.shadow = ["black", 5, 7, 10];
             Vue.nextTick()
+                .then(() => {
+                    assert(fake.component, 'missing component');
+                    assert(fake.component.shadow, 'missing shadow');
+                    vm.shadow = null;
+                    return Vue.nextTick();
+                })
                 .then(() => {
                     assert(fake.component.shadow === null);
                 })
                 .then(done, done);
+        });
+
+        // These fields are simply copied through to the component, so we test
+        // that that copying works as intended.
+
+        const passthrough = {
+            cursor: 'pointer',
+            rotation: 15,
+            visible: false,
+            name: 'Charles Wallace',
+        };
+
+        Object.keys(passthrough).forEach(function (field) {
+            const value = passthrough[field];
+
+            it(`should have ${field} = null`, function (done) {
+                const {fake, vm, easel} = buildVm();
+                Vue.nextTick()
+                    .then(() => {
+                        assert(fake.component[field] === null, `Wrong ${field}: ${fake.component[field]}`);
+                    })
+                    .then(done, done);
+            });
+
+            it(`should have ${field} = ${value}`, function (done) {
+                const {fake, vm, easel} = buildVm();
+                vm[field] = value;
+                Vue.nextTick()
+                    .then(() => {
+                        assert(fake.component, 'missing component');
+                        assert(fake.component[field] === value, `Wrong ${field}: ${fake.component[field]}`);
+                    })
+                    .then(done, done);
+            });
+
+            it(`should have ${field} = ${value}, then null again`, function (done) {
+                const {fake, vm, easel} = buildVm();
+                vm[field] = value;
+                Vue.nextTick()
+                    .then(() => {
+                        assert(fake.component, 'missing component');
+                        assert(fake.component[field] === value, `Wrong ${field}: ${fake.component[field]}`);
+                        vm[field] = null;
+                        return Vue.nextTick();
+                    })
+                    .then(() => {
+                        assert(fake.component[field] === null);
+                    })
+                    .then(done, done);
+            });
         });
 
         it('should default to x=0,y=0', function (done) {
