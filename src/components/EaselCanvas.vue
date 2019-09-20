@@ -29,6 +29,7 @@ export default {
         return {
             component: null,
             context: null,
+            easelCanvas: this,
         };
     },
     mounted() {
