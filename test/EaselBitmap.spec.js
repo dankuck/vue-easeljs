@@ -122,4 +122,6 @@ describe('EaselBitmap', function () {
                     .then(done, done);
             });
         });
+
+    it('updates alignment on image change');
 });

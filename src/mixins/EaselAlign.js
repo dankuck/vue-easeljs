@@ -27,6 +27,7 @@ export default {
     },
     mounted() {
         this.$nextTick(() => this.updateAlign());
+        this.$watch('component', () => this.updateAlign());
     },
     computed: {
         /**
