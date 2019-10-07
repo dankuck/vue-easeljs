@@ -90,8 +90,6 @@ describe('EaselBitmap', function () {
                     qr.test(bitmap.component.image.src) || qr.test(bitmap.component.image),
                     'Wrong src in: ' + bitmap.component.image
                 );
-                vm.image = image;
-                return Vue.nextTick();
             })
             .then(done, done);
     });
@@ -123,5 +121,21 @@ describe('EaselBitmap', function () {
             });
         });
 
-    it('updates alignment on image change');
+    it('updates alignment on image change', function (done) {
+        const {vm, bitmap} = buildVm();
+        assert(bitmap.component.regX === 0, 'regX wrong at start');
+        assert(bitmap.component.regY === 0, 'regY wrong at start');
+        vm.align = 'center-center';
+        const image = new Image();
+        image.src = '/base/test/images/lastguardian-all.png';
+        image.addEventListener('load', function () {
+            vm.image = image;
+            Vue.nextTick()
+                .then(() => {
+                    assert(bitmap.component.regX > 0, `regX now: ${bitmap.component.regX}`);
+                    assert(bitmap.component.regY > 0, `regY now: ${bitmap.component.regY}`);
+                })
+                .then(done, done);
+        });
+    });
 });
