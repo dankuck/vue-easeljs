@@ -5,6 +5,7 @@ import Vue from 'vue';
 import isADisplayObject from './includes/is-a-display-object.js';
 import canCache from './includes/can-cache.js';
 import isAlignable from './includes/is-alignable.js';
+import canFilter from './includes/can-filter.js';
 
 describe('EaselShape', function () {
 
@@ -38,6 +39,8 @@ describe('EaselShape', function () {
     ]));
 
     describe('is alignable and', isAlignable(EaselShape, {width: 100, height: 100}, 'form="circle" dimensions="50"'));
+
+    describe('can filter and', canFilter(EaselShape));
 
     const buildVm = function () {
         const vm = new Vue({
