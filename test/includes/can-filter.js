@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import assert from 'assert';
 import easeljs from '../../easeljs/easel.js';
+import VueEaseljs from '../../src/index.js';
 
 const wait = function (component, count = 1) {
     let promise = Promise.all([
@@ -158,10 +159,8 @@ export default function (implementor, extra_attributes = '') {
 
         [
             ['BlurFilter', 5, 5, 1],
-            ['AlphaMapFilter'],
-            ['AlphaMaskFilter'],
             ['ColorFilter', 0, 0, 0, 1, 0, 0, 255, 0],
-            ['ColorMatricFilter'],
+            ['ColorMatrixFilter', 1, 1, 1, 1],
         ].forEach((filter) => {
             it(`should use filter ${filter[0]}`, function (done) {
                 const {vm, fake} = buildVm();
@@ -175,6 +174,24 @@ export default function (implementor, extra_attributes = '') {
                     })
                     .then(done, done);
             });
+        });
+
+        it('should use a custom filter', function (done) {
+            const {vm, fake} = buildVm();
+            const name = 'Custom' + new String(Math.random()).substr(-8);
+            const Custom = function Custom() {
+
+            };
+            VueEaseljs.registerFilter(name, Custom);
+            vm.filters = [filter];
+            vm.cache = true;
+            wait(fake, 2)
+                .then(() => {
+                    assert(fake.component.cacheCanvas !== null, 'no cache');
+                    assert(fake.component.filters, 80);
+                    assert(fake.component.filters.length === 1, 81);
+                })
+                .then(done, done);
         });
     };
 };
