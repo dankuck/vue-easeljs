@@ -149,7 +149,6 @@ export default function (implementor, extra_attributes = '') {
             vm.filters = [['NO_SUCH_FILTER', 'whatever param']];
             wait(fake, 2)
                 .then(() => {
-                    assert(fake.component.cacheCanvas === null, 'cached anyway');
                     assert(!fake.component.filters || fake.component.filters.length === 0);
                     assert(caughtError);
                 })
@@ -179,12 +178,11 @@ export default function (implementor, extra_attributes = '') {
         it('should use a custom filter', function (done) {
             const {vm, fake} = buildVm();
             const name = 'Custom' + new String(Math.random()).substr(-8);
-            const Custom = function Custom() {
-
+            const Custom = class Custom {
+                _applyFilter(){}
             };
             VueEaseljs.registerFilter(name, Custom);
-            vm.filters = [filter];
-            vm.cache = true;
+            vm.filters = [[name]];
             wait(fake, 2)
                 .then(() => {
                     assert(fake.component.cacheCanvas !== null, 'no cache');
