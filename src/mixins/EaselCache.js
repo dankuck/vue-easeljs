@@ -35,6 +35,8 @@ export default {
         return {
             cacheStarted: false,
             cacheNeedsUpdate: false,
+            beforeCaches: [],
+            cacheWhens: [],
         };
     },
     mounted() {
@@ -59,17 +61,18 @@ export default {
         this.$nextTick(() => this.cacheInit());
     },
     watch: {
-        cache() {
-            if (this.cache) {
+        shouldCache() {
+            if (this.shouldCache) {
                 this.cacheInit();
             } else {
                 this.cacheDestroy();
             }
         },
         cacheNeedsUpdate() {
-            if (this.cacheNeedsUpdate && this.cache) {
+            if (this.cacheNeedsUpdate && this.shouldCache) {
                 this.$nextTick(() => {
                     if (this.component && this.component.cacheCanvas) {
+                        this.triggerBeforeCaches();
                         this.component.updateCache();
                         this.cacheNeedsUpdate = false;
                     }
@@ -77,11 +80,27 @@ export default {
             }
         },
     },
+    computed: {
+        shouldCache() {
+            return this.cache
+                || this.cacheWhens.reduce((result, callback) => result || callback(), false);
+        },
+    },
     methods: {
+        beforeCache(callback) {
+            this.beforeCaches.push(callback);
+        },
+        triggerBeforeCaches() {
+            this.beforeCaches.forEach(callback => callback());
+        },
+        cacheWhen(callback) {
+            this.cacheWhens.push(callback);
+        },
         cacheInit() {
-            if (this.cache) {
+            if (this.shouldCache) {
                 this.getCacheBounds()
                     .then(({x, y, width, height}) => {
+                        this.triggerBeforeCaches();
                         this.easelCanvas.createCanvas(() => {
                             this.component.cache(x, y, width, height, window.devicePixelRatio * (this.scale || 1));
                         });

@@ -162,7 +162,7 @@ export default function (implementor, provide = {}, propChangers = []) {
                 .then(() => {
                     assert(fake.component.cacheCanvas !== null, 'Did not create cache');
                     vm.cache = false;
-                    return wait(fake);
+                    return wait(fake, 4);
                 })
                 .then(() => {
                     assert(fake.component.cacheCanvas === null, 'Did not destroy cache');
@@ -299,6 +299,53 @@ export default function (implementor, provide = {}, propChangers = []) {
                 .then(done, done);
         });
 
-        it('uses the cacheStarted property');
+        it('runs beforeCache on cache init', function (done) {
+            const {vm, fake} = buildVm();
+            let ran = false;
+            fake.beforeCache(() => ran = true);
+            assert(fake.cache === true);
+            assert(fake.component.cacheCanvas === null);
+            wait(fake)
+                .then(() => {
+                    assert(ran);
+                })
+                .then(done, done);
+        });
+
+        it('runs beforeCache on cache update', function (done) {
+            const {vm, fake} = buildVm();
+            let ran = false;
+            assert(fake.cache === true);
+            assert(fake.component.cacheCanvas === null);
+            wait(fake, 2)
+                .then(() => {
+                    assert(!ran);
+                    fake.beforeCache(() => ran = true);
+                    fake.cacheNeedsUpdate = true;
+                    return wait(fake, 2);
+                })
+                .then(() => {
+                    assert(ran);
+                })
+                .then(done, done);
+        });
+
+        it('caches based on cacheWhen()', function (done) {
+            const {vm, fake} = buildVm();
+            wait(fake, 2)
+                .then(() => {
+                    vm.cache = false;
+                    return wait(fake, 2);
+                })
+                .then(() => {
+                    assert(fake.component.cacheCanvas === null, 'still cached');
+                    fake.cacheWhen(() => true);
+                    return wait(fake, 2);
+                })
+                .then(() => {
+                    assert(fake.component.cacheCanvas !== null, 'Did not create cache');
+                })
+                .then(done, done);
+        });
     };
 };

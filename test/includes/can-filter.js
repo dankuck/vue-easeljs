@@ -2,6 +2,18 @@ import Vue from 'vue';
 import assert from 'assert';
 import easeljs from '../../easeljs/easel.js';
 
+const wait = function (component, count = 1) {
+    let promise = Promise.all([
+        component.getCacheBounds(),
+        Vue.nextTick(),
+    ]);
+    if (count > 1) {
+        return promise.then(() => wait(component, count - 1));
+    } else {
+        return promise;
+    }
+};
+
 export default function (implementor, extra_attributes = '') {
     return function () {
 
@@ -74,31 +86,29 @@ export default function (implementor, extra_attributes = '') {
         it('should have a filter', function (done) {
             const {vm, fake} = buildVm();
             vm.filters = [['BlurFilter', 5, 5, 1]];
-            Vue.nextTick()
+            vm.cache = true;
+            wait(fake, 2)
                 .then(() => {
-                    assert(fake.component.filters);
-                    assert(fake.component.filters.length === 1);
-                    assert(fake.component.filters[0] instanceof easeljs.BlurFilter);
+                    assert(fake.component.cacheCanvas !== null, 'no cache');
+                    assert(fake.component.filters, 80);
+                    assert(fake.component.filters.length === 1, 81);
+                    assert(fake.component.filters[0] instanceof easeljs.BlurFilter, 82);
                 })
                 .then(done, done);
         });
 
-        it.only('should cache when filtering', function (done) {
+        it('should cache when filtering even when caching is not explicit', function (done) {
             const {vm, fake} = buildVm();
             assert(fake.component.cacheCanvas === null);
-            vm.filters = [['BlurFilter', 5, 5, 1]];
-            Vue.nextTick()
+            wait(fake, 2)
                 .then(() => {
-                    return Vue.nextTick();
+                    vm.cache = false;
+                    return wait(fake, 2);
                 })
                 .then(() => {
-                    return Vue.nextTick();
-                })
-                .then(() => {
-                    return Vue.nextTick();
-                })
-                .then(() => {
-                    return Vue.nextTick();
+                    assert(fake.component.cacheCanvas === null, 'still cached');
+                    vm.filters = [['BlurFilter', 5, 5, 1]];
+                    return wait(fake, 2);
                 })
                 .then(() => {
                     assert(fake.component.cacheCanvas !== null, 'no cache');
@@ -106,6 +116,65 @@ export default function (implementor, extra_attributes = '') {
                 .then(done, done);
         });
 
-        it('should add and remove filters');
+        it('should add and remove filters', function (done) {
+            const {vm, fake} = buildVm();
+            assert(fake.component.cacheCanvas === null);
+            wait(fake, 2)
+                .then(() => {
+                    vm.cache = false;
+                    return wait(fake, 2);
+                })
+                .then(() => {
+                    assert(fake.component.cacheCanvas === null, 'still cached');
+                    vm.filters = [['BlurFilter', 5, 5, 1]];
+                    return wait(fake, 2);
+                })
+                .then(() => {
+                    assert(fake.component.cacheCanvas !== null, 'no cache');
+                    vm.filters = null;
+                    return wait(fake, 2);
+                })
+                .then(() => {
+                    assert(fake.component.cacheCanvas === null, 'still cached 2');
+                })
+                .then(done, done);
+        });
+
+        it('should fail on bad filters', function (done) {
+            const {vm, fake} = buildVm();
+            let caughtError;
+            const originalError = console.error;
+            console.error = (msg) => caughtError = msg;
+            vm.filters = [['NO_SUCH_FILTER', 'whatever param']];
+            wait(fake, 2)
+                .then(() => {
+                    assert(fake.component.cacheCanvas === null, 'cached anyway');
+                    assert(!fake.component.filters || fake.component.filters.length === 0);
+                    assert(caughtError);
+                })
+                .finally(() => console.error = originalError)
+                .then(done, done);
+        });
+
+        [
+            ['BlurFilter', 5, 5, 1],
+            ['AlphaMapFilter'],
+            ['AlphaMaskFilter'],
+            ['ColorFilter', 0, 0, 0, 1, 0, 0, 255, 0],
+            ['ColorMatricFilter'],
+        ].forEach((filter) => {
+            it(`should use filter ${filter[0]}`, function (done) {
+                const {vm, fake} = buildVm();
+                vm.filters = [filter];
+                vm.cache = true;
+                wait(fake, 2)
+                    .then(() => {
+                        assert(fake.component.cacheCanvas !== null, 'no cache');
+                        assert(fake.component.filters, 80);
+                        assert(fake.component.filters.length === 1, 81);
+                    })
+                    .then(done, done);
+            });
+        });
     };
 };
