@@ -2,10 +2,11 @@
 import easeljs from '../../easeljs/easel.js';
 import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
 import EaselCache from '../mixins/EaselCache.js';
+import EaselFilter from '../mixins/EaselFilter.js';
 import EaselAlign from '../mixins/EaselAlign.js';
 
 export default {
-    mixins: [EaselDisplayObject, EaselAlign, EaselCache],
+    mixins: [EaselDisplayObject, EaselAlign, EaselCache, EaselFilter],
     props: ['form', 'fill', 'stroke', 'dimensions'],
     updatesEaselCache: ['form', 'fill', 'stroke', 'dimensions'],
     render() {

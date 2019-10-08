@@ -40,7 +40,7 @@ describe('EaselShape', function () {
 
     describe('is alignable and', isAlignable(EaselShape, {width: 100, height: 100}, 'form="circle" dimensions="50"'));
 
-    describe('can filter and', canFilter(EaselShape));
+    describe.only('can filter and', canFilter(EaselShape));
 
     const buildVm = function () {
         const vm = new Vue({

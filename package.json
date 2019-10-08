@@ -37,6 +37,7 @@
     "mocha": "^3.2.0",
     "phantomjs-prebuilt": "^2.1.14",
     "vue": "^2.1.*",
-    "easeljs": "^1.0.2"
+    "easeljs": "^1.0.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0"
   }
 }
