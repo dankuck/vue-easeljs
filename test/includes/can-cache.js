@@ -298,5 +298,7 @@ export default function (implementor, provide = {}, propChangers = []) {
                 })
                 .then(done, done);
         });
+
+        it('uses the cacheStarted property');
     };
 };

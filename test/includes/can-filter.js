@@ -2,7 +2,7 @@ import Vue from 'vue';
 import assert from 'assert';
 import easeljs from '../../easeljs/easel.js';
 
-export default function (implementor, provide = {}, propChangers = []) {
+export default function (implementor, extra_attributes = '') {
     return function () {
 
         const buildVm = function () {
@@ -26,14 +26,16 @@ export default function (implementor, provide = {}, propChangers = []) {
                             v-if="showFake"
                             :cache="cache"
                             :filters="filters"
+                            ${extra_attributes}
                         >
                         </implementor>
                     </span>
                 `,
                 provide() {
-                    provide.easelParent = easel;
-                    provide.easelCanvas = easel;
-                    return provide;
+                    return {
+                        easelParent: easel,
+                        easelCanvas: easel,
+                    };
                 },
                 data() {
                     return {
@@ -77,6 +79,29 @@ export default function (implementor, provide = {}, propChangers = []) {
                     assert(fake.component.filters);
                     assert(fake.component.filters.length === 1);
                     assert(fake.component.filters[0] instanceof easeljs.BlurFilter);
+                })
+                .then(done, done);
+        });
+
+        it.only('should cache when filtering', function (done) {
+            const {vm, fake} = buildVm();
+            assert(fake.component.cacheCanvas === null);
+            vm.filters = [['BlurFilter', 5, 5, 1]];
+            Vue.nextTick()
+                .then(() => {
+                    return Vue.nextTick();
+                })
+                .then(() => {
+                    return Vue.nextTick();
+                })
+                .then(() => {
+                    return Vue.nextTick();
+                })
+                .then(() => {
+                    return Vue.nextTick();
+                })
+                .then(() => {
+                    assert(fake.component.cacheCanvas !== null, 'no cache');
                 })
                 .then(done, done);
         });
