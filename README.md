@@ -512,7 +512,7 @@ Blur an element. Applies to shadows as well.
 `['BlurFilter', x, y, quality]`
 
 | Parameter  |                                                        | Range                                                                                                                          | Default                        |
-| -----      |                                                        | -----                                                                                                                          | -------                        |
+| -----      | -----                                                  | -----                                                                                                                          | -------                        |
 | x          | horizontal bluriness                                   | 0 - Infinity                                                                                                                   | 0                              |
 | y          | vertical bluriness                                     | 0 - Infinity                                                                                                                   | 0                              |
 | quality    | the number of blur iterations                          | 0 - Infinity                                                                                                                   | 1
@@ -525,7 +525,7 @@ done. Use inside a container to include shadow.
 `['ColorFilter', rX, gX, bX, aX, rO, gO, bO]`
 
 | Parameter  |                                                        | Range                                                                                                                          | Default                        |
-| -----      |                                                        | -----                                                                                                                          | -------                        |
+| -----      | -----                                                  | -----                                                                                                                          | -------                        |
 | rX         | red multiplier                                         | 0 to 1                                                                                                                         | 1                              |
 | gX         | green multiplier                                       | 0 to 1                                                                                                                         | 1                              |
 | bX         | blue multiplier                                        | 0 to 1                                                                                                                         | 1                              |
