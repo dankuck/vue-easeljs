@@ -180,11 +180,28 @@ export default function (implementor, extra_attributes = '', provide = {}) {
             });
         });
 
-        it('should use a custom filter', function (done) {
+        it('should use a custom filter class', function (done) {
+            const {vm, fake} = buildVm();
+            const name = 'Custom' + new String(Math.random()).substr(-8);
+            const Custom = class Custom extends VueEaseljs.easeljs.Filter{
+                _applyFilter(){}
+            };
+            VueEaseljs.registerFilter(name, Custom);
+            vm.filters = [[name]];
+            wait(fake, 2)
+                .then(() => {
+                    assert(fake.component.cacheCanvas !== null, 'no cache');
+                    assert(fake.component.filters, 80);
+                    assert(fake.component.filters.length === 1, 81);
+                })
+                .then(done, done);
+        });
+
+        it('should use a custom simple filter class', function (done) {
             const {vm, fake} = buildVm();
             const name = 'Custom' + new String(Math.random()).substr(-8);
             const Custom = class Custom {
-                _applyFilter(){}
+                adjustImageData(){}
             };
             VueEaseljs.registerFilter(name, Custom);
             vm.filters = [[name]];
