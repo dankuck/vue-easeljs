@@ -33,7 +33,7 @@ This method should make changes to the data in `ctx` and write them to `targetCt
 
 ### \_applyFilter
 
-If `filter.usersContext` is false, this method is used.
+If `filter.usesContext` is false, this method is used.
 
 Its parameter is:
 * imageData - an <a href="https://developer.mozilla.org/en-US/docs/Web/API/ImageData">ImageData</a> object
@@ -50,7 +50,7 @@ class MyFilter extends VueEaseljs.easeljs.Filter {
         ...
     }
 
-    applyFilter(ctx, x, y, width, height, [targetCtx], [targetX], [targetY]) {
+    applyFilter(ctx, x, y, width, height, targetCtx, targetX, targetY) {
         ...
     }
 

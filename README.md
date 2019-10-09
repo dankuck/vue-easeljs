@@ -491,11 +491,15 @@ necessary when filters are implemented in a future version of this library.
 
 # Filters attribute
 
-Filters post-process a visual element's pixels, applying adjustments according
-to some algorithm.
+Filters process a visual element's pixels, applying adjustments according
+to some algorithm after the element is drawn.
 
 The `filters` attribute is an array of arrays. Each filter array consists of
 the name of the filter followed by any necessary attributes.
+
+Several filters can be applied to the same element.
+
+Supplying filters forces [cache](#cache-attribute) to be true.
 
 ## Available filters
 
@@ -505,26 +509,30 @@ This library comes pre-built with several filters.
 
 Blur an element. Applies to shadows as well.
 
-['BlurFilter', [x], [y], [quality]]
+`['BlurFilter', x, y, quality]`
 
-x - How blurry to make the element horizontally
-y - How blurry to make the element vertically
-quality - the number of blur iterations
+| Parameter  |                                                        | Range                                                                                                                          | Default                        |
+| -----      |                                                        | -----                                                                                                                          | -------                        |
+| x          | horizontal bluriness                                   | 0 - Infinity                                                                                                                   | 0                              |
+| y          | vertical bluriness                                     | 0 - Infinity                                                                                                                   | 0                              |
+| quality    | the number of blur iterations                          | 0 - Infinity                                                                                                                   | 1
 
 ### ColorFilter
 
 Systematically change the coloring of an element. Applies before shadowing is
-done.
+done. Use inside a container to include shadow.
 
-['ColorFilter', [rX], [gX], [bX], [aX], [rO], [gO], [bO]]
+`['ColorFilter', rX, gX, bX, aX, rO, gO, bO]`
 
-rX - red multiplier - 0 to 1
-gX - green multiplier - 0 to 1
-bX - blue multiplier - 0 to 1
-aX - alpha multiplier - 0 to 1
-rO - red offset - -255 to 255
-gO - green offset - -255 to 255
-bO - blue offset - -255 to 255
+| Parameter  |                                                        | Range                                                                                                                          | Default                        |
+| -----      |                                                        | -----                                                                                                                          | -------                        |
+| rX         | red multiplier                                         | 0 to 1                                                                                                                         | 1                              |
+| gX         | green multiplier                                       | 0 to 1                                                                                                                         | 1                              |
+| bX         | blue multiplier                                        | 0 to 1                                                                                                                         | 1                              |
+| aX         | alpha multiplier                                       | 0 to 1                                                                                                                         | 1                              |
+| rO         | red offset                                             | -255 to 255                                                                                                                    | 0                              |
+| gO         | green offset                                           | -255 to 255                                                                                                                    | 0                              |
+| bO         | blue offset                                            | -255 to 255                                                                                                                    | 0                              |
 
 ### Not yet documented
 
@@ -548,7 +556,7 @@ class MyFilter extends VueEaseljs.easeljs.Filter {
         ...
     }
 
-    applyFilter(ctx, x, y, width, height, [targetCtx], [targetX], [targetY]) {
+    applyFilter(ctx, x, y, width, height, targetCtx, targetX, targetY) {
         ...
     }
 
