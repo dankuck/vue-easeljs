@@ -4,11 +4,12 @@ import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
 import getDimensionsFromGetBounds from '../libs/get-dimensions-from-get-bounds.js';
 import EaselAlign from '../mixins/EaselAlign.js';
 import EaselCache from '../mixins/EaselCache.js';
+import EaselFilter from '../mixins/EaselFilter.js';
 
 export default {
     props: ['image'],
     updatesEaselCache: ['component'],
-    mixins: [EaselDisplayObject, EaselAlign, EaselCache],
+    mixins: [EaselDisplayObject, EaselAlign, EaselCache, EaselFilter],
     render() {
         return '<!-- bitmap -->';
     },

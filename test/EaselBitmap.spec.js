@@ -4,6 +4,7 @@ import EaselBitmap from '../src/components/EaselBitmap.vue';
 import isADisplayObject from './includes/is-a-display-object.js';
 import isAlignable from './includes/is-alignable.js';
 import canCache from './includes/can-cache.js';
+import canFilter from './includes/can-filter.js';
 
 describe('EaselBitmap', function () {
 
@@ -19,6 +20,8 @@ describe('EaselBitmap', function () {
     ]));
 
     describe('is alignable and', isAlignable(EaselBitmap, {width: 1500, height: 946}, 'image="/base/test/images/gulfstream_park.jpg"'));
+
+    describe('can filter and', canFilter(EaselBitmap, 'image="/base/test/images/gulfstream_park.jpg"'));
 
     const buildVm = function () {
         const easel = {
