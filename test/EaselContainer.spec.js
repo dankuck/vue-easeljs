@@ -6,6 +6,7 @@ import isAnEaselParent from './includes/is-an-easel-parent.js';
 import EaselFake from './fixtures/EaselFake.js';
 import isADisplayObject from './includes/is-a-display-object.js';
 import canCache from './includes/can-cache.js';
+import canFilter from './includes/can-filter.js';
 const {deepStrictEqual} = assert;
 
 describe('EaselContainer', function () {
@@ -15,6 +16,8 @@ describe('EaselContainer', function () {
     describe('is a display object that', isADisplayObject(EaselContainer));
 
     describe('is cacheable and', canCache(EaselContainer, {}, []));
+
+    describe('can filter and', canFilter(EaselContainer));
 
     const buildVm = function () {
         const easel = {

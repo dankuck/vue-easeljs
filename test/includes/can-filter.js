@@ -15,7 +15,7 @@ const wait = function (component, count = 1) {
     }
 };
 
-export default function (implementor, extra_attributes = '') {
+export default function (implementor, extra_attributes = '', provide = {}) {
     return function () {
 
         const buildVm = function () {
@@ -45,10 +45,9 @@ export default function (implementor, extra_attributes = '') {
                     </span>
                 `,
                 provide() {
-                    return {
-                        easelParent: easel,
-                        easelCanvas: easel,
-                    };
+                    provide.easelParent = easel;
+                    provide.easelCanvas = easel;
+                    return provide;
                 },
                 data() {
                     return {

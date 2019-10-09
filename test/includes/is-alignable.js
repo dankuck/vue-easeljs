@@ -8,7 +8,7 @@ const wait = function (component) {
     ]);
 };
 
-export default function isAlignable(implementor, {width, height}, extra_attributes = '') {
+export default function isAlignable(implementor, {width, height}, extra_attributes = '', provide = {}) {
 
     return function () {
 
@@ -43,10 +43,9 @@ export default function isAlignable(implementor, {width, height}, extra_attribut
                     </span>
                 `,
                 provide() {
-                    return {
-                        easelParent: easel,
-                        easelCanvas: easel,
-                    };
+                    provide.easelParent = easel;
+                    provide.easelCanvas = easel;
+                    return provide;
                 },
                 data() {
                     return {
