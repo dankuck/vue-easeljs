@@ -17,26 +17,26 @@ how it should be applied.
 
 If `filter.usesContext` is true, this method is used.
 
-Its parameters are:
-* ctx - a
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D">CanvasRenderingContext2D</a>
-that contains the visual element
-* x - the x coordinate of the element on ctx
-* y - the y coordinate of the element on ctx
-* width - the width of the element on ctx
-* height - the height of the element on ctx
-* targetCtx - the CanvasRenderingContext2D to draw to, if absent, use ctx
-* targetX - the x coordinate to draw to, if absent, use x
-* targetY - the y coordinate to draw to, if absent, use y
+| Parameter |                                                                                                                                                     |
+| --------- | ---                                                                                                                                                 |
+| ctx       | a <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D">CanvasRenderingContext2D</a> that contains the visual element |
+| x         | the x coordinate of the element on ctx                                                                                                              |
+| y         | the y coordinate of the element on ctx                                                                                                              |
+| width     | the width of the element on ctx                                                                                                                     |
+| height    | the height of the element on ctx                                                                                                                    |
+| targetCtx | the CanvasRenderingContext2D to draw to, if absent, use ctx                                                                                         |
+| targetX   | the x coordinate to draw to, if absent, use x                                                                                                       |
+| targetY   | the y coordinate to draw to, if absent, use y                                                                                                       |
 
-This method should make changes to the data in `ctx` and write them to `targetCtx` or else `ctx`.
+This method should make changes to the data in `ctx` and write them to `targetCtx` if present, or else `ctx`.
 
 ### \_applyFilter
 
 If `filter.usesContext` is false, this method is used.
 
-Its parameter is:
-* imageData - an <a href="https://developer.mozilla.org/en-US/docs/Web/API/ImageData">ImageData</a> object
+| Parameter |                                                                                                                                                     |
+| --------- | ---                                                                                                                                                 |
+| imageData | an <a href="https://developer.mozilla.org/en-US/docs/Web/API/ImageData">ImageData</a> object                                                        |
 
 This method should make changes directly to the `imageData` object.
 
