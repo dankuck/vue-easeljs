@@ -107,7 +107,7 @@ export default {
                         this.cacheStarted = true;
                         this.cacheNeedsUpdate = false;
                     })
-                    .catch((error) => console.error('Cannot cache:', error));
+                    .catch((error) => console.error(`Cannot cache: ${error}`, error));
             }
         },
         cacheDestroy() {
