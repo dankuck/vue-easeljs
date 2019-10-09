@@ -1,14 +1,9 @@
 import easeljs from '../easeljs/easel.js';
+import filters from './libs/filters.js';
 
-const filters = {
-    AlphaMapFilter:    easeljs.AlphaMapFilter,
-    AlphaMaskFilter:   easeljs.AlphaMaskFilter,
-    BlurFilter:        easeljs.BlurFilter,
-    ColorFilter:       easeljs.ColorFilter,
-    ColorMatrixFilter: easeljs.ColorMatrixFilter,
-};
+const {registerFilter, buildFilter} = filters;
 
-export default {
+module.exports = {
     createjs:         easeljs,
     easeljs:          easeljs,
     EaselBitmap:      require('./components/EaselBitmap.vue'),
@@ -27,16 +22,6 @@ export default {
         Vue.component('easel-sprite-sheet', this.EaselSpriteSheet);
         Vue.component('easel-text', this.EaselText);
     },
-    registerFilter(name, Filter) {
-        filters[name] = Filter;
-    },
-    buildFilter(filterArray) {
-        const filterName = filterArray[0];
-        const args = [null, ...filterArray.slice(1)];
-        const Filter = filters[filterName];
-        if (!Filter) {
-            throw new Error(`No such filter registered: ${filterName}`);
-        }
-        return new (Function.prototype.bind.apply(Filter, args));
-    },
+    registerFilter,
+    buildFilter,
 };
