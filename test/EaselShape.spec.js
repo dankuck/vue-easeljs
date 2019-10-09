@@ -11,7 +11,7 @@ describe('EaselShape', function () {
 
     describe('is a display object that', isADisplayObject(EaselShape, 'form="circle" dimensions="50"'));
 
-    describe.only('is cacheable and', canCache(EaselShape, {}, [
+    describe('is cacheable and', canCache(EaselShape, {}, [
         {
             name: 'fill',
             value: 'black',
@@ -40,7 +40,7 @@ describe('EaselShape', function () {
 
     describe('is alignable and', isAlignable(EaselShape, {width: 100, height: 100}, 'form="circle" dimensions="50"'));
 
-    describe.only('can filter and', canFilter(EaselShape, 'form="circle" dimensions="50"'));
+    describe('can filter and', canFilter(EaselShape, 'form="circle" dimensions="50"'));
 
     const buildVm = function () {
         const vm = new Vue({

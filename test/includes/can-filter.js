@@ -137,6 +137,12 @@ export default function (implementor, extra_attributes = '') {
                 })
                 .then(() => {
                     assert(fake.component.cacheCanvas === null, 'still cached 2');
+                    vm.cache = true;
+                    return wait(fake, 2);
+                })
+                .then(() => {
+                    assert(!fake.component.filters, 'still has filters');
+                    assert(fake.component.cacheCanvas !== null, 'no cache 2');
                 })
                 .then(done, done);
         });

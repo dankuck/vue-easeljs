@@ -1,5 +1,5 @@
 import easeljs from '../../easeljs/easel.js';
-import VueEaseljs from '../../src/index.js';
+import VueEaseljs from '../index.js';
 
 export default {
     props: ['filters'],
@@ -8,6 +8,8 @@ export default {
         this.beforeCache(() => {
             if (this.filters && this.filters.length > 0) {
                 this.component.filters = this.filters.map(VueEaseljs.buildFilter);
+            } else {
+                this.component.filters = null;
             }
         });
     },

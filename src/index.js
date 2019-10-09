@@ -8,7 +8,7 @@ const filters = {
     ColorMatrixFilter: easeljs.ColorMatrixFilter,
 };
 
-module.exports = {
+export default {
     createjs:         easeljs,
     easeljs:          easeljs,
     EaselBitmap:      require('./components/EaselBitmap.vue'),
