@@ -7,7 +7,7 @@ import EaselFake from './fixtures/EaselFake.js';
 import isADisplayObject from './includes/is-a-display-object.js';
 import canCache from './includes/can-cache.js';
 import canFilter from './includes/can-filter.js';
-const {deepStrictEqual} = assert;
+const {deepStrictEqual: equal} = assert;
 
 describe('EaselContainer', function () {
 
@@ -105,7 +105,7 @@ describe('EaselContainer', function () {
             })
             .then(([fakeBounds, containerBounds]) => {
                 // from EaselFake fixture
-                deepStrictEqual(
+                equal(
                     {
                         x: -10,
                         y: -20,
@@ -118,7 +118,7 @@ describe('EaselContainer', function () {
                 // The square is calculated using the hypotenuse of the above
                 // rectangle.
                 // √(30² + 40²) = 50, a super-convenient exact number
-                deepStrictEqual(
+                equal(
                     {
                         x: -50,
                         y: -50,
@@ -153,7 +153,7 @@ describe('EaselContainer', function () {
             })
             .then(([fakeBounds, containerBounds]) => {
                 // from EaselFake fixture
-                deepStrictEqual(
+                equal(
                     {
                         x: -10,
                         y: -20,
@@ -171,7 +171,7 @@ describe('EaselContainer', function () {
                 // The square is calculated using the hypotenuse of the
                 // resulting rectangle.
                 // √((30 + 30)² + (40 + 30)²) ~= 92
-                deepStrictEqual(
+                equal(
                     {
                         x: -92,
                         y: -92,

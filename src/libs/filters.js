@@ -10,12 +10,13 @@ const filters = {
 
 export default {
     registerFilter(name, Filter) {
-        if (Filter.prototype.applyFilter || Filter.prototype._applyFilter) {
+        if (Filter.prototype.applyFilter) {
             filters[name] = Filter;
         } else {
-            const Wrapper = function Wrapper() {
+            const Wrapper = function Wrapper () {
                 Filter.apply(this, arguments);
             };
+            easeljs.extend(Wrapper, easeljs.Filter);
             const {adjustContext, adjustImageData} = Filter.prototype;
             if (adjustContext) {
                 Wrapper.prototype.usesContext = true;
