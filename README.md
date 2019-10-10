@@ -534,10 +534,26 @@ done. Use inside a container to include shadow.
 | gO         | green offset                                           | -255 to 255                                                                                                                    | 0                              |
 | bO         | blue offset                                            | -255 to 255                                                                                                                    | 0                              |
 
-### Not yet documented
+### ColorMatrixFilter
 
-The AlphaMapFilter, AlphaMaskFilter, and ColorMatrixFilter filters are not yet
-documented because their usage is expected to change.
+Adjust the brightness, contrast, saturation, and hue of an element.
+
+`['ColorMatrixFilter', brightness, contrast, saturation, hue]`
+
+| Parameter  |                       | Range      | Default               |
+| -----      | -----                 | -----      | -------               |
+| brightness | add to the brightness | -255 - 255 | undefined - no change |
+| contrast   | add to the contrast   | -100 - 100 | undefined - no change |
+| saturation | add to the saturation | -100 - 100 | undefined - no change |
+| hue        | add to the hue        | -180 - 180 | undefined - no change |
+
+### Not yet available
+
+EaselJS has two filters -- AlphaMapFilter and AlphaMaskFilter -- that are not
+yet available, because their use requires complicated access to canvases. The
+idiom of this library is that you should never have to access a canvas. In the
+future this library should provide an `<easel-mask>` element to do masking,
+making those filters unnecessary.
 
 ## Custom filters
 

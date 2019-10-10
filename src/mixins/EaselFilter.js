@@ -1,5 +1,5 @@
 import easeljs from '../../easeljs/easel.js';
-import filters from '../libs/filters.js';
+import filters from '../filters.js';
 
 const build = filters.build.bind(filters);
 

@@ -1,4 +1,4 @@
-import FilterSet from '../src/libs/FilterSet.js';
+import FilterSet from '../src/filters/FilterSet.js';
 import assert from 'assert';
 const {deepStrictEqual: equal} = assert;
 
