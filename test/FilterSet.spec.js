@@ -16,11 +16,12 @@ describe('FilterSet', function () {
             }
             applyFilter(...args) {
                 caughtArguments = args;
+                return true;
             }
         });
         const filter = filters.build([name, 'y']);
         assert(typeof filter.applyFilter === 'function');
-        filter.applyFilter(1, 2, 3, 4, 5, 6, 7, 8);
+        assert(filter.applyFilter(1, 2, 3, 4, 5, 6, 7, 8));
         equal([1, 2, 3, 4, 5, 6, 7, 8], caughtArguments);
         assert(filter.x === 'y');
     });
@@ -35,12 +36,16 @@ describe('FilterSet', function () {
             }
             adjustImageData(...args) {
                 caughtArguments = args;
+                return true;
             }
         });
-        const ctx = {getImageData(){ return 'image data'; }};
+        const ctx = {
+            getImageData(){ return 'image data'; },
+            putImageData(){ },
+        };
         const filter = filters.build([name, 'y']);
         assert(typeof filter.applyFilter === 'function');
-        filter.applyFilter(ctx, 2, 3, 4, 5, 6, 7, 8);
+        assert(filter.applyFilter(ctx, 2, 3, 4, 5, ctx, 7, 8));
         equal(['image data'], caughtArguments);
         assert(filter.x === 'y');
     });
@@ -55,11 +60,12 @@ describe('FilterSet', function () {
             }
             adjustContext(...args) {
                 caughtArguments = args;
+                return true;
             }
         });
         const filter = filters.build([name, 'y']);
         assert(typeof filter.applyFilter === 'function');
-        filter.applyFilter(1, 2, 3, 4, 5, 6, 7, 8);
+        assert(filter.applyFilter(1, 2, 3, 4, 5, 6, 7, 8));
         equal([1, 2, 3, 4, 5, 6, 7, 8], caughtArguments);
         assert(filter.x === 'y');
     });

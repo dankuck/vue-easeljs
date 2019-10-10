@@ -30,6 +30,8 @@ The filter should have one of two methods: either `adjustContext` or
 This method should make changes to the data in `ctx` and write them to
 `targetCtx` if present, or else back to `ctx`.
 
+This method must return `true` if it succeeded.
+
 ### adjustImageData
 
 | Parameter |                                                                                                                                                     |
@@ -37,6 +39,8 @@ This method should make changes to the data in `ctx` and write them to
 | imageData | an <a href="https://developer.mozilla.org/en-US/docs/Web/API/ImageData">ImageData</a> object                                                        |
 
 This method should make changes directly to the `imageData` object.
+
+This method must return `true` if it succeeded.
 
 Example:
 ```
