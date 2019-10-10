@@ -1,23 +1,24 @@
-import VueEaseljs from '../src/index.js';
+import FilterSet from '../src/libs/FilterSet.js';
 import assert from 'assert';
 const {deepStrictEqual: equal} = assert;
 
 const randomName = () => 'Custom' + new String(Math.random()).substr(-8);
 
-describe('filters', function () {
+describe('FilterSet', function () {
 
     it('registers and builds a class with applyFilter', function () {
         const name = randomName();
         let caughtArguments;
-        VueEaseljs.registerFilter(name, class Custom {
+        const filters = new FilterSet();
+        filters.register(name, class Custom {
             constructor(x) {
                 this.x = x;
             }
-            applyFilter() {
-                caughtArguments = [...arguments];
+            applyFilter(...args) {
+                caughtArguments = args;
             }
         });
-        const filter = VueEaseljs.buildFilter([name, 'y']);
+        const filter = filters.build([name, 'y']);
         assert(typeof filter.applyFilter === 'function');
         filter.applyFilter(1, 2, 3, 4, 5, 6, 7, 8);
         equal([1, 2, 3, 4, 5, 6, 7, 8], caughtArguments);
@@ -27,16 +28,17 @@ describe('filters', function () {
     it('registers and builds a class with adjustImageData', function () {
         const name = randomName();
         let caughtArguments;
-        VueEaseljs.registerFilter(name, class Custom {
+        const filters = new FilterSet();
+        filters.register(name, class Custom {
             constructor(x) {
                 this.x = x;
             }
-            adjustImageData() {
-                caughtArguments = [...arguments];
+            adjustImageData(...args) {
+                caughtArguments = args;
             }
         });
         const ctx = {getImageData(){ return 'image data'; }};
-        const filter = VueEaseljs.buildFilter([name, 'y']);
+        const filter = filters.build([name, 'y']);
         assert(typeof filter.applyFilter === 'function');
         filter.applyFilter(ctx, 2, 3, 4, 5, 6, 7, 8);
         equal(['image data'], caughtArguments);
@@ -46,15 +48,16 @@ describe('filters', function () {
     it('registers and builds a class with adjustContext', function () {
         const name = randomName();
         let caughtArguments;
-        VueEaseljs.registerFilter(name, class Custom {
+        const filters = new FilterSet();
+        filters.register(name, class Custom {
             constructor(x) {
                 this.x = x;
             }
-            adjustContext() {
-                caughtArguments = [...arguments];
+            adjustContext(...args) {
+                caughtArguments = args;
             }
         });
-        const filter = VueEaseljs.buildFilter([name, 'y']);
+        const filter = filters.build([name, 'y']);
         assert(typeof filter.applyFilter === 'function');
         filter.applyFilter(1, 2, 3, 4, 5, 6, 7, 8);
         equal([1, 2, 3, 4, 5, 6, 7, 8], caughtArguments);
@@ -63,8 +66,9 @@ describe('filters', function () {
 
     it('rejects a class with none of those', function () {
         let caught;
+        const filters = new FilterSet();
         try {
-            VueEaseljs.registerFilter(randomName(), class Custom {
+            filters.register(randomName(), class Custom {
             });
         } catch (e) {
             caught = e;
@@ -74,8 +78,9 @@ describe('filters', function () {
 
     it('rejects a class with just _applyFilter', function () {
         let caught;
+        const filters = new FilterSet();
         try {
-            VueEaseljs.registerFilter(randomName(), class Custom {
+            filters.register(randomName(), class Custom {
                 _applyFilter(){}
             });
         } catch (e) {
@@ -86,8 +91,9 @@ describe('filters', function () {
 
     it('fails to build an unknown class', function () {
         let caught;
+        const filters = new FilterSet();
         try {
-            VueEaseljs.buildFilter(['NO_SUCH_NAME']);
+            filters.build(['NO_SUCH_NAME']);
         } catch (e) {
             caught = e;
         }

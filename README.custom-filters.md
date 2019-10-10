@@ -1,21 +1,20 @@
 ## Custom filters
 
 Create new filters by registering a class with the VueEaseljs library at
-runtime.
+runtime using the `VueEaseljs.registerFilter` method.
 
-Learn more about writing filters from the
-<a href="https://www.createjs.com/docs/easeljs/classes/Filter.html">EaselJS
-docs</a>.
+| Parameter |                         |
+| -----     | ----                    |
+| name      | the name for the filter |
+| Filter    | the class that filters  |
 
-The class should extend `VueEaseljs.easeljs.Filter`. Any extra values in the
-`filters` array will be passed as parameters to the constructor.
+When the filter is used in an element's `filters` prop, the extra values are
+passed to the filter's constructor method.
 
-When applying the filter, a `usesContext` property is checked to determine
-how it should be applied.
+The filter should have one of two methods: either `adjustContext` or
+`adjustImageData`.
 
-### applyFilter
-
-If `filter.usesContext` is true, this method is used.
+### adjustContext
 
 | Parameter |                                                                                                                                                     |
 | --------- | ---                                                                                                                                                 |
@@ -28,11 +27,10 @@ If `filter.usesContext` is true, this method is used.
 | targetX   | the x coordinate to draw to, if absent, use x                                                                                                       |
 | targetY   | the y coordinate to draw to, if absent, use y                                                                                                       |
 
-This method should make changes to the data in `ctx` and write them to `targetCtx` if present, or else `ctx`.
+This method should make changes to the data in `ctx` and write them to
+`targetCtx` if present, or else back to `ctx`.
 
-### \_applyFilter
-
-If `filter.usesContext` is false, this method is used.
+### adjustImageData
 
 | Parameter |                                                                                                                                                     |
 | --------- | ---                                                                                                                                                 |
@@ -44,17 +42,13 @@ Example:
 ```
 const VueEaseljs = require('vue-easeljs');
 
-class MyFilter extends VueEaseljs.easeljs.Filter {
+class MyFilter {
 
     constructor(value1, value2) {
         ...
     }
 
-    applyFilter(ctx, x, y, width, height, targetCtx, targetX, targetY) {
-        ...
-    }
-
-    _applyFilter(imageData) {
+    adjustContext(ctx, x, y, width, height, targetCtx, targetX, targetY) {
         ...
     }
 }

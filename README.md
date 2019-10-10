@@ -542,7 +542,7 @@ documented because their usage is expected to change.
 ## Custom filters
 
 Create new filters by registering a class with the VueEaseljs library at
-runtime.
+runtime using `VueEaseljs.registerFilter`.
 
 See further instructions on <a href="./README.custom-filters.md">Custom filters</a>.
 
@@ -550,17 +550,13 @@ Example:
 ```
 const VueEaseljs = require('vue-easeljs');
 
-class MyFilter extends VueEaseljs.easeljs.Filter {
+class MyFilter {
 
     constructor(value1, value2) {
         ...
     }
 
-    applyFilter(ctx, x, y, width, height, targetCtx, targetX, targetY) {
-        ...
-    }
-
-    _applyFilter(imageData) {
+    adjustContext(ctx, x, y, width, height, targetCtx, targetX, targetY) {
         ...
     }
 }

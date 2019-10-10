@@ -1,8 +1,6 @@
 import easeljs from '../easeljs/easel.js';
 import filters from './libs/filters.js';
 
-const {registerFilter, buildFilter} = filters;
-
 module.exports = {
     createjs:         easeljs,
     easeljs:          easeljs,
@@ -22,6 +20,7 @@ module.exports = {
         Vue.component('easel-sprite-sheet', this.EaselSpriteSheet);
         Vue.component('easel-text', this.EaselText);
     },
-    registerFilter,
-    buildFilter,
+    registerFilter(...args) {
+        return filters.register(...args);
+    },
 };

@@ -1,47 +1,17 @@
 import easeljs from '../../easeljs/easel.js';
+import FilterSet from './FilterSet.js';
 
-const filters = {
-    AlphaMapFilter:    easeljs.AlphaMapFilter,
-    AlphaMaskFilter:   easeljs.AlphaMaskFilter,
-    BlurFilter:        easeljs.BlurFilter,
-    ColorFilter:       easeljs.ColorFilter,
-    ColorMatrixFilter: easeljs.ColorMatrixFilter,
-};
+const filters = new FilterSet();
+
+[
+    'AlphaMapFilter',
+    'AlphaMaskFilter',
+    'BlurFilter',
+    'ColorFilter',
+    'ColorMatrixFilter',
+].forEach(name => filters.register(name, easeljs[name]));
 
 export default {
-    registerFilter(name, Filter) {
-        if (Filter.prototype.applyFilter) {
-            filters[name] = Filter;
-        } else {
-            const Wrapper = function Wrapper () {
-                Filter.apply(this, arguments);
-            };
-            easeljs.extend(Wrapper, easeljs.Filter);
-            const {adjustContext, adjustImageData} = Filter.prototype;
-            if (adjustContext) {
-                Wrapper.prototype.usesContext = true;
-                Wrapper.prototype.applyFilter = function () {
-                    return adjustContext.apply(this, arguments);
-                };
-            } else if (adjustImageData) {
-                Wrapper.prototype.usesContext = false;
-                Wrapper.prototype._applyFilter = function () {
-                    return adjustImageData.apply(this, arguments);
-                };
-            } else {
-                throw new Error('Incompatible filter');
-            }
-            filters[name] = Wrapper;
-
-        }
-    },
-    buildFilter(filterArray) {
-        const filterName = filterArray[0];
-        const args = [null, ...filterArray.slice(1)];
-        const Filter = filters[filterName];
-        if (!Filter) {
-            throw new Error(`No such filter registered: ${filterName}`);
-        }
-        return new (Function.prototype.bind.apply(Filter, args));
-    },
+    register: filters.register.bind(filters),
+    build: filters.build.bind(filters),
 };

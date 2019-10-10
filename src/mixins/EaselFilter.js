@@ -7,7 +7,7 @@ export default {
         this.cacheWhen(() => this.filters && this.filters.length > 0);
         this.beforeCache(() => {
             if (this.filters && this.filters.length > 0) {
-                this.component.filters = this.filters.map(filters.buildFilter);
+                this.component.filters = this.filters.map(filters.build);
             } else {
                 this.component.filters = null;
             }
