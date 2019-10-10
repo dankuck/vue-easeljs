@@ -491,11 +491,11 @@ necessary when filters are implemented in a future version of this library.
 
 # Filters attribute
 
-Filters process a visual element's pixels, applying adjustments according
-to some algorithm after the element is drawn.
+Filters process a visual element's pixels, applying adjustments after the
+element is drawn.
 
 The `filters` attribute is an array of arrays. Each filter array consists of
-the name of the filter followed by any necessary attributes.
+the name of a filter followed by parameters.
 
 Several filters can be applied to the same element.
 
@@ -544,7 +544,8 @@ documented because their usage is expected to change.
 Create new filters by registering a class with the VueEaseljs library at
 runtime using `VueEaseljs.registerFilter`.
 
-See further instructions on <a href="./README.custom-filters.md">Custom filters</a>.
+See further documentation on
+<a href="./README.custom-filters.md">Custom filters</a>.
 
 Example:
 ```
