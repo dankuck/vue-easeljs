@@ -3,15 +3,10 @@ import FilterSet from './FilterSet.js';
 
 const filters = new FilterSet();
 
-[
-    'AlphaMapFilter',
-    'AlphaMaskFilter',
-    'BlurFilter',
-    'ColorFilter',
-    'ColorMatrixFilter',
-].forEach(name => filters.register(name, easeljs[name]));
+filters.register('AlphaMapFilter', easeljs.AlphaMapFilter);
+filters.register('AlphaMaskFilter', easeljs.AlphaMaskFilter);
+filters.register('BlurFilter', easeljs.BlurFilter);
+filters.register('ColorFilter', easeljs.ColorFilter);
+filters.register('ColorMatrixFilter', easeljs.ColorMatrixFilter);
 
-export default {
-    register: filters.register.bind(filters),
-    build: filters.build.bind(filters),
-};
+export default filters;
