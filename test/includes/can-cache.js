@@ -98,6 +98,7 @@ export default function (implementor, provide = {}, propChangers = []) {
                         createCanvas(cb) {
                             return cb();
                         },
+                        scale: 1,
                     };
                 },
             });
@@ -344,6 +345,17 @@ export default function (implementor, provide = {}, propChangers = []) {
                 })
                 .then(() => {
                     assert(fake.component.cacheCanvas !== null, 'Did not create cache');
+                })
+                .then(done, done);
+        });
+
+        it('uses the right scale to cache', function (done) {
+            const {vm, fake, easel, container} = buildVm();
+            container.scale = 2;
+            vm.scale = 2;
+            Vue.nextTick()
+                .then(() => {
+                    assert(fake.cacheScale === 2 * 2, 'cacheScale: ' + fake.cacheScale);
                 })
                 .then(done, done);
         });

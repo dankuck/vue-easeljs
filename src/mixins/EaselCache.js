@@ -85,6 +85,19 @@ export default {
             return this.cache
                 || this.cacheWhens.reduce((result, callback) => result || callback(), false);
         },
+        cacheScale() {
+            let scale = this.scale || 1;
+            let parent = this.easelParent;
+            while (parent) {
+                if (parent.viewportScale) {
+                    scale *= parent.viewportScale.scaleX;
+                } else {
+                    scale *= parent.scale || 1;
+                }
+                parent = parent.easelParent;
+            }
+            return scale;
+        },
     },
     methods: {
         beforeCache(callback) {
@@ -101,8 +114,9 @@ export default {
                 this.getCacheBounds()
                     .then(({x, y, width, height}) => {
                         this.triggerBeforeCaches();
+
                         this.easelCanvas.createCanvas(() => {
-                            this.component.cache(x, y, width, height, window.devicePixelRatio * (this.scale || 1));
+                            this.component.cache(x, y, width, height, this.cacheScale * window.devicePixelRatio);
                         });
                         this.cacheStarted = true;
                         this.cacheNeedsUpdate = false;
