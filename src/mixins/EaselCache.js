@@ -58,6 +58,9 @@ export default {
         });
         this.$nextTick(() => this.cacheInit());
     },
+    destroyed() {
+        window.removeEventListener('resize', this.updateCacheOnChange);
+    },
     watch: {
         cache() {
             if (this.cache) {
