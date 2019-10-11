@@ -12,7 +12,7 @@ module.exports = function (config) {
         browsers: ['PhantomJS'],
         frameworks: ['mocha'],
         files: [
-            'test/test.js', 
+            'test/test.js',
             {
                 pattern: 'test/images/*',
                 included: false,
@@ -22,6 +22,7 @@ module.exports = function (config) {
         preprocessors: {
             'test/test.js': ['webpack'],
         },
+        reporters: ['spec'],
         webpack: webpackConfig,
         webpackMiddleware: {
             noInfo: true,
