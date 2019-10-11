@@ -72,9 +72,11 @@ export default {
             if (this.cacheNeedsUpdate && this.shouldCache) {
                 this.$nextTick(() => {
                     if (this.component && this.component.cacheCanvas) {
-                        this.triggerBeforeCaches();
-                        this.component.updateCache();
-                        this.cacheNeedsUpdate = false;
+                        this.cacheDestroy();
+                        this.cacheInit();
+                        // Didn't use updateCache() because it has a bug in
+                        // which it gives a new cache the same size as the
+                        // existing cache.
                     }
                 });
             }

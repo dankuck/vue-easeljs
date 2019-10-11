@@ -300,6 +300,27 @@ export default function (implementor, provide = {}, propChangers = []) {
                 .then(done, done);
         });
 
+        it('should update cache size on update', function (done) {
+            const {vm, fake} = buildVm();
+            assert(fake.cache === true);
+            let width, height;
+            wait(fake, 2)
+                .then(() => {
+                    assert(fake.component.cacheCanvas !== null, 'Did not create cache');
+                    width = fake.component.cacheCanvas.width;
+                    height = fake.component.cacheCanvas.height;
+                    vm.scale = 10;
+                    return wait(fake, 2);
+                })
+                .then(() => {
+                    assert(fake.component.cacheCanvas.width  > (width - 1) * 10);
+                    assert(fake.component.cacheCanvas.height > (height - 1) * 10);
+                    assert(fake.component.cacheCanvas.width  < (width + 1) * 10);
+                    assert(fake.component.cacheCanvas.height < (height + 1) * 10);
+                })
+                .then(done, done);
+        });
+
         it('runs beforeCache on cache init', function (done) {
             const {vm, fake} = buildVm();
             let ran = false;
