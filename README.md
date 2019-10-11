@@ -540,12 +540,22 @@ Adjust the brightness, contrast, saturation, and hue of an element.
 
 `['ColorMatrixFilter', brightness, contrast, saturation, hue]`
 
-| Parameter  |                       | Range      | Default               |
-| -----      | -----                 | -----      | -------               |
-| brightness | add to the brightness | -255 - 255 | undefined - no change |
-| contrast   | add to the contrast   | -100 - 100 | undefined - no change |
-| saturation | add to the saturation | -100 - 100 | undefined - no change |
-| hue        | add to the hue        | -180 - 180 | undefined - no change |
+| Parameter  |                                                     | Range                 | Default               |
+| -----      | -----                                               | -----                 | -------               |
+| brightness | add to the brightness                               | -255 - 255            | undefined - no change |
+| contrast   | add to the contrast                                 | -100 - 100            | undefined - no change |
+| saturation | add to the saturation                               | -100 - 100            | undefined - no change |
+| hue        | add to the hue                                      | -180 - 180            | undefined - no change |
+
+### PixelStrokeFilter
+
+Add a pixelated stroke around the element.
+
+`['PixelStrokeFilter', [r, g, b, a]]`
+
+| Parameter  |                                                     | Range                 | Default               |
+| -----      | -----                                               | -----                 | -------               |
+| color      | color of stroke as array of red, green, blue, alpha | array, values 0 - 255 | [0, 0, 0, 255]        |
 
 ### Not yet available
 

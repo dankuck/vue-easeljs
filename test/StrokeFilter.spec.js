@@ -1,4 +1,4 @@
-import StrokeFilter from '../src/filters/StrokeFilter.js';
+import PixelStrokeFilter from '../src/filters/PixelStrokeFilter.js';
 import easeljs from '../easeljs/easel.js';
 import assert from 'assert';
 const {deepStrictEqual: equal} = assert;
@@ -7,10 +7,10 @@ const stringify = (data) => {
     return data.map((n, i) => ('0' + n.toString(16)).substr(-2) + (i % 4 === 3 ? ' ' : '')).join('');
 };
 
-describe('StrokeFilter', function () {
+describe('PixelStrokeFilter', function () {
 
     it('instantiates', function () {
-        new StrokeFilter();
+        new PixelStrokeFilter();
     });
 
     it('draws a stroke around a tic-tac-toe center', function () {
@@ -23,7 +23,7 @@ describe('StrokeFilter', function () {
             width: 3,
             height: 3,
         };
-        new StrokeFilter().adjustImageData(imageData);
+        new PixelStrokeFilter().adjustImageData(imageData);
         equal(
             stringify([
                 0, 0, 0, 255,     0, 0, 0, 255,           0, 0, 0, 255,
@@ -44,7 +44,7 @@ describe('StrokeFilter', function () {
             width: 3,
             height: 3,
         };
-        new StrokeFilter().adjustImageData(imageData);
+        new PixelStrokeFilter().adjustImageData(imageData);
         equal(
             stringify([
                 0, 0, 0, 0,     0, 0, 0, 0,       0, 0, 0, 0,
@@ -65,7 +65,7 @@ describe('StrokeFilter', function () {
             width: 3,
             height: 3,
         };
-        new StrokeFilter().adjustImageData(imageData);
+        new PixelStrokeFilter().adjustImageData(imageData);
         equal(
             stringify([
                 255, 255, 255, 255,     0, 0, 0, 255,    0, 0, 0, 0,
@@ -95,7 +95,7 @@ describe('StrokeFilter', function () {
             width: 3,
             height: 3,
         };
-        new StrokeFilter([sr, sg, sb, sa]).adjustImageData(imageData);
+        new PixelStrokeFilter([sr, sg, sb, sa]).adjustImageData(imageData);
         equal(
             stringify([
                 sr, sg, sb, sa,   sr, sg, sb, sa,   sr, sg, sb, sa,

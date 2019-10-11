@@ -2,11 +2,11 @@ import easeljs from '../../easeljs/easel.js';
 
 /**
  |------------------------
- | StrokeFilter
+ | PixelStrokeFilter
  |------------------------
  | Add a stroke to an element
  */
-export default class StrokeFilter {
+export default class PixelStrokeFilter {
 
     constructor(stroke = []) {
         this.strokeRed = stroke[0] || 0;
