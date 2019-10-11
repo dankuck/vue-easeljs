@@ -11,19 +11,24 @@ export default class FilterSet {
             this.filters[name] = Filter;
         } else {
             const Wrapper = function Wrapper () {
+                easeljs.Filter.apply(this);
                 Filter.apply(this, arguments);
             };
-            easeljs.extend(Wrapper, easeljs.Filter);
-            const {adjustContext, adjustImageData} = Filter.prototype;
-            if (adjustContext) {
+            for (let field in easeljs.Filter.prototype) {
+                Wrapper.prototype[field] = easeljs.Filter.prototype[field];
+            }
+            for (let field in Filter.prototype) {
+                Wrapper.prototype[field] = Filter.prototype[field];
+            }
+            if (Wrapper.prototype.adjustContext) {
                 Wrapper.prototype.usesContext = true;
-                Wrapper.prototype.applyFilter = function () {
-                    return adjustContext.apply(this, arguments);
+                Wrapper.prototype.applyFilter = function (ctx, x, y, w, h, tctx, tx, ty) {
+                    return this.adjustContext(ctx, x, y, w, h, tctx, tx, ty);
                 };
-            } else if (adjustImageData) {
+            } else if (Wrapper.prototype.adjustImageData) {
                 Wrapper.prototype.usesContext = false;
-                Wrapper.prototype._applyFilter = function () {
-                    return adjustImageData.apply(this, arguments);
+                Wrapper.prototype._applyFilter = function (imageData) {
+                    return this.adjustImageData(imageData);
                 };
             } else {
                 throw new Error('Incompatible filter');

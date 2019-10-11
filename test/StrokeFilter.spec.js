@@ -7,7 +7,7 @@ const stringify = (data) => {
     return data.map((n, i) => ('0' + n.toString(16)).substr(-2) + (i % 4 === 3 ? ' ' : '')).join('');
 };
 
-describe.only('StrokeFilter', function () {
+describe('StrokeFilter', function () {
 
     it('instantiates', function () {
         new StrokeFilter();
