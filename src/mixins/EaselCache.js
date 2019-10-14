@@ -19,11 +19,6 @@
  |
  */
 
-import Vue from 'vue';
-
-// Not working, possibly due to double-loading Vue
-// Vue.config.optionMergeStrategies.updatesEaselCache = (a, b) => (a || []).concat(b || []);
-
 export default {
     props: ['cache'],
     /**
