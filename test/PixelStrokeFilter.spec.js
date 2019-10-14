@@ -184,4 +184,24 @@ describe('PixelStrokeFilter', function () {
             equal(expected[point.y], point, JSON.stringify(filter.brush));
         });
     });
+
+    it.only('expands a rectangle to include radius of brush', function () {
+        const filter = new PixelStrokeFilter([0, 0, 0, 1], 20);
+        const sourceRect = new easeljs.Rectangle(0, 0, 100, 100);
+        const rect = filter.getBounds(sourceRect);
+        equal(
+            new easeljs.Rectangle(-20, -20, 140, 140),
+            rect
+        );
+        assert(sourceRect === rect);
+    });
+
+    it.only('creates a rectangle to include radius of brush', function () {
+        const filter = new PixelStrokeFilter([0, 0, 0, 1], 20);
+        const rect = filter.getBounds();
+        equal(
+            new easeljs.Rectangle(-20, -20, 40, 40),
+            rect
+        );
+    });
 });

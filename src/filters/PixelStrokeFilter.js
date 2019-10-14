@@ -16,6 +16,7 @@ export default class PixelStrokeFilter {
         this.strokeGreen = stroke[1] || 0;
         this.strokeBlue = stroke[2] || 0;
         this.strokeAlpha = stroke[3] || 255;
+        this.size = size;
         this.brush = this.calculateBrush(size);
         this.alphaCache = {};
     }
@@ -131,6 +132,10 @@ export default class PixelStrokeFilter {
         }
         calculatedBrushes[size] = lines;
         return calculatedBrushes[size];
+    }
+
+    getBounds(rect = null) {
+        return (rect || new easeljs.Rectangle()).pad(this.size, this.size, this.size, this.size);
     }
 };
 
