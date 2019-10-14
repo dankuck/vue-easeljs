@@ -84,17 +84,19 @@
                         align="bottom-center"
                     >
                     </easel-sprite>
-                    <easel-text
-                        v-if="showLabels"
-                        text="Gary"
-                        color="yellow"
-                        font="20px Helvetica"
-                        :y="-40"
-                        :shadow="['black', 2, 2, 5]"
-                        align="alphabetic-center"
-                    >
-                    </easel-text>
                 </easel-container>
+                <easel-text
+                    v-if="showLabels"
+                    text="Gary"
+                    color="yellow"
+                    font="20px Helvetica"
+                    align="alphabetic-center"
+                    :filters="[['PixelStrokeFilter', [0, 0, 0], 2 * resultScale]]"
+                    :x="gary.x"
+                    :y="gary.y - 40 * resultScale"
+                    :scale="resultScale"
+                >
+                </easel-text>
             </easel-sprite-sheet>
 
         </easel-canvas>
