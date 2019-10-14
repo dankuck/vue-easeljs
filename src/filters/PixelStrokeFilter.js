@@ -11,7 +11,7 @@ const calculatedBrushes = {};
 
 export default class PixelStrokeFilter {
 
-    constructor(stroke = [], size = 1) {
+    constructor(stroke = [], size = 1, options = {}) {
         this.strokeRed = stroke[0] || 0;
         this.strokeGreen = stroke[1] || 0;
         this.strokeBlue = stroke[2] || 0;
@@ -19,10 +19,12 @@ export default class PixelStrokeFilter {
         this.size = size;
         this.brush = this.calculateBrush(size);
         this.alphaCache = {};
+        this.options = options;
     }
 
     adjustImageData(imageData) {
         const {strokeRed, strokeGreen, strokeBlue, strokeAlpha} = this;
+        const antiAlias = typeof this.options.antiAlias === 'undefined' ? true : this.options.antiAlias;
         const {data, width, height} = imageData;
         const length = data.length;
         const copy = data.slice(0);
@@ -31,7 +33,9 @@ export default class PixelStrokeFilter {
                 return;
             }
             const i = (y * width + x) * 4;
-            const alpha = this.alphaCache[a] || (this.alphaCache[a] = Math.floor(strokeAlpha * a));
+            const alpha = antiAlias
+                ? this.alphaCache[a] || (this.alphaCache[a] = Math.round(Math.floor(strokeAlpha * a)))
+                : strokeAlpha;
             if (!copy[i + 3] && data[i + 3] < alpha) {
                  data[i + 0] = strokeRed;
                  data[i + 1] = strokeGreen;
