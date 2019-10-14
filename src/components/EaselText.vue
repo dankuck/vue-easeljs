@@ -9,7 +9,7 @@ import EaselFilter from '../mixins/EaselFilter.js';
 export default {
     mixins: [EaselDisplayObject, EaselAlign, EaselCache, EaselFilter],
     props: ['text', 'font', 'color'],
-    updatesEaselCache: ['text', 'font', 'color'],
+    updatesEaselCache: ['text', 'font', 'color', 'scale'],
     render() {
         return '<!-- text -->';
     },

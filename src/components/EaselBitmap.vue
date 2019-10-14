@@ -8,7 +8,7 @@ import EaselFilter from '../mixins/EaselFilter.js';
 
 export default {
     props: ['image'],
-    updatesEaselCache: ['component'],
+    updatesEaselCache: ['component', 'scale'],
     mixins: [EaselDisplayObject, EaselAlign, EaselCache, EaselFilter],
     render() {
         return '<!-- bitmap -->';

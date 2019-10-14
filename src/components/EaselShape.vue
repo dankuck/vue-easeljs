@@ -8,7 +8,7 @@ import EaselAlign from '../mixins/EaselAlign.js';
 export default {
     mixins: [EaselDisplayObject, EaselAlign, EaselCache, EaselFilter],
     props: ['form', 'fill', 'stroke', 'dimensions'],
-    updatesEaselCache: ['form', 'fill', 'stroke', 'dimensions'],
+    updatesEaselCache: ['form', 'fill', 'stroke', 'dimensions', 'scale'],
     render() {
         return '<!-- shape -->';
     },

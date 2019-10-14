@@ -380,5 +380,9 @@ export default function (implementor, provide = {}, propChangers = []) {
                 })
                 .then(done, done);
         });
+
+        it('has scale in its updatesEaselCache', function () {
+            assert(implementor.updatesEaselCache.indexOf('scale') >= 0, implementor.updatesEaselCache);
+        });
     };
 };

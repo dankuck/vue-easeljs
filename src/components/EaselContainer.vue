@@ -13,7 +13,7 @@ import EaselFilter from '../mixins/EaselFilter.js';
 
 export default {
     mixins: [EaselDisplayObject, EaselParent, EaselCache, EaselFilter],
-    updatesEaselCache: ['children'],
+    updatesEaselCache: ['children', 'scale'],
     mounted() {
         this.component = new easeljs.Container();
     },

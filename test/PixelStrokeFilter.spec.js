@@ -106,7 +106,7 @@ describe('PixelStrokeFilter', function () {
         );
     });
 
-    it.only('calculates a size 1 circle', function () {
+    it('calculates a size 1 circle', function () {
         const filter = new PixelStrokeFilter([0, 0, 0, 1], 1);
         const expected = {
             '1': {y: 1, minX: -1, maxX: 1, a: Math.sin(Math.PI / 4)},
@@ -119,7 +119,7 @@ describe('PixelStrokeFilter', function () {
         });
     });
 
-    it.only('calculates a size 2 circle', function () {
+    it('calculates a size 2 circle', function () {
         const filter = new PixelStrokeFilter([0, 0, 0, 1], 2);
         const expected = {
             '-2': {"y":-2, "minX":-2, "maxX":2, "a":0.41421356237309503},
@@ -134,7 +134,7 @@ describe('PixelStrokeFilter', function () {
         });
     });
 
-    it.only('calculates a size 20 circle', function () {
+    it('calculates a size 20 circle', function () {
         const filter = new PixelStrokeFilter([0, 0, 0, 1], 20);
         const expected = {
             '-20': {"y":-20, "minX":0, "maxX":0, "a":1},
@@ -185,7 +185,7 @@ describe('PixelStrokeFilter', function () {
         });
     });
 
-    it.only('expands a rectangle to include radius of brush', function () {
+    it('expands a rectangle to include radius of brush', function () {
         const filter = new PixelStrokeFilter([0, 0, 0, 1], 20);
         const sourceRect = new easeljs.Rectangle(0, 0, 100, 100);
         const rect = filter.getBounds(sourceRect);
@@ -196,7 +196,7 @@ describe('PixelStrokeFilter', function () {
         assert(sourceRect === rect);
     });
 
-    it.only('creates a rectangle to include radius of brush', function () {
+    it('creates a rectangle to include radius of brush', function () {
         const filter = new PixelStrokeFilter([0, 0, 0, 1], 20);
         const rect = filter.getBounds();
         equal(

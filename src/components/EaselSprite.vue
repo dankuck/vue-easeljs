@@ -9,7 +9,7 @@ import EaselFilter from '../mixins/EaselFilter.js';
 export default {
     inject: ['spriteSheet'],
     props: ['animation'],
-    updatesEaselCache: ['animation'],
+    updatesEaselCache: ['animation', 'scale'],
     mixins: [EaselDisplayObject, EaselAlign, EaselCache, EaselFilter],
     render() {
         return '<!-- sprite -->';
