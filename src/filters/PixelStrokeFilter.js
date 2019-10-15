@@ -52,7 +52,7 @@ export default class PixelStrokeFilter {
                     activatePixel(sx + j, sy + y, 1);
                 }
             }
-        }
+        };
         for (let x = 0; x < width; x++) {
             for (let y = 0; y < height; y++) {
                 if (copy[(y * width + x) * 4 + 3] > 0) {
@@ -139,7 +139,7 @@ export default class PixelStrokeFilter {
     }
 
     getBounds(rect = null) {
-        return (rect || new easeljs.Rectangle()).pad(this.size, this.size, this.size, this.size);
+        return (rect || new easeljs.Rectangle()).pad(this.size * 2, this.size * 2, this.size * 2, this.size * 2);
     }
 };
 

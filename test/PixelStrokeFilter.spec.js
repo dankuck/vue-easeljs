@@ -191,7 +191,7 @@ describe('PixelStrokeFilter', function () {
         const sourceRect = new easeljs.Rectangle(0, 0, 100, 100);
         const rect = filter.getBounds(sourceRect);
         equal(
-            new easeljs.Rectangle(-20, -20, 140, 140),
+            new easeljs.Rectangle(-40, -40, 180, 180),
             rect
         );
         assert(sourceRect === rect);
@@ -201,7 +201,7 @@ describe('PixelStrokeFilter', function () {
         const filter = new PixelStrokeFilter([0, 0, 0, 1], 20);
         const rect = filter.getBounds();
         equal(
-            new easeljs.Rectangle(-20, -20, 40, 40),
+            new easeljs.Rectangle(-40, -40, 80, 80),
             rect
         );
     });
