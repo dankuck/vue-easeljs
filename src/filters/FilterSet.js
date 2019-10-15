@@ -10,30 +10,26 @@ export default class FilterSet {
         if (Filter.prototype.applyFilter) {
             this.filters[name] = Filter;
         } else {
-            const Wrapper = function Wrapper () {
-                easeljs.Filter.apply(this);
-                Filter.apply(this, arguments);
-            };
-            for (let field in easeljs.Filter.prototype) {
-                Wrapper.prototype[field] = easeljs.Filter.prototype[field];
-            }
-            for (let field in Filter.prototype) {
-                Wrapper.prototype[field] = Filter.prototype[field];
-            }
-            if (Wrapper.prototype.adjustContext) {
-                Wrapper.prototype.usesContext = true;
-                Wrapper.prototype.applyFilter = function (ctx, x, y, w, h, tctx, tx, ty) {
+            const prototype = Filter.prototype || Filter.constructor.prototype;
+            if (prototype.adjustContext) {
+                prototype.usesContext = true;
+                prototype.applyFilter = function (ctx, x, y, w, h, tctx, tx, ty) {
                     return this.adjustContext(ctx, x, y, w, h, tctx, tx, ty);
                 };
-            } else if (Wrapper.prototype.adjustImageData) {
-                Wrapper.prototype.usesContext = false;
-                Wrapper.prototype._applyFilter = function (imageData) {
+            } else if (prototype.adjustImageData) {
+                prototype.usesContext = false;
+                prototype._applyFilter = function (imageData) {
                     return this.adjustImageData(imageData);
                 };
             } else {
                 throw new Error('Incompatible filter');
             }
-            this.filters[name] = Wrapper;
+            for (let field in easeljs.Filter.prototype) {
+                if (!prototype[field]) {
+                    prototype[field] = easeljs.Filter.prototype[field];
+                }
+            }
+            this.filters[name] = Filter;
         }
     }
 
