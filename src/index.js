@@ -1,7 +1,9 @@
+import easeljs from '../easeljs/easel.js';
+import filters from './filters.js';
 
 module.exports = {
-    createjs:         require('../easeljs/easel.js'),
-    easeljs:          require('../easeljs/easel.js'),
+    createjs:         easeljs,
+    easeljs:          easeljs,
     EaselBitmap:      require('./components/EaselBitmap.vue'),
     EaselCanvas:      require('./components/EaselCanvas.vue'),
     EaselContainer:   require('./components/EaselContainer.vue'),
@@ -17,5 +19,8 @@ module.exports = {
         Vue.component('easel-sprite', this.EaselSprite);
         Vue.component('easel-sprite-sheet', this.EaselSpriteSheet);
         Vue.component('easel-text', this.EaselText);
-    }
+    },
+    registerFilter(...args) {
+        return filters.register(...args);
+    },
 };

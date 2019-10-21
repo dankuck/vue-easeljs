@@ -4,12 +4,13 @@ import EaselDisplayObject from '../mixins/EaselDisplayObject.js';
 import getDimensionsFromGetBounds from '../libs/get-dimensions-from-get-bounds.js';
 import EaselAlign from '../mixins/EaselAlign.js';
 import EaselCache from '../mixins/EaselCache.js';
+import EaselFilter from '../mixins/EaselFilter.js';
 
 export default {
     inject: ['spriteSheet'],
     props: ['animation'],
-    updatesEaselCache: ['animation'],
-    mixins: [EaselDisplayObject, EaselAlign, EaselCache],
+    updatesEaselCache: ['animation', 'scale'],
+    mixins: [EaselDisplayObject, EaselAlign, EaselCache, EaselFilter],
     render() {
         return '<!-- sprite -->';
     },

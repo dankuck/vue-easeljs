@@ -19,10 +19,6 @@
  |
  */
 
-import Vue from 'vue';
-
-Vue.config.optionMergeStrategies.updatesEaselCache = (a, b) => (a || []).concat(b || []);
-
 export default {
     props: ['cache'],
     /**
@@ -35,6 +31,8 @@ export default {
         return {
             cacheStarted: false,
             cacheNeedsUpdate: false,
+            beforeCaches: [],
+            cacheWhens: [],
         };
     },
     mounted() {
@@ -62,36 +60,69 @@ export default {
         window.removeEventListener('resize', this.updateCacheOnChange);
     },
     watch: {
-        cache() {
-            if (this.cache) {
+        shouldCache() {
+            if (this.shouldCache) {
                 this.cacheInit();
             } else {
                 this.cacheDestroy();
             }
         },
         cacheNeedsUpdate() {
-            if (this.cacheNeedsUpdate && this.cache) {
+            if (this.cacheNeedsUpdate && this.shouldCache) {
                 this.$nextTick(() => {
                     if (this.component && this.component.cacheCanvas) {
-                        this.component.updateCache();
-                        this.cacheNeedsUpdate = false;
+                        this.cacheDestroy();
+                        this.cacheInit();
+                        // Didn't use updateCache() because it has a bug in
+                        // which it gives a new cache the same size as the
+                        // existing cache.
                     }
                 });
             }
         },
     },
+    computed: {
+        shouldCache() {
+            return this.cache
+                || this.cacheWhens.reduce((result, callback) => result || callback(), false);
+        },
+        cacheScale() {
+            let scale = this.scale || 1;
+            let parent = this.easelParent;
+            while (parent) {
+                if (parent.viewportScale) {
+                    scale *= parent.viewportScale.scaleX;
+                } else {
+                    scale *= parent.scale || 1;
+                }
+                parent = parent.easelParent;
+            }
+            return scale;
+        },
+    },
     methods: {
+        beforeCache(callback) {
+            this.beforeCaches.push(callback);
+        },
+        triggerBeforeCaches() {
+            this.beforeCaches.forEach(callback => callback());
+        },
+        cacheWhen(callback) {
+            this.cacheWhens.push(callback);
+        },
         cacheInit() {
-            if (this.cache) {
+            if (this.shouldCache) {
                 this.getCacheBounds()
                     .then(({x, y, width, height}) => {
+                        this.triggerBeforeCaches();
+
                         this.easelCanvas.createCanvas(() => {
-                            this.component.cache(x, y, width, height, window.devicePixelRatio * (this.scale || 1));
+                            this.component.cache(x, y, width, height, this.cacheScale * window.devicePixelRatio);
                         });
                         this.cacheStarted = true;
                         this.cacheNeedsUpdate = false;
                     })
-                    .catch((error) => console.error('Cannot cache:', error));
+                    .catch((error) => console.error(`Cannot cache: ${error}`, error));
             }
         },
         cacheDestroy() {

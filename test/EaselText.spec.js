@@ -3,8 +3,8 @@ import Vue from 'vue';
 import EaselText from '../src/components/EaselText.vue';
 import easeljs from '../easeljs/easel.js';
 import isADisplayObject from './includes/is-a-display-object.js';
-
 import canCache from './includes/can-cache.js';
+import canFilter from './includes/can-filter.js';
 
 describe('EaselText', function () {
 
@@ -33,6 +33,8 @@ describe('EaselText', function () {
             shouldUpdateSameObject: true,
         },
     ]));
+
+    describe('can filter and', canFilter(EaselText, 'text="O hai"'));
 
     const buildVm = function () {
         const easel = {

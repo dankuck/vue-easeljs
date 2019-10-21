@@ -5,6 +5,7 @@ import easeljs from '../easeljs/easel.js';
 import isADisplayObject from './includes/is-a-display-object.js';
 import canCache from './includes/can-cache.js';
 import isAlignable from './includes/is-alignable.js';
+import canFilter from './includes/can-filter.js';
 
 const garyStart = 32 * 6 + 16;
 
@@ -31,7 +32,9 @@ describe('EaselSprite', function () {
         },
     ]));
 
-    // describe('is alignable and', isAlignable(EaselSprite, {width: 100, height: 100}, 'form="circle" dimensions="50"'));
+    describe('can filter and', canFilter(EaselSprite, '', {spriteSheet}));
+
+    describe('is alignable and', isAlignable(EaselSprite, {width: 32, height: 32}, '', {spriteSheet}));
 
     const buildVm = function () {
         const easel = {

@@ -98,6 +98,7 @@ export default function (implementor, provide = {}, propChangers = []) {
                         createCanvas(cb) {
                             return cb();
                         },
+                        scale: 1,
                     };
                 },
             });
@@ -162,7 +163,7 @@ export default function (implementor, provide = {}, propChangers = []) {
                 .then(() => {
                     assert(fake.component.cacheCanvas !== null, 'Did not create cache');
                     vm.cache = false;
-                    return wait(fake);
+                    return wait(fake, 4);
                 })
                 .then(() => {
                     assert(fake.component.cacheCanvas === null, 'Did not destroy cache');
@@ -297,6 +298,91 @@ export default function (implementor, provide = {}, propChangers = []) {
                     assert(container.cacheNeedsUpdate === true, `Window resize did NOT cause an update to container.cacheNeedsUpdate`);
                 })
                 .then(done, done);
+        });
+
+        it('should update cache size on update', function (done) {
+            const {vm, fake} = buildVm();
+            assert(fake.cache === true);
+            let width, height;
+            wait(fake, 2)
+                .then(() => {
+                    assert(fake.component.cacheCanvas !== null, 'Did not create cache');
+                    width = fake.component.cacheCanvas.width;
+                    height = fake.component.cacheCanvas.height;
+                    vm.scale = 10;
+                    return wait(fake, 2);
+                })
+                .then(() => {
+                    assert(fake.component.cacheCanvas.width  > (width - 1) * 10);
+                    assert(fake.component.cacheCanvas.height > (height - 1) * 10);
+                    assert(fake.component.cacheCanvas.width  < (width + 1) * 10);
+                    assert(fake.component.cacheCanvas.height < (height + 1) * 10);
+                })
+                .then(done, done);
+        });
+
+        it('runs beforeCache on cache init', function (done) {
+            const {vm, fake} = buildVm();
+            let ran = false;
+            fake.beforeCache(() => ran = true);
+            assert(fake.cache === true);
+            assert(fake.component.cacheCanvas === null);
+            wait(fake)
+                .then(() => {
+                    assert(ran);
+                })
+                .then(done, done);
+        });
+
+        it('runs beforeCache on cache update', function (done) {
+            const {vm, fake} = buildVm();
+            let ran = false;
+            assert(fake.cache === true);
+            assert(fake.component.cacheCanvas === null);
+            wait(fake, 2)
+                .then(() => {
+                    assert(!ran);
+                    fake.beforeCache(() => ran = true);
+                    fake.cacheNeedsUpdate = true;
+                    return wait(fake, 2);
+                })
+                .then(() => {
+                    assert(ran);
+                })
+                .then(done, done);
+        });
+
+        it('caches based on cacheWhen()', function (done) {
+            const {vm, fake} = buildVm();
+            wait(fake, 2)
+                .then(() => {
+                    vm.cache = false;
+                    return wait(fake, 2);
+                })
+                .then(() => {
+                    assert(fake.component.cacheCanvas === null, 'still cached');
+                    fake.cacheWhen(() => true);
+                    return wait(fake, 2);
+                })
+                .then(() => {
+                    assert(fake.component.cacheCanvas !== null, 'Did not create cache');
+                })
+                .then(done, done);
+        });
+
+        it('uses the right scale to cache', function (done) {
+            const {vm, fake, easel, container} = buildVm();
+            container.scale = 2;
+            vm.scale = 2;
+            Vue.nextTick()
+                .then(() => {
+                    assert(fake.cacheScale === 2 * 2, 'cacheScale: ' + fake.cacheScale);
+                })
+                .then(done, done);
+        });
+
+        it('has scale in its updatesEaselCache', function () {
+            assert(implementor.updatesEaselCache.indexOf('scale') >= 0, implementor.updatesEaselCache);
         });
     };
 };
