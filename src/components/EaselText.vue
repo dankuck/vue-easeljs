@@ -33,6 +33,9 @@ export default {
             this.component.textAlign = horizontal || 'left';
             this.component.textBaseline = vertical === 'center' ? 'middle' : (vertical || 'top');
         },
+        getAlignDimensions() {
+            return this.getCacheBounds();
+        },
         getCacheBounds() {
             return getDimensionsFromGetBounds(this)
                 .then(({x, y, width, height}) => {

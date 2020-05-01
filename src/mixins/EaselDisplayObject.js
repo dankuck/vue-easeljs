@@ -10,8 +10,9 @@
 
 import EaselEventBinder from '../libs/easel-event-binder.js';
 import easeljs from '../../easeljs/easel.js';
+import PromiseParty from '../libs/PromiseParty.js';
 
-const passthroughProps = ['rotation', 'cursor', 'visible', 'name'];
+const passthroughProps = ['rotation', 'cursor', 'name'];
 
 export default {
     inject: ['easelParent', 'easelCanvas'],
@@ -32,6 +33,9 @@ export default {
     data() {
         return {
             component: null,
+            forceInvisiblePromises: new PromiseParty()
+                .on('change', count => this.forceInvisible = count > 0),
+            forceInvisible: false,
         };
     },
     mounted() {
@@ -81,6 +85,16 @@ export default {
                 this.updateShadow();
             }
         });
+        this.$watch('shouldBeVisible', () => {
+            if (this.component) {
+                this.updateVisibility();
+            }
+        });
+    },
+    computed: {
+        shouldBeVisible() {
+            return this.visible && !this.forceInvisible;
+        },
     },
     destroyed() {
         this.displayObjectBreakdown();
@@ -96,6 +110,7 @@ export default {
             this.updateScales();
             this.updateAlpha();
             this.updateShadow();
+            this.updateVisibility();
             this.easelParent.addChild(this);
         },
         displayObjectBreakdown(easelComponent = null) {
@@ -117,6 +132,19 @@ export default {
             } else {
                 this.component.shadow = null;
             }
+        },
+        updateVisibility() {
+            this.component.visible = this.shouldBeVisible;
+        },
+        /**
+         * Force visible = false until this promise has resolved or rejected.
+         * Returns a Promise that resolves when the given one does.
+         * @param  {Promise} promise
+         * @return {Promise}
+         */
+        remainInvisibleUntil(promise) {
+            this.forceInvisiblePromises.add(promise);
+            return promise;
         },
     },
 };
