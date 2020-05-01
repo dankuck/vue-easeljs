@@ -10,6 +10,7 @@
 
 import EaselEventBinder from '../libs/easel-event-binder.js';
 import easeljs from '../../easeljs/easel.js';
+import PromiseParty from '../libs/PromiseParty.js';
 
 const passthroughProps = ['rotation', 'cursor', 'name'];
 
@@ -32,7 +33,9 @@ export default {
     data() {
         return {
             component: null,
-            remainInvisibleUntils: new Set(),
+            forceInvisiblePromises: new PromiseParty()
+                .on('change', count => this.forceInvisible = count > 0),
+            forceInvisible: false,
         };
     },
     mounted() {
@@ -84,13 +87,13 @@ export default {
         });
         this.$watch('shouldBeVisible', () => {
             if (this.component) {
-                this.component.visible = this.shouldBeVisible;
+                this.updateVisibility();
             }
         });
     },
     computed: {
         shouldBeVisible() {
-            return this.visible && this.remainInvisibleUntils.size === 0;
+            return this.visible && !this.forceInvisible;
         },
     },
     destroyed() {
@@ -107,6 +110,7 @@ export default {
             this.updateScales();
             this.updateAlpha();
             this.updateShadow();
+            this.updateVisibility();
             this.easelParent.addChild(this);
         },
         displayObjectBreakdown(easelComponent = null) {
@@ -129,15 +133,18 @@ export default {
                 this.component.shadow = null;
             }
         },
+        updateVisibility() {
+            this.component.visible = this.shouldBeVisible;
+        },
         /**
-         * For visible = false until this promise has resolved or rejected.
+         * Force visible = false until this promise has resolved or rejected.
          * Returns a Promise that resolves when the given one does.
          * @param  {Promise} promise
          * @return {Promise}
          */
         remainInvisibleUntil(promise) {
-            this.remainInvisibleUntils.add(promise);
-            return promise.finally(() => this.remainInvisibleUntils.delete(promise));
+            this.forceInvisiblePromises.add(promise);
+            return promise;
         },
     },
 };
