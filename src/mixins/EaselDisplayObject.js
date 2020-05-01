@@ -11,7 +11,7 @@
 import EaselEventBinder from '../libs/easel-event-binder.js';
 import easeljs from '../../easeljs/easel.js';
 
-const passthroughProps = ['rotation', 'cursor', 'visible', 'name'];
+const passthroughProps = ['rotation', 'cursor', 'name'];
 
 export default {
     inject: ['easelParent', 'easelCanvas'],
@@ -32,6 +32,7 @@ export default {
     data() {
         return {
             component: null,
+            remainInvisibleUntils: new Set(),
         };
     },
     mounted() {
@@ -81,6 +82,16 @@ export default {
                 this.updateShadow();
             }
         });
+        this.$watch('shouldBeVisible', () => {
+            if (this.component) {
+                this.component.visible = this.shouldBeVisible;
+            }
+        });
+    },
+    computed: {
+        shouldBeVisible() {
+            return this.visible && this.remainInvisibleUntils.size === 0;
+        },
     },
     destroyed() {
         this.displayObjectBreakdown();
@@ -117,6 +128,16 @@ export default {
             } else {
                 this.component.shadow = null;
             }
+        },
+        /**
+         * For visible = false until this promise has resolved or rejected.
+         * Returns a Promise that resolves when the given one does.
+         * @param  {Promise} promise
+         * @return {Promise}
+         */
+        remainInvisibleUntil(promise) {
+            this.remainInvisibleUntils.add(promise);
+            return promise.finally(() => this.remainInvisibleUntils.delete(promise));
         },
     },
 };

@@ -1,9 +1,15 @@
 // test/index.js
 import Vue from 'vue';
+import SetShim from './fixtures/Set';
 
 // Provide Promise since Phantom doesn't have it
 if (!global.Promise) {
     global.Promise = require('promise');
+}
+
+// Provide Set since Phantom doesn't have it
+if (!global.Set) {
+    global.Set = SetShim;
 }
 
 // Destroy Vue instances automatically:

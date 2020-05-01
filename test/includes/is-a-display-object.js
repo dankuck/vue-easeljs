@@ -289,13 +289,104 @@ export default function (implementor, extra_attributes = '', provide = {}) {
                 .then(done, done);
         });
 
+        describe('visibility', function () {
+
+            const waitUntilVisible = function (fake) {
+                return new Promise(resolve => {
+                    fake.$watch('component.visible', () => {
+                        if (fake.component.visible) {
+                            resolve();
+                        }
+                    }, {immediate: true});
+                });
+            };
+
+            const waitUntilInvisible = function (fake) {
+                return new Promise(resolve => {
+                    fake.$watch('component.visible', () => {
+                        if (!fake.component.visible) {
+                            resolve();
+                        }
+                    }, {immediate: true});
+                });
+            };
+
+            it('should be visible', function (done) {
+                const {fake, vm, easel} = buildVm();
+                vm.visible = true;
+                Vue.nextTick()
+                    .then(() => waitUntilVisible(fake))
+                    .then(done, done);
+            });
+
+            it('should be invisible explicitly', function (done) {
+                const {fake, vm, easel} = buildVm();
+                vm.visible = false;
+                Vue.nextTick()
+                    .then(() => waitUntilInvisible(fake))
+                    .then(done, done);
+            });
+
+            it('should be invisible due to visibility blocker promise', function (done) {
+                const {fake, vm, easel} = buildVm();
+                vm.visible = true;
+                fake.remainInvisibleUntil(new Promise(() => void(0)));
+                Vue.nextTick()
+                    .then(() => waitUntilInvisible(fake))
+                    .then(done, done);
+            });
+
+            it('should be visible when blocker promise is already resolved', function (done) {
+                const {fake, vm, easel} = buildVm();
+                vm.visible = true;
+                fake.remainInvisibleUntil(Promise.resolve());
+                Vue.nextTick()
+                    .then(() => waitUntilVisible(fake))
+                    .then(done, done);
+            });
+
+            it('should be visible when blocker promise is already rejected', function (done) {
+                const {fake, vm, easel} = buildVm();
+                vm.visible = true;
+                fake.remainInvisibleUntil(Promise.reject());
+                Vue.nextTick()
+                    .then(() => waitUntilVisible(fake))
+                    .then(done, done);
+            });
+
+            it('should become visible when blocker promise resolves', function (done) {
+                const {fake, vm, easel} = buildVm();
+                vm.visible = false;
+                let resolve;
+                fake.remainInvisibleUntil(new Promise(r => resolve = r));
+                Vue.nextTick()
+                    .then(() => waitUntilInvisible(fake))
+                    .then(() => resolve())
+                    .then(() => vm.visible = true)
+                    .then(() => waitUntilVisible(fake))
+                    .then(done, done);
+            });
+
+            it('should become visible when blocker promise rejects', function (done) {
+                const {fake, vm, easel} = buildVm();
+                vm.visible = false;
+                let reject;
+                fake.remainInvisibleUntil(new Promise((z, r) => reject = r));
+                Vue.nextTick()
+                    .then(() => waitUntilInvisible(fake))
+                    .then(() => reject())
+                    .then(() => vm.visible = true)
+                    .then(() => waitUntilVisible(fake))
+                    .then(done, done);
+            });
+        });
+
         // These fields are simply copied through to the component, so we test
         // that that copying works as intended.
 
         const passthrough = {
             cursor: 'pointer',
             rotation: 15,
-            visible: false,
             name: 'Charles Wallace',
         };
 
