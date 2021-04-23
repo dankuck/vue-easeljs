@@ -1,3 +1,6 @@
+import Gary from './Gary.vue';
+import Exampler from './Exampler.vue';
+
 // Expose these variables for people who like to use devtools
 window.Vue = require('vue');
 window.VueEaseljs = require('vue-easeljs');
@@ -6,8 +9,8 @@ window.easeljs = window.VueEaseljs.easeljs; // same object as createjs
 
 Vue.use(VueEaseljs);
 
-Vue.component('gary', require('./Gary.vue'));
-Vue.component('exampler', require('./Exampler.vue'));
+Vue.component('gary', Gary);
+Vue.component('exampler', Exampler);
 
 // fancy foot work to require all the examples
 var examplesContext = require.context('../examples', true, /.*\.html/);

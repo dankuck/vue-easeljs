@@ -42,7 +42,8 @@
             </easel-bitmap>
 
             <easel-shape
-                v-for="point in points"
+                v-for="(point, i) in points"
+                :key="i"
                 v-if="showPoints"
                 form="circle"
                 dimensions="3"

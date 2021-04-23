@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 const makeName = () => 'dynamic-' + (new String(Math.random()).replace(/.*\./, ''));
 
 Vue.config.warnHandler = function (err, vm) {
