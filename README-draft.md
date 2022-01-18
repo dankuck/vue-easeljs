@@ -48,9 +48,8 @@ First, meet Gary (they/them).
 
 <img src="https://www.dankuck.com/vue-easeljs/images/gary-all.png" />
 
-Gary is a sprite. They live with all their friends in a
-<a href="https://www.dankuck.com/vue-easeljs/images/lastguardian-all.png">much
-larger sprite sheet</a>. But we're just going to use Gary today.
+Gary is a sprite. They live in an image called a sprite sheet with all
+their friends. But we're just going to use Gary today.
 
 But first, we'll need a canvas:
 
@@ -61,16 +60,17 @@ But first, we'll need a canvas:
         style="background-color: grey"
         :width="400"
         :height="300"
-        :anti-alias="false"
     >
     </easel-canvas>
 </template>
 ```
 
 This canvas will be 400px wide and 300px tall. We gave it a grey background
-so that it will stand out.
+so that it will stand out from the rest of the page.
 
-<img src="https://www.dankuck.com/vue-easeljs/images/grey-canvas.png" />
+<img src="https://www.dankuck.com/vue-easeljs/images/grey-canvas.png"
+    width="400"
+/>
 
 Wait, don't leave, it gets better. Let's drop Gary into our grey void.
 
@@ -83,7 +83,6 @@ To do that, we're going to need a sprite sheet:
         style="background-color: grey"
         :width="400"
         :height="300"
-        :anti-alias="false"
     >
         <easel-sprite-sheet
             :images="['images/lastguardian-all.png']"
@@ -97,16 +96,20 @@ To do that, we're going to need a sprite sheet:
 Our first step is to add an `easel-sprite-sheet`. The sprite sheet is an image
 called lastguardian-all.png.
 
-<img src="https://www.dankuck.com/vue-easeljs/images/lastguardian-all.png" />
+<img src="https://www.dankuck.com/vue-easeljs/images/lastguardian-all.png"
+    width="400"
+/>
 
 It's full of all the characters and positions we might want to use. Each
 position or "frame" is 32px wide and 32px tall.
 
 Unfortunately nothing has changed:
 
-<img src="https://www.dankuck.com/vue-easeljs/images/grey-canvas.png" />
+<img src="https://www.dankuck.com/vue-easeljs/images/grey-canvas.png"
+    width="400"
+/>
 
-But now we're ready to add Gary.
+We've got a sprite sheet, but we need to put a sprite in it.
 
 ```
 // Gary.vue
@@ -115,18 +118,16 @@ But now we're ready to add Gary.
         style="background-color: grey"
         :width="400"
         :height="300"
-        :anti-alias="false"
     >
         <easel-sprite-sheet
             :images="['images/lastguardian-all.png']"
             :frames="{width:32, height:32}"
-            :animations="{stand: 215}"
+            :animations="{walk: [214, 215]}"
         >
             <easel-sprite
-                animation="stand"
+                animation="walk"
                 :x="200"
-                :y="285"
-                align="bottom-center"
+                :y="150"
             >
             </easel-sprite>
         </easel-sprite-sheet>
@@ -134,12 +135,60 @@ But now we're ready to add Gary.
 </template>
 ```
 
-There's Gary!
+There's Gary. Look at them run!
 
-<img src="https://www.dankuck.com/vue-easeljs/images/gary-in-the-void.png" />
+<img src="https://www.dankuck.com/vue-easeljs/images/garys-endless-void-starring-gary.png"
+    width="400"
+/>
+
+Let's see how Gary works. First, notice that we added `animations` to the
+`easel-sprite-sheet`. The animation `walk` uses frames 214 and 215.
+If you count 214 frames from the top left corner of lastguardian-all.png,
+you'll see Gary in mid-stride facing right. At frame 215, they're in a standing
+position.
+
+Next we added `easel-sprite` and the first attribute we added to it was
+`animation`. We set it to use the 'walk' animation from the sprite sheet.
+
+We also included `x` and `y` coordinates. Setting them to 200 and 150 put Gary
+in the middle of our 400 x 300 canvas.
+
+Well, almost the middle...
+
+Gary is slightly off center. That's because Gary's coordinates identify their
+top-left position by default.
+
+Let's get Gary centered:
 
 
+```
+// Gary.vue
+<template>
+    <easel-canvas
+        style="background-color: grey"
+        :width="400"
+        :height="300"
+    >
+        <easel-sprite-sheet
+            :images="['images/lastguardian-all.png']"
+            :frames="{width:32, height:32}"
+            :animations="{walk: [214, 215]}"
+        >
+            <easel-sprite
+                animation="walk"
+                :x="200"
+                :y="150"
+                align="center-center"
+            >
+            </easel-sprite>
+        </easel-sprite-sheet>
+    </easel-canvas>
+</template>
+```
 
+<img src="https://www.dankuck.com/vue-easeljs/images/gary-centered.png"
+    width="400"
+/>
 
 
 
