@@ -48,15 +48,98 @@ First, meet Gary (they/them).
 
 <img src="https://www.dankuck.com/vue-easeljs/images/gary-all.png" />
 
-Gary is a sprite. They live with all their friends (and enemies) in a
+Gary is a sprite. They live with all their friends in a
 <a href="https://www.dankuck.com/vue-easeljs/images/lastguardian-all.png">much
 larger sprite sheet</a>. But we're just going to use Gary today.
 
+But first, we'll need a canvas:
 
-In your Vue.js code start with an `easel-canvas` component. Other components
-reside within it.
+```
+// Gary.vue
+<template>
+    <easel-canvas
+        style="background-color: grey"
+        :width="400"
+        :height="300"
+        :anti-alias="false"
+    >
+    </easel-canvas>
+</template>
+```
 
-Earlier components are hidden by later components whenever they overlap.
+This canvas will be 400px wide and 300px tall. We gave it a grey background
+so that it will stand out.
+
+<img src="https://www.dankuck.com/vue-easeljs/images/grey-canvas.png" />
+
+Wait, don't leave, it gets better. Let's drop Gary into our grey void.
+
+To do that, we're going to need a sprite sheet:
+
+```
+// Gary.vue
+<template>
+    <easel-canvas
+        style="background-color: grey"
+        :width="400"
+        :height="300"
+        :anti-alias="false"
+    >
+        <easel-sprite-sheet
+            :images="['images/lastguardian-all.png']"
+            :frames="{width:32, height:32}"
+        >
+        </easel-sprite-sheet>
+    </easel-canvas>
+</template>
+```
+
+Our first step is to add an `easel-sprite-sheet`. The sprite sheet is an image
+called lastguardian-all.png.
+
+<img src="https://www.dankuck.com/vue-easeljs/images/lastguardian-all.png" />
+
+It's full of all the characters and positions we might want to use. Each
+position or "frame" is 32px wide and 32px tall.
+
+Unfortunately nothing has changed:
+
+<img src="https://www.dankuck.com/vue-easeljs/images/grey-canvas.png" />
+
+But now we're ready to add Gary.
+
+```
+// Gary.vue
+<template>
+    <easel-canvas
+        style="background-color: grey"
+        :width="400"
+        :height="300"
+        :anti-alias="false"
+    >
+        <easel-sprite-sheet
+            :images="['images/lastguardian-all.png']"
+            :frames="{width:32, height:32}"
+            :animations="{stand: 215}"
+        >
+            <easel-sprite
+                animation="stand"
+                :x="200"
+                :y="285"
+                align="bottom-center"
+            >
+            </easel-sprite>
+        </easel-sprite-sheet>
+    </easel-canvas>
+</template>
+```
+
+There's Gary!
+
+<img src="https://www.dankuck.com/vue-easeljs/images/gary-in-the-void.png" />
+
+
+
 
 
 
