@@ -946,8 +946,8 @@ All visible components and the canvas itself emit Vue.js events with an event ob
 | Event                            | Fired when...                                                                                      |
 | --------                         | ---------------                                                                                    |
 | added                            | Fired when the component is added to its parent.                                                   |
-| animationend (easel-sprite only) | Fired when an animation completes.                                                                 |
-| change (easel-sprite only)       | Fired when an animation changes.                                                                   |
+| animationend                     | Fired when an animation completes. (easel-sprite only)                                             |
+| change                           | Fired when an animation changes.  (easel-sprite only)                                              |
 | click                            | Fired when the component is clicked or tapped.                                                     |
 | dblclick                         | Fired when the component is double-clicked or tapped.                                              |
 | mousedown                        | Fired when the component is clicked down.                                                          |
@@ -965,22 +965,10 @@ Modifiers such as `.stop` usually work with the events.
 For performance reasons, the events are only emitted if a handler exists. They
 will not show up in the Vue.js devtools if no handler exists.
 
-These events will be made available in a future release:
-
- * drawend
- * drawstart
- * mouseenter
- * mouseleave
- * stagemousedown
- * stagemousemove
- * stagemouseup
- * tickend
- * tickstart
-
 # Developer Tips
 
 Chrome/Chromium Users:
- * When developing locally, Chrome limits canvas access to local image files. They can be viewed but click events will error out *unless* Chrome is opened with the `--allow-file-access-from-files` flag. But be careful, since this flag opens your system up to some danger if the scripts you run on your page are untrustworthy. This is a limitation of canvas that applies to all canvas libraries. Fortunately, Chrome has this workaround. Unfortunately, it can stop working and require a browser restart.
+ * When developing locally, Chrome limits canvas access to local image files. They can be viewed but click events will error out *unless* Chrome is opened with the `--allow-file-access-from-files` flag. But be careful, since this flag opens your system up to some danger if the scripts you run on your page are untrustworthy. This is a limitation of canvas that applies to all canvas libraries.
 
 All users:
  * When accessing image files from other hosts, CORS must be setup on the foreign host or else click events will error out. This is a limitation of canvas that applies to all canvas libraries.
@@ -996,7 +984,6 @@ These will be implemented in future releases:
 * Masks
 * Mouse cursors
 * Hit areas
-* Filters
 
 There are no plans to implement these features that EaselJS provides, but pull requests are accepted:
 
