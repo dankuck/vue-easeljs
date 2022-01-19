@@ -74,7 +74,7 @@ so that it will stand out from the rest of the page.
 
 Wait, don't leave, it gets better. Let's drop Gary into our grey void.
 
-To do that, we're going to need a sprite sheet:
+To do that, we're going to need to bring in Gary's sprite sheet:
 
 ```
 // Gary.vue
@@ -93,6 +93,12 @@ To do that, we're going to need a sprite sheet:
 </template>
 ```
 
+<img src="https://www.dankuck.com/vue-easeljs/images/grey-canvas.png"
+    width="400"
+/>
+
+Don't worry if there's no change.
+
 Our first step was to add an `easel-sprite-sheet` which holds information about
 the image we'll use for our sprites. This time we're using an image called
 lastguardian-all.png.
@@ -103,12 +109,6 @@ lastguardian-all.png.
 
 It's full of all the characters and positions we might want to use. Each
 position, or frame, is 32px wide and 32px tall.
-
-Unfortunately nothing has changed:
-
-<img src="https://www.dankuck.com/vue-easeljs/images/grey-canvas.png"
-    width="400"
-/>
 
 We've got a sprite sheet, but we need a sprite to use it with:
 
@@ -149,7 +149,7 @@ you'll see Gary in mid-stride facing right. At frame 215, they're in a standing
 position.
 
 Next we added `easel-sprite` and the first attribute we added to it was
-`animation`. We set it to use the "walk" animation from the sprite sheet.
+`animation="walk"` to match the `easel-sprite-sheet`.
 
 We also included `x` and `y` coordinates. Setting them to 200 and 150 put Gary
 in the middle of our 400 x 300 canvas.
@@ -191,7 +191,7 @@ Let's get Gary centered:
     width="400"
 />
 
-Bingo. Gary's center is now at x=200, y=150.
+Bingo. By adding `align="center-center"` Gary's center is now at x=200, y=150.
 
 But humans were not meant to live in a vacuum. Gary needs a place to visit.
 
@@ -228,20 +228,17 @@ But humans were not meant to live in a vacuum. Gary needs a place to visit.
 </template>
 ```
 
-<img src="https://www.dankuck.com/vue-easeljs/images/gary-in-a-tree.png"
+<img src="https://www.dankuck.com/vue-easeljs/images/gary-in-the-tree.png"
     width="400"
 />
 
 Great! Well... not great.
 
-We've added an `easel-bitmap` with an image called gulfstream_park.jpg. We
-added it before Gary's sprite so that it would show up behind Gary.
+We've added an `easel-bitmap` with an image called
+<a href="https://www.dankuck.com/vue-easeljs/images/gulfstream_park.jpg">gulfstream_park.jpg</a>.
+We added it before Gary's sprite so that it would show up behind Gary.
 
 It's centered just like Gary is. But it's just too large.
-
-<img src="https://www.dankuck.com/vue-easeljs/images/gulfstream_park.jpg"
-    width="400"
-/>
 
 The file is 946px tall, but our canvas is only 300px tall. Let's just use some
 inline math to scale it down.
@@ -284,9 +281,8 @@ inline math to scale it down.
     width="400"
 />
 
-That looks better.
-
-The `scale` attribute is available on a lot of vue-easeljs components.
+That looks better. We added `:scale="300 / 946"` to multiply the image's
+height. Down in this case, from 946 to 300.
 
 But Gary is still struggling for life up in a tree.
 
@@ -324,10 +320,15 @@ But Gary is still struggling for life up in a tree.
 </template>
 ```
 
-That's good. We've changed Gary's `y`. We've also changed their `align` to
-"bottom-center". This way we can think of Gary's position in terms of "where
-their feet touch the ground". This helps a lot when we want to resize Gary
-using `scale` while keeping their feet in place.
+<img src="https://www.dankuck.com/vue-easeljs/images/gary-on-the-ground.png"
+    width="400"
+/>
+
+Yes! We've changed Gary's `y` to 275 (trial and error works fine here).
+We've also changed their `align` to "bottom-center". This way we can think of
+Gary's position in terms of "where their feet touch the ground". This helps a
+lot when we want to resize Gary using `scale` while keeping their feet in
+place.
 
 
 ## Full-featured Gary
@@ -335,7 +336,10 @@ using `scale` while keeping their feet in place.
 <a href="https://www.dankuck.com/vue-easeljs/"><img src="https://dankuck.github.io/vue-easeljs/images/gary.png" /></a>
 
 Check out this <a href="https://www.dankuck.com/vue-easeljs/">Live Demo</a>
-using Gary to see more of what you can do with vue-easeljs.
+using Gary to see more of what you can do with vue-easeljs. In it, we change
+Gary's scale, add some text that follows Gary around using an
+`easel-container`, use attributes like `flip`, slow Gary down, draw red and
+while circles on screen, and make Gary run around using Vue properties.
 
 # Components
 
