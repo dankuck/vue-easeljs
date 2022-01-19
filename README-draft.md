@@ -46,7 +46,9 @@ achieve the effects you're looking for on the web.
 
 First, meet Gary (they/them).
 
-<img src="https://www.dankuck.com/vue-easeljs/images/gary-all.png" />
+<img src="https://www.dankuck.com/vue-easeljs/images/gary-all.png"
+    width="400"
+/>
 
 Gary is a sprite. They live in an image called a sprite sheet with all
 their friends. But we're just going to use Gary today.
