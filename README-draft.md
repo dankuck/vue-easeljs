@@ -30,13 +30,11 @@ Vue.use(require('vue-easeljs'));
 
 Vue-easeljs provides Vue.js with tools to draw on an HTML5 canvas.
 
-You can use an HTML5 canvas to draw on an element in a browser with JavaScript.
+Using an HTML5 canvas you can apply JavaScript to draw shapes, create
+generative art, import images and animations from files, and print text.
 
-Using a canvas you can draw shapes, create generative art, import images and
-animations from files, and print text.
-
-Everything you need to use a canvas is available in the browser, but to really
-get creative, use a library built for the job.
+Everything you need for drawing to a canvas is available in the browser, but
+to really get creative, use a library built for the job.
 
 Vue-easeljs is a wrapper to a great library called EaselJS, so you can use it
 in your Vue.js projects. This allows you to use data-driven programming to
@@ -53,7 +51,7 @@ First, meet Gary (they/them).
 Gary is a sprite. They live in an image called a sprite sheet with all
 their friends. But we're just going to use Gary today.
 
-But first, we'll need a canvas:
+First we'll need a canvas:
 
 ```
 // Gary.vue
@@ -67,7 +65,10 @@ But first, we'll need a canvas:
 </template>
 ```
 
-This canvas will be 400px wide and 300px tall. We gave it a grey background
+All of our other elements will go inside the canvas, which controls the
+boundaries of where we can work.
+
+This canvas is 400px wide and 300px tall. We gave it a grey background
 so that it will stand out from the rest of the page.
 
 <img src="https://www.dankuck.com/vue-easeljs/images/grey-canvas.png"
@@ -113,7 +114,7 @@ It's full of all the characters and positions we might want to use. We used the
 `frames` attribute to let the `easel-sprite-sheet` know that each
 position, or frame, is 32px wide and 32px tall.
 
-We've got a sprite sheet, but we need a sprite to use it with:
+We've got a sprite sheet, but we need a sprite element to use it with:
 
 ```
 // Gary.vue
@@ -151,7 +152,7 @@ If you count 214 frames from the top left corner of lastguardian-all.png,
 you'll see Gary in mid-stride facing right. At frame 215, they're in a standing
 position.
 
-Next we added `easel-sprite` and the first attribute we added to it was
+Next we added `easel-sprite` and the first attribute we gave it was
 `animation="walk"` to match the `easel-sprite-sheet`.
 
 We also included `x` and `y` coordinates. Setting them to 200 and 150 put Gary
@@ -159,8 +160,8 @@ in the middle of our 400 x 300 canvas.
 
 Well, almost the middle...
 
-Gary is slightly off center, because their coordinates identify their
-top-left position by default.
+Gary is slightly off center, because their coordinates identify the position of
+their top-left corner by default.
 
 Let's get Gary centered. Oh and we need to slow them down:
 
@@ -194,8 +195,8 @@ Let's get Gary centered. Oh and we need to slow them down:
     width="400"
 />
 
-Bingo. By adding `align="center-center"` Gary's *center* is now at the x-y
-coordinates.
+Bingo. By adding `align="center-center"` we ensured that Gary's *center* is
+now at the x-y coordinates.
 
 When we added `framerate` to the `easel-sprite-sheet` Gary got a little more
 mellow.
@@ -245,7 +246,7 @@ Great! Well... not great.
 
 We've added an `easel-bitmap` with an image called
 <a href="https://www.dankuck.com/vue-easeljs/images/gulfstream_park.jpg">gulfstream_park.jpg</a>.
-We added it before Gary's sprite in the code so that it would show up behind
+We added it above Gary's code in the file so that it would show up behind
 Gary.
 
 It's centered just like Gary is. But it's much too large.
@@ -803,9 +804,6 @@ in most respects.
 The difference is that caching has an impact on performance. In many cases it
 increases an element's speed, but if the cache needs to refresh often it can
 decrease speed.
-
-Caching exists for those performance purposes and also because it will be
-necessary when filters are implemented in a future version of this library.
 
 # Filters attribute
 
