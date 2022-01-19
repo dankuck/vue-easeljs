@@ -339,7 +339,8 @@ Check out this <a href="https://www.dankuck.com/vue-easeljs/">Live Demo</a>
 using Gary to see more of what you can do with vue-easeljs. In it, we change
 Gary's scale, add some text that follows Gary around using an
 `easel-container`, use attributes like `flip`, slow Gary down, draw red and
-while circles on screen, and make Gary run around using Vue properties.
+while circles on screen, listen for `click` events, and make Gary run around
+using Vue properties and a time out.
 
 # Components
 
