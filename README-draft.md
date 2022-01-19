@@ -296,7 +296,7 @@ inline math to scale it down.
 That looks better. We added `:scale="300 / 946"` to multiply the image's
 height. Down in this case, from 946 to 300.
 
-But Gary is still struggling for life up in a tree.
+But Gary is still struggling to get down from that tree.
 
 ```vue
 // Gary.vue
@@ -392,9 +392,9 @@ Example:
 </easel-bitmap>
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.1"><img src="https://www.dankuck.com/vue-easeljs/images/example2.png"/></a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.0"><img src="https://www.dankuck.com/vue-easeljs/images/example2.png"/></a>
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.1">See Live Demo</a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.0">See Live Demo</a>
 
 ## easel-canvas
 
@@ -452,9 +452,9 @@ Example:
 
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.2"><img src="https://www.dankuck.com/vue-easeljs/images/example3.png" /></a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.1"><img src="https://www.dankuck.com/vue-easeljs/images/example3.png" /></a>
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.2">See Live Demo</a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.1">See Live Demo</a>
 
 ## easel-container
 
@@ -498,9 +498,9 @@ Example:
 </easel-container>
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.3"><img src="https://www.dankuck.com/vue-easeljs/images/example4.png" /></a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.2"><img src="https://www.dankuck.com/vue-easeljs/images/example4.png" /></a>
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.3">See Live Demo</a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.2">See Live Demo</a>
 
 ## easel-shape
 
@@ -548,9 +548,9 @@ Example:
 >
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.4"><img src="https://www.dankuck.com/vue-easeljs/images/example5.png" /></a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.3"><img src="https://www.dankuck.com/vue-easeljs/images/example5.png" /></a>
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.4">See Live Demo</a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.3">See Live Demo</a>
 
 ## easel-sprite
 
@@ -694,9 +694,9 @@ Example:
 </easel-sprite-sheet>
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.5"><img src="https://www.dankuck.com/vue-easeljs/images/example6.png" /></a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.4"><img src="https://www.dankuck.com/vue-easeljs/images/example6.png" /></a>
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.5">See Live Demo</a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.4">See Live Demo</a>
 
 ## easel-text
 
@@ -735,9 +735,9 @@ Example:
 </easel-text>
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.6"><img src="https://www.dankuck.com/vue-easeljs/images/example7.png" /></a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.5"><img src="https://www.dankuck.com/vue-easeljs/images/example7.png" /></a>
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.6">See Live Demo</a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.5">See Live Demo</a>
 
 # Align attribute
 
