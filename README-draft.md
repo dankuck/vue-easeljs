@@ -79,7 +79,7 @@ Wait, don't leave, it gets better. Let's drop Gary into our grey void.
 
 To do that, we're going to need to bring in Gary's sprite sheet:
 
-```vue.js
+```vue
 // Gary.vue
 <template>
     <easel-canvas
@@ -116,7 +116,7 @@ position, or frame, is 32px wide and 32px tall.
 
 We've got a sprite sheet, but we need a sprite element to use it with:
 
-```
+```vue
 // Gary.vue
 <template>
     <easel-canvas
@@ -165,7 +165,7 @@ their top-left corner by default.
 
 Let's get Gary centered. Oh and we need to slow them down:
 
-```
+```vue
 // Gary.vue
 <template>
     <easel-canvas
@@ -204,7 +204,7 @@ mellow.
 But even mellow humans were not meant to live in a vacuum. Gary needs a place
 to visit.
 
-```
+```vue
 // Gary.vue
 <template>
     <easel-canvas
@@ -254,7 +254,7 @@ It's centered just like Gary is. But it's much too large.
 The file is 946px tall, and our canvas is only 300px tall. Let's just use some
 inline math to scale it down.
 
-```
+```vue
 // Gary.vue
 <template>
     <easel-canvas
@@ -298,7 +298,7 @@ height. Down in this case, from 946 to 300.
 
 But Gary is still struggling for life up in a tree.
 
-```
+```vue
 // Gary.vue
 <template>
     <easel-canvas
@@ -382,7 +382,7 @@ Attributes:
 
 Example:
 
-```
+```vue
 <easel-bitmap
     image="/images/awesome-background.jpg"
     :x="0"
@@ -428,7 +428,7 @@ original size and pixelation.
 
 Example:
 
-```
+```vue
 <easel-canvas width="500" height="100">
     <easel-shape
         form="rect"
@@ -478,7 +478,7 @@ Attributes:
 
 Example:
 
-```
+```vue
 <easel-container
     flip="horizontal"
     scale=".5"
@@ -537,7 +537,7 @@ Dimensions for:
 | star       | array                                                  | [r, s, p]                                                                                                                     | the radius, sides count, and point size of a "star". Use point size 0 to draw a simple polygon. Max point size is 1. |
 
 Example:
-```
+```vue
 <easel-shape
     form="star"
     :dimensions="[100, 3, 0]"
@@ -605,7 +605,7 @@ width and height you give it.
 
 In that case the following definition will do nicely:
 
-```
+```vue
 <easel-sprite-sheet
     :images="['/images/character.png']"
     :frames="{width: 32, height: 32}"
@@ -618,7 +618,7 @@ cases, you'll need to specify more information.
 
 In this example, there is space and margin between the frames.
 
-```
+```vue
 <easel-sprite-sheet
     :images="['/images/lots-of-characters.png']"
     :frames="{width: 32, height: 32, spacing: 5, margin: 10}"
@@ -630,7 +630,7 @@ Other times, the frames are different sizes or are on different images.
 
 In that case, this format will be required:
 
-```
+```vue
 <easel-sprite-sheet
     :images="['/images/thomasChugging.png','/images/thomasBraking.png']"
     :frames="[
@@ -670,7 +670,7 @@ animations: {
 
 Example:
 
-```
+```vue
 <easel-sprite-sheet
     :images="['images/lastguardian-all.png']"
     :frames="{width:32,height:32}"
@@ -724,7 +724,7 @@ Attributes:
 
 Example:
 
-```
+```vue
 <easel-text
     text="The Ran In Span Falls Manly On The Plan"
     :x="250"
@@ -891,7 +891,7 @@ See further documentation on
 <a href="./README.custom-filters.md">Custom filters</a>.
 
 Example:
-```
+```js
 const VueEaseljs = require('vue-easeljs');
 
 class MyFilter {
