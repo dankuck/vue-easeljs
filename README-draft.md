@@ -348,9 +348,9 @@ place.
 <a href="https://www.dankuck.com/vue-easeljs/"><img src="https://www.dankuck.com/vue-easeljs/images/gary-running-short.gif" /></a>
 
 Check out this <a href="https://www.dankuck.com/vue-easeljs/">Live Demo</a>
-using Gary to see more of what you can do with vue-easeljs. In it, we change
-Gary's scale, add some text that follows Gary around using an
-`easel-container`, use attributes like `flip`, draw red and
+using Gary to see more of what you can do with vue-easeljs. In it we change
+Gary's scale and position dynamically, add some text that follows Gary around
+using an `easel-container`, use attributes like `flip`, draw red and
 while circles on screen, listen for `click` events, use transparency, use
 anti-aliasing to retain the 8-bit look, and make Gary run around
 using Vue properties and a time out.
@@ -712,7 +712,7 @@ Attributes:
 | cursor     | string                                                 | set the CSS mouse cursor to use when hovering over this text                                                                   | Default: null                  |
 | filters    | see [filters](#filters-attribute)                      | apply filters.                                                                                                                 | Default: null                  |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the text.                                                                                                                | Default: ''                    |
-| font       | [font](#font-attribute)                                | size and family of the font. Format: "Npx family".                                                                             | Default: ?                     |
+| font       | see [font](#font-attribute)                            | size and family of the font. Format: "Npx family".                                                                             | Default: ?                     |
 | rotation   | degrees                                                | rotates the text.                                                                                                              | Default: 0                     |
 | scale      | number                                                 | resizes the text.                                                                                                              | Default: 1                     |
 | shadow     | see [shadow](#shadow-attribute)                        | cast a text-shaped shadow.                                                                                                     | Default: null                  |
@@ -810,7 +810,7 @@ necessary when filters are implemented in a future version of this library.
 # Filters attribute
 
 Filters process a visual element's pixels, applying adjustments after the
-element is drawn.
+element is rasterized and before it is rendered on canvas.
 
 The `filters` attribute is an array of arrays. Each filter array consists of
 the name of a filter followed by parameters.
@@ -877,7 +877,8 @@ Add a pixelated stroke around the element.
 
 ### Not yet available
 
-EaselJS has two filters -- AlphaMapFilter and AlphaMaskFilter -- that are not
+The underlying library EaselJS has two more filters -- AlphaMapFilter and
+AlphaMaskFilter -- that are not
 yet available, because their use requires complicated access to canvases. The
 idiom of this library is that you should never have to access a canvas. In the
 future this library should provide an `<easel-mask>` element to do masking,
