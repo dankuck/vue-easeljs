@@ -26,16 +26,335 @@ In app.js:
 Vue.use(require('vue-easeljs'));
 ```
 
-In your Vue.js code start with an `easel-canvas` component. Other components
-reside within it.
+## What is vue-easeljs?
 
-The earliest components are hidden by later components whenever they overlap.
+Vue-easeljs provides Vue.js with tools to draw on an HTML5 canvas.
 
-# Example
+Using an HTML5 canvas you can apply JavaScript to draw shapes, create
+generative art, import images and animations from files, and print text.
 
-<a href="https://www.dankuck.com/vue-easeljs/"><img src="https://dankuck.github.io/vue-easeljs/images/gary.png" /></a>
+Everything you need for drawing to a canvas is available in the browser, but
+to really get creative, use a library built for the job.
 
-<a href="https://www.dankuck.com/vue-easeljs/">See Live Demo</a>
+Vue-easeljs is a wrapper to a great library called EaselJS, so you can use it
+in your Vue.js projects. This allows you to use data-driven programming to
+achieve the effects you're looking for on the web.
+
+# Tutorial
+
+First, meet Gary (they/them).
+
+<img src="https://www.dankuck.com/vue-easeljs/images/gary-all.png"
+    width="400"
+/>
+
+Gary is a sprite. They live in an image called a sprite sheet with all
+their friends. But we're just going to use Gary today.
+
+First we'll need a canvas:
+
+```vue
+// Gary.vue
+<template>
+    <easel-canvas
+        style="background-color: grey"
+        :width="400"
+        :height="300"
+    >
+    </easel-canvas>
+</template>
+```
+
+All of our other elements will go inside the canvas, which controls the
+boundaries of where we can work.
+
+This canvas is 400px wide and 300px tall. We gave it a grey background
+so that it will stand out from the rest of the page.
+
+<img src="https://www.dankuck.com/vue-easeljs/images/grey-canvas.png"
+    width="400"
+/>
+
+Wait, don't leave, it gets better. Let's drop Gary into our grey void.
+
+To do that, we're going to need to bring in Gary's sprite sheet:
+
+```vue
+// Gary.vue
+<template>
+    <easel-canvas
+        style="background-color: grey"
+        :width="400"
+        :height="300"
+    >
+        <easel-sprite-sheet
+            :images="['images/lastguardian-all.png']"
+            :frames="{width:32, height:32}"
+        >
+        </easel-sprite-sheet>
+    </easel-canvas>
+</template>
+```
+
+<img src="https://www.dankuck.com/vue-easeljs/images/grey-canvas.png"
+    width="400"
+/>
+
+There's no change yet, that's ok.
+
+This step was to add an `easel-sprite-sheet` which holds information about
+the image we'll use for our sprites. We're using an image called
+lastguardian-all.png.
+
+<img src="https://www.dankuck.com/vue-easeljs/images/lastguardian-all.png"
+    width="400"
+/>
+
+It's full of all the characters and positions we might want to use. We used the
+`frames` attribute to let the `easel-sprite-sheet` know that each
+position, or frame, is 32px wide and 32px tall.
+
+We've got a sprite sheet, but we need a sprite element to use it with:
+
+```vue
+// Gary.vue
+<template>
+    <easel-canvas
+        style="background-color: grey"
+        :width="400"
+        :height="300"
+    >
+        <easel-sprite-sheet
+            :images="['images/lastguardian-all.png']"
+            :frames="{width:32, height:32}"
+            :animations="{walk: [214, 215]}"
+        >
+            <easel-sprite
+                animation="walk"
+                :x="200"
+                :y="150"
+            >
+            </easel-sprite>
+        </easel-sprite-sheet>
+    </easel-canvas>
+</template>
+```
+
+There's Gary. Look at them run!
+
+<img src="https://www.dankuck.com/vue-easeljs/images/garys-endless-void-starring-gary.gif"
+    width="400"
+/>
+
+Let's see how Gary works. First, notice that we added `animations` to the
+`easel-sprite-sheet`. The animation `walk` uses frames 214 and 215.
+If you count 214 frames from the top left corner of lastguardian-all.png,
+you'll see Gary in mid-stride facing right. At frame 215, they're in a standing
+position.
+
+Next we added `easel-sprite` and the first attribute we gave it was
+`animation="walk"` to match the `easel-sprite-sheet`.
+
+We also included `x` and `y` coordinates. Setting them to 200 and 150 put Gary
+in the middle of our 400 x 300 canvas.
+
+Well, almost the middle...
+
+Gary is slightly off center, because their coordinates identify the position of
+their top-left corner by default.
+
+Let's get Gary centered. Oh and we need to slow them down:
+
+```vue
+// Gary.vue
+<template>
+    <easel-canvas
+        style="background-color: grey"
+        :width="400"
+        :height="300"
+    >
+        <easel-sprite-sheet
+            :images="['images/lastguardian-all.png']"
+            :frames="{width:32, height:32}"
+            :animations="{walk: [214, 215]}"
+            :framerate="30"
+        >
+            <easel-sprite
+                animation="walk"
+                :x="200"
+                :y="150"
+                align="center-center"
+            >
+            </easel-sprite>
+        </easel-sprite-sheet>
+    </easel-canvas>
+</template>
+```
+
+<img src="https://www.dankuck.com/vue-easeljs/images/gary-centered.gif"
+    width="400"
+/>
+
+Bingo. By adding `align="center-center"` we ensured that Gary's *center* is
+now at the x-y coordinates.
+
+When we added `:framerate="30"` to the `easel-sprite-sheet` Gary got a little
+more mellow.
+
+But even mellow humans were not meant to live in a vacuum. Gary needs a place
+to visit.
+
+```vue
+// Gary.vue
+<template>
+    <easel-canvas
+        style="background-color: grey"
+        :width="400"
+        :height="300"
+    >
+        <easel-bitmap
+            image="images/gulfstream_park.jpg"
+            x="200"
+            y="150"
+            align="center-center"
+        >
+        </easel-bitmap>
+
+        <easel-sprite-sheet
+            :images="['images/lastguardian-all.png']"
+            :frames="{width:32, height:32}"
+            :animations="{walk: [214, 215]}"
+            :framerate="30"
+        >
+            <easel-sprite
+                animation="walk"
+                :x="200"
+                :y="150"
+                align="center-center"
+            >
+            </easel-sprite>
+        </easel-sprite-sheet>
+    </easel-canvas>
+</template>
+```
+
+<img src="https://www.dankuck.com/vue-easeljs/images/gary-in-the-tree.gif"
+    width="400"
+/>
+
+Great! Well... not great.
+
+We've added an `easel-bitmap` with an image called
+<a href="https://www.dankuck.com/vue-easeljs/images/gulfstream_park.jpg">gulfstream_park.jpg</a>.
+We added it above Gary's code in the file so that it would show up behind
+Gary.
+
+It's centered just like Gary is. But it's much too large.
+
+The file is 946px tall, and our canvas is only 300px tall. Let's just use some
+inline math to scale it down.
+
+```vue
+// Gary.vue
+<template>
+    <easel-canvas
+        style="background-color: grey"
+        :width="400"
+        :height="300"
+    >
+        <easel-bitmap
+            image="images/gulfstream_park.jpg"
+            x="200"
+            y="150"
+            align="center-center"
+            :scale="300 / 946"
+        >
+        </easel-bitmap>
+
+        <easel-sprite-sheet
+            :images="['images/lastguardian-all.png']"
+            :frames="{width:32, height:32}"
+            :animations="{walk: [214, 215]}"
+            :framerate="30"
+        >
+            <easel-sprite
+                animation="walk"
+                :x="200"
+                :y="150"
+                align="center-center"
+            >
+            </easel-sprite>
+        </easel-sprite-sheet>
+    </easel-canvas>
+</template>
+```
+
+<img src="https://www.dankuck.com/vue-easeljs/images/gary-at-gulfstream-park-with-words.gif"
+    width="400"
+/>
+
+That looks better. We added `:scale="300 / 946"` to multiply the image's
+height. Down in this case, from 946 to 300.
+
+But Gary is still struggling to get down from that tree.
+
+```vue
+// Gary.vue
+<template>
+    <easel-canvas
+        style="background-color: grey"
+        :width="400"
+        :height="300"
+    >
+        <easel-bitmap
+            image="images/gulfstream_park.jpg"
+            x="200"
+            y="150"
+            align="center-center"
+            :scale="300 / 946"
+        >
+        </easel-bitmap>
+
+        <easel-sprite-sheet
+            :images="['images/lastguardian-all.png']"
+            :frames="{width:32, height:32}"
+            :animations="{walk: [214, 215]}"
+            :framerate="30"
+        >
+            <easel-sprite
+                animation="walk"
+                :x="200"
+                :y="275"
+                align="bottom-center"
+            >
+            </easel-sprite>
+        </easel-sprite-sheet>
+    </easel-canvas>
+</template>
+```
+
+<img src="https://www.dankuck.com/vue-easeljs/images/gary-on-the-ground.gif"
+    width="400"
+/>
+
+Yes! We've changed Gary's `y` to 275 (trial and error works fine here).
+We've also changed their `align` to "bottom-center". This way we can think of
+Gary's position in terms of "where their feet touch the ground". This helps a
+lot when we want to resize Gary using `scale` while keeping their feet in
+place.
+
+
+## Full-featured Gary
+
+<a href="https://www.dankuck.com/vue-easeljs/"><img src="https://www.dankuck.com/vue-easeljs/images/gary-running-short.gif" /></a>
+
+Check out this <a href="https://www.dankuck.com/vue-easeljs/">Live Demo</a>
+using Gary to see more of what you can do with vue-easeljs. In it we change
+Gary's scale and position dynamically, add some text that follows Gary around
+using an `easel-container`, use attributes like `flip`, draw red and
+while circles on screen, listen for `click` events, use transparency, use
+anti-aliasing to retain the 8-bit look, and make Gary run around
+using Vue properties and a time out.
 
 # Components
 
@@ -47,23 +366,23 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                                                                    | Required/Default               |
 | --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                                                                         | Default: 'top-left'            |
+| align      | see [alignment](#align-attribute)                      | controls what point of the image the x and y refer to.                                                                         | Default: 'top-left'            |
 | alpha      | 0 to 1                                                 | controls the opacity of the image.                                                                                             | Default: 1, completely opaque  |
 | cache      | boolean                                                | instead of drawing from source constantly, use a [cached version](#cache-attribute) of the source                              | Default: false                 |
 | cursor     | string                                                 | set the CSS mouse cursor to use when hovering over this bitmap                                                                 | Default: null                  |
-| filters    | [filters](#filters-attribute)                          | apply filters.                                                                                                                 | Default: null                  |
+| filters    | see [filters](#filters-attribute)                      | apply filters.                                                                                                                 | Default: null                  |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                                                               | Default: ''                    |
 | image      | string                                                 | relative or absolute URL to an image file.                                                                                     | Required                       |
 | rotation   | degrees                                                | rotates the image.                                                                                                             | Default: 0                     |
 | scale      | number                                                 | resizes the image.                                                                                                             | Default: 1                     |
-| shadow     | [shadow](#shadow-attribute)                            | cast an image-shaped shadow.                                                                                                   | Default: null                  |
+| shadow     | see [shadow](#shadow-attribute)                        | cast an image-shaped shadow.                                                                                                   | Default: null                  |
 | visible    | boolean                                                | draw or do not draw the bitmap on canvas                                                                                       | Default: true                  |
 | x          | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0                     |
 | y          | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0                     |
 
 Example:
 
-```
+```vue
 <easel-bitmap
     image="/images/awesome-background.jpg"
     :x="0"
@@ -73,9 +392,9 @@ Example:
 </easel-bitmap>
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.1"><img src="https://www.dankuck.com/vue-easeljs/images/example2.png"/></a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.0"><img src="https://www.dankuck.com/vue-easeljs/images/example2.png"/></a>
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.1">See Live Demo</a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.0">See Live Demo</a>
 
 ## easel-canvas
 
@@ -109,7 +428,7 @@ original size and pixelation.
 
 Example:
 
-```
+```vue
 <easel-canvas width="500" height="100">
     <easel-shape
         form="rect"
@@ -133,9 +452,9 @@ Example:
 
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.2"><img src="https://www.dankuck.com/vue-easeljs/images/example3.png" /></a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.1"><img src="https://www.dankuck.com/vue-easeljs/images/example3.png" /></a>
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.2">See Live Demo</a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.1">See Live Demo</a>
 
 ## easel-container
 
@@ -148,18 +467,18 @@ Attributes:
 | alpha      | 0 to 1                                                 | controls the opacity of the container's contents.                                                                              | Default: 1, completely opaque  |
 | cache      | boolean                                                | instead of drawing contained element from source constantly, use a [cached version](#cache-attribute) of all elements together | Default: false                 |
 | cursor     | string                                                 | set the CSS mouse cursor to use when hovering over the elements in this container                                              | Default: null                  |
-| filters    | [filters](#filters-attribute)                          | apply filters.                                                                                                                 | Default: null                  |
+| filters    | see [filters](#filters-attribute)                      | apply filters.                                                                                                                 | Default: null                  |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the container.                                                                                                           | Default: ''                    |
 | rotation   | degrees                                                | rotates the container.                                                                                                         | Default: 0                     |
 | scale      | number                                                 | resizes the container.                                                                                                         | Default: 1                     |
-| shadow     | [shadow](#shadow-attribute)                            | cast a shadow of all contained components.                                                                                     | Default: null                  |
+| shadow     | see [shadow](#shadow-attribute)                        | cast a shadow of all contained components.                                                                                     | Default: null                  |
 | visible    | boolean                                                | draw or do not draw the container's elements on canvas                                                                         | Default: true                  |
 | x          | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0                     |
 | y          | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0                     |
 
 Example:
 
-```
+```vue
 <easel-container
     flip="horizontal"
     scale=".5"
@@ -179,9 +498,9 @@ Example:
 </easel-container>
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.3"><img src="https://www.dankuck.com/vue-easeljs/images/example4.png" /></a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.2"><img src="https://www.dankuck.com/vue-easeljs/images/example4.png" /></a>
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.3">See Live Demo</a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.2">See Live Demo</a>
 
 ## easel-shape
 
@@ -191,18 +510,18 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                                                                    | Required/Default               |
 | --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the shape the x and y refer to.                                                                         | Default: 'top-left'            |
+| align      | see [alignment](#align-attribute)                      | controls what point of the shape the x and y refer to.                                                                         | Default: 'top-left'            |
 | alpha      | 0 to 1                                                 | controls the opacity of the shape.                                                                                             | Default: 1, completely opaque  |
 | cache      | boolean                                                | instead of drawing the shape constantly, use a [cached version](#cache-attribute) of the shape                                 | Default: false                 |
 | cursor     | string                                                 | set the CSS mouse cursor to use when hovering over this shape                                                                  | Default: null                  |
 | dimensions | Depends on the form.                                   | See below.                                                                                                                     | Required                       |
 | fill       | HTML color                                             | the inside of the shape                                                                                                        | Optional.                      |
-| filters    | [filters](#filters-attribute)                          | apply filters.                                                                                                                 | Default: null                  |
+| filters    | see [filters](#filters-attribute)                      | apply filters.                                                                                                                 | Default: null                  |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the shape.                                                                                                               | Default: ''                    |
 | form       | 'circle' &#124; 'ellipse' &#124; 'rect' &#124; 'star'  |                                                                                                                                | Required                       |
 | rotation   | degrees                                                | rotates the shape.                                                                                                             | Default: 0                     |
 | scale      | number                                                 | resizes the shape.                                                                                                             | Default: 1                     |
-| shadow     | [shadow](#shadow-attribute)                            | cast a same-shape shadow.                                                                                                      | Default: null                  |
+| shadow     | see [shadow](#shadow-attribute)                        | cast a same-shape shadow.                                                                                                      | Default: null                  |
 | stroke     | HTML color                                             | the outline of the shape.                                                                                                      | Optional.                      |
 | visible    | boolean                                                | draw or do not draw the shape on canvas                                                                                        | Default: true                  |
 | x          | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0                     |
@@ -218,7 +537,7 @@ Dimensions for:
 | star       | array                                                  | [r, s, p]                                                                                                                     | the radius, sides count, and point size of a "star". Use point size 0 to draw a simple polygon. Max point size is 1. |
 
 Example:
-```
+```vue
 <easel-shape
     form="star"
     :dimensions="[100, 3, 0]"
@@ -229,9 +548,9 @@ Example:
 >
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.4"><img src="https://www.dankuck.com/vue-easeljs/images/example5.png" /></a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.3"><img src="https://www.dankuck.com/vue-easeljs/images/example5.png" /></a>
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.4">See Live Demo</a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.3">See Live Demo</a>
 
 ## easel-sprite
 
@@ -241,16 +560,16 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                                                                    | Required/Default               |
 | --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the image the x and y refer to.                                                                         | Default: 'top-left'            |
+| align      | see [alignment](#align-attribute)                      | controls what point of the image the x and y refer to.                                                                         | Default: 'top-left'            |
 | alpha      | 0 to 1                                                 | controls the opacity of the image.                                                                                             | Default: 1, completely opaque  |
 | animation  | string                                                 | name of the animation to run from the `easel-sprite-sheet`.                                                                    | Required                       |
 | cache      | boolean                                                | instead of drawing from source constantly, use a [cached version](#cache-attribute) of the source                              | Default: false                 |
 | cursor     | string                                                 | set the CSS mouse cursor to use when hovering over this sprite                                                                 | Default: null                  |
-| filters    | [filters](#filters-attribute)                          | apply filters.                                                                                                                 | Default: null                  |
+| filters    | see [filters](#filters-attribute)                      | apply filters.                                                                                                                 | Default: null                  |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the image.                                                                                                               | Default: ''                    |
 | rotation   | degrees                                                | rotates the image.                                                                                                             | Default: 0                     |
 | scale      | number                                                 | resizes the image.                                                                                                             | Default: 1                     |
-| shadow     | [shadow](#shadow-attribute)                            | cast an image-shaped shadow.                                                                                                   | Default: null                  |
+| shadow     | see [shadow](#shadow-attribute)                        | cast an image-shaped shadow.                                                                                                   | Default: null                  |
 | visible    | boolean                                                | draw or do not draw the sprite on canvas                                                                                       | Default: true                  |
 | x          | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0                     |
 | y          | number                                                 | vertical position based on the origin of the parent component.                                                                 | Default: 0                     |
@@ -286,7 +605,7 @@ width and height you give it.
 
 In that case the following definition will do nicely:
 
-```
+```vue
 <easel-sprite-sheet
     :images="['/images/character.png']"
     :frames="{width: 32, height: 32}"
@@ -299,7 +618,7 @@ cases, you'll need to specify more information.
 
 In this example, there is space and margin between the frames.
 
-```
+```vue
 <easel-sprite-sheet
     :images="['/images/lots-of-characters.png']"
     :frames="{width: 32, height: 32, spacing: 5, margin: 10}"
@@ -311,7 +630,7 @@ Other times, the frames are different sizes or are on different images.
 
 In that case, this format will be required:
 
-```
+```vue
 <easel-sprite-sheet
     :images="['/images/thomasChugging.png','/images/thomasBraking.png']"
     :frames="[
@@ -351,7 +670,7 @@ animations: {
 
 Example:
 
-```
+```vue
 <easel-sprite-sheet
     :images="['images/lastguardian-all.png']"
     :frames="{width:32,height:32}"
@@ -375,9 +694,9 @@ Example:
 </easel-sprite-sheet>
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.5"><img src="https://www.dankuck.com/vue-easeljs/images/example6.png" /></a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.4"><img src="https://www.dankuck.com/vue-easeljs/images/example6.png" /></a>
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.5">See Live Demo</a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.4">See Live Demo</a>
 
 ## easel-text
 
@@ -387,17 +706,17 @@ Attributes:
 
 | Attribute  | Values                                                 | Description                                                                                                                    | Required/Default               |
 | --------   | ------------------------------------------------------ | ----------------------------------------------------------------------------------                                             | ------------------------------ |
-| align      | [alignment](#align-attribute)                          | controls what point of the text the x and y refer to.                                                                          | Default: 'top-left'            |
+| align      | see [alignment](#align-attribute)                      | controls what point of the text the x and y refer to.                                                                          | Default: 'top-left'            |
 | alpha      | 0 to 1                                                 | controls the opacity of the text.                                                                                              | Default: 1, completely opaque  |
 | cache      | boolean                                                | instead of drawing constantly, use a [cached version](#cache-attribute) of the text                                            | Default: false                 |
 | color      | HTML color                                             | the color to use for the text.                                                                                                 | Default: 'black'               |
 | cursor     | string                                                 | set the CSS mouse cursor to use when hovering over this text                                                                   | Default: null                  |
-| filters    | [filters](#filters-attribute)                          | apply filters.                                                                                                                 | Default: null                  |
+| filters    | see [filters](#filters-attribute)                      | apply filters.                                                                                                                 | Default: null                  |
 | flip       | 'horizontal' &#124; 'vertical' &#124; 'both' &#124; '' | flips the text.                                                                                                                | Default: ''                    |
-| font       | [font](#font-attribute)                                | size and family of the font. Format: "Npx family".                                                                             | Default: ?                     |
+| font       | see [font](#font-attribute)                            | size and family of the font. Format: "Npx family".                                                                             | Default: ?                     |
 | rotation   | degrees                                                | rotates the text.                                                                                                              | Default: 0                     |
 | scale      | number                                                 | resizes the text.                                                                                                              | Default: 1                     |
-| shadow     | [shadow](#shadow-attribute)                            | cast a text-shaped shadow.                                                                                                     | Default: null                  |
+| shadow     | see [shadow](#shadow-attribute)                        | cast a text-shaped shadow.                                                                                                     | Default: null                  |
 | text       | string                                                 | the text to display.                                                                                                           | Required                       |
 | visible    | boolean                                                | draw or do not draw the text on canvas                                                                                         | Default: true                  |
 | x          | number                                                 | horizontal position based on the origin of the parent component.                                                               | Default: 0                     |
@@ -405,7 +724,7 @@ Attributes:
 
 Example:
 
-```
+```vue
 <easel-text
     text="The Ran In Span Falls Manly On The Plan"
     :x="250"
@@ -416,9 +735,9 @@ Example:
 </easel-text>
 ```
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.6"><img src="https://www.dankuck.com/vue-easeljs/images/example7.png" /></a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.5"><img src="https://www.dankuck.com/vue-easeljs/images/example7.png" /></a>
 
-<a href="https://www.dankuck.com/vue-easeljs/#readme.6">See Live Demo</a>
+<a href="https://www.dankuck.com/vue-easeljs/#readme.5">See Live Demo</a>
 
 # Align attribute
 
@@ -486,13 +805,10 @@ The difference is that caching has an impact on performance. In many cases it
 increases an element's speed, but if the cache needs to refresh often it can
 decrease speed.
 
-Caching exists for those performance purposes and also because it will be
-necessary when filters are implemented in a future version of this library.
-
 # Filters attribute
 
 Filters process a visual element's pixels, applying adjustments after the
-element is drawn.
+element is rasterized and before it is rendered on canvas.
 
 The `filters` attribute is an array of arrays. Each filter array consists of
 the name of a filter followed by parameters.
@@ -559,7 +875,8 @@ Add a pixelated stroke around the element.
 
 ### Not yet available
 
-EaselJS has two filters -- AlphaMapFilter and AlphaMaskFilter -- that are not
+The underlying library EaselJS has two more filters -- AlphaMapFilter and
+AlphaMaskFilter -- that are not
 yet available, because their use requires complicated access to canvases. The
 idiom of this library is that you should never have to access a canvas. In the
 future this library should provide an `<easel-mask>` element to do masking,
@@ -574,7 +891,7 @@ See further documentation on
 <a href="./README.custom-filters.md">Custom filters</a>.
 
 Example:
-```
+```js
 const VueEaseljs = require('vue-easeljs');
 
 class MyFilter {
@@ -629,8 +946,8 @@ All visible components and the canvas itself emit Vue.js events with an event ob
 | Event                            | Fired when...                                                                                      |
 | --------                         | ---------------                                                                                    |
 | added                            | Fired when the component is added to its parent.                                                   |
-| animationend (easel-sprite only) | Fired when an animation completes.                                                                 |
-| change (easel-sprite only)       | Fired when an animation changes.                                                                   |
+| animationend                     | Fired when an animation completes. (easel-sprite only)                                             |
+| change                           | Fired when an animation changes.  (easel-sprite only)                                              |
 | click                            | Fired when the component is clicked or tapped.                                                     |
 | dblclick                         | Fired when the component is double-clicked or tapped.                                              |
 | mousedown                        | Fired when the component is clicked down.                                                          |
@@ -648,22 +965,10 @@ Modifiers such as `.stop` usually work with the events.
 For performance reasons, the events are only emitted if a handler exists. They
 will not show up in the Vue.js devtools if no handler exists.
 
-These events will be made available in a future release:
-
- * drawend
- * drawstart
- * mouseenter
- * mouseleave
- * stagemousedown
- * stagemousemove
- * stagemouseup
- * tickend
- * tickstart
-
 # Developer Tips
 
 Chrome/Chromium Users:
- * When developing locally, Chrome limits canvas access to local image files. They can be viewed but click events will error out *unless* Chrome is opened with the `--allow-file-access-from-files` flag. But be careful, since this flag opens your system up to some danger if the scripts you run on your page are untrustworthy. This is a limitation of canvas that applies to all canvas libraries. Fortunately, Chrome has this workaround. Unfortunately, it can stop working and require a browser restart.
+ * When developing locally, Chrome limits canvas access to local image files. They can be viewed but click events will error out *unless* Chrome is opened with the `--allow-file-access-from-files` flag. But be careful, since this flag opens your system up to some danger if the scripts you run on your page are untrustworthy. This is a limitation of canvas that applies to all canvas libraries.
 
 All users:
  * When accessing image files from other hosts, CORS must be setup on the foreign host or else click events will error out. This is a limitation of canvas that applies to all canvas libraries.
@@ -679,7 +984,6 @@ These will be implemented in future releases:
 * Masks
 * Mouse cursors
 * Hit areas
-* Filters
 
 There are no plans to implement these features that EaselJS provides, but pull requests are accepted:
 
