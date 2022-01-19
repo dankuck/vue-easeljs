@@ -99,17 +99,18 @@ To do that, we're going to need to bring in Gary's sprite sheet:
     width="400"
 />
 
-Don't worry if there's no change.
+There's no change yet, that's ok.
 
-Our first step was to add an `easel-sprite-sheet` which holds information about
-the image we'll use for our sprites. This time we're using an image called
+This step was to add an `easel-sprite-sheet` which holds information about
+the image we'll use for our sprites. We're using an image called
 lastguardian-all.png.
 
 <img src="https://www.dankuck.com/vue-easeljs/images/lastguardian-all.png"
     width="400"
 />
 
-It's full of all the characters and positions we might want to use. Each
+It's full of all the characters and positions we might want to use. We used the
+`frames` attribute to let the `easel-sprite-sheet` know that each
 position, or frame, is 32px wide and 32px tall.
 
 We've got a sprite sheet, but we need a sprite to use it with:
@@ -140,7 +141,7 @@ We've got a sprite sheet, but we need a sprite to use it with:
 
 There's Gary. Look at them run!
 
-<img src="https://www.dankuck.com/vue-easeljs/images/garys-endless-void-starring-gary.png"
+<img src="https://www.dankuck.com/vue-easeljs/images/garys-endless-void-starring-gary.gif"
     width="400"
 />
 
@@ -161,8 +162,7 @@ Well, almost the middle...
 Gary is slightly off center, because their coordinates identify their
 top-left position by default.
 
-Let's get Gary centered:
-
+Let's get Gary centered. Oh and we need to slow them down:
 
 ```
 // Gary.vue
@@ -176,6 +176,7 @@ Let's get Gary centered:
             :images="['images/lastguardian-all.png']"
             :frames="{width:32, height:32}"
             :animations="{walk: [214, 215]}"
+            :framerate="30"
         >
             <easel-sprite
                 animation="walk"
@@ -217,6 +218,7 @@ But humans were not meant to live in a vacuum. Gary needs a place to visit.
             :images="['images/lastguardian-all.png']"
             :frames="{width:32, height:32}"
             :animations="{walk: [214, 215]}"
+            :framerate="30"
         >
             <easel-sprite
                 animation="walk"
