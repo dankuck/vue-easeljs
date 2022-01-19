@@ -194,12 +194,14 @@ Let's get Gary centered. Oh and we need to slow them down:
     width="400"
 />
 
-Bingo. By adding `align="center-center"` Gary's center is now at x=200, y=150.
+Bingo. By adding `align="center-center"` Gary's *center* is now at the x-y
+coordinates.
 
 When we added `framerate` to the `easel-sprite-sheet` Gary got a little more
 mellow.
 
-But humans were not meant to live in a vacuum. Gary needs a place to visit.
+But even mellow humans were not meant to live in a vacuum. Gary needs a place
+to visit.
 
 ```
 // Gary.vue
@@ -343,13 +345,14 @@ place.
 
 ## Full-featured Gary
 
-<a href="https://www.dankuck.com/vue-easeljs/"><img src="https://dankuck.github.io/vue-easeljs/images/gary.png" /></a>
+<a href="https://www.dankuck.com/vue-easeljs/"><img src="https://www.dankuck.com/vue-easeljs/images/gary-running-short.gif" /></a>
 
 Check out this <a href="https://www.dankuck.com/vue-easeljs/">Live Demo</a>
 using Gary to see more of what you can do with vue-easeljs. In it, we change
 Gary's scale, add some text that follows Gary around using an
 `easel-container`, use attributes like `flip`, draw red and
-while circles on screen, listen for `click` events, and make Gary run around
+while circles on screen, listen for `click` events, use transparency, use
+anti-aliasing to retain the 8-bit look, and make Gary run around
 using Vue properties and a time out.
 
 # Components
