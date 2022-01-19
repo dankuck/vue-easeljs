@@ -38,7 +38,7 @@ to really get creative, use a library built for the job.
 
 Vue-easeljs is a wrapper to a great library called EaselJS, so you can use it
 in your Vue.js projects. This allows you to use data-driven programming to
-achieve the effects you're looking for on the web.
+achieve art effects.
 
 # Tutorial
 
