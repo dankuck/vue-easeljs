@@ -53,7 +53,7 @@ their friends. But we're just going to use Gary today.
 
 First we'll need a canvas:
 
-```
+```vue
 // Gary.vue
 <template>
     <easel-canvas
@@ -79,7 +79,7 @@ Wait, don't leave, it gets better. Let's drop Gary into our grey void.
 
 To do that, we're going to need to bring in Gary's sprite sheet:
 
-```
+```vue.js
 // Gary.vue
 <template>
     <easel-canvas
