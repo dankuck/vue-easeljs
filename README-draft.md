@@ -198,8 +198,8 @@ Let's get Gary centered. Oh and we need to slow them down:
 Bingo. By adding `align="center-center"` we ensured that Gary's *center* is
 now at the x-y coordinates.
 
-When we added `framerate` to the `easel-sprite-sheet` Gary got a little more
-mellow.
+When we added `:framerate="30"` to the `easel-sprite-sheet` Gary got a little
+more mellow.
 
 But even mellow humans were not meant to live in a vacuum. Gary needs a place
 to visit.
